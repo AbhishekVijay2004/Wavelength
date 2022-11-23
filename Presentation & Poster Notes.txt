@@ -1,0 +1,15 @@
+Priorities:
+---Poster---
+- Colour Scheme - Black & Purple (#D541FF)
+- Font - Roboto 
+---Presentation---
+Slides:
+- Overview - Zak
+- Features - Zak, Matt
+- Landing Page (Homepage, Posting, Profile, "More Info" popup) - Atsuhiro, Yuvan
+- Site navigation chart - Abhishek
+- Technologies - Matt
+- Ethics - Jonny
+- Database Schema - Abhishek
+- Flow Charts & Work Division - Abhishek, Yuvan
+- Potential additional features (e.g. collaborative playlists, dating integration) - Alex
