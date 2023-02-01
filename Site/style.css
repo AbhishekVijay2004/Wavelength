@@ -5,3 +5,21 @@
 html{
   background: var(--background-colour);
 }
+#logo-container{
+  background: var(--primary-colour);
+  background-image: url("media/logo-transparent-cropped.png");
+  background-size: cover;
+  text-align: center;
+  width: 60vh;
+  height: 60vh;
+  margin: auto;
+  margin-top: 20vh;
+  transition: all 2s;
+}
+.expanded{
+  width: 80vh !important;
+  height: 80vh !important;
+  margin: auto !important;
+  margin-top: 10vh !important;
+  transition: all 2s !important;
+}
