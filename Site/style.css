@@ -1,25 +1,85 @@
 :root{
   --primary-colour: #B64CFF;
+  --primary-highlight-1: #CE85FF;
+  --primary-highlight-2: #DEADFF;
   --background-colour: #1E1E1E;
+  --grey-highlight-1: #333333;
+  --grey-highlight-2: #474747;
 }
 html{
   background: var(--background-colour);
 }
-#logo-container{
-  background: var(--primary-colour);
-  background-image: url("media/logo-transparent-cropped.png");
-  background-size: cover;
-  text-align: center;
-  width: 60vh;
-  height: 60vh;
-  margin: auto;
-  margin-top: 20vh;
-  transition: all 2s;
+.bar-left{
+  border-right: 0.5vw solid var(--primary-colour);
+  box-sizing: border-box;
+  width: 25vw;
+  height: 80vh;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
-.expanded{
-  width: 80vh !important;
-  height: 80vh !important;
-  margin: auto !important;
-  margin-top: 10vh !important;
-  transition: all 2s !important;
+.logo-left{
+  background-color: var(--primary-colour);
+  background-size: cover;
+  background-image: url("media/icons/logo-transparent.png");
+  width: 10vw;
+  height: 10vw;
+  position: fixed;
+  top: 0vw;
+  left: 0vw;
+}
+.bar-right{
+  border-left: 0.5vw solid var(--primary-colour);
+  box-sizing: border-box;
+  width: 25vw;
+  height: 80vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.bar-bottom{
+  border-top: 0.5vw solid var(--primary-colour);
+  box-sizing: border-box;
+  width: 100vw;
+  height: 20vh;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.bar-bottom-icons-container{
+  width: 40vw;
+  display: flex;
+  margin: auto;
+  margin-top: 2.25vh;
+  justify-content: space-evenly;
+}
+.bar-bottom-icon{
+  background-color: var(--primary-colour);
+  background-size: cover;
+  width: 15vh;
+  height: 15vh;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.bar-bottom-icon:hover{
+  background-color: var(--primary-highlight-1);
+  transition: background-color 0.25s;
+}
+#home-icon{
+  background-image: url("media/icons/home-icon.png");
+}
+#message-icon{
+  background-image: url("media/icons/message-icon.png");
+}
+#new-post-icon{
+  background-image: url("media/icons/new-post-icon.png");
+}
+.content-placeholder{
+  background-color: red;
+  position: fixed;
+  width: 50vw;
+  height: 80vh;
+  left: 25vw;
+  top: 0;
 }
