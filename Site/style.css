@@ -46,13 +46,13 @@ html{
 }
 .left-bar-widget:hover .widget-text{
   color: var(--primary-highlight-1);
-  line-height: 3.5vw;
-  font-size: 2.5vw;
+  line-height: 3.75vw;
   transition: all 0.25s;
 }
 .left-bar-widget:hover .widget-icon{
   width: 3.5vw;
   height: 3.5vw;
+  margin-right: 1.25vw;
   transition: all 0.25s;
 }
 .widget-icon{
