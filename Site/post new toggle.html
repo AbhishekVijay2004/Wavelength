@@ -16,8 +16,11 @@
 
 	}
 	.text {
+		min-height: 250px;
 		max-height: 250px;
 		overflow: hidden;
+		cursor: pointer;
+
 		transition: max-height 0.2s ease-out;
 		flex: 1;
 		align-content: left; 
@@ -45,36 +48,37 @@
 		<div class = "spotify">
 			<iframe src="https://open.spotify.com/embed/track/0ZfEeIu7CNHQhbCTiVv3cx" width="100%" height="100%"  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 		</div>
-	  	<div class="text">
+	  	<div id="text" class="text">
 	  		<br>
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
 	  		<br><br>
 			Donec quis ultrices nibh. Fusce blandit mi ut ex ultrices, vitae pellentesque lorem finibus. Integer iaculis varius fermentum. Mauris a urna nibh. Nullam efficitur pretium eros nec gravida. Pellentesque sodales ex dolor, sit amet pharetra leo porta at. Quisque molestie mollis enim, et rhoncus dui imperdiet at. Maecenas commodo ligula eu elit bibendum auctor. Cras ultrices accumsan varius. Aliquam erat volutpat. Morbi mattis lacus vitae est posuere pellentesque. Vivamus egestas quis mauris a efficitur. Nulla fringilla nulla ligula, luctus interdum quam congue ut. Nulla et mauris eget urna consequat euismod ut eu metus. Nullam a mollis massa.
 		</div>
-    <a href="#" class="toggle" style="pointer-events:auto;">See More</a>
-    <script>
-      const toggle = document.querySelector('.toggle');
-      const truncate = document.querySelector('.text');
-      window.addEventListener("resize", function() {
-
-  			console.log(truncate.offsetHeight - toggle.offsetHeight);
-  			if (truncate.offsetHeight - toggle.offsetHeight <= 230) {
-				document.getElementsByClassName("toggle")[0].style['pointer-events'] = 'none';  			
-			} else {
-				document.getElementsByClassName("toggle")[0].style['pointer-events'] = 'auto';  			}
-	  });
-
-      toggle.addEventListener('click', function() {
-        if (truncate.style.maxHeight != 'none') {
-          truncate.style.maxHeight = 'none';
-          toggle.innerHTML = 'See Less';
-        } else {
-          truncate.style.maxHeight = '250px';
-          toggle.innerHTML = 'See More';
-        }
-      });
-    </script>
 	</div>
 	
+
+	 <script>
+const textDiv = document.querySelector('.text');
+let expanded = false;
+
+textDiv.addEventListener('click', function() {
+  expanded = !expanded;
+  if (expanded) {
+    textDiv.style.maxHeight = 'none';
+  } else {
+    textDiv.style.maxHeight = '250px';
+  }
+});
+
+window.addEventListener('resize', function() {
+  if (textDiv.offsetHeight > 250) {
+    textDiv.style.cursor = 'pointer';
+  } else {
+    textDiv.style.cursor = 'default';
+    textDiv.style.maxHeight = '250px';
+    expanded = false;
+  }
+});
+    </script>
 </body>
 </html>	
