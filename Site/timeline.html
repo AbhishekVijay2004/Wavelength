@@ -5,6 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
+	.body{
+		display:flex;
+		justify-content: space-between;
+		flex-direction:column;
+	}
 	.post {  
 		display: flex;
   	gap: 1rem;
@@ -67,6 +72,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
 </head>
 <body>
+	<div class="body">
 	<div class="post">
 		<div class = "spotify">
 			<div class = "photo" style="height:100%;">
@@ -79,6 +85,51 @@
 				<div class = "comments">Comments</div>
 		</div>
 	</div>
+	</div>
+	
+	<script>
+	const container = document.getElementsByClassName('body')[0];
+	addPost();
+	addPost();
+	addPost();
+	addPost();
+
+	window.addEventListener('scroll', () => {
+		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+		console.log(scrollTop,scrollHeight,clientHeight) - 5
+
+		if(clientHeight + scrollTop + 5	>= scrollHeight) {
+			console.log("BOTTOM");
+			addPost();
+		}
+	});
+
+	function addPost() {
+		const postElement = document.createElement('div');
+	postElement.classList.add('post');
+	postElement.innerHTML = `
+		<div class = "spotify">
+			<div class = "photo" style="height:100%;">
+‏‏‎ ‎
+			</div>
+		</div>
+	  	<div id="text" class="text"></div>
+		<div class = "footer">
+				<div class = "reactions">................</div>
+				<div class = "comments">Comments</div>
+		</div>
+	`;
+	container.appendChild(postElement);
+	}
+
+
+	</script>
+
+
+
+
+
 	<script>
   const divOne = document.querySelector(".spotify");
   const divTwo = document.querySelector(".photo");
