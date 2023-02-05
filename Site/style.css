@@ -140,7 +140,7 @@ html{
   transition: all 0.25s;
 }
 .bar-bottom-icon:hover{
-  filter: brightness(1.25);
+  filter: brightness(1.169);
   transition: all 0.25s;
 }
 .content-placeholder{
