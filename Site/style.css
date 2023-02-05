@@ -8,6 +8,11 @@
 }
 html{
   background: var(--background-colour);
+  font-family: "Roboto";
+}
+.flex-break{
+  flex-basis: 100%;
+  height: 0;
 }
 .bar-left{
   border-right: 0.5vw solid var(--primary-colour);
@@ -20,62 +25,85 @@ html{
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  align-items: center;
   padding: 1vw;
+}
+.logo-left-container{
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 .logo-left{
   background-color: var(--primary-colour);
-  background-size: cover;
-  background-image: url("media/icons/logo-transparent-cropped.png");
-  width: 8vw;
-  height: 8vw;
+  background-image:
+    linear-gradient(
+        135deg,
+        var(--primary-colour) 25%,
+        var(--primary-highlight-2) 40%,
+        var(--primary-colour)
+      );
+  background-position: 0% 0%;
+  background-size: 400%;
+  max-height: 6vw;
+  transition: all 1s;
+}
+.logo-left:hover{
+  background-position: 100% 100%;
+  transition: all 1s;
+}
+.logo-left-text{
+  font-size: 3vw;
+  margin: 0;
+  font-weight: 300;
+  display: inline;
+  line-height: 6vw;
+  background-image: linear-gradient(135deg, var(--primary-colour) 20%, white 40%, var(--primary-colour));
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s;
+}
+.logo-left-text:hover{
+  background-position: 100% 0%;
+  transition: all 1s;
 }
 .left-bar-widget{
-  box-sizing: border-box;
-  min-width: 16vw;
-  height: 4vw;
+  flex-basis: 50%;
+  height: 3.5vw;
   background-color: var(--grey-highlight-1);
   border-radius: 2vw;
   transition: all 0.25s;
+  display: flex;
+  margin-top: 0.5vw;
+  background-image: linear-gradient(to right, var(--grey-highlight-1), var(--background-colour));
 }
 .left-bar-widget:hover{
-  min-width: 23vw;
-  background-color: var(--grey-highlight-2);
+  flex-basis: 100%;
   cursor: pointer;
-  border: solid 0.25vw var(--primary-colour);
+  background-image: linear-gradient(to right, var(--grey-highlight-1), var(--primary-colour));
   transition: all 0.25s;
 }
 .left-bar-widget:hover .widget-text{
   color: var(--primary-highlight-1);
-  line-height: 3.75vw;
-  transition: all 0.25s;
-}
-.left-bar-widget:hover .widget-icon{
-  width: 3.5vw;
-  height: 3.5vw;
-  margin-right: 1.25vw;
   transition: all 0.25s;
 }
 .widget-icon{
-  width: 4vw;
-  height: 4vw;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: var(--primary-colour);
+  width: 3.5vw;
+  height: 3.5vw;
   float: left;
   margin-right: 1vw;
   border-radius: 2vw;
   transition: all 0.25s;
 }
 .widget-text{
-  line-height: 4vw;
+  line-height: 3.5vw;
   margin: 0;
-  font-size: 3vw;
+  margin-right: 1vw;
+  font-size: 2.5vw;
   color: var(--primary-colour);
-  font-family: "Arial";
   transition: all 0.25s;
-}
-#profile-button{
-  background-image: url("media/icons/profile-icon.png");
 }
 .bar-right{
   border-left: 0.5vw solid var(--primary-colour);
@@ -88,7 +116,7 @@ html{
 }
 .bar-bottom{
   border-top: 0.5vw solid var(--primary-colour);
-  box-sizing: border-box;
+  box-sizing: content-box;
   width: 100vw;
   height: 20vh;
   position: fixed;
@@ -96,33 +124,24 @@ html{
   bottom: 0;
 }
 .bar-bottom-icons-container{
-  width: 40vw;
+  width: 35vw;
   display: flex;
   margin: auto;
-  margin-top: 2.25vh;
   justify-content: space-evenly;
 }
 .bar-bottom-icon{
-  background-color: var(--primary-colour);
-  background-size: cover;
-  width: 15vh;
-  height: 15vh;
-  border: none;
+  background-color: transparent;
+  width: 20vh;
+  height: 20vh;
+  padding: 2vh;
   cursor: pointer;
-  transition: background-color 0.25s;
+  border-radius: 4vh;
+  box-sizing: border-box;
+  transition: all 0.25s;
 }
 .bar-bottom-icon:hover{
-  background-color: var(--primary-highlight-1);
-  transition: background-color 0.25s;
-}
-#home-icon{
-  background-image: url("media/icons/home-icon.png");
-}
-#message-icon{
-  background-image: url("media/icons/message-icon.png");
-}
-#new-post-icon{
-  background-image: url("media/icons/new-post-icon.png");
+  filter: brightness(1.25);
+  transition: all 0.25s;
 }
 .content-placeholder{
   background-color: red;
@@ -131,4 +150,76 @@ html{
   height: 80vh;
   left: 25vw;
   top: 0;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Thin.ttf");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-ThinItalic.ttf");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Light.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-LightItalic.ttf");
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Italic.ttf");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-MediumItalic.ttf");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-BoldItalic.ttf");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-Black.ttf");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Roboto";
+  src: url("fonts/roboto/Roboto-BlackItalic.ttf");
+  font-weight: 900;
+  font-style: italic;
 }
