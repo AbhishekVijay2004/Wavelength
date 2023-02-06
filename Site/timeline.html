@@ -3,14 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
+	<title>Timeline</title>
+	<style> 
 	.body{
 		display:flex;
 		justify-content: space-between;
 		flex-direction:column;
 	}
-	.post {  
+	.postTemplate {  
 		display: flex;
 	  	gap: 1rem;
 	  	padding: 1rem;
@@ -21,7 +21,7 @@
 		min-height: 450px;
 		margin-bottom: 50px;
 	}
-	.spotify {
+	.spotifyTemplate {
 		flex: 1;
 		border-radius: 10px;
 		flex-basis: auto;
@@ -31,7 +31,7 @@
 		justify-content: space-between;
 		flex-direction: column;
 	}
-	.photo {
+	.photoTemplate {
 		border-radius: 10px;
 		flex-basis: auto;
 		flex: 1;
@@ -39,25 +39,25 @@
 		min-height: 45px;
 		max-width: 120px;
 	}
-	.text {
+	.textTemplate {
 		flex: 3;
 		height: 250px;
 	}
-	.footer {
+	.footerTemplate {
 		flex: 0;
 		display: flex;
 		justify-content: space-between;
 		flex-direction: row;
 		height: 10px;
 	}
-	.reactions{
+	.reactionsTemplate{
 		border-radius: 10px;
 		flex-basis: auto;
 		background-color: #808080;
 		color:#808080;
 		user-select: none;
 	}
-	.comments{
+	.commentsTemplate{
 		border-radius: 10px;
 		flex-basis: auto;
 		background-color: #D3D3D3;
@@ -65,19 +65,61 @@
 		user-select: none;
 	  	font-family: 'Roboto', sans-serif;
 	}
-	</style>
+	</style> <!-- for the templates -->
+	<style> 
+	.post {  
+		display: flex;
+  	gap: 1rem;
+  	padding: 1rem;
+
+		flex-direction: column;
+		background-color:black;
+		border-radius: 20px;
+		background-color: #242526;
+		min-height: 450px;
+		margin-bottom: 50px;
+	}
+	.spotify {
+		flex-basis: auto;
+		flex: 0;
+	}
+	.text {
+		min-height: 250px;
+		max-height: 250px;
+		overflow: hidden;
+		cursor: pointer;
+		transition: max-height 0.2s ease-out;
+		flex: 1;
+		align-content: left; 
+		color: lightgray;
+	  font-family: 'Roboto', sans-serif;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
+	}
+	.footer {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		flex: 1;
+	}
+	.reactions{
+	}
+	.comments{
+		color: gray;
+	  font-family: 'Roboto', sans-serif;
+
+	}
+	</style> <!-- for the actual posts -->
  	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
 </head>
 <body>
-	<div class="body">
-	</div>
+	<div class="body"></div>
 	
 	<script>
 	const getRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-  };
+  }; //gets a random colour
   	const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
     if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
@@ -101,7 +143,7 @@
     a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
-	}
+	} //converts lots of different ways of representing colours to hex
 	
 	window.addEventListener('scroll', () => {
 		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -109,28 +151,50 @@
 		if(clientHeight + scrollTop + 5	>= scrollHeight) {
 			addPost();
 		}
-	});
+	}); //calls addPost when the user gets to the bottom of the page
 	function addPost() {
 		const postElement = document.createElement('div');
-		postElement.classList.add('post');
+		postElement.classList.add('postTemplate');
 		postElement.innerHTML = `
-		<div class = "spotify" style="background-color:#000">
-			<div class = "photo" style="height:100%;"></div>
+		<div class = "spotifyTemplate"">
+			<div class = "photoTemplate" style="height:100%;"></div>
 		</div>
-	  	<div id="text" class="text"></div>
-		<div class = "footer">
-				<div class = "reactions">................</div>
-				<div class = "comments">Comments</div>
+	  	<div id="textTemplate" class="textTemplate"></div>
+		<div class = "footerTemplate">
+				<div class = "reactionsTemplate">................</div>
+				<div class = "commentsTemplate">Comments</div>
 		</div>
 	`;
 		arrayOfPlaceholders.push(postElement)
 		const randomColorOne = getRandomColor();
 		spotifyColours.push(randomColorOne);
-		postElement.getElementsByClassName('spotify')[0].style.backgroundColor = randomColorOne;
-		postElement.getElementsByClassName('photo')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
+		postElement.getElementsByClassName('spotifyTemplate')[0].style.backgroundColor = randomColorOne;
+		postElement.getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
-	}
+	} //creates a template at the bottom of the page
+	function loadPost() {
+		const postElement = document.createElement('div');
+		postElement.classList.add('post');
+		postElement.innerHTML = `
+		<div class = "spotify">
+			<iframe src="https://open.spotify.com/embed/track/0ZfEeIu7CNHQhbCTiVv3cx" width="100%" height="100%"  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+		</div>
+	  	<div id="text" class="text">
+	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
+	  		<br><br>
+				Donec quis ultrices nibh. Fusce blandit mi ut ex ultrices, vitae pellentesque lorem finibus. Integer iaculis varius fermentum. Mauris a urna nibh. Nullam efficitur pretium eros nec gravida. Pellentesque sodales ex dolor, sit amet pharetra leo porta at. Quisque molestie mollis enim, et rhoncus dui imperdiet at. Maecenas commodo ligula eu elit bibendum auctor. Cras ultrices accumsan varius. Aliquam erat volutpat. Morbi mattis lacus vitae est posuere pellentesque. Vivamus egestas quis mauris a efficitur. Nulla fringilla nulla ligula, luctus interdum quam congue ut. Nulla et mauris eget urna consequat euismod ut eu metus. Nullam a mollis massa.
+		</div>
+		<div class = "footer">
+				<div class = "reactions">😎👀🤗</div>
+				<div class = "comments">Comments</div>
+		</div>
+	`;
+		arrayOfPosts.push(postElement);
+		expandedPosts.push(false);
+		postElement.addEventListener('click', clickOnText);
 
+		return (postElement);
+	} //returns a post
 	function breatheColour() {
 		if (pos == 1) {
 			change += 0.01;
@@ -142,17 +206,19 @@
 	    } 
 
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
-			arrayOfPlaceholders[i].getElementsByClassName('spotify')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
-		  	arrayOfPlaceholders[i].getElementsByClassName('photo')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
+			arrayOfPlaceholders[i].getElementsByClassName('spotifyTemplate')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
+		  	arrayOfPlaceholders[i].getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
 			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, "#242526");
 		}
 
 	    setTimeout(breatheColour, 20);
-	}
+	} //changes the colours of the templates to add a loading animation
 
 	const container = document.getElementsByClassName('body')[0];
-    var spotifyColours = []
-	var	arrayOfPlaceholders = []
+    var spotifyColours = [];
+	var	arrayOfPlaceholders = [];
+	var arrayOfPosts = [];
+	var expandedPosts = [];
 	var change = 0.01;
 	var pos = 1;
 
@@ -160,7 +226,58 @@
 	addPost();
 	breatheColour();
 
-	</script>
+	</script> <!-- create placeholder posts with animations -->
+	<script>
+
+    setTimeout(replacePosts, 2000);
+    function replacePosts () {
+    	//container.removeChild(container.childNodes[0]);
+    	container.replaceChild(loadPost(),container.childNodes[0])
+    	container.replaceChild(loadPost(),container.childNodes[1])
+    }
+	</script> <!-- 	make a function that can replace a post template with an actual post. -->
+	<script>
+
+	window.addEventListener('resize', onResizeOrLoad);
+	window.addEventListener('load', onResizeOrLoad);
+
+	function clickOnText() {
+		let elmnt = this.getElementsByClassName('text')[0];
+		let i = arrayOfPosts.indexOf(this);
+		console.log(expandedPosts);
+	    if (elmnt.scrollHeight > 250) {
+		    expandedPosts[i] = !expandedPosts[i];
+		    if (expandedPosts[i]) {
+		      elmnt.style.maxHeight = 'none';
+		      elmnt.style['-webkit-mask-image'] = 'none'; 
+	    	} else {
+	      		elmnt.style.maxHeight = '250px';
+	    		elmnt.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)'; 
+	    	}
+	 	}
+	} //toggle between expanded & not expanded text boxed
+	function onResizeOrLoad(e) {
+	    for (var i = 0; i < arrayOfPosts.length; i++) {
+	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]
+			if (currentTextbox.scrollHeight > 250 && expandedPosts[i] == false) {
+			    currentTextbox.style.cursor = 'pointer';
+			    currentTextbox.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)'; 
+
+			} else if (currentTextbox.scrollHeight > 250) {
+			    currentTextbox.style.cursor = 'pointer';
+			    currentTextbox.style['-webkit-mask-image'] = 'none'; 
+
+			} else {
+			    currentTextbox.style.cursor = 'default';
+			    currentTextbox.style.maxHeight = '250px';
+			    currentTextbox.style['-webkit-mask-image'] = 'none'; 
+
+			    expandedPosts[i] = false;
+			}
+		}
+    }; //checks if the text gets smaller/larger than 250px when resized, so toggle for textboxes can be disabled/enabled
+
+	</script>	<!-- code to make the toggles on text work -->
 
 </body>
 </html>
