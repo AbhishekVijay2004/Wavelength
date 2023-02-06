@@ -3,7 +3,7 @@ var darkMode = true;
 function SwitchMode(){
   darkMode = !darkMode;
   if (darkMode){
-    alert("Switching to dark mode.");
+    document.documentElement.style.setProperty("--background-colour", "#1E1E1E")
   }
   else{
     document.documentElement.style.setProperty("--background-colour", "#FFFFFF")
