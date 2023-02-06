@@ -12,22 +12,21 @@
 	}
 	.post {  
 		display: flex;
-  	gap: 1rem;
-  	padding: 1rem;
-
+	  	gap: 1rem;
+	  	padding: 1rem;
 		flex-direction: column;
 		background-color:black;
 		border-radius: 20px;
 		background-color: #242526;
 		min-height: 450px;
+		margin-bottom: 50px;
 	}
 	.spotify {
+		flex: 1;
 		border-radius: 10px;
 		flex-basis: auto;
-		flex: 1;
 		background-color: lightgray;
 		padding: 16px;
-
 		display: flex;
 		justify-content: space-between;
 		flex-direction: column;
@@ -41,14 +40,14 @@
 		max-width: 120px;
 	}
 	.text {
-		height: 250px;
 		flex: 3;
+		height: 250px;
 	}
 	.footer {
+		flex: 0;
 		display: flex;
 		justify-content: space-between;
 		flex-direction: row;
-		flex: 0;
 		height: 10px;
 	}
 	.reactions{
@@ -73,72 +72,13 @@
 </head>
 <body>
 	<div class="body">
-	<div class="post">
-		<div class = "spotify">
-			<div class = "photo" style="height:100%;">
-‏‏‎ ‎
-			</div>
-		</div>
-	  	<div id="text" class="text"></div>
-		<div class = "footer">
-				<div class = "reactions">................</div>
-				<div class = "comments">Comments</div>
-		</div>
-	</div>
 	</div>
 	
 	<script>
-	const container = document.getElementsByClassName('body')[0];
-	addPost();
-	addPost();
-	addPost();
-	addPost();
-
-	window.addEventListener('scroll', () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-		console.log(scrollTop,scrollHeight,clientHeight) - 5
-
-		if(clientHeight + scrollTop + 5	>= scrollHeight) {
-			console.log("BOTTOM");
-			addPost();
-		}
-	});
-
-	function addPost() {
-		const postElement = document.createElement('div');
-	postElement.classList.add('post');
-	postElement.innerHTML = `
-		<div class = "spotify">
-			<div class = "photo" style="height:100%;">
-‏‏‎ ‎
-			</div>
-		</div>
-	  	<div id="text" class="text"></div>
-		<div class = "footer">
-				<div class = "reactions">................</div>
-				<div class = "comments">Comments</div>
-		</div>
-	`;
-	container.appendChild(postElement);
-	}
-
-
-	</script>
-
-
-
-
-
-	<script>
-  const divOne = document.querySelector(".spotify");
-  const divTwo = document.querySelector(".photo");
-
-  const getRandomColor = () => {
+	const getRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
   };
-
-  const pSBC=(p,c0,c1,l)=>{
+  	const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
     if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
     if(!this.pSBCr)this.pSBCr=(d)=>{
@@ -162,29 +102,64 @@
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	}
-  const randomColorOne = getRandomColor();
-  
-  divOne.style.backgroundColor = randomColorOne;
-  divTwo.style.backgroundColor = pSBC( -.8, randomColorOne);
+	
+	window.addEventListener('scroll', () => {
+		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
+		if(clientHeight + scrollTop + 5	>= scrollHeight) {
+			addPost();
+		}
+	});
+	function addPost() {
+		const postElement = document.createElement('div');
+		postElement.classList.add('post');
+		postElement.innerHTML = `
+		<div class = "spotify" style="background-color:#000">
+			<div class = "photo" style="height:100%;"></div>
+		</div>
+	  	<div id="text" class="text"></div>
+		<div class = "footer">
+				<div class = "reactions">................</div>
+				<div class = "comments">Comments</div>
+		</div>
+	`;
+		arrayOfPlaceholders.push(postElement)
+		const randomColorOne = getRandomColor();
+		spotifyColours.push(randomColorOne);
+		postElement.getElementsByClassName('spotify')[0].style.backgroundColor = randomColorOne;
+		postElement.getElementsByClassName('photo')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
+		container.appendChild(postElement);
+	}
+
+	function breatheColour() {
+		if (pos == 1) {
+			change += 0.01;
+		} else {
+			change -= 0.01;
+		}
+	    if (Math.abs(change) >= 0.08) {
+	    	pos = -pos;
+	    } 
+
+	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
+			arrayOfPlaceholders[i].getElementsByClassName('spotify')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
+		  	arrayOfPlaceholders[i].getElementsByClassName('photo')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
+			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, "#242526");
+		}
+
+	    setTimeout(breatheColour, 20);
+	}
+
+	const container = document.getElementsByClassName('body')[0];
+    var spotifyColours = []
+	var	arrayOfPlaceholders = []
 	var change = 0.01;
 	var pos = 1;
 
-	function breatheColour() {
-	if (pos == 1) {
-		change += 0.01;
-	} else {
-		change -= 0.01;
-	}
-    if (Math.abs(change) >= 0.08) {
-    	pos = -pos;
-    } 
-	divOne.style.backgroundColor = pSBC(change, randomColorOne);
-  	divTwo.style.backgroundColor = pSBC( change, pSBC( -.8, randomColorOne));
-  	document.querySelector(".post").style.backgroundColor = pSBC(change, "#242526");
-    setTimeout(breatheColour, 20);
-	}
+	addPost();
+	addPost();
 	breatheColour();
+
 	</script>
 
 </body>
