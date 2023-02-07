@@ -1,0 +1,14 @@
+.content-newPost {
+  color: white;
+}
+
+.textEntry {
+  margin-left: 2vw;
+  width: 20vw;
+  height: 3vh;
+  text-align: left;
+  color: white;
+  background-color: var(--background-colour);
+  border-radius: 0.25rem;
+  border: none;
+}
