@@ -157,11 +157,11 @@
 .main-content{
   background-color: var(--background-highlight-1);
   position: fixed;
+  border-radius: 1rem;
+  position: fixed;
   width: 46vw;
-  height: 75vh;
+  height: 76vh;
   left: 26vw;
-  top: 2vh;
-  border-radius: 4vw;
   padding-left: 2vw;
 }
 .content-title{
