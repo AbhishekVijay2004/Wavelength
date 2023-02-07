@@ -10,9 +10,9 @@ var darkModeColourDict = {
 }
 
 var lightModeColourDict = {
-  "--background-colour"      : "#E9EAEA",
+  "--background-colour"      : "#C1C3C3",
   "--background-highlight-1" : "#D5D7D7",
-  "--background-highlight-2" : "#C1C3C3",
+  "--background-highlight-2" : "#E9EAEA",
   "--primary-colour"         : "#B64CFF",
   "--primary-highlight-1"    : "#AD33FF",
   "--primary-highlight-2"    : "#9D0AFF"
