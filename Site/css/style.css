@@ -142,6 +142,18 @@
   filter: brightness(1.169);
   transition: all 0.25s;
 }
+
+.clsScroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 48vw;
+  height: 78vh;
+}
+
+#hideScroll::-webkit-scrollbar {
+    display: none;
+}
+
 .main-content{
   background-color: var(--background-highlight-1);
   position: fixed;
@@ -232,4 +244,33 @@
   src: url("fonts/roboto/Roboto-BlackItalic.ttf");
   font-weight: 900;
   font-style: italic;
+}
+
+@font-face {
+    font-family: 'roboto_condenseditalic';
+    src: url('media/fonts/robotocondensed-italic-webfont.woff2') format('woff2'),
+         url('media/fonts/robotocondensed-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensedlight';
+    src: url('media/fonts/robotocondensed-light-webfont.woff2') format('woff2'),
+         url('media/fonts/robotocondensed-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensedlight_italic';
+    src: url('media/fonts/robotocondensed-lightitalic-webfont.woff2') format('woff2'),
+         url('media/fonts/robotocondensed-lightitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensedregular';
+    src: url('media/fonts/robotocondensed-regular-webfont.woff2') format('woff2'),
+         url('media/fonts/robotocondensed-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
