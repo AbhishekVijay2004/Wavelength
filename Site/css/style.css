@@ -34,7 +34,7 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.logo-left{
+#logo-left{
   background-color: var(--primary-colour);
   background-image:
     linear-gradient(
