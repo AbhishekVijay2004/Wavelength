@@ -1,0 +1,60 @@
+.body{
+		display:flex;
+		justify-content: space-between;
+		flex-direction:column;
+	}
+	.postTemplate {  
+		display: flex;
+	  	gap: 1rem;
+	  	padding: 1rem;
+		flex-direction: column;
+		background-color:black;
+		border-radius: 20px;
+		background-color: #242526;
+		min-height: 450px;
+		margin-bottom: 50px;
+	}
+	.spotifyTemplate {
+		flex: 1;
+		border-radius: 10px;
+		flex-basis: auto;
+		background-color: lightgray;
+		padding: 16px;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+	}
+	.photoTemplate {
+		border-radius: 10px;
+		flex-basis: auto;
+		flex: 1;
+		background-color: black;
+		min-height: 45px;
+		max-width: 120px;
+	}
+	.textTemplate {
+		flex: 3;
+		height: 250px;
+	}
+	.footerTemplate {
+		flex: 0;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		height: 10px;
+	}
+	.reactionsTemplate{
+		border-radius: 10px;
+		flex-basis: auto;
+		background-color: #808080;
+		color:#808080;
+		user-select: none;
+	}
+	.commentsTemplate{
+		border-radius: 10px;
+		flex-basis: auto;
+		background-color: #D3D3D3;
+		color:#D3D3D3;
+		user-select: none;
+	  	font-family: 'Roboto', sans-serif;
+	}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Friends | Wavelength</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Music brings us closer.">
+    <meta property="og:image" content="media/preview.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/friends.css">
+    
+  </head>
+  <body>
+    <div class="bar-left">
+      <div class="logo-left-container">
+        <img id="logo-left" src="media/icons/logo-transparent-cropped-notext.png">
+        <p class="logo-left-text">Wavelength</p>
+      </div>
+      <div class="flex-break"></div>
+      <div class="left-bar-widget" onclick="LoadPage('profile.html')">
+        <img class="widget-icon" src="media/icons/profile-icon-transparent.png">
+        <p class="widget-text">Profile</p>
+      </div>
+      <div class="left-bar-widget" onclick="LoadPage('settings.html')">
+        <img class="widget-icon" src="media/icons/settings-icon-transparent.png">
+        <p class="widget-text">Settings</p>
+      </div>
+      <div class="left-bar-widget" onclick="LoadPage('friends.html')">
+        <img class="widget-icon" src="media/icons/friends-icon-transparent.png">
+        <p class="widget-text">Friends</p>
+      </div>
+    </div>
+    <div class="content-friends">
+      <div class="clsScroll" id="hideScroll">
+
+        <center>
+          <h1>Friends:</h1>
+          <input class="searchbar" type="text" placeholder="Search...">
+        </center>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Zak</span>
+          </h3>
+          <p class="profile-text-details">Friends: 99</p>
+          <p class="profile-text-details">Posts: 4</p>
+          <p class="profile-text-details">Likes: 940</p>
+          <p class="profile-text-details">Comments: 52</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Jonny</span>
+          </h3>
+          <p class="profile-text-details">Friends: 80</p>
+          <p class="profile-text-details">Posts: 2</p>
+          <p class="profile-text-details">Likes: 637</p>
+          <p class="profile-text-details">Comments: 56</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Alex</span>
+          </h3>
+          <p class="profile-text-details">Friends: 70</p>
+          <p class="profile-text-details">Posts: 7</p>
+          <p class="profile-text-details">Likes: 429</p>
+          <p class="profile-text-details">Comments: 32</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Atsu</span>
+          </h3>
+          <p class="profile-text-details">Friends: 120</p>
+          <p class="profile-text-details">Posts: 3</p>
+          <p class="profile-text-details">Likes: 692</p>
+          <p class="profile-text-details">Comments: 60</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Yuvan</span>
+          </h3>
+          <p class="profile-text-details">Friends: 68</p>
+          <p class="profile-text-details">Posts: 2</p>
+          <p class="profile-text-details">Likes: 491</p>
+          <p class="profile-text-details">Comments: 10</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+              <span class="content">@Matt</span>
+          </h3>
+          <p class="profile-text-details">Friends: 42</p>
+          <p class="profile-text-details">Posts: 4</p>
+          <p class="profile-text-details">Likes: 195</p>
+          <p class="profile-text-details">Comments: 39</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Abhishek</span>
+          </h3>
+          <p class="profile-text-details">Friends: 139</p>
+          <p class="profile-text-details">Posts: 1</p>
+          <p class="profile-text-details">Likes: 980</p>
+          <p class="profile-text-details">Comments: 30</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@KK</span>
+          </h3>
+          <p class="profile-text-details">Friends: 200</p>
+          <p class="profile-text-details">Posts: 0</p>
+          <p class="profile-text-details">Likes: 749</p>
+          <p class="profile-text-details">Comments: 10</p>
+        </div>
+
+        <div class="profile-container">
+          <button class="profile-image" id="profile-icon"></button>
+          <h3 class="profile-text-header">
+            <span class="content">@Gareth</span>
+          </h3>
+          <p class="profile-text-details">Friends: 0</p>
+          <p class="profile-text-details">Posts: 29</p>
+          <p class="profile-text-details">Likes: 0</p>
+          <p class="profile-text-details">Comments: 0</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="bar-right">
+    </div>
+    <div class="bar-bottom">
+      <div class="bar-bottom-icons-container">
+        <input class="bar-bottom-icon" type="image" src="media/icons/home-icon-transparent.png" onclick="LoadPage('index.html')">
+        <input class="bar-bottom-icon" type="image" src="media/icons/message-icon-transparent.png">
+        <input class="bar-bottom-icon" type="image" src="media/icons/new-post-icon-transparent.png">
+      </div>
+    </div>
+    <script type="text/javascript" src="js/homepage-buttons.js"></script>
+  </body>
+</html>
