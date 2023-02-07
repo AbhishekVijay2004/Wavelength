@@ -7,11 +7,12 @@
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/newPost.css">
   </head>
   <body>
     <div class="bar-left">
       <div class="logo-left-container">
-        <img class="logo-left" src="media/icons/logo-transparent-cropped-notext.png">
+        <img id="logo-left" src="media/icons/logo-transparent-cropped-notext.png">
         <p class="logo-left-text">Wavelength</p>
       </div>
       <div class="flex-break"></div>
@@ -28,10 +29,8 @@
         <p class="widget-text">Friends</p>
       </div>
     </div>
-    <div class="content-newPost">
-      <center>
-        <h1>Create New Post:</h1>
-      </center>
+    <div class="main-content content-newPost">
+      <center><h1>Create New Post:</h1></center>
       <input class="textEntry" type="text" placeholder="<Post Title>"></input>
       <input class="textEntry" type="text" placeholder="[Song]"></input>
     </div>
@@ -41,7 +40,7 @@
       <div class="bar-bottom-icons-container">
         <input class="bar-bottom-icon" type="image" src="media/icons/home-icon-transparent.png" onclick="LoadPage('index.html')">
         <input class="bar-bottom-icon" type="image" src="media/icons/message-icon-transparent.png">
-        <input class="bar-bottom-icon" type="image" src="media/icons/new-post-icon-transparent.png">
+        <input class="bar-bottom-icon" type="image" src="media/icons/new-post-icon-transparent.png" onclick="LoadPage('newPost.html')">
       </div>
     </div>
     <script type="text/javascript" src="js/homepage-buttons.js"></script>
