@@ -1,12 +1,5 @@
 .content-friends {
-  background-color: var(--background-highlight-1);
-/*  font-family: 'roboto_condensedlight';*/
   color: white;
-  border-radius: 1rem;
-  position: fixed;
-  width: 48vw;
-  height: 76vh;
-  left: 26vw;
 }
 .searchbar {
   width: 20vw;
