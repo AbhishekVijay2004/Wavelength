@@ -1,6 +1,6 @@
 .content-friends {
-  background-color: var(--grey-highlight-1);
-  font-family: 'roboto_condensedlight';
+  background-color: var(--background-highlight-1);
+/*  font-family: 'roboto_condensedlight';*/
   color: white;
   border-radius: 1rem;
   position: fixed;
@@ -19,7 +19,7 @@
 }
 .profile-container {
   display: table;
-  background-color: var(--grey-highlight-2);
+  background-color: var(--background-highlight-2);
   color: white;
   border-radius: 1rem;
   width: 44vw;
@@ -36,7 +36,7 @@
   width: 8vh;
   margin-top: 1vh;
   margin-left: 1vw;
-  background-color: var(--grey-highlight-1);
+  background-color: var(--background-highlight-1);
   background-size: cover;
   border: solid;
   border-color: var(--primary-highlight-1);
@@ -70,8 +70,8 @@
   transition: border-color 0.25s;
 }
 
-.content-newPost {
-  background-color: var(--grey-highlight-1);
+/*.content-newPost {
+  background-color: var(--background-highlight-1);
   font-family: 'roboto_condensedlight';
   color: white;
   border-radius: 1rem;
@@ -90,4 +90,4 @@
   background-color: var(--background-colour);
   border-radius: 0.25rem;
   border: none;
-}
+}*/
