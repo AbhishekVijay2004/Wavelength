@@ -63,24 +63,3 @@
   transition: border-color 0.25s;
 }
 
-/*.content-newPost {
-  background-color: var(--background-highlight-1);
-  font-family: 'roboto_condensedlight';
-  color: white;
-  border-radius: 1rem;
-  position: fixed;
-  width: 48vw;
-  height: 78vh;
-  left: 26vw;
-}
-
-.textEntry {
-  margin-left: 2vw;
-  width: 20vw;
-  height: 3vh;
-  text-align: left;
-  color: white;
-  background-color: var(--background-colour);
-  border-radius: 0.25rem;
-  border: none;
-}*/
