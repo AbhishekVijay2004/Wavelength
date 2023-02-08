@@ -23,7 +23,7 @@ function getInfo() {
     xhr = getXmlHttpRequestObject();
     xhr.onreadystatechange = dataCallback;
     // asynchronous requests
-    xhr.open("GET", "http://localhost:80/jsontesting.json", true);
+    xhr.open("GET", "http://localhost:80/Wavelength/Site/jsontesting.json", true);
     // Send the request over the network
     xhr.send(null);
 }
