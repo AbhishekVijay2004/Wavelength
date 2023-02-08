@@ -1,6 +1,7 @@
 .settings-container{
   width: 100%;
   display: flex;
+  margin-left: 2vw;
 }
 .setting{
   width: 30%;
