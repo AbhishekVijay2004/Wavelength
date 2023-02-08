@@ -18,7 +18,7 @@
   border-right: 0.5vw solid var(--primary-colour);
   box-sizing: border-box;
   width: 25vw;
-  height: 80vh;
+  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
@@ -93,6 +93,7 @@
   width: 3.5vw;
   height: 3.5vw;
   float: left;
+  object-fit: contain;
   margin-right: 1vw;
   border-radius: 2vw;
   transition: all 0.25s;
@@ -108,12 +109,12 @@
   border-left: 0.5vw solid var(--primary-colour);
   box-sizing: border-box;
   width: 25vw;
-  height: 80vh;
+  height: 100vh;
   position: fixed;
   right: 0;
   top: 0;
 }
-.bar-bottom{
+/*.bar-bottom{
   border-top: 0.5vw solid var(--primary-colour);
   box-sizing: content-box;
   width: 100vw;
@@ -141,12 +142,12 @@
 .bar-bottom-icon:hover{
   filter: brightness(1.169);
   transition: all 0.25s;
-}
+}*/
 .clsScroll {
   overflow-x: hidden;
   overflow-y: auto;
   width: 48vw;
-  height: 77vh;
+  height: 98vh;
 }
 #hideScroll::-webkit-scrollbar {
     display: none;
@@ -157,7 +158,7 @@
   border-radius: 1rem;
   position: fixed;
   width: 48vw;
-  height: 77vh;
+  height: 98vh;
   left: 26vw;
 }
 .content-title{
