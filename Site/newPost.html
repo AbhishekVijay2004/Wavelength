@@ -42,9 +42,48 @@
       </div>
     </div>
     <div class="main-content content-newPost">
-      <center><h1 class="content-title">New Post</h1></center>
-      <input class="textEntry" type="text" placeholder="<Post Title>"></input>
-      <input class="textEntry" type="text" placeholder="[Song]"></input>
+      <center>
+        <h1 class="content-title">New Post</h1>
+        <div>
+          <input class="single-line-text-entry" type="text" placeholder="Title" onfocus="this.placeholder=''" onblur="this.placeholder = 'Title'"></input>
+          <br></br>
+          <input class="single-line-text-entry" type="text" placeholder="Song" onfocus="this.placeholder=''" onblur="this.placeholder = 'Song'"></input>
+          <br></br>
+          <textarea class="multi-line-text-entry" type="text" placeholder="Description" onfocus="this.placeholder=''" onblur="this.placeholder = 'Description'"></textarea>
+        </div>
+        <div class="switch-container">
+          <div>
+            <h2 class="setting-label">
+              Likes
+            </h2>
+            <label class="setting-switch">
+            <input type="checkbox" checked>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
+          <div>
+            <h2 class="setting-label">
+              Comments
+            </h2>
+            <label class="setting-switch">
+            <input type="checkbox" checked>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
+          <div>
+            <h2 class="setting-label">
+              Dislikes
+            </h2>
+            <label class="setting-switch">
+            <input type="checkbox" checked>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
+        </div>
+        <br></br>
+        <br></br>
+        <button class="button">Post</button>
+      </center>
     </div>
     <div class="bar-right">
     </div>
