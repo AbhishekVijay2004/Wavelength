@@ -1,4 +1,4 @@
-function backendTest(){
+function backendTest() {
   alert("Working.");
 }
 var xhr = null;
@@ -23,7 +23,7 @@ function getInfo() {
     xhr = getXmlHttpRequestObject();
     xhr.onreadystatechange = dataCallback;
     // asynchronous requests
-    xhr.open("GET", "http://localhost:80/Wavelength/Site/jsontesting.json", true);
+    xhr.open("GET", "http://localhost/Site/jsontesting.json", true);
     // Send the request over the network
     xhr.send(null);
 }
