@@ -35,7 +35,7 @@ def get_artist():
 def get_song():
     song_in = input('Search for a song: ')
     #return first song based on query, specified to gb market
-    song = sp.search(song_in, type='track', limit=1, market='GB')
+    song = sp.search(song_in, type='track', limit=10, market='GB')
     # print(song['tracks']['items'][0])
     song = song['tracks']['items'][0]
     album = song['album']
@@ -45,6 +45,17 @@ def get_song():
     artist = (song['artists'][0]['id'], song['artists'][0]['name'])
     preview = song['preview_url']
     return id, name, artist, preview, album_images
+
+def song_searching(query):
+    #return the song based on query
+    song = sp.search(query, type='track', limit=5, market='GB')
+    song = song['tracks']['items'][0]
+    album = song['album']
+    name = song['name']
+    id = song['id']
+    artist = song['artists'][0]['name']
+    album_image = album['images'][2]['url']
+    return id, name, artist, album_image
 
 
 def get_album():
@@ -59,8 +70,4 @@ def get_album():
 
     return id, name, artist, images
 
-for item in get_song():
-    print(item)
-
-for item in get_album():
-    print(item)
+print(song_searching('professor x'))
