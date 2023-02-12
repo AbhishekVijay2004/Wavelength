@@ -1,0 +1,102 @@
+/*For the templates*/
+
+.body{
+display:flex;
+justify-content: space-between;
+flex-direction:column;
+}
+.postTemplate {  
+display: flex;
+gap: 1rem;
+padding: 1rem;
+flex-direction: column;
+background-color:black;
+border-radius: 20px;
+background-color: #242526;
+min-height: 450px;
+margin-bottom: 50px;
+}
+.spotifyTemplate {
+flex: 1;
+border-radius: 10px;
+flex-basis: auto;
+background-color: lightgray;
+padding: 16px;
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+}
+.photoTemplate {
+border-radius: 10px;
+flex-basis: auto;
+flex: 1;
+background-color: black;
+min-height: 45px;
+max-width: 120px;
+}
+.textTemplate {
+flex: 3;
+height: 250px;
+}
+.footerTemplate {
+flex: 0;
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+height: 10px;
+}
+.reactionsTemplate{
+border-radius: 10px;
+flex-basis: auto;
+background-color: #808080;
+color:#808080;
+user-select: none;
+}
+.commentsTemplate{
+border-radius: 10px;
+flex-basis: auto;
+background-color: #D3D3D3;
+color:#D3D3D3;
+user-select: none;
+}
+
+/*For the actual posts*/
+
+.post {  
+display: flex;
+gap: 1rem;
+padding: 1rem;
+
+flex-direction: column;
+background-color:black;
+border-radius: 20px;
+background-color: #242526;
+min-height: 450px;
+margin-bottom: 50px;
+}
+.spotify {
+flex-basis: auto;
+flex: 0;
+}
+.text {
+min-height: 250px;
+max-height: 250px;
+overflow: hidden;
+cursor: pointer;
+transition: max-height 0.2s ease-out;
+flex: 1;
+align-content: left; 
+color: lightgray;
+-webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
+}
+.footer {
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+flex: 1;
+}
+.reactions{
+}
+.comments{
+color: gray;
+}

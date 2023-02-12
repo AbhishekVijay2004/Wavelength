@@ -6,7 +6,7 @@
   --background-highlight-1: #333333;
   --background-highlight-2: #474747;
   background: var(--background-colour);
-  font-family: "Roboto";
+  font-family: "roboto_condensed";
   color: var(--primary-colour);
   font-weight: 300;
 }
@@ -18,7 +18,7 @@
   border-right: 0.5vw solid var(--primary-colour);
   box-sizing: border-box;
   width: 25vw;
-  height: 80vh;
+  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
@@ -93,6 +93,7 @@
   width: 3.5vw;
   height: 3.5vw;
   float: left;
+  object-fit: contain;
   margin-right: 1vw;
   border-radius: 2vw;
   transition: all 0.25s;
@@ -108,12 +109,12 @@
   border-left: 0.5vw solid var(--primary-colour);
   box-sizing: border-box;
   width: 25vw;
-  height: 80vh;
+  height: 100vh;
   position: fixed;
   right: 0;
   top: 0;
 }
-.bar-bottom{
+/*.bar-bottom{
   border-top: 0.5vw solid var(--primary-colour);
   box-sizing: content-box;
   width: 100vw;
@@ -141,12 +142,12 @@
 .bar-bottom-icon:hover{
   filter: brightness(1.169);
   transition: all 0.25s;
-}
+}*/
 .clsScroll {
   overflow-x: hidden;
   overflow-y: auto;
   width: 48vw;
-  height: 77vh;
+  height: 98vh;
 }
 #hideScroll::-webkit-scrollbar {
     display: none;
@@ -157,7 +158,7 @@
   border-radius: 1rem;
   position: fixed;
   width: 48vw;
-  height: 77vh;
+  height: 98vh;
   left: 26vw;
 }
 .content-title{
@@ -169,7 +170,7 @@
   font-size: 3vw;
   font-weight: 400;
 }
-@font-face{
+/*@font-face{
   font-family: "Roboto";
   src: url("fonts/roboto/Roboto-Thin.ttf");
   font-weight: 100;
@@ -240,33 +241,33 @@
   src: url("fonts/roboto/Roboto-BlackItalic.ttf");
   font-weight: 900;
   font-style: italic;
-}
-
+}*/
 @font-face {
-    font-family: 'roboto_condenseditalic';
-    src: url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff2') format('woff2'),
-         url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'roboto_condensedlight';
-    src: url('fonts/roboto_condensed/robotocondensed-light-webfont.woff2') format('woff2'),
-         url('fonts/roboto_condensed/robotocondensed-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'roboto_condensedlight_italic';
-    src: url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff2') format('woff2'),
-         url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'roboto_condensedregular';
+    font-family: 'roboto_condensed';
     src: url('fonts/roboto_condensed/robotocondensed-regular-webfont.woff2') format('woff2'),
          url('fonts/roboto_condensed/robotocondensed-regular-webfont.woff') format('woff');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-light-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
