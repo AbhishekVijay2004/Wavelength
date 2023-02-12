@@ -25,14 +25,16 @@ const getRandomColor = () => {
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	} //converts lots of different ways of representing colours to hex
-	
-	window.addEventListener('scroll', () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
+	scrollContent.addEventListener('scroll', () => {
+	  const scrolled = scrollContent.scrollTop; // reuse `scrollContent` innstead of querying the DOM again
+	  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+	  const contnr = document.getElementsByClassName("clsScroll")[0];
 
-		if(clientHeight + scrollTop + 5	>= scrollHeight) {
+	if(scrolled + clientHeight	>= contnr.scrollHeight) {
 			addPost();
 		}
-	}); //calls addPost when the user gets to the bottom of the page
+	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
 	function addPost() {
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
@@ -95,7 +97,7 @@ const getRandomColor = () => {
 	    setTimeout(breatheColour, 20);
 	} //changes the colours of the templates to add a loading animation
 
-	const container = document.getElementsByClassName('body')[0];
+	const container = document.getElementsByClassName('clsScroll')[0];
     var spotifyColours = [];
 	var	arrayOfPlaceholders = [];
 	var arrayOfPosts = [];
