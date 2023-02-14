@@ -1,0 +1,41 @@
+.post {  
+		display: flex;
+  	gap: 1rem;
+  	padding: 1rem;
+
+		flex-direction: column;
+		background-color:black;
+		border-radius: 20px;
+		background-color: #242526;
+		min-height: 450px;
+		margin-bottom: 50px;
+	}
+	.spotify {
+		flex-basis: auto;
+		flex: 0;
+	}
+	.text {
+		min-height: 250px;
+		max-height: 250px;
+		overflow: hidden;
+		cursor: pointer;
+		transition: max-height 0.2s ease-out;
+		flex: 1;
+		align-content: left; 
+		color: lightgray;
+	  font-family: 'Roboto', sans-serif;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
+	}
+	.footer {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		flex: 1;
+	}
+	.reactions{
+	}
+	.comments{
+		color: gray;
+	  font-family: 'Roboto', sans-serif;
+
+	}

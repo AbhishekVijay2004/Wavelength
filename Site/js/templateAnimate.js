@@ -1,123 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Timeline</title>
-	<style>
-	.body{
-		display:flex;
-		justify-content: space-between;
-		flex-direction:column;
-	}
-	.postTemplate {  
-		display: flex;
-	  	gap: 1rem;
-	  	padding: 1rem;
-		flex-direction: column;
-		background-color:black;
-		border-radius: 20px;
-		background-color: #242526;
-		min-height: 450px;
-		margin-bottom: 50px;
-	}
-	.spotifyTemplate {
-		flex: 1;
-		border-radius: 10px;
-		flex-basis: auto;
-		background-color: lightgray;
-		padding: 16px;
-		display: flex;
-		justify-content: space-between;
-		flex-direction: column;
-	}
-	.photoTemplate {
-		border-radius: 10px;
-		flex-basis: auto;
-		flex: 1;
-		background-color: black;
-		min-height: 45px;
-		max-width: 120px;
-	}
-	.textTemplate {
-		flex: 3;
-		height: 250px;
-	}
-	.footerTemplate {
-		flex: 0;
-		display: flex;
-		justify-content: space-between;
-		flex-direction: row;
-		height: 10px;
-	}
-	.reactionsTemplate{
-		border-radius: 10px;
-		flex-basis: auto;
-		background-color: #808080;
-		color:#808080;
-		user-select: none;
-	}
-	.commentsTemplate{
-		border-radius: 10px;
-		flex-basis: auto;
-		background-color: #D3D3D3;
-		color:#D3D3D3;
-		user-select: none;
-	  	font-family: 'Roboto', sans-serif;
-	}
-	</style> <!-- for the templates -->
-	<style> 
-	.post {  
-		display: flex;
-  	gap: 1rem;
-  	padding: 1rem;
-
-		flex-direction: column;
-		background-color:black;
-		border-radius: 20px;
-		background-color: #242526;
-		min-height: 450px;
-		margin-bottom: 50px;
-	}
-	.spotify {
-		flex-basis: auto;
-		flex: 0;
-	}
-	.text {
-		min-height: 250px;
-		max-height: 250px;
-		overflow: hidden;
-		cursor: pointer;
-		transition: max-height 0.2s ease-out;
-		flex: 1;
-		align-content: left; 
-		color: lightgray;
-	  font-family: 'Roboto', sans-serif;
-    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
-	}
-	.footer {
-		display: flex;
-		justify-content: space-between;
-		flex-direction: row;
-		flex: 1;
-	}
-	.reactions{
-	}
-	.comments{
-		color: gray;
-	  font-family: 'Roboto', sans-serif;
-
-	}
-	</style> <!-- for the actual posts -->
- 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
-</head>
-<body>
-	<div class="body"></div>
-	
-	<script>
-	const getRandomColor = () => {
+const getRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
   }; //gets a random colour
   	const pSBC=(p,c0,c1,l)=>{
@@ -144,14 +25,16 @@
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	} //converts lots of different ways of representing colours to hex
-	
-	window.addEventListener('scroll', () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
+	scrollContent.addEventListener('scroll', () => {
+	  const scrolled = scrollContent.scrollTop; // reuse `scrollContent` innstead of querying the DOM again
+	  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+	  const contnr = document.getElementsByClassName("clsScroll")[0];
 
-		if(clientHeight + scrollTop + 5	>= scrollHeight) {
+	if(scrolled + clientHeight	>= contnr.scrollHeight) {
 			addPost();
 		}
-	}); //calls addPost when the user gets to the bottom of the page
+	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
 	function addPost() {
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
@@ -214,7 +97,7 @@
 	    setTimeout(breatheColour, 20);
 	} //changes the colours of the templates to add a loading animation
 
-	const container = document.getElementsByClassName('body')[0];
+	const container = document.getElementsByClassName('clsScroll')[0];
     var spotifyColours = [];
 	var	arrayOfPlaceholders = [];
 	var arrayOfPosts = [];
@@ -225,59 +108,3 @@
 	addPost();
 	addPost();
 	breatheColour();
-
-	</script> <!-- create placeholder posts with animations -->
-	<script>
-
-    setTimeout(replacePosts, 2000);
-    function replacePosts () {
-    	//container.removeChild(container.childNodes[0]);
-    	container.replaceChild(loadPost(),container.childNodes[0])
-    	container.replaceChild(loadPost(),container.childNodes[1])
-    }
-	</script> <!-- 	make a function that can replace a post template with an actual post. -->
-	<script>
-
-	window.addEventListener('resize', onResizeOrLoad);
-	window.addEventListener('load', onResizeOrLoad);
-
-	function clickOnText() {
-		let elmnt = this.getElementsByClassName('text')[0];
-		let i = arrayOfPosts.indexOf(this);
-		console.log(expandedPosts);
-	    if (elmnt.scrollHeight > 250) {
-		    expandedPosts[i] = !expandedPosts[i];
-		    if (expandedPosts[i]) {
-		      elmnt.style.maxHeight = 'none';
-		      elmnt.style['-webkit-mask-image'] = 'none'; 
-	    	} else {
-	      		elmnt.style.maxHeight = '250px';
-	    		elmnt.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)'; 
-	    	}
-	 	}
-	} //toggle between expanded & not expanded text boxed
-	function onResizeOrLoad(e) {
-	    for (var i = 0; i < arrayOfPosts.length; i++) {
-	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]
-			if (currentTextbox.scrollHeight > 250 && expandedPosts[i] == false) {
-			    currentTextbox.style.cursor = 'pointer';
-			    currentTextbox.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)'; 
-
-			} else if (currentTextbox.scrollHeight > 250) {
-			    currentTextbox.style.cursor = 'pointer';
-			    currentTextbox.style['-webkit-mask-image'] = 'none'; 
-
-			} else {
-			    currentTextbox.style.cursor = 'default';
-			    currentTextbox.style.maxHeight = '250px';
-			    currentTextbox.style['-webkit-mask-image'] = 'none'; 
-
-			    expandedPosts[i] = false;
-			}
-		}
-    }; //checks if the text gets smaller/larger than 250px when resized, so toggle for textboxes can be disabled/enabled
-
-	</script>	<!-- code to make the toggles on text work -->
-
-</body>
-</html>
