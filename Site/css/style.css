@@ -155,8 +155,8 @@
 .main-content{
   background-color: var(--background-highlight-1);
   position: fixed;
+  text-align: center;
   border-radius: 1rem;
-  position: fixed;
   width: 48vw;
   height: 98vh;
   left: 26vw;
@@ -169,6 +169,46 @@
   -webkit-text-fill-color: transparent;
   font-size: 3vw;
   font-weight: 400;
+}
+.song-display-container{
+  width: 90%;
+  margin: auto;
+  height: 10vw;
+  display: flex;
+  background-color: var(--background-highlight-2);
+  border-radius: 2vw;
+  align-items: center;
+}
+.song-info{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  max-width: fit-content;
+}
+.album-cover{
+  margin-left: 1vw;
+}
+.cover-image{
+  width: 8vw;
+  height: 8vw;
+  border-radius: 1vw;
+}
+.song-title{
+  color: white;
+  font-size: 2vw;
+  text-align: left;
+  margin: 0 0 0 1vw;
+}
+.artist{
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+  margin: 0 0 0 1vw;
+}
+.song-player{
+  width: 30vw;
+  height: 3vw;
+  margin-right: 1vw;
 }
 /*@font-face{
   font-family: "Roboto";
@@ -270,4 +310,3 @@
     font-weight: 300;
     font-style: italic;
 }
-

@@ -7,6 +7,7 @@
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
   </head>
   <body>
     <div class="bar-left">
@@ -41,9 +42,29 @@
       </div>
     </div>
     </div>
-    <!-- <div class="content-placeholder"></div> !-->
     <div class="bar-right">
     </div>
+    <div class="main-content content-profile">
+      <div class="profile-info-container">
+        <img class="profile-picture" src="media/trumpie.jpg">
+        <div class="name-container">
+          <h1 class="real-name">Joe Bloggs</h1>
+          <h2 class="username">(@joebloggs69420)</h2>
+          <p class="bio">
+            Kanye did nothing wrong! Proud Swiftie, #votetrump2024.
+          </p>
+        </div>
+      </div>
+      <div class="song-display-container">
+        <div class="album-cover">
+          <img src="{{album_cover}}" class="cover-image">
+        </div>
+        <div class="song-info">
+          <h2 class="song-title">{{song_title}}</h2>
+          <h2 class="artist">{{song_artist}}</h2>
+        </div>
+        <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
+      </div>
     <script type="text/javascript" src="js/homepage-buttons.js"></script>
   </body>
 </html>

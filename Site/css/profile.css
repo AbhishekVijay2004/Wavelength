@@ -1,0 +1,38 @@
+.profile-info-container{
+  display: flex;
+  margin: 2vw;
+  height: 10vw;
+}
+.name-container{
+  height: 10vw;
+  width: 100%;
+  margin-left: 1vw;
+  color: white;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.real-name{
+  margin: 0;
+  font-size: 3vw;
+}
+.username{
+  margin: 0;
+  font-size: 2vw;
+  color: var(--primary-colour);
+  margin-left: 1vw;
+}
+.bio{
+  flex-basis: 100%;
+  flex-shrink: 0;
+  font-size: 1.5vw;
+}
+.profile-picture{
+  height: 100%;
+  width: 10vw;
+  border-radius: 50%;
+  border: solid 0.5vw var(--primary-colour);
+  box-sizing: border-box;
+  object-fit: cover;
+}
