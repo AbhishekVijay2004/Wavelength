@@ -48,7 +48,7 @@
   max-height: 6vw;
   transition: all 1s;
 }
-.logo-left:hover{
+#logo-left:hover{
   background-position: 100% 100%;
   transition: all 1s;
 }
