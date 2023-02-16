@@ -1,0 +1,65 @@
+.content-signOn {
+  color: white;
+  font-size: 1.5vw;
+  position: fixed;
+  text-align: center;
+  border-radius: 1rem;
+  border: none 0.1rem var(--primary-colour);
+  width: 50vw;
+  left: 25vw;
+  top: 15vh;
+}
+#logo{
+  max-height: 7.5vw;
+}
+.logo-text{
+  font-size: 5vw;
+  margin: 0;
+  font-weight: 300;
+  display: inline;
+  line-height: 6vw;
+  background-image: linear-gradient(135deg, var(--primary-colour) 20%, var(--primary-highlight-2) 40%, var(--primary-colour));
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s;
+}
+.logo-text:hover{
+  background-position: 100% 0%;
+  transition: all 1s;
+}
+.single-line-text-entry {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  width: 20vw;
+  height: 3vh;
+  text-align: center;
+  color: white;
+  background-color: var(--background-colour);
+  border-radius: 0.75rem;
+  border: 0.15vw solid var(--primary-colour);
+}
+.single-line-text-entry:focus{
+  outline: none;
+  border: 0.15vw solid var(--primary-highlight-2);
+}
+.button {
+  display: inline-block;
+  padding: 0.5vh 2vw;
+  margin: 2vh 0.5vw;
+  font-weight: 300;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: lightgrey;
+  background-color: var(--background-colour);
+  border: solid 0.15rem var(--primary-colour);
+  border-radius: 0.75rem;
+}
+.button:active {
+  color: white;
+  border-color: var(--primary-highlight-2);
+  transform: translateY(0.25vh);
+}
