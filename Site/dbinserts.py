@@ -24,31 +24,14 @@ def connectdb():
 	cursor = db.cursor()
 	return db, cursor
 
-def create_user(**kwargs):
+
+
+def create_user(username, password, profilePic=None, url=None, spotifyID=0):
 	global cursor
-	# print(list(kwargs.keys()))
-	keys = ['username', 'password', 'profilePic', 'url', 'followerCount', 'followingCount', 'spotifyID']
-	#add the non named parameters to the dictionary as null or 0
-	for key in keys:
-		if key not in list(kwargs):
-			if key in ['followerCount', 'followingCount', 'spotifyID']:
-				kwargs[key] = 0
-			else:
-				kwargs[key] = None
-	print(kwargs)
-	keys = list(kwargs)
-	sql = f"""
-		INSERT INTO users ({', '.join(list(kwargs))})
-		VALUES (
-			%({keys[0]})s,
-			%({keys[1]})s,
-			%({keys[2]})s,
-			%({keys[3]})s,
-			%({keys[4]})s,
-			%({keys[5]})s,
-			%({keys[6]})s
-			)"""
-	cursor.execute(sql, kwargs)
+	sql = """
+		INSERT INTO users (username, password, profilePic, url, spotifyID)
+		VALUES (%s, %s, %s, %s, %s)"""
+	cursor.execute(sql, (username, password, profilePic, url, spotifyID))
 	print('user added')
 
 def delete_user(id):
@@ -64,9 +47,9 @@ def delete_user(id):
 def create_post(userID, postText='', postContent=''):
 	global cursor
 	sql = """
-		INSERT INTO posts (userID, postText, postContent, likes, createdAt)
-		VALUES (%s, %s, %s, %s, NOW())"""
-	cursor.execute(sql, (userID, postText, postContent, 0))
+		INSERT INTO posts (userID, postText, postContent, createdAt)
+		VALUES (%s, %s, %s, NOW())"""
+	cursor.execute(sql, (userID, postText, postContent))
 
 def delete_post(postID):
 	global cursor
@@ -125,6 +108,21 @@ def delete_comment(commentID):
 	print(f'comment {commentID[0]} deleted')
 
 
+def add_follow(userID, followerID):
+	global cursor
+	sql = """
+		INSERT INTO following(userID, followerID)
+		VALUES (%s, %s)"""
+	cursor.execute(sql, (userID, followerID))
+	print(f'{followerID} followed {userID}')
+
+def delete_follow(userID, followerID):
+	global cursor
+	sql = """
+		DELETE FROM following
+		WHERE (userID = %s) AND (followerID = %s)"""
+	cursor.execute(sql, (userID, followerID))
+	print('friendship deleted')
 
 def alter_user(userID, key, value):
 	global cursor
@@ -137,16 +135,18 @@ def alter_user(userID, key, value):
 
 
 
-db, cursor = connectdb()
-# create_user(username='matt', password='pass', url='nothign', spotifyID=50)
 
-# create_post(1, 'banger', 'funky friday')
-# delete_post(1)
-# add_like(5, 1)
-# delete_like(5, 1)
-# add_dislike(2, 1)
-# add_comment(5, 1, 'what a tune')
-# delete_comment(1)
-alter_user(1, 'spotifyID', '76')
+
+db, cursor = connectdb()
+create_user('matt', 'hello')
+create_user('milly', 'useless', spotifyID=10)
+create_post(1, postText='What a song', postContent='professor X')
+create_post(2, postText='banger', postContent='starships')
+add_follow(1, 2)
+add_follow(2, 1)
+add_like(1, 1)
+add_comment(1, 1, 'tune')
+
+
 db.commit()
 db.close()
