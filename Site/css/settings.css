@@ -1,10 +1,12 @@
 .settings-container{
   width: 100%;
   display: flex;
-  margin-left: 2vw;
+  flex-wrap: wrap;
+  margin: auto;
   color: white;
 }
 .setting{
+  margin-left: 2vw;
   width: 30%;
   display: flex;
   align-items: center;

@@ -169,6 +169,7 @@
   -webkit-text-fill-color: transparent;
   font-size: 3vw;
   font-weight: 400;
+  width: 100%;
 }
 .song-display-container{
   width: 90%;
