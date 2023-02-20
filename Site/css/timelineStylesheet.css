@@ -7,7 +7,7 @@
 		background-color:black;
 		border-radius: 20px;
 		background-color: #242526;
-		min-height: 450px;
+		min-height: 350px;
 		margin-bottom: 50px;
 	}
 	.spotify {
@@ -15,15 +15,15 @@
 		flex: 0;
 	}
 	.text {
-		min-height: 250px;
-		max-height: 250px;
+		min-height: 150px;
+		max-height: 150px;
 		overflow: hidden;
 		cursor: pointer;
 		transition: max-height 0.2s ease-out;
 		flex: 1;
 		align-content: left; 
+		text-align: left;
 		color: lightgray;
-	  font-family: 'Roboto', sans-serif;
     -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
 	}
 	.footer {
@@ -36,6 +36,5 @@
 	}
 	.comments{
 		color: gray;
-	  font-family: 'Roboto', sans-serif;
 
 	}

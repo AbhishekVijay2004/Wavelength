@@ -39,8 +39,8 @@ const getRandomColor = () => {
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
 		postElement.innerHTML = `
-		<div class = "spotifyTemplate"">
-			<div class = "photoTemplate" style="height:100%;"></div>
+		<div class = "spotifyTemplate">
+			<div class="photoTemplate"></div>
 		</div>
 	  	<div id="textTemplate" class="textTemplate"></div>
 		<div class = "footerTemplate">
@@ -59,8 +59,15 @@ const getRandomColor = () => {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
-		<div class = "spotify">
-			<iframe src="https://open.spotify.com/embed/track/0ZfEeIu7CNHQhbCTiVv3cx" width="100%" height="100%"  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+		<div class = "song-display-container">
+			<div class="album-cover">
+	          <img src="{{album_cover}}" class="cover-image">
+	        </div>
+	        <div class="song-info">
+	          <h2 class="song-title">{{song_title}}</h2>
+	          <h2 class="artist">{{song_artist}}</h2>
+	        </div>
+	        <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
 		</div>
 	  	<div id="text" class="text">
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
@@ -105,6 +112,7 @@ const getRandomColor = () => {
 	var change = 0.01;
 	var pos = 1;
 
+	addPost();
 	addPost();
 	addPost();
 	breatheColour();

@@ -11,30 +11,27 @@
 		background-color:black;
 		border-radius: 20px;
 		background-color: #242526;
-		min-height: 450px;
+		min-height: 350px;
 		margin-bottom: 50px;
 	}
 	.spotifyTemplate {
-		flex: 1;
-		border-radius: 10px;
-		flex-basis: auto;
-		background-color: lightgray;
-		padding: 16px;
-		display: flex;
-		justify-content: space-between;
-		flex-direction: column;
+	  width: 100%;
+	  margin: auto;
+	  height: 10vw;
+	  display: flex;
+	  background-color: var(--background-highlight-2);
+	  border-radius: 1vw;
+	  align-items: center;
 	}
 	.photoTemplate {
-		border-radius: 10px;
-		flex-basis: auto;
-		flex: 1;
-		background-color: black;
-		min-height: 45px;
-		max-width: 120px;
+	  width: 8vw;
+	  height: 8vw;
+	  border-radius: 1vw;
+	  margin-left: 1vw;
 	}
 	.textTemplate {
 		flex: 3;
-		height: 250px;
+		height: 150px;
 	}
 	.footerTemplate {
 		flex: 0;
@@ -56,5 +53,4 @@
 		background-color: #D3D3D3;
 		color:#D3D3D3;
 		user-select: none;
-	  	font-family: 'Roboto', sans-serif;
 	}
