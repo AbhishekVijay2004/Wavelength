@@ -55,19 +55,8 @@ input:checked + .setting-slider:before{
   transform: translateX(2vw);
 }
 .button {
-  display: inline-block;
-  padding: 0.5vh 2vw;
-  font-weight: 300;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  outline: none;
-  color: white;
-  background-color: var(--background-highlight-1);
-  border: solid var(--primary-colour);
-  border-radius: 1rem;
-}
-.button:active {
-  border-color: var(--primary-highlight-2);
-  transform: translateY(0.25vh);
+  color: white !important;
+  background-color: var(--background-highlight-1) !important;
+  border: solid var(--primary-colour) !important;
+  border-radius: 1rem !important;
 }
