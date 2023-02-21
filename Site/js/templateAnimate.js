@@ -115,4 +115,5 @@ const getRandomColor = () => {
 	addPost();
 	addPost();
 	addPost();
+	addPost();
 	breatheColour();

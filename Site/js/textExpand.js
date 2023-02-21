@@ -5,7 +5,6 @@
 	function clickOnText() {
 		let elmnt = this.getElementsByClassName('text')[0];
 		let i = arrayOfPosts.indexOf(this);
-		console.log(expandedPosts);
 	    if (elmnt.scrollHeight > 150) {
 		    expandedPosts[i] = !expandedPosts[i];
 		    if (expandedPosts[i]) {
