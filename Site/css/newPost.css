@@ -1,6 +1,12 @@
 .content-newPost {
   color: white;
 }
+.new-post-absolutes{
+  position: absolute;
+  top: 25vh;
+  z-index: -1;
+  width: 100%;
+}
 .switch-container{
   width: 35vw;
   display: flex;
