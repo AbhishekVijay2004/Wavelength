@@ -241,11 +241,19 @@
   height: 3vw;
   margin-right: 1vw;
 }
-.search-container{
-  height: 62vh;
+#search-container{
+  display: inline-block;
+  height: 0vh;
+  width: 80%;
+  border-radius: 2vh;
+  margin-top: 2vh;
+  background-color: var(--background-highlight-2);
+  overflow: hidden;
+  transition: height 0.25s;
 }
 .search-result{
-
+  width: 95%;
+  margin: auto;
 }
 /*@font-face{
   font-family: "Roboto";

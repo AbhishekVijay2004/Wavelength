@@ -40,7 +40,9 @@
     <div class="main-content content-newPost">
       <h1 class="content-title">New Post</h1>
       <div>
-        <input class="single-line-text-entry" type="text" placeholder="Song" onfocus="this.placeholder=''" onblur="this.placeholder = 'Song'"></input>
+        <input class="single-line-text-entry" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()"></input>
+        <div id="search-container">
+        </div>
         <br><br>
         <textarea class="multi-line-text-entry" type="text" placeholder="Description" onfocus="this.placeholder=''" onblur="this.placeholder = 'Description'"></textarea>
       </div>
@@ -80,5 +82,6 @@
     <div class="bar-right">
     </div>
     <script type="text/javascript" src="js/homepage-buttons.js"></script>
+    <script type="text/javascript" src="js/show-search.js"></script>
   </body>
 </html>
