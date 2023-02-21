@@ -258,11 +258,16 @@
   margin-top: 2vh;
   background-color: var(--background-highlight-2);
   overflow: hidden;
-  transition: height 0.25s;
+  transition: all 0.25s;
 }
 .search-result{
   width: 95%;
+  height: 10vh;
   margin: auto;
+  margin-bottom: 2vh;
+  margin-top: 0;
+  border-radius: 2vh;
+  background-color: var(--background-highlight-1);
 }
 @font-face {
     font-family: 'roboto_condensed';
