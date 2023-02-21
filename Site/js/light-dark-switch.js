@@ -6,7 +6,8 @@ var darkModeColourDict = {
   "--background-highlight-2" : "#474747",
   "--primary-colour"         : "#B64CFF",
   "--primary-highlight-1"    : "#CE85FF",
-  "--primary-highlight-2"    : "#DEADFF"
+  "--primary-highlight-2"    : "#DEADFF",
+  "--text-colour"            : "#FFFFFF"
 }
 
 var lightModeColourDict = {
@@ -15,7 +16,8 @@ var lightModeColourDict = {
   "--background-highlight-2" : "#C1C3C3",
   "--primary-colour"         : "#B64CFF",
   "--primary-highlight-1"    : "#AD33FF",
-  "--primary-highlight-2"    : "#9D0AFF"
+  "--primary-highlight-2"    : "#9D0AFF",
+  "--text-colour"            : "#000000"
 }
 
 function SwitchMode(){

@@ -5,6 +5,7 @@
   --background-colour: #1E1E1E;
   --background-highlight-1: #333333;
   --background-highlight-2: #474747;
+  --text-colour: #FFFFFF;
   background: var(--background-colour);
   font-family: "roboto_condensed";
   color: var(--primary-colour);
@@ -118,7 +119,7 @@
   width: 20vw;
   height: 3vh;
   text-align: left;
-  color: white;
+  color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;
   border: 0.15vw solid var(--background-colour);
@@ -131,7 +132,7 @@
   width: 30vw;
   height: 20vh;
   text-align: left;
-  color: white;
+  color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;
   border: 0.15vw solid var(--background-colour);
@@ -201,7 +202,7 @@
   width: 100%;
 }
 .song-display-container{
-  width: 100%;
+  width: 90%;
   margin: auto;
   height: 10vw;
   display: flex;
@@ -224,13 +225,13 @@
   border-radius: 1vw;
 }
 .song-title{
-  color: white;
+  color: var(--text-colour);
   font-size: 2vw;
   text-align: left;
   margin: 0 0 0 1vw;
 }
 .artist{
-  color: white;
+  color: var(--text-colour);
   font-size: 1.5vw;
   text-align: left;
   margin: 0 0 0 1vw;
@@ -239,6 +240,12 @@
   width: 30vw;
   height: 3vw;
   margin-right: 1vw;
+}
+.search-container{
+  height: 62vh;
+}
+.search-result{
+
 }
 /*@font-face{
   font-family: "Roboto";

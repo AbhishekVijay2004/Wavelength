@@ -37,20 +37,49 @@
         <p class="widget-text">Settings</p>
       </div>
     </div>
-    <div class="main-content">
+    <div class="main-content clsScroll" id="hideScroll">
       <div class="settings-container">
         <h1 class="content-title">General</h1>
         <div class="setting">
           <h2 class="setting-label">Dark Mode:</h2>
           <label class="setting-switch">
-          <input type="checkbox" checked onclick="SwitchMode()">
+            <input type="checkbox" checked onclick="SwitchMode()">
             <span class="setting-slider"></span>
           </label>
         </div>
         <h1 class="content-title">Profile Settings</h1>
         <div class="setting">
           <h2 class="setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text">
+          <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{username}}'">
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Display Name:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{display_name}}'">
+        </div>
+        <div class="setting" style="align-items:flex-start;">
+          <h2 class="setting-label">Bio:</h2>
+          <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 10vh;"></textarea>
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Profile Picture:</h2>
+          <label class="profile-picture-setting">
+            <input type="file" accept="image/png, image/jpeg">
+            <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+          </label>
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Top Song:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search for a song...'">
+        </div>
+        <div class="song-display-container">
+          <div class="album-cover">
+            <img src="{{album_cover}}" class="cover-image">
+          </div>
+          <div class="song-info">
+            <h2 class="song-title">{{song_title}}</h2>
+            <h2 class="artist">{{song_artist}}</h2>
+          </div>
+          <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
         </div>
       </div>
     </div>
