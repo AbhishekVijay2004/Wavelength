@@ -1,7 +1,11 @@
 function ShowSearch(){
-  document.getElementById("search-container").style.height = "62vh"
+  var searchContainer = document.getElementById("search-container");
+  searchContainer.style.boxShadow = "0vw 0vw 1vw 0.5vw black";
+  searchContainer.style.height = "62vh";
 }
 
 function HideSearch(){
-  document.getElementById("search-container").style.height = "0vh";
+  var searchContainer = document.getElementById("search-container");
+  searchContainer.style.boxShadow = "none";
+  searchContainer.style.height = "0";
 }
