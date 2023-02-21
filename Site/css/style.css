@@ -114,6 +114,34 @@
   right: 0;
   top: 0;
 }
+.single-line-text-entry {
+  width: 20vw;
+  height: 3vh;
+  text-align: left;
+  color: white;
+  background-color: var(--background-colour);
+  border-radius: 0.25rem;
+  border: 0.15vw solid var(--background-colour);
+}
+.single-line-text-entry:focus{
+  outline: none;
+  border: 0.15vw solid var(--primary-highlight-1);
+}
+.multi-line-text-entry {
+  width: 30vw;
+  height: 20vh;
+  text-align: left;
+  color: white;
+  background-color: var(--background-colour);
+  border-radius: 0.25rem;
+  border: 0.15vw solid var(--background-colour);
+  resize: none;
+}
+.multi-line-text-entry:focus{
+  outline: none;
+  border: 0.15vw solid var(--primary-highlight-1);
+  placeholder: "";
+}
 /*.bar-bottom{
   border-top: 0.5vw solid var(--primary-colour);
   box-sizing: content-box;
