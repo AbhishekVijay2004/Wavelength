@@ -254,16 +254,9 @@
   display: inline-block;
   height: 0vh;
   width: 80%;
-  border-radius: 2vh;
+  border-radius: 1rem;
   margin-top: 2vh;
-<<<<<<< HEAD
   background-color: rgb(30, 30, 30, 0.6);
-/*  opacity: 0.95;*/
-  backdrop-filter: blur(6px);
-=======
-  background-color: var(--background-highlight-2);
-  opacity: 0.9;
->>>>>>> 028b1a7954e6ce5ab4d2de43dc2aa507027496e4
   overflow: hidden;
   transition: all 0.25s;
 }
@@ -273,23 +266,19 @@
   margin: auto;
   margin-bottom: 2vh;
   margin-top: 0;
-  border-radius: 2vh;
-<<<<<<< HEAD
+  border-radius: 0.75rem;
   background-color: rgb(51, 51, 51);
-=======
-  background-color: var(--background-highlight-1);
   color: var(--text-colour);
   display: flex;
   align-items: center;
 }
 .search-image{
-  height: 10vh;
-  margin-left: 0vh;
-  border-radius: 2vh;
+  height: 8vh;
+  margin-left: 1vh;
+  border-radius: 0.5rem;
 }
 .search-title{
   margin: 2vh;
->>>>>>> 028b1a7954e6ce5ab4d2de43dc2aa507027496e4
 }
 @font-face {
     font-family: 'roboto_condensed';
