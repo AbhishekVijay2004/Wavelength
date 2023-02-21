@@ -257,7 +257,7 @@
   border-radius: 2vh;
   margin-top: 2vh;
   background-color: var(--background-highlight-2);
-  opacity: 0.5;
+  opacity: 0.9;
   overflow: hidden;
   transition: all 0.25s;
 }
