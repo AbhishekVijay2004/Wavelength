@@ -12,38 +12,38 @@ def connectdb():
 	cursor = db.cursor()
 	return db, cursor
 
-def create_table_users(cursor):
+
+def create_table_users():
+	global cursor
 	sql = """
 		CREATE TABLE users (
-			userID INT NOT NULL PRIMARY KEY,
-			username VARCHAR(40),
-			password VARCHAR(40),
+			userID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+			username VARCHAR(40) NOT NULL,
+			password VARCHAR(40) NOT NULL,
 			profilePic VARCHAR(60),
 			url VARCHAR(60),
-			followerCount INT,
-			followingCount INT,
-			spotifyID INT
-		)"""
+			spotifyID int
+			)"""
 	cursor.execute(sql)
-	print('users table created')
+	print('Users table created')
 
-def create_table_posts(cursor):
+def create_table_posts():
+	global cursor
 	sql = """
 		CREATE TABLE posts (
-			postID INT NOT NULL PRIMARY KEY,
+			postID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 			createdAt DATETIME,
 			postText VARCHAR(500),
-			profilePic VARCHAR(60),
 			postContent VARCHAR(60),
-			user_id INT,
-			likes INT,
-			FOREIGN KEY(user_id) REFERENCES users(userID)
+			userID INT,
+			FOREIGN KEY(userID) REFERENCES users(userID)
 			)"""
 	cursor.execute(sql)
 	print('posts table created')
 
 #creating like table for normalisation
-def create_table_like(cursor):
+def create_table_like():
+	global cursor
 	sql = """
 		CREATE TABLE likes (
 			postID INT NOT NULL,
@@ -59,10 +59,11 @@ def create_table_like(cursor):
 #comment table
 # primary key oof comment id as user could comment multiple times
 # has postID and userID as foreigns for joins
-def create_table_comments(cursor):
+def create_table_comments():
+	global cursor
 	sql = """
 		CREATE TABLE comments(
-			commentID INT NOT NULL,
+			commentID INT AUTO_INCREMENT NOT NULL,
 			postID INT NOT NULL,
 			userID INT NOT NULL,
 			commentText VARCHAR(200),
@@ -73,15 +74,38 @@ def create_table_comments(cursor):
 	cursor.execute(sql)
 	print('added comments table')
 
+def create_table_following():
+	global cursor
+	sql = """
+		CREATE TABLE following(
+			userID INT NOT NULL,
+			followerID INT NOT NULL,
+			PRIMARY KEY(userID, followerID),
+			FOREIGN KEY(userID) REFERENCES users(userID),
+			FOREIGN KEY (followerID) REFERENCES users(userID)
+			)"""
+	cursor.execute(sql)
+	print('added following table')
 
+
+def drop_all():
+	global cursor
+	for table in ['comments', 'likes', 'posts', 'users', 'following']:
+		try:
+			cursor.execute(f'DROP TABLE {table}')
+		except:
+			print("table doesn't exist")
+	print('tables dropped')
 
 db, cursor = connectdb()
-create_table_users(cursor)
-create_table_posts(cursor)
-create_table_like(cursor)
+drop_all()
 
+create_table_users()
+create_table_posts()
+create_table_like()
+create_table_comments()
+create_table_following()
 
-create_table_comments(cursor)
 
 db.commit()
 db.close()
