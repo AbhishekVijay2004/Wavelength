@@ -59,16 +59,21 @@ const getRandomColor = () => {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
-		<div class = "song-display-container">
-			<div class="album-cover">
-	          <img src="{{album_cover}}" class="cover-image">
-	        </div>
-	        <div class="song-info">
-	          <h2 class="song-title">{{song_title}}</h2>
-	          <h2 class="artist">{{song_artist}}</h2>
-	        </div>
-	        <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
-		</div>
+			<div class="spcontainer">
+				<div class="spplayer">
+			    <div class="spblurrer">
+			      <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+			    </div>
+			  </div>
+			  <div class="spsongInfo">
+			    <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+			    <div class="spitem spsongDetails">
+			      <div class="spsongTitle">Matadora</div>
+			      <div class="spartistTitle">Sofi Tukker</div>
+			    </div>
+			    <div class="spitem spmp3player">▷</div>
+			    </div>
+			  </div>
 	  	<div id="text" class="text">
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
 	  		<br><br>
