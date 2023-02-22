@@ -1,0 +1,310 @@
+:root{
+  --primary-colour: #B64CFF;
+  --primary-highlight-1: #CE85FF;
+  --primary-highlight-2: #DEADFF;
+  --background-colour: #1E1E1E;
+  --background-highlight-1: #333333;
+  --background-highlight-2: #474747;
+  --text-colour: #FFFFFF;
+  background: var(--background-colour);
+  font-family: "roboto_condensed";
+  color: var(--primary-colour);
+  font-weight: 300;
+}
+.flex-break{
+  flex-basis: 100%;
+  height: 0;
+}
+.bar-left{
+  border-right: 0.5vw solid var(--primary-colour);
+  box-sizing: border-box;
+  width: 25vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: center;
+  padding: 1vw;
+}
+.logo-left-container{
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#logo-left{
+  background-color: var(--primary-colour);
+  background-image:
+    linear-gradient(
+        135deg,
+        var(--primary-colour) 25%,
+        var(--primary-highlight-2) 40%,
+        var(--primary-colour)
+      );
+  background-position: 0% 0%;
+  background-size: 400%;
+  max-height: 6vw;
+  transition: all 1s;
+}
+#logo-left:hover{
+  background-position: 100% 100%;
+  transition: all 1s;
+}
+.logo-left-text{
+  font-size: 3vw;
+  margin: 0;
+  font-weight: 300;
+  display: inline;
+  line-height: 6vw;
+  background-image: linear-gradient(135deg, var(--primary-colour) 20%, var(--primary-highlight-2) 40%, var(--primary-colour));
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s;
+}
+.logo-left-text:hover{
+  background-position: 100% 0%;
+  transition: all 1s;
+}
+.left-bar-widget{
+  flex-basis: 50%;
+  height: 3.5vw;
+  background-color: var(--background-highlight-1);
+  border-radius: 2vw;
+  transition: all 0.25s;
+  display: flex;
+  margin-top: 0.5vw;
+  background-image: linear-gradient(to right, var(--background-highlight-1), var(--background-colour));
+}
+.left-bar-widget:hover{
+  flex-basis: 100%;
+  cursor: pointer;
+  background-image: linear-gradient(to right, var(--background-highlight-1), var(--primary-colour));
+  transition: all 0.25s;
+}
+.left-bar-widget:hover .widget-text{
+  color: var(--primary-highlight-1);
+  transition: all 0.25s;
+}
+.widget-icon{
+  width: 3.5vw;
+  height: 3.5vw;
+  float: left;
+  object-fit: contain;
+  margin-right: 1vw;
+  border-radius: 2vw;
+  transition: all 0.25s;
+}
+.widget-text{
+  line-height: 3.5vw;
+  margin: 0;
+  margin-right: 1vw;
+  font-size: 2.5vw;
+  transition: all 0.25s;
+}
+.bar-right{
+  border-left: 0.5vw solid var(--primary-colour);
+  box-sizing: border-box;
+  width: 25vw;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+#logo{
+  max-height: 7.5vw;
+}
+.logo-text{
+  font-size: 5vw;
+  margin: 0;
+  font-weight: 300;
+  display: inline;
+  line-height: 6vw;
+  background-image: linear-gradient(135deg, var(--primary-colour) 20%, var(--primary-highlight-2) 40%, var(--primary-colour));
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s;
+}
+.logo-text:hover{
+  background-position: 100% 0%;
+  transition: all 1s;
+}
+.single-line-text-entry {
+  width: 20vw;
+  height: 3vh;
+  text-align: left;
+  color: var(--text-colour);
+  background-color: var(--background-colour);
+  border-radius: 0.25rem;
+  border: 0.15vw solid var(--background-colour);
+}
+.single-line-text-entry:focus{
+  outline: none;
+  border: 0.15vw solid var(--primary-highlight-1);
+}
+.multi-line-text-entry {
+  width: 30vw;
+  height: 20vh;
+  text-align: left;
+  color: var(--text-colour);
+  background-color: var(--background-colour);
+  border-radius: 0.25rem;
+  border: 0.15vw solid var(--background-colour);
+  resize: none;
+}
+.multi-line-text-entry:focus{
+  outline: none;
+  border: 0.15vw solid var(--primary-highlight-1);
+  placeholder: "";
+}
+.button {
+  display: inline-block;
+  padding: 0.5vh 2vw;
+  margin: 2vh 0.5vw;
+  font-weight: 300;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: lightgrey;
+  background-color: var(--background-colour);
+  border: solid 0.15rem var(--primary-colour);
+  border-radius: 0.75rem;
+}
+.button:active {
+  color: white;
+  border-color: var(--primary-highlight-2);
+  transform: translateY(0.25vh);
+}
+.clsScroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 48vw;
+  height: 98vh;
+}
+#hideScroll::-webkit-scrollbar {
+    display: none;
+}
+.main-content{
+  background-color: var(--background-highlight-1);
+  position: fixed;
+  text-align: center;
+  border-radius: 1rem;
+  width: 48vw;
+  height: 98vh;
+  left: 26vw;
+}
+.content-title{
+  background-image: linear-gradient(135deg, var(--primary-colour) 20%, var(--primary-highlight-2) 40%, var(--primary-colour));
+  background-size: 80% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3vw;
+  font-weight: 400;
+  width: 100%;
+}
+.song-display-container{
+  width: 90%;
+  margin: auto;
+  height: 8vw;
+  display: flex;
+  background-color: var(--background-highlight-2);
+  border-radius: 1vw;
+  align-items: center;
+}
+.song-info{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  max-width: fit-content;
+}
+.album-cover{
+  margin-left: 1vw;
+}
+.cover-image{
+  width: 6vw;
+  height: 6vw;
+  border-radius: 1vw;
+}
+.song-title{
+  color: var(--text-colour);
+  font-size: 2vw;
+  text-align: left;
+  margin: 0 0 0 1vw;
+}
+.artist{
+  color: var(--text-colour);
+  font-size: 1.5vw;
+  text-align: left;
+  margin: 0 0 0 1vw;
+}
+.song-player{
+  width: 30vw;
+  height: 3vw;
+  margin-right: 1vw;
+}
+#search-container{
+  display: inline-block;
+  height: 0vh;
+  width: 80%;
+  border-radius: 1rem;
+  margin-top: 2vh;
+  background-color: rgb(30, 30, 30, 0.6);
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.search-result{
+  width: 95%;
+  height: 10vh;
+  margin: auto;
+  margin-bottom: 2vh;
+  margin-top: 0;
+  border-radius: 0.75rem;
+  background-color: rgb(51, 51, 51);
+  color: var(--text-colour);
+  display: flex;
+  align-items: center;
+}
+.search-image{
+  height: 8vh;
+  margin-left: 1vh;
+  border-radius: 0.5rem;
+}
+.search-title{
+  margin: 2vh;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-regular-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-light-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff2') format('woff2'),
+         url('fonts/roboto_condensed/robotocondensed-lightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}

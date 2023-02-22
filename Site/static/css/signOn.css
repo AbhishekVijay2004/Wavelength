@@ -1,0 +1,19 @@
+.content-signOn {
+  color: white;
+  font-size: 1.5vw;
+  position: fixed;
+  text-align: center;
+  border-radius: 1rem;
+  border: none 0.1rem var(--primary-colour);
+  width: 50vw;
+  left: 25vw;
+  top: 15vh;
+}
+.single-line-text-entry {
+  margin-top: 2vh !important;
+  margin-bottom: 2vh !important;
+  text-align: center !important;
+  color: white !important;
+  border-radius: 0.75rem !important;
+  border: 0.15vw solid var(--primary-colour) !important;
+}
