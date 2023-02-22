@@ -6,14 +6,14 @@
     <meta name="description" content="Music brings us closer.">
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/signOn.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/signOn.css')}}">
   </head>
   <body>
   	<div class="content-signOn">
   		<br>
   		<center>
-  			<img id="logo" src="media/icons/logo-white-cropped-notext.png">
+  			<img id="logo" src="{{url_for('static', filename = 'media/icons/logo-white-cropped-notext.png')}}">
   		</center>
   		<p class="logo-text">Wavelength</p>
   		<br>
@@ -23,8 +23,13 @@
       <br>
       <input class="single-line-text-entry" type="text" placeholder="Repeat Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
       <br>
-      <button class="button" onclick="LoadPage('index.html')">Register</button>
+      <button class="button" onclick="navigateToHomePage()">Register</button>
+      <script>
+        function navigateToHomePage() {
+            window.location.href = "{{ url_for('home') }}";
+        }
+      </script>
   	</div>
-  	<script type="text/javascript" src="js/homepage-buttons.js"></script>
+  	<script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
   </body>
 </html>
