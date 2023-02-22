@@ -1,0 +1,89 @@
+.repeating-image {
+  width:200%;
+  height:200%;
+  background-size:contain;
+  background-repeat: repeat;
+  background-position:0px 0px;
+  position: relative;
+  right:50%;
+  bottom:50%;
+}
+.blurrer {
+  filter: blur(100px);
+  width:100%;
+  height:100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.text{ 
+  flex-grow: 1;
+  flex-shrink: 1;
+  color:white;
+}
+.contain{
+  position:absolute;
+  top:50%;
+  transform:translate(0,-50%);
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+}
+
+.player {
+  position:absolute;
+  width:90%;
+  height:20vw;
+  background-color:grey;
+  border-radius:10px;
+  overflow:hidden;
+}
+.songInfo{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction:row;
+  position:absolute;
+  width:90%;
+  height:20vw;
+  border-radius:10px;
+  overflow:hidden;
+   user-select: none;
+
+}
+
+.item {
+  flex: 2;
+  margin: 0 10px;
+}
+
+.albumImage {
+  flex: 0 0 auto;  
+  aspect-ratio : 1;
+  height:90%;
+  background-size: 100%;
+  border-radius:10px;
+}
+
+.songDetails {
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  flex-direction:column;
+}
+
+.songTitle{
+  color:black;
+  font-size:5vw;
+}
+
+.artistTitle{
+  color:black;
+  font-size:3vw;
+}
+
+.mp3player {
+  flex: 1;
+  font-size:10vw;
+}
