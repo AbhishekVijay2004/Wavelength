@@ -1,12 +1,4 @@
-    setTimeout(replacePosts, 2000);
-    function replacePosts () {
-    	//container.removeChild(container.childNodes[0]);
-        container.replaceChild(loadPost(),container.childNodes[3])
-        container.replaceChild(loadPost(),container.childNodes[4])
-        loadMedia();
-    }
-    function loadMedia (){
-        const audioPlayer = document.getElementById('audio-player');
+const audioPlayer = document.getElementById('audio-player');
 const playPauseBtn = document.getElementById('spplay-pause-btn');
 const progress = document.getElementById('spsongCircle');
 
@@ -39,6 +31,3 @@ audioPlayer.addEventListener('timeupdate', function() {
   clipPath= `polygon(50% 50%, 50% 0, 100% 0 , 100% 100%, 0 100%, 0 0, ${((degreesComplete-315)/45*50)}% 0)`;    
   }
 });
-
-
-    }

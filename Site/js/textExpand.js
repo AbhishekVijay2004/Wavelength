@@ -3,7 +3,7 @@
 	window.addEventListener('load', onResizeOrLoad);
 
 	function clickOnText() {
-		let elmnt = this.getElementsByClassName('text')[0];
+		let elmnt = this;
 		let i = arrayOfPosts.indexOf(this);
 	    if (elmnt.scrollHeight > 150) {
 		    expandedPosts[i] = !expandedPosts[i];

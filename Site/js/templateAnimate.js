@@ -60,20 +60,24 @@ const getRandomColor = () => {
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<div class="spcontainer">
-				<div class="spplayer">
-			    <div class="spblurrer">
-			      <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
-			    </div>
-			  </div>
-			  <div class="spsongInfo">
-			    <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
-			    <div class="spitem spsongDetails">
-			      <div class="spsongTitle">Matadora</div>
-			      <div class="spartistTitle">Sofi Tukker</div>
-			    </div>
-			    <div class="spitem spmp3player">▷</div>
-			    </div>
-			  </div>
+	<div class="spplayer">
+    <div class="spblurrer">
+      <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+    </div>
+  </div>
+  <div class="spsongInfo">
+    <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+    <div class="spitem spsongDetails">
+      <div class="spsongTitle">Matadora</div>
+      <div class="spartistTitle">Sofi Tukker</div>
+    </div>
+    <div id="spcontainer">    
+      <audio id="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+      <div id="spsongCircle"></div>
+    <button id="spplay-pause-btn"></button>
+  </div>
+    </div>
+  </div>
 	  	<div id="text" class="text">
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
 	  		<br><br>
@@ -86,8 +90,10 @@ const getRandomColor = () => {
 	`;
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
-		postElement.addEventListener('click', clickOnText);
-
+		console.log();
+		const textBit = postElement.querySelector('.text');
+		textBit.addEventListener('click', clickOnText);
+		
 		return (postElement);
 	} //returns a post
 	function breatheColour() {
