@@ -75,4 +75,8 @@ def play_song():
     results = sp.search(q=song_name, type='track', limit=1, market='GB')
     track = results['tracks']['items'][0]
     preview_url = track['preview_url']
+<<<<<<< HEAD
     return render_template('index.html', song_preview = preview_url)'''
+=======
+    return render_template('index.html', song_preview = preview_url)'''
+>>>>>>> zak

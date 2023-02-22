@@ -92,9 +92,12 @@ input:checked + .setting-slider:before{
   background-position: center;
   border: 0.25vw solid var(--primary-colour);
 }
+<<<<<<< HEAD
 .button {
   padding: 1.7vh 2vw !important;
   margin: 0 0 0 0 !important;
   border-radius: 1rem;
 
 }
+=======
+>>>>>>> zak
