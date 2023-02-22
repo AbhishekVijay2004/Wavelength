@@ -138,14 +138,6 @@ def alter_user(userID, key, value):
 
 
 db, cursor = connectdb()
-create_user('matt', 'hello')
-create_user('milly', 'useless', spotifyID=10)
-create_post(1, postText='What a song', postContent='professor X')
-create_post(2, postText='banger', postContent='starships')
-add_follow(1, 2)
-add_follow(2, 1)
-add_like(1, 1)
-add_comment(1, 1, 'tune')
 
 
 db.commit()
