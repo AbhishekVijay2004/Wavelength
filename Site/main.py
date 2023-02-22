@@ -52,13 +52,13 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        session["username"] = username 
+        session["username"] = username
 
         print(username, password)
-    
+
     return redirect(url_for('home'))
 
-@app.route('logout', methods = ['GET', 'POST'] )
+@app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
