@@ -96,5 +96,4 @@ input:checked + .setting-slider:before{
   padding: 1.7vh 2vw !important;
   margin: 0 0 0 0 !important;
   border-radius: 1rem;
-
 }

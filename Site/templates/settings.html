@@ -6,75 +6,90 @@
     <meta name="description" content="Music brings us closer.">
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/settings.css')}}">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/settings.css">
   </head>
   <body>
     <div class="bar-left">
       <div class="logo-left-container">
-        <img id="logo-left" src="{{url_for('static', filename = 'media/icons/logo-transparent-cropped-notext.png')}}">
+        <img id="logo-left" src="media/icons/logo-transparent-cropped-notext.png">
         <p class="logo-left-text">Wavelength</p>
       </div>
       <div class="flex-break"></div>
-      <div class="left-bar-widget" onclick="navigateToHomePage()">
-        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/home-icon-transparent.png')}}">
+      <div class="left-bar-widget" onclick="LoadPage('index.html')">
+        <img class="widget-icon" src="media/icons/home-icon-transparent.png">
         <p class="widget-text">Home</p>
       </div>
-      <div class="left-bar-widget" onclick="navigateToPostPage()">
-        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/new-post-icon-transparent.png')}}">
+      <div class="left-bar-widget" onclick="LoadPage('newPost.html')">
+        <img class="widget-icon" src="media/icons/new-post-icon-transparent.png">
         <p class="widget-text">Post</p>
       </div>
-      <div class="left-bar-widget" onclick="navigateToFriendsPage()">
-        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/friends-icon-transparent.png')}}">
+      <div class="left-bar-widget" onclick="LoadPage('friends.html')">
+        <img class="widget-icon" src="media/icons/friends-icon-transparent.png">
         <p class="widget-text">Friends</p>
       </div>
-      <div class="left-bar-widget" onclick="navigateToProfilePage()">
-        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/profile-icon-transparent.png')}}">
+      <div class="left-bar-widget" onclick="LoadPage('profile.html')">
+        <img class="widget-icon" src="media/icons/profile-icon-transparent.png">
         <p class="widget-text">Profile</p>
       </div>
-      <div class="left-bar-widget" onclick="navigateToSettingsPage()">
-        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/settings-icon-transparent.png')}}">
+      <div class="left-bar-widget" onclick="LoadPage('settings.html')">
+        <img class="widget-icon" src="media/icons/settings-icon-transparent.png">
         <p class="widget-text">Settings</p>
       </div>
-      <script>
-        function navigateToHomePage() {
-            window.location.href = "{{ url_for('home') }}";
-        }
-
-        function navigateToProfilePage() {
-            window.location.href = "{{ url_for('profile') }}";
-        }
-
-        function navigateToFriendsPage() {
-            window.location.href = "{{ url_for('friends') }}";
-        }
-
-        function navigateToSettingsPage() {
-            window.location.href = "{{ url_for('settings') }}";
-        }
-
-        function navigateToPostPage() {
-            window.location.href = "{{ url_for('post') }}";
-        } 
-      </script>
     </div>
-    <div class="main-content">
-      <center><h1 class="content-title">Settings</h1></center>
+    <div class="main-content clsScroll" id="hideScroll">
       <div class="settings-container">
+        <h1 class="content-title">General</h1>
         <div class="setting">
-          <h2 class="setting-label">
-            Dark Mode:
-          </h2>
+          <h2 class="setting-label">Dark Mode:</h2>
           <label class="setting-switch">
-          <input type="checkbox" checked onclick="SwitchMode()">
+            <input type="checkbox" checked onclick="SwitchMode()">
             <span class="setting-slider"></span>
           </label>
+          <h2 class="setting-label">Log Out:</h2>
+          <label class="setting-switch">
+            <button class="button" onclick="LoadPage('signIn.html')"></button>
+          </label>
+        </div>
+        <h1 class="content-title">Profile Settings</h1>
+        <div class="setting">
+          <h2 class="setting-label">Username:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{username}}'">
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Display Name:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{display_name}}'">
+        </div>
+        <div class="setting" style="align-items:flex-start;">
+          <h2 class="setting-label">Bio:</h2>
+          <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 10vh;"></textarea>
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Profile Picture:</h2>
+          <label class="profile-picture-setting">
+            <input type="file" accept="image/png, image/jpeg">
+            <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+          </label>
+        </div>
+        <div class="setting">
+          <h2 class="setting-label">Top Song:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search for a song...'">
+        </div>
+        <div class="song-display-container">
+          <div class="album-cover">
+            <img src="{{album_cover}}" class="cover-image">
+          </div>
+          <div class="song-info">
+            <h2 class="song-title">{{song_title}}</h2>
+            <h2 class="artist">{{song_artist}}</h2>
+          </div>
+          <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
         </div>
       </div>
     </div>
     <div class="bar-right">
     </div>
-    <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
+    <script type="text/javascript" src="js/homepage-buttons.js"></script>
+    <script type="text/javascript" src="js/light-dark-switch.js"></script>
   </body>
 </html>
