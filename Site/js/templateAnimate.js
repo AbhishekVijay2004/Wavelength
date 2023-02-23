@@ -59,25 +59,28 @@ const getRandomColor = () => {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
-			<div class="spcontainer">
-	<div class="spplayer">
-    <div class="spblurrer">
-      <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+			<!-- ------------------- song player --------------- -->
+      <div class="spcontainer">
+    <div class="spplayer">
+      <div class="spblurrer">
+        <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+      </div>
     </div>
-  </div>
-  <div class="spsongInfo">
-    <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
-    <div class="spitem spsongDetails">
-      <div class="spsongTitle">Matadora</div>
-      <div class="spartistTitle">Sofi Tukker</div>
+    <div class="spsongInfo">
+      <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+      <div class="spitem spsongDetails">
+        <div class="spsongTitle">Matadora</div>
+        <div class="spartistTitle">Sofi Tukker</div>
+      </div>
+      <div id="spAudiocontainer">    
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <div class="spsongCircle"></div>
+      <button class="spplay-pause-btn"></button>
+      </div>
     </div>
-    <div id="spcontainer">    
-      <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
-      <div class="spsongCircle"></div>
-    <button class="spplay-pause-btn"></button>
-  </div>
-    </div>
-  </div>
+  </div> 
+
+      <!-- ------------------- end of song player --------------- --> 
 	  	<div id="text" class="text">
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
 	  		<br><br>
@@ -106,28 +109,33 @@ const getRandomColor = () => {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
-			<div class="spcontainer">
-	<div class="spplayer">
-    <div class="spblurrer">
-      <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595')"></div>  
+			<!-- ------------------- song player --------------- -->
+      <div class="spcontainer">
+    <div class="spplayer">
+      <div class="spblurrer">
+        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595')"></div>  
+      </div>
     </div>
-  </div>
-  <div class="spsongInfo">
-    <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595');"></div>
-    <div class="spitem spsongDetails">
-      <div class="spsongTitle">Californication (Deluxe Edition)</div>
-      <div class="spartistTitle">Red Hot Chili Peppers</div>
+    <div class="spsongInfo">
+      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595');"></div>
+      <div class="spitem spsongDetails">
+        <div class="spsongTitle">Californication (Deluxe Edition)</div>
+        <div class="spartistTitle">Red Hot Chilli Peppers</div>
+      </div>
+      <div id="spAudiocontainer">    
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/9acb29dd77bbaa50e13e655b68ef5c0a99549a38?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <div class="spsongCircle"></div>
+      <button class="spplay-pause-btn"></button>
+      </div>
     </div>
-    <div id="spcontainer">    
-      <audio class="audio-player" src="https://p.scdn.co/mp3-preview/9acb29dd77bbaa50e13e655b68ef5c0a99549a38?cid=774b29d4f13844c495f206cafdad9c86"></audio>
-      <div class="spsongCircle"></div>
-    <button class="spplay-pause-btn"></button>
-  </div>
-    </div>
-  </div>
+  </div> 
+
+      <!-- ------------------- end of song player --------------- --> 
 	  	<div id="text" class="text">
 	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
-	  	</div>
+	  		<br><br>
+				Donec quis ultrices nibh. Fusce blandit mi ut ex ultrices, vitae pellentesque lorem finibus. Integer iaculis varius fermentum. Mauris a urna nibh. Nullam efficitur pretium eros nec gravida. Pellentesque sodales ex dolor, sit amet pharetra leo porta at. Quisque molestie mollis enim, et rhoncus dui imperdiet at. Maecenas commodo ligula eu elit bibendum auctor. Cras ultrices accumsan varius. Aliquam erat volutpat. Morbi mattis lacus vitae est posuere pellentesque. Vivamus egestas quis mauris a efficitur. Nulla fringilla nulla ligula, luctus interdum quam congue ut. Nulla et mauris eget urna consequat euismod ut eu metus. Nullam a mollis massa.
+		</div>
 		<div class = "footer">
 				<div class = "reactions">😎👀🤗</div>
 				<div class = "comments">Comments</div>
@@ -160,12 +168,15 @@ const getRandomColor = () => {
 
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
 			arrayOfPlaceholders[i].getElementsByClassName('spotifyTemplate')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
-		  	arrayOfPlaceholders[i].getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
-			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, "#242526");
+	  	arrayOfPlaceholders[i].getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
+	  	const backgrColor = getComputedStyle(document.documentElement).getPropertyValue('--background-highlight-1');
+			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, backgrColor);
 		}
 
 	    setTimeout(breatheColour, 20);
 	} //changes the colours of the templates to add a loading animation
+
+
 
 	const container = document.getElementsByClassName('clsScroll')[0];
     var spotifyColours = [];

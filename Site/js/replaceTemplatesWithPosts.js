@@ -27,7 +27,6 @@ function playPauseClick() {
 
 function audioTimeUpdate() {
   let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode);
-  console.log(i);
   const audioPlayer = document.getElementsByClassName('audio-player')[i]
   const progress = document.getElementsByClassName('spsongCircle')[i];
 

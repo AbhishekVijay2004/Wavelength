@@ -10,33 +10,26 @@ display: flex;
 gap: 1rem;
 padding: 1rem;
 flex-direction: column;
-background-color:black;
 border-radius: 20px;
-background-color: #242526;
-min-height: 450px;
 margin-bottom: 50px;
 }
 .spotifyTemplate {
-flex: 1;
-border-radius: 10px;
-flex-basis: auto;
-background-color: lightgray;
-padding: 16px;
+width: 100%;
+margin: auto;
+height: 10vw;
 display: flex;
-justify-content: space-between;
-flex-direction: column;
+border-radius: 1vw;
+align-items: center;
 }
 .photoTemplate {
-border-radius: 10px;
-flex-basis: auto;
-flex: 1;
-background-color: black;
-min-height: 45px;
-max-width: 120px;
+width: 8vw;
+height: 8vw;
+border-radius: 1vw;
+margin-left: 1vw;
 }
 .textTemplate {
 flex: 3;
-height: 250px;
+height: 150px;
 }
 .footerTemplate {
 flex: 0;
@@ -48,15 +41,15 @@ height: 10px;
 .reactionsTemplate{
 border-radius: 10px;
 flex-basis: auto;
-background-color: #808080;
-color:#808080;
+background-color: var(--background-highlight-2);
+color:var(--background-highlight-2);
 user-select: none;
 }
 .commentsTemplate{
 border-radius: 10px;
 flex-basis: auto;
-background-color: #D3D3D3;
-color:#D3D3D3;
+background-color: var(--background-highlight-3);
+color:var(--background-highlight-3);
 user-select: none;
 }
 
@@ -66,12 +59,9 @@ user-select: none;
 display: flex;
 gap: 1rem;
 padding: 1rem;
-
 flex-direction: column;
-background-color:black;
+background-color:var(--background-highlight-1);
 border-radius: 20px;
-background-color: #242526;
-min-height: 450px;
 margin-bottom: 50px;
 }
 .spotify {
@@ -79,14 +69,15 @@ flex-basis: auto;
 flex: 0;
 }
 .text {
-min-height: 250px;
-max-height: 250px;
+min-height: 150px;
+max-height: 150px;
 overflow: hidden;
 cursor: pointer;
 transition: max-height 0.2s ease-out;
 flex: 1;
 align-content: left; 
-color: lightgray;
+text-align: left;
+color: var(--text-colour);
 -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
 }
 .footer {
@@ -98,5 +89,6 @@ flex: 1;
 .reactions{
 }
 .comments{
-color: gray;
+color: var(--text-colour);
+
 }

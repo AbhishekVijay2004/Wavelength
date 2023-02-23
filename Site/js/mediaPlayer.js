@@ -1,4 +1,4 @@
-const audioPlayer = document.getElementsById('audio-player');
+const audioPlayer = document.getElementsByClassName('audio-player')[0];
 const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
 const progress = document.getElementsByClassName('spsongCircle')[0];
 

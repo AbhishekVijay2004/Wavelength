@@ -18,7 +18,6 @@
 .sptext{ 
   flex-grow: 1;
   flex-shrink: 1;
-  color:white;
 }
 .spcontainer{
   width: 100%;
@@ -41,7 +40,6 @@
   left:0;
   width:100%;
   height:10vw;
-  background-color:grey;
   border-radius:10px;
   overflow:hidden;
 }
@@ -80,20 +78,51 @@
 }
 
 .spsongTitle{
-  color:white;
+  color:var(--text-colour);
   text-align:left ;
   font-size:2.5vw;
   max-width: 20vw;
 }
 
 .spartistTitle{
-  color:white;
+  color:var(--text-colour);
   text-align:left ;
   font-size:1.5vw;
 }
 
-.spmp3player {
-  flex: 1;
-  color:white;
-  font-size:5vw;
+#spAudiocontainer {
+  height:90%;
+  transform: translateX(-5vw);
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+.spplay-pause-btn {
+  position:absolute;
+  height: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  transition: background-size 0.1s;
+
+  background-size: 60%;
+}
+.spplay-pause-btn.playing {
+  background-size: 90%;
+}
+.spsongCircle {
+  position:absolute;
+height: 100%;
+  aspect-ratio: 1;
+border-radius: 50%;
+background-color: purple;
+clip-path: polygon(0 0);
+}
+
