@@ -2,25 +2,35 @@
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);
         container.replaceChild(loadPost(),container.childNodes[3])
-        container.replaceChild(loadPost(),container.childNodes[4])
-        loadMedia();
+        container.replaceChild(loadPostTwo(),container.childNodes[4])
     }
-    function loadMedia (){
-        const audioPlayer = document.getElementById('audio-player');
-const playPauseBtn = document.getElementById('spplay-pause-btn');
-const progress = document.getElementById('spsongCircle');
 
-playPauseBtn.addEventListener('click', function() {
-  if (audioPlayer.paused) {
-    audioPlayer.play();
-    playPauseBtn.classList.add('playing');
+function playPauseClick() {
+
+  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode);
+  const audioPlayer = document.getElementsByClassName('audio-player');
+  const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
+  
+
+  if (audioPlayer[i].paused) {
+    for (let index = 0; index < audioPlayer.length; ++index) {
+      audioPlayer[index].pause()
+      playPauseBtn[index].classList.remove('playing');
+    }
+    audioPlayer[i].play();
+    playPauseBtn[i].classList.add('playing');
   } else {
-    audioPlayer.pause();
-    playPauseBtn.classList.remove('playing');
+    audioPlayer[i].pause();
+    playPauseBtn[i].classList.remove('playing');
   }
-});
+}
 
-audioPlayer.addEventListener('timeupdate', function() {
+function audioTimeUpdate() {
+  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode);
+  console.log(i);
+  const audioPlayer = document.getElementsByClassName('audio-player')[i]
+  const progress = document.getElementsByClassName('spsongCircle')[i];
+
   const degreesComplete = audioPlayer.currentTime / audioPlayer.duration * 360;
   if (degreesComplete <= 45) {
     progress.style.
@@ -38,7 +48,4 @@ audioPlayer.addEventListener('timeupdate', function() {
     progress.style.
   clipPath= `polygon(50% 50%, 50% 0, 100% 0 , 100% 100%, 0 100%, 0 0, ${((degreesComplete-315)/45*50)}% 0)`;    
   }
-});
-
-
-    }
+}

@@ -72,9 +72,9 @@ const getRandomColor = () => {
       <div class="spartistTitle">Sofi Tukker</div>
     </div>
     <div id="spcontainer">    
-      <audio id="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
-      <div id="spsongCircle"></div>
-    <button id="spplay-pause-btn"></button>
+      <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+      <div class="spsongCircle"></div>
+    <button class="spplay-pause-btn"></button>
   </div>
     </div>
   </div>
@@ -93,9 +93,61 @@ const getRandomColor = () => {
 		console.log();
 		const textBit = postElement.querySelector('.text');
 		textBit.addEventListener('click', clickOnText);
+
+		const audio = postElement.querySelector('.audio-player');
+		audio.addEventListener('timeupdate', audioTimeUpdate);
+		const playbutton = postElement.querySelector('.spplay-pause-btn');
+		playbutton.addEventListener('click', playPauseClick);
 		
 		return (postElement);
 	} //returns a post
+
+	function loadPostTwo() {
+		const postElement = document.createElement('div');
+		postElement.classList.add('post');
+		postElement.innerHTML = `
+			<div class="spcontainer">
+	<div class="spplayer">
+    <div class="spblurrer">
+      <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595')"></div>  
+    </div>
+  </div>
+  <div class="spsongInfo">
+    <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595');"></div>
+    <div class="spitem spsongDetails">
+      <div class="spsongTitle">Californication (Deluxe Edition)</div>
+      <div class="spartistTitle">Red Hot Chili Peppers</div>
+    </div>
+    <div id="spcontainer">    
+      <audio class="audio-player" src="https://p.scdn.co/mp3-preview/9acb29dd77bbaa50e13e655b68ef5c0a99549a38?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+      <div class="spsongCircle"></div>
+    <button class="spplay-pause-btn"></button>
+  </div>
+    </div>
+  </div>
+	  	<div id="text" class="text">
+	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
+	  	</div>
+		<div class = "footer">
+				<div class = "reactions">😎👀🤗</div>
+				<div class = "comments">Comments</div>
+		</div>
+	`;
+		arrayOfPosts.push(postElement);
+		expandedPosts.push(false);
+		console.log();
+		const textBit = postElement.querySelector('.text');
+		textBit.addEventListener('click', clickOnText);
+
+		const audio = postElement.querySelector('.audio-player');
+		audio.addEventListener('timeupdate', audioTimeUpdate);
+		const playbutton = postElement.querySelector('.spplay-pause-btn');
+		playbutton.addEventListener('click', playPauseClick);
+		
+		return (postElement);
+	} //returns a (different) post
+
+
 	function breatheColour() {
 		if (pos == 1) {
 			change += 0.01;

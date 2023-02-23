@@ -222,14 +222,14 @@
 
 #spcontainer {
   height:90%;
-  transform: translateX(-8vw);
+  transform: translateX(-5vw);
   position:relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-#spplay-pause-btn {
+.spplay-pause-btn {
   position:absolute;
   height: 80%;
   aspect-ratio: 1;
@@ -241,11 +241,13 @@
   background-position: center;
   background-size: 60%;
   transition: background-size 0.1s;
+
+  background-size: 60%;
 }
-#spplay-pause-btn.playing {
-  background-size: 70%;
+.spplay-pause-btn.playing {
+  background-size: 90%;
 }
-#spsongCircle {
+.spsongCircle {
   position:absolute;
 height: 100%;
   aspect-ratio: 1;

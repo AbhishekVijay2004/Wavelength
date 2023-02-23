@@ -1,6 +1,6 @@
-const audioPlayer = document.getElementById('audio-player');
-const playPauseBtn = document.getElementById('spplay-pause-btn');
-const progress = document.getElementById('spsongCircle');
+const audioPlayer = document.getElementsById('audio-player');
+const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
+const progress = document.getElementsByClassName('spsongCircle')[0];
 
 playPauseBtn.addEventListener('click', function() {
   if (audioPlayer.paused) {
