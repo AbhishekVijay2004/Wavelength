@@ -26,6 +26,6 @@ function SwitchMode(){
   for (var colourType in thisDict){
     document.documentElement.style.setProperty(colourType, thisDict[colourType]);
   }
-  var logoName = "media/icons/logo-transparent-cropped-notext" + (darkMode ? "" : "-light") + ".png";
+  var logoName = "static/media/icons/logo-transparent-cropped-notext" + (darkMode ? "" : "-light") + ".png";
   document.getElementById("logo-left").src = logoName;
 }
