@@ -81,6 +81,13 @@
         </div>
         <h1 class="content-title">Profile Settings</h1>
         <div class="setting">
+          <h2 class="setting-label">Profile Picture:</h2>
+          <label class="profile-picture-setting">
+            <input type="file" accept="image/png, image/jpeg">
+            <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+          </label>
+        </div>
+        <div class="setting">
           <h2 class="setting-label">Username:</h2>
           <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{username}}'">
         </div>
@@ -91,13 +98,6 @@
         <div class="setting" style="align-items:flex-start;">
           <h2 class="setting-label">Bio:</h2>
           <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 6vw;"></textarea>
-        </div>
-        <div class="setting">
-          <h2 class="setting-label">Profile Picture:</h2>
-          <label class="profile-picture-setting">
-            <input type="file" accept="image/png, image/jpeg">
-            <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
-          </label>
         </div>
         <div class="setting">
           <h2 class="setting-label">Top Song:</h2>
