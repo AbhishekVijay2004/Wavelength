@@ -137,7 +137,7 @@
 }
 .single-line-text-entry {
   width: 20vw;
-  height: 3vh;
+  height: 1.5vw;
   text-align: left;
   color: var(--text-colour);
   background-color: var(--background-colour);
@@ -150,7 +150,7 @@
 }
 .multi-line-text-entry {
   width: 30vw;
-  height: 20vh;
+  height: 15vw;
   text-align: left;
   color: var(--text-colour);
   background-color: var(--background-colour);
@@ -165,10 +165,10 @@
 }
 .button {
   display: inline-block;
-  padding: 0.5vh 2vw;
+  padding: 0.3vw 2vw;
   margin: 2vh 0.5vw;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 1vw;
   cursor: pointer;
   text-align: center;
   outline: none;
@@ -279,6 +279,30 @@
 }
 .search-title{
   margin: 2vh;
+}
+.profile-picture-setting{
+  position: relative;
+  display: inline-block;
+  width: 6vw;
+  height: 6vw;
+}
+.profile-picture-setting input{
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.profile-picture-span{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 3vw;
+  cursor: pointer;
+  background-color: var(--primary-colour);
+  background-size: auto 6vw;
+  background-position: center;
+  border: 0.25vw solid var(--primary-colour);
 }
 @font-face {
     font-family: 'roboto_condensed';

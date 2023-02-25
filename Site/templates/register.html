@@ -23,10 +23,10 @@
       <br>
       <input class="single-line-text-entry" type="text" placeholder="Repeat Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
       <br>
-      <button class="button" onclick="navigateToHomePage()">Register</button>
+      <button class="button" onclick="navigateToCreationPage()">Register</button>
       <script>
-        function navigateToHomePage() {
-            window.location.href = "{{ url_for('home') }}";
+        function navigateToCreationPage() {
+            window.location.href = "{{ url_for('creation') }}";
         }
       </script>
   	</div>

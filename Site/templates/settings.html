@@ -72,9 +72,11 @@
             <input type="checkbox" checked onclick="SwitchMode()">
             <span class="setting-slider"></span>
           </label>
+        </div>
+        <div class="setting">
           <h2 class="setting-label">Log Out:</h2>
           <label class="setting-switch">
-            <button class="button" onclick="logout()"></button>
+            <button class="settingButton" onclick="logout()"></button>
           </label>
         </div>
         <h1 class="content-title">Profile Settings</h1>
@@ -88,7 +90,7 @@
         </div>
         <div class="setting" style="align-items:flex-start;">
           <h2 class="setting-label">Bio:</h2>
-          <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 10vh;"></textarea>
+          <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 6vw;"></textarea>
         </div>
         <div class="setting">
           <h2 class="setting-label">Profile Picture:</h2>

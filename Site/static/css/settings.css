@@ -12,7 +12,7 @@ h2{
 }
 .setting{
   margin-left: 2vw;
-  margin-bottom: 2vh;
+  margin-bottom: 1vw;
   width: 30%;
   display: flex;
   align-items: center;
@@ -30,6 +30,7 @@ h2{
   display: inline-block;
   width: 4vw;
   height: 2vw;
+  margin-left: 2vw;
 }
 .setting-switch input{
   opacity: 0;
@@ -68,33 +69,19 @@ input:checked + .setting-slider:before{
   -ms-transform: translateX(2vw);
   transform: translateX(2vw);
 }
-.profile-picture-setting{
+.settingButton {
   position: relative;
   display: inline-block;
-  width: 6vw;
-  height: 6vw;
-}
-.profile-picture-setting input{
-  width: 0;
-  height: 0;
-  opacity: 0;
-}
-.profile-picture-span{
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  border-radius: 3vw;
+  width: 4vw;
+  height: 2vw;
+  margin-left: 1.7vw;
   cursor: pointer;
-  background-color: var(--primary-colour);
-  background-size: auto 6vw;
-  background-position: center;
-  border: 0.25vw solid var(--primary-colour);
-}
-.button {
-  padding: 1.7vh 2vw !important;
-  margin: 0 0 0 0 !important;
+  background-color: var(--background-colour);
+  border: solid 0.15rem var(--primary-colour);
   border-radius: 1rem;
 }
-
+.settingButton:active {
+  color: white;
+  border-color: var(--primary-highlight-2);
+  transform: translateY(0.25vh);
+}

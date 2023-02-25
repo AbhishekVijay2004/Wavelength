@@ -1,19 +1,9 @@
 .content-friends {
   color: white;
 }
-.searchbar {
-  width: 20vw;
-  height: 3vh;
-  text-align: center;
+.single-line-text-entry {
+  text-align: center !important;
   color: white;
-  background-color: var(--background-colour);
-  border-radius: 0.25rem;
-  border: 0.15vw solid var(--background-colour);
-}
-.searchbar:focus{
-  outline: none;
-  border: 0.15vw solid var(--primary-highlight-1);
-  text: none;
 }
 .profile-element {
   background-color: var(--background-highlight-2);
@@ -26,16 +16,16 @@
   width: 42vw;
   display: flex;
   flex-direction: row;
-  margin-top: 2vh;
+  margin-top: 1vw;
   margin-left: 1vw;
   justify-content: space-between;
   align-items: center;
 }
 .profile-image {
-  height: 7vh;
-  width: 7vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  height: 4vw;
+  width: 4vw;
+  margin-top: .5vw;
+  margin-bottom: .5vw;
   background-color: var(--background-highlight-1);
   background-size: cover;
   border: solid;
