@@ -11,27 +11,47 @@
   </head>
   <body>
   	<div class="content-creation">
-
   		<center>
   			<img id="logo" src="{{url_for('static', filename = 'media/icons/logo-white-cropped-notext.png')}}">
   		</center>
   		<p class="logo-text">Wavelength</p>
   		<br>
-
       <div class="fadeRight">
     		<input class="single-line-text-entry" type="text" placeholder="Username or Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username or Email'"></input>
         <br>
         <input class="single-line-text-entry" type="text" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
         <br>
-        <button type = "submit" class="button" onclick="navigateToHomePage()">Continue</button>
+        <button type = "submit" class="button" onclick="navigateToHomePage()">Register</button>
       </div>
-
       <div class="fadeLeft">
-        <div class="profileSettings">
+        <div class="settings-container">
           <h1>Profile Settings</h1>
+          <div class="creation-setting">
+            <h2 class="creation-setting-label">Profile Picture:</h2>
+            <label class="profile-picture-setting">
+              <input type="file" accept="image/png, image/jpeg">
+              <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+            </label>
+          </div>
+          <div class="creation-setting">
+            <h2 class="creation-setting-label">Username:</h2>
+            <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{username}}'">
+          </div>
+          <div class="creation-setting">
+            <h2 class="creation-setting-label">Display Name:</h2>
+            <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{display_name}}'">
+          </div>
+          <div class="creation-setting">
+            <h2 class="creation-setting-label">Bio:</h2>
+            <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 6vw;"></textarea>
+          </div>
+          <div class="creation-setting">
+            <h2 class="creation-setting-label">Top Song:</h2>
+            <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search for a song...'">
+          </div>
+          <button type = "submit" class="button" onclick="navigateToHomePage()">Continue</button>
         </div>
       </div>
-      
   	</div>
   	<script>
         function navigateToHomePage() {
