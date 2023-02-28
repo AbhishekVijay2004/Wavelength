@@ -55,7 +55,7 @@
 
         function navigateToPostPage() {
             window.location.href = "{{ url_for('post') }}";
-        } 
+        }
 
         function logout() {
           window.location.href = "{{ url_for('logout')}}"
@@ -101,7 +101,22 @@
         </div>
         <div class="setting">
           <h2 class="setting-label">Top Song:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search for a song...'">
+          <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Search for a song...';HideSearch()">
+        </div>
+        <div id="search-container">
+          <div style="margin-top:2vh;"></div>
+          <div class="search-result">
+            <img class="search-image" src="media/1989.png">
+            <h2 class="search-title">Blank Space - Taylor Swift</h2>
+          </div>
+          <div class="search-result">
+          </div>
+          <div class="search-result">
+          </div>
+          <div class="search-result">
+          </div>
+          <div class="search-result">
+          </div>
         </div>
         <div class="song-display-container">
           <div class="album-cover">
@@ -118,6 +133,7 @@
     <div class="bar-right">
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
   </body>
 </html>
