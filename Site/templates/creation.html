@@ -7,22 +7,16 @@
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/creation.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/signOn.css')}}">
   </head>
   <body>
-  	<div class="content-creation">
+  	<div class="main-content content-signOn">
+      <br>
   		<center>
   			<img id="logo" src="{{url_for('static', filename = 'media/icons/logo-white-cropped-notext.png')}}">
   		</center>
   		<p class="logo-text">Wavelength</p>
   		<br>
-      <div class="fadeRight">
-    		<input class="single-line-text-entry" type="text" placeholder="Username or Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username or Email'"></input>
-        <br>
-        <input class="single-line-text-entry" type="text" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
-        <br>
-        <button type = "submit" class="button" onclick="navigateToHomePage()">Register</button>
-      </div>
       <div class="fadeLeft">
         <div class="settings-container">
           <h1>Profile Settings</h1>

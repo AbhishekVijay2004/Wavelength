@@ -29,6 +29,7 @@
   background-color: var(--background-highlight-1);
   background-size: cover;
   border: solid;
+  border-width: 0.2vw;
   border-color: var(--primary-highlight-1);
   border-radius: 50%;
   cursor: pointer;
