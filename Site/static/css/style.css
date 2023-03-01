@@ -175,7 +175,7 @@
   outline: none;
   color: lightgrey;
   background-color: var(--background-colour);
-  border: solid 0.15rem var(--primary-colour);
+  border: solid 0.1rem var(--primary-colour);
   border-radius: 0.75rem;
 }
 .button:active {
