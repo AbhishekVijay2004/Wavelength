@@ -11,14 +11,26 @@ def song_searching(query):
     #return the song based on query
     song = sp.search(query, type='track', limit=5, market='GB')
     songs = song['tracks']['items']
-    songs_out = []
+    images = []
+    titles = []
+    artists = []
+    ids = []
     for song in songs:
         album = song['album']
-        name = song['name']
-        id = song['id']
+        titles.append(song['name'])
+        ids.append(song['id'])
         #name of the artist
-        artist = song['artists'][0]['name']
+        artists.append(song['artists'][0]['name'])
         #get 64x64 album image
-        album_image = album['images'][2]['url']
-        songs_out.append({'id': id, 'name': name, 'artist': artist, 'image':album_image})
-    return songs_out
+        images.append(album['images'][2]['url'])
+        # songs_out.append({'id': id, 'name': name, 'artist': artist, 'image':album_image})
+    return images, titles, artists, ids
+
+
+for thing in song_searching('star'):
+    print(thing)
+
+#array of images 
+# array of titles
+# array of artists
+# array of song id

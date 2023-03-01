@@ -67,6 +67,25 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+@app.route('/song', methods=['GET'])
+def search_song(query):
+    #return the song based on query
+    song = sp.search(query, type='track', limit=5, market='GB')
+    songs = song['tracks']['items']
+    images = []
+    titles = []
+    artists = []
+    ids = []
+    for song in songs:
+        album = song['album']
+        titles.append(song['name'])
+        ids.append(song['id'])
+        #name of the artist
+        artists.append(song['artists'][0]['name'])
+        #get 64x64 album image
+        images.append(album['images'][2]['url'])
+    return render_template('newPost.html', images=images, titles=titles, artists=artists, ids=ids)
+
 if __name__ == '__main__':
     app.run(debug = True)
 

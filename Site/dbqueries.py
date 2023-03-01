@@ -54,11 +54,76 @@ def list_user_posts(userid):
 	sql = """
 		SELECT * FROM posts
 		WHERE (userID = %s)"""
-	cursor.execute(sql, (postid, ))
+	cursor.execute(sql, (userid, ))
 	result = cursor.fetchall()
 	return result
 
+def get_num_likes(postid, like='like'):
+	# get num likes or dislikes depending on parameter passed
+	global cursor
+	sql = """
+		SELECT SUM(postID) FROM likes
+		WHERE (type = %s AND postID = %s)"""
+	cursor.execute(sql, (like, postid))
+	result = cursor.fetchone()
+	return result[0]
+
+
+def get_like_accounts(postid, like='like'):
+	global cursor
+	sql = """
+		SELECT userID FROM likes
+		WHERE (type=%s AND postID = %s)"""
+	cursor.execute(sql, (like, postid))
+	results = cursor.fetchall()
+	# change into list of userIDs
+	accounts = [result[0] for result in results]
+	return accounts
+
+def get_num_following(userid):
+	global cursor
+	sql = """
+		SELECT SUM(userID) FROM following
+		WHERE (followerID = %s)"""
+	cursor.execute(sql, (userid, ))
+	results = cursor.fetchone()
+	return results[0]
+
+def get_following_accounts(userid):
+	global cursor
+	sql = """
+		SELECT userID FROM following
+		WHERE (followerID = %s)"""
+	cursor.execute(sql, (userid, ))
+	results = cursor.fetchall()
+	accounts = [result[0] for result in results]
+	return accounts
+
+def get_num_followers(userid):
+	global cursor
+	sql = """
+		SELECT SUM(followerID) FROM following
+		WHERE (userID = %s)"""
+	cursor.execute(sql, (userid, ))
+	results = cursor.fetchone()
+	return results[0]
+
+def get_follower_accounts(userid):
+	global cursor
+	sql = """
+		SELECT followerID FROM following
+		WHERE (userID = %s)"""
+	cursor.execute(sql, (userid, ))
+	results = cursor.fetchall()
+	accounts = [result[0] for result in results]
+	return accounts
+
+
 db, cursor = connectdb()
-print(get_post_details(2))
+
+
+print(get_num_followers(2))
+print(get_follower_accounts(2))
+
 
 db.close()
