@@ -61,20 +61,28 @@
     <div class="main-content content-newPost clsScroll" id="hideScroll">
       <h1 class="content-title">New Post</h1>
       <div>
-        <input class="single-line-text-entry" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()"></input>
+        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeydown="Search()"></input>
         <div id="search-container">
           <div style="margin-top:2vh;"></div>
           <div class="search-result">
-            <img class="search-image" src="media/1989.png">
-            <h2 class="search-title">Blank Space - Taylor Swift</h2>
+            <img id="search-image-0">
+            <h2 id="search-title-0"></h2>
           </div>
           <div class="search-result">
+            <img id="search-image-1">
+            <h2 id="search-title-1"></h2>
           </div>
           <div class="search-result">
+            <img id="search-image-2">
+            <h2 id="search-title-2"></h2>
           </div>
           <div class="search-result">
+            <img id="search-image-3">
+            <h2 id="search-title-3"></h2>
           </div>
           <div class="search-result">
+            <img id="search-image-4">
+            <h2 id="search-title-4"></h2>
           </div>
         </div>
       </div>
@@ -117,5 +125,6 @@
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/search.js')}}"></script>
   </body>
 </html>

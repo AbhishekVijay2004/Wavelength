@@ -273,13 +273,14 @@
   color: var(--text-colour);
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
-.search-image{
+.search-result img{
   height: 8vh;
   margin-left: 1vh;
   border-radius: 0.5rem;
 }
-.search-title{
+.search-result h2{
   margin: 2vh;
 }
 .profile-picture-setting{
