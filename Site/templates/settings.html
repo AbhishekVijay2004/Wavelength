@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/settings.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
   </head>
   <body>
     <div class="bar-left">
@@ -103,37 +104,34 @@
           <h2 class="setting-label">Top Song:</h2>
           <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Search for a song...';HideSearch()">
         </div>
-        <div id="search-container">
-          <div style="margin-top:2vh;"></div>
-          <div class="search-result">
-            <img class="search-image" src="media/1989.png">
-            <h2 class="search-title">Blank Space - Taylor Swift</h2>
-          </div>
-          <div class="search-result">
-          </div>
-          <div class="search-result">
-          </div>
-          <div class="search-result">
-          </div>
-          <div class="search-result">
-          </div>
-        </div>
-        <div class="song-display-container">
-          <div class="album-cover">
-            <img src="{{album_cover}}" class="cover-image">
-          </div>
-          <div class="song-info">
-            <h2 class="song-title">{{song_title}}</h2>
-            <h2 class="artist">{{song_artist}}</h2>
-          </div>
-          <audio controls name="media" class="song-player"><source src="{{song_preview}}" type="audio/mpeg"></audio>
-        </div>
+        
+        <!-- ------------------- song player --------------- -->
+      <div class="spcontainer">
+    <div class="spplayer">
+      <div class="spblurrer">
+        <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
       </div>
     </div>
+    <div class="spsongInfo">
+      <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+      <div class="spitem spsongDetails">
+        <div class="spsongTitle">Matadora</div>
+        <div class="spartistTitle">Sofi Tukker</div>
+      </div>
+      <div id="spAudiocontainer">    
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <div class="spsongCircle"></div>
+      <button class="spplay-pause-btn"></button>
+      </div>
+    </div>
+  </div> 
+
+      <!-- ------------------- end of song player --------------- -->
     <div class="bar-right">
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
   </body>
 </html>
