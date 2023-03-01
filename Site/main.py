@@ -67,7 +67,7 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-@app.route('/song', methods=['GET'])
+@app.route('/song', methods=['GET', 'POST'])
 def search_song(query):
     #return the song based on query
     song = sp.search(query, type='track', limit=5, market='GB')
