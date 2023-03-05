@@ -19,6 +19,11 @@
   margin-left: 1vw !important;
   margin-bottom: 1vw !important;
 }
+.button{
+  background-color: var(--background-highlight-1);
+  font-size: 1vw;
+  color: white !important;
+}
 .button-container{
   display: flex;
   flex-direction: row;
