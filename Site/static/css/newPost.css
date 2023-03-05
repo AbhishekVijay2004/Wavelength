@@ -63,6 +63,7 @@ input:checked + .setting-slider:before{
 .button {
   color: white !important;
   background-color: var(--background-highlight-1) !important;
-  font-size: 1.1vw;
+  font-size: 1.25vw;
+  font-weight: 400;
 /*  border-radius: 1rem !important;*/
 }
