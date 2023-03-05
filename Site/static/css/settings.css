@@ -8,10 +8,9 @@ h2{
   margin: auto;
   color: var(--text-colour);
   column-gap: 2vw;
-  margin-bottom: 2vw;
+  margin-left: 2vw;
 }
 .setting{
-  margin-left: 2vw;
   margin-bottom: 1vw;
   width: 30%;
   display: flex;
@@ -21,9 +20,48 @@ h2{
 .setting-label{
   font-weight: 400;
   font-size: 1.5vw;
-  margin-left: 2vw;
   margin-right: 2vw;
+  margin-left: 2vw;
   white-space: nowrap;
+}
+.single-line-text-entry{
+  margin-top: 1vw !important;
+  margin-left: 1vw !important;
+  margin-bottom: 1vw !important;
+}
+.multi-line-text-entry{
+  width: 20vw !important;
+  margin-top: 1vw !important;
+  margin-left: 1vw !important;
+  margin-bottom: 1vw !important;
+}
+.profile-settings-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 1vw;
+  margin-left: 2vw;
+  flex-direction: column;
+  align-items: left;
+}
+.profile-setting{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-basis: 60%;
+}
+.profile-setting-label{
+  font-weight: 400;
+  width: 5vw;
+  font-size: 1vw;
+  margin-right: 3.8vw;
+  white-space: nowrap;
+  text-align: left;
+}
+.profile-picture-setting{
+  margin-left: 1vw;
+  margin-bottom: 0.75vw;
 }
 .setting-switch{
   position: relative;
@@ -70,18 +108,49 @@ input:checked + .setting-slider:before{
   transform: translateX(2vw);
 }
 .settingButton {
-  position: relative;
-  display: inline-block;
+  position: absolute;
   width: 4vw;
   height: 2vw;
-  margin-left: 1.7vw;
+  margin-left: -.2vw;
   cursor: pointer;
   background-color: var(--background-colour);
-  border: solid 0.15rem var(--primary-colour);
+  border: solid 0.2vw var(--primary-colour);
   border-radius: 1rem;
 }
 .settingButton:active {
   color: white;
   border-color: var(--primary-highlight-2);
   transform: translateY(0.25vh);
+}
+#search-container{
+  display: relative !important;
+  height: 0vh;
+  width: 10vw !important;
+  border-radius: 1rem;
+  margin: auto;
+  margin-top: 2vh;
+  background-color: rgb(30, 30, 30, 0.6);
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.search-result{
+  width: 95%;
+  height: 10vh;
+  margin: auto;
+  margin-bottom: 2vh;
+  margin-top: 0;
+  border-radius: 0.75rem;
+  background-color: rgb(51, 51, 51);
+  color: var(--text-colour);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.search-result img{
+  height: 8vh;
+  margin-left: 1vh;
+  border-radius: 0.5rem;
+}
+.search-result h2{
+  margin: 2vh;
 }

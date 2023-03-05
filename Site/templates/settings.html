@@ -65,8 +65,8 @@
     </div>
     </div>
     <div class="main-content clsScroll" id="hideScroll">
+      <h1 class="content-title">General</h1>
       <div class="settings-container">
-        <h1 class="content-title">General</h1>
         <div class="setting">
           <h2 class="setting-label">Dark Mode:</h2>
           <label class="setting-switch">
@@ -80,54 +80,88 @@
             <button class="settingButton" onclick="logout()"></button>
           </label>
         </div>
-        <h1 class="content-title">Profile Settings</h1>
-        <div class="setting">
-          <h2 class="setting-label">Profile Picture:</h2>
-          <label class="profile-picture-setting">
-            <input type="file" accept="image/png, image/jpeg">
-            <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
-          </label>
+      </div>
+      <h1 class="content-title">Profile Settings</h1>
+      <div class="settings-container">
+        <div class="profile-settings-container">
+          <div class="profile-setting">
+            <h2 class="profile-setting-label">Profile Picture:</h2>
+            <label class="profile-picture-setting">
+              <input type="file" accept="image/png, image/jpeg">
+              <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+            </label>
+          </div>
+          <div class="profile-setting">
+            <h2 class="profile-setting-label">Username:</h2>
+            <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{username}}'">
+          </div>
+          <div class="profile-setting">
+            <h2 class="profile-setting-label">Display Name:</h2>
+            <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{display_name}}'">
+          </div>
+          <div class="profile-setting">
+            <h2 class="profile-setting-label">Bio:</h2>
+            <textarea class="multi-line-text-entry" type="text" maxlength="50" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{bio}}'" style="height: 6vw;"></textarea>
+          </div>
+          <div class="profile-setting">
+            <h2 class="profile-setting-label">Top Song:</h2>
+            <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder='{{topSong}}';HideSearch()" onkeydown="href={{ url_for('search_song')}}"></input>
+            <div id="search-container">
+              <div style="margin-top:2vh;"></div>
+              <div class="search-result">
+                <img id="search-image-0">
+                <h2 id="search-title-0"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-1">
+                <h2 id="search-title-1"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-2">
+                <h2 id="search-title-2"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-3">
+                <h2 id="search-title-3"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-4">
+                <h2 id="search-title-4"></h2>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="setting">
-          <h2 class="setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{username}}'">
-        </div>
-        <div class="setting">
-          <h2 class="setting-label">Display Name:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{display_name}}'">
-        </div>
-        <div class="setting" style="align-items:flex-start;">
-          <h2 class="setting-label">Bio:</h2>
-          <textarea class="multi-line-text-entry" type="text" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder = '{{bio}}'" style="height: 6vw;"></textarea>
-        </div>
-        <div class="setting">
-          <h2 class="setting-label">Top Song:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="Search for a song..." onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Search for a song...';HideSearch()">
-        </div>
+      </div>
+      <center><button type = "submit" class="button" style="background-color: var(--background-highlight-1);">Save</button></center>
         
-        <!-- ------------------- song player --------------- -->
-      <div class="spcontainer">
-    <div class="spplayer">
-      <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
-      </div>
-    </div>
-    <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
-      <div class="spitem spsongDetails">
-        <div class="spsongTitle">Matadora</div>
-        <div class="spartistTitle">Sofi Tukker</div>
-      </div>
-      <div id="spAudiocontainer">    
-        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
-        <div class="spsongCircle"></div>
-      <button class="spplay-pause-btn"></button>
-      </div>
-    </div>
-  </div> 
+        <!-- ------------------- PLEASE FIX --------------- -->
+
+        <!-- ----- Commented out as was breaking page ----- -->
+
+      <!-- <div class="spcontainer">
+        <div class="spplayer">
+          <div class="spblurrer">
+            <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+          </div>
+        </div>
+        <div class="spsongInfo">
+          <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+          <div class="spitem spsongDetails">
+            <div class="spsongTitle">Matadora</div>
+            <div class="spartistTitle">Sofi Tukker</div>
+          </div>
+          <div id="spAudiocontainer">    
+            <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+            <div class="spsongCircle"></div>
+          <button class="spplay-pause-btn"></button>
+          </div>
+        </div>
+      </div>  -->
 
       <!-- ------------------- end of song player --------------- -->
-    <div class="bar-right">
+
+      <div class="bar-right">
+      </div>
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
