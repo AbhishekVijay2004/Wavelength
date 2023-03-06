@@ -190,7 +190,7 @@
   height: 98vh;
 }
 #hideScroll::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .main-content{
   background-color: var(--background-highlight-1);

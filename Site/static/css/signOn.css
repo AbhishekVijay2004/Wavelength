@@ -10,14 +10,20 @@
 }
 .single-line-text-entry{
   margin-top: 1vw !important;
+  font-size: .75vw !important;
   margin-left: 1vw !important;
   margin-bottom: 1vw !important;
 }
 .multi-line-text-entry{
   width: 20vw !important;
+  font-size: .75vw !important;
+  height: 2.5vw !important;
   margin-top: 1vw !important;
   margin-left: 1vw !important;
   margin-bottom: 1vw !important;
+}
+#the-count {
+  margin-left: 0.5vw;
 }
 .button{
   background-color: var(--background-highlight-1);
@@ -58,20 +64,25 @@
   margin-left: 1vw;
   margin-bottom: 0.75vw;
 }
+.profile-picture-span{
+  background-color: var(--background-colour) !important;
+  border: 0.15vw solid var(--primary-colour) !important;
+}
+.profile-picture-span:hover{
+  border: 0.15vw solid var(--primary-highlight-1) !important;
+}
 #search-container{
-  display: inline-block;
-  height: 0vh;
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 28vw;
   border-radius: 1rem;
-  margin: auto;
-  margin-top: 2vh;
   background-color: rgb(30, 30, 30, 0.6);
-  overflow: hidden;
   transition: all 0.25s;
 }
 .search-result{
-  width: 95%;
-  height: 10vh;
+  width: 26vw;
+  height: 4vw;
   margin: auto;
   margin-bottom: 2vh;
   margin-top: 0;
@@ -83,10 +94,10 @@
   cursor: pointer;
 }
 .search-result img{
-  height: 8vh;
+  height: 3vw;
   margin-left: 1vh;
   border-radius: 0.5rem;
 }
 .search-result h2{
-  margin: 2vh;
+  margin: 1vw;
 }
