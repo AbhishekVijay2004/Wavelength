@@ -218,6 +218,7 @@
   font-weight: 400;
   width: 100%;
   margin-top: 1vw;
+  margin-bottom: .75vw;
 }
 #search-container{
   display: inline-block;
