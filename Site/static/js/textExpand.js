@@ -16,6 +16,33 @@
 	    	}
 	 	}
 	} //toggle between expanded & not expanded text boxed
+
+	function clickOnComments() {
+		let elmnt = this;
+		commSec = elmnt.parentNode.parentNode.querySelector('.commentSection');
+		let i = arrayOfPosts.indexOf(this);
+		    expandedComments[i] = !expandedComments[i];
+		    if (expandedComments[i]) {
+		    	console.log(commSec.scrollHeight);
+		      commSec.style.maxHeight = '250px';
+		      commSec.style.display = 'inline';
+		      loadComment(commSec);
+	    	} else {
+		      commSec.style.maxHeight = '0px';
+		      commSec.style.display = 'none';
+	    	}
+	}
+
+	function loadComment(parnt) {
+		const comment = document.createElement('div');
+		comment.classList.add('comment');
+		comment.innerHTML = `
+			lol idk
+	`;
+		parnt.appendChild(comment);
+	} //creates a template at the bottom of the page
+
+
 	function onResizeOrLoad(e) {
 	    for (var i = 0; i < arrayOfPosts.length; i++) {
 	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]

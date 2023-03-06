@@ -1,7 +1,8 @@
 const getRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-  }; //gets a random colour
-  	const pSBC=(p,c0,c1,l)=>{
+  }; 
+  //gets a random colour
+const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
     if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
     if(!this.pSBCr)this.pSBCr=(d)=>{
@@ -90,12 +91,17 @@ const getRandomColor = () => {
 				<div class = "reactions">😎👀🤗</div>
 				<div class = "comments">Comments</div>
 		</div>
+		<div class="commentSection"></div>
+
 	`;
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
+		expandedComments.push(false);
 		console.log();
 		const textBit = postElement.querySelector('.text');
+		const commentBit = postElement.querySelector('.comments');
 		textBit.addEventListener('click', clickOnText);
+		commentBit.addEventListener('click', clickOnComments);
 
 		const audio = postElement.querySelector('.audio-player');
 		audio.addEventListener('timeupdate', audioTimeUpdate);
@@ -140,12 +146,16 @@ const getRandomColor = () => {
 				<div class = "reactions">😎👀🤗</div>
 				<div class = "comments">Comments</div>
 		</div>
+		<div class="commentSection"></div>
 	`;
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
+		expandedComments.push(false);
 		console.log();
 		const textBit = postElement.querySelector('.text');
+		const commentBit = postElement.querySelector('.comments');
 		textBit.addEventListener('click', clickOnText);
+		commentBit.addEventListener('click', clickOnComments);
 
 		const audio = postElement.querySelector('.audio-player');
 		audio.addEventListener('timeupdate', audioTimeUpdate);
@@ -183,6 +193,7 @@ const getRandomColor = () => {
 	var	arrayOfPlaceholders = [];
 	var arrayOfPosts = [];
 	var expandedPosts = [];
+	var expandedComments = [];
 	var change = 0.01;
 	var pos = 1;
 

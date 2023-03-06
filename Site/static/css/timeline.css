@@ -90,5 +90,13 @@ flex: 1;
 }
 .comments{
 color: var(--text-colour);
+}
+.commentSection{
+overflow:auto;
+display:none;
+}
+.comment{
+width:100%;
+height:20px;
 
 }
