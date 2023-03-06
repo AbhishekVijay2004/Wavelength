@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/newPost.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
   </head>
   <body>
     <div class="bar-left">
@@ -86,43 +87,64 @@
           </div>
         </div>
       </div>
-      <br>
+      <div>
         <textarea class="multi-line-text-entry" type="text" maxlength="250" placeholder="Caption" onfocus="this.placeholder=''" onblur="this.placeholder = 'Caption'"></textarea>
         <div id="the-count">
-            <span id="current">0</span>
-            <span id="maximum">/ 250</span>
+          <span id="current">0</span>
+          <span id="maximum">/ 250</span>
+        </div>
+        <!-- ----- Song Player ----- -->
+        <div class="spcontainer">
+          <div class="spplayer">
+            <div class="spblurrer">
+              <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+            </div>
           </div>
+          <div class="spsongInfo">
+            <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+            <div class="spitem spsongDetails">
+              <div class="spsongTitle">Matadora</div>
+              <div class="spartistTitle">Sofi Tukker</div>
+            </div>
+            <div id="spAudiocontainer">    
+              <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+              <div class="spsongCircle"></div>
+            <button class="spplay-pause-btn"></button>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------- end of song player ------------ -->
         <div class="switch-container">
-        <div>
-          <h2 class="setting-label">
-            Likes
-          </h2>
-          <label class="setting-switch">
+          <div>
+            <h2 class="setting-label">
+              Likes
+            </h2>
+            <label class="setting-switch">
+              <input type="checkbox" checked>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
+          <div>
+            <h2 class="setting-label">
+              Comments
+            </h2>
+            <label class="setting-switch">
+              <input type="checkbox" checked>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
+          <div>
+            <h2 class="setting-label">
+              Dislikes
+            </h2>
+            <label class="setting-switch">
             <input type="checkbox" checked>
-            <span class="setting-slider"></span>
-          </label>
-        </div>
-        <div>
-          <h2 class="setting-label">
-            Comments
-          </h2>
-          <label class="setting-switch">
-            <input type="checkbox" checked>
-            <span class="setting-slider"></span>
-          </label>
-        </div>
-        <div>
-          <h2 class="setting-label">
-            Dislikes
-          </h2>
-          <label class="setting-switch">
-          <input type="checkbox" checked>
-            <span class="setting-slider"></span>
-          </label>
+              <span class="setting-slider"></span>
+            </label>
+          </div>
         </div>
       </div>
-      <br></br>
-      <br></br>
+      <br><br>
       <button class="button">Post</button>
     </div>
     <div class="bar-right">
@@ -131,5 +153,6 @@
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
   </body>
 </html>

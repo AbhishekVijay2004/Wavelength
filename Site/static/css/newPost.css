@@ -11,6 +11,7 @@
   width: 35vw;
   display: flex;
   margin: auto;
+  margin-top: 3vw;
   justify-content: space-evenly;
 }
 .setting-label{
@@ -68,6 +69,7 @@ input:checked + .setting-slider:before{
 }
 .single-line-text-entry {
   font-size: 1vw;
+  margin-top: 1vw;
 }
 .multi-line-text-entry {
   width: 30vw;
@@ -76,4 +78,19 @@ input:checked + .setting-slider:before{
 }
 #the-count {
   margin-bottom: 2vw;
+}
+.spcontainer{
+  width: 40vw !important;
+  margin-left: 4vw !important;
+  height:5vw !important;
+}
+.spplayer {
+  height:5vw !important;
+}
+.spsongInfo{
+  height:5vw !important;
+}
+.spplay-pause-btn {
+  height: 4vw !important;
+  width: 4vw !important;
 }
