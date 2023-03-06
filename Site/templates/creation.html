@@ -17,7 +17,7 @@
   		</center>
   		<p class="logo-text">Wavelength</p>
   		<br>
-      <h1 style="margin-top: 3vw; margin-bottom: 2vw">Profile Settings</h1>
+      <h1 style="margin-top: 3vw; margin-bottom: 2vw">Create Your Profile!</h1>
       <div class="content-creation">
         <div class="settings-container">
           <div class="profile-settings-container">
@@ -38,33 +38,37 @@
             </div>
             <div class="profile-setting">
               <h2 class="profile-setting-label">Bio:</h2>
-              <textarea class="multi-line-text-entry" type="text" maxlength="50" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{bio}}'" style="height: 6vw;"></textarea>
+              <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{bio}}'" style="height: 6vw;"></textarea>
+              <div id="the-count">
+                <span id="current">0</span>
+                <span id="maximum">/ 100</span>
+              </div>
             </div>
             <div class="profile-setting">
               <h2 class="profile-setting-label">Top Song:</h2>
-              <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder='{{topSong}}';HideSearch()" onkeydown="href={{ url_for('search_song')}}"></input>
-              <div id="search-container">
-                <div style="margin-top:2vh;"></div>
-                <div class="search-result">
-                  <img id="search-image-0">
-                  <h2 id="search-title-0"></h2>
-                </div>
-                <div class="search-result">
-                  <img id="search-image-1">
-                  <h2 id="search-title-1"></h2>
-                </div>
-                <div class="search-result">
-                  <img id="search-image-2">
-                  <h2 id="search-title-2"></h2>
-                </div>
-                <div class="search-result">
-                  <img id="search-image-3">
-                  <h2 id="search-title-3"></h2>
-                </div>
-                <div class="search-result">
-                  <img id="search-image-4">
-                  <h2 id="search-title-4"></h2>
-                </div>
+              <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{topSong}}';HideMiniSearch()" onkeydown="href={{ url_for('search_song')}}"></input>
+            </div>
+            <div id="search-container">
+              <div style="margin-top:2vh;"></div>
+              <div class="search-result">
+                <img id="search-image-0">
+                <h2 id="search-title-0"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-1">
+                <h2 id="search-title-1"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-2">
+                <h2 id="search-title-2"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-3">
+                <h2 id="search-title-3"></h2>
+              </div>
+              <div class="search-result">
+                <img id="search-image-4">
+                <h2 id="search-title-4"></h2>
               </div>
             </div>
           </div>
@@ -73,6 +77,8 @@
       <center><button type = "submit" class="button" onclick="navigateToHomePage()">Continue</button></center>
   	</div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
   	<script>
         function navigateToHomePage() {
             window.location.href = "{{ url_for('home') }}";
