@@ -65,5 +65,15 @@ input:checked + .setting-slider:before{
   background-color: var(--background-highlight-1) !important;
   font-size: 1.25vw;
   font-weight: 400;
-/*  border-radius: 1rem !important;*/
+}
+.single-line-text-entry {
+  font-size: 1vw;
+}
+.multi-line-text-entry {
+  width: 30vw;
+  height: 10vw;
+  font-size: 1vw;
+}
+#the-count {
+  margin-bottom: 2vw;
 }

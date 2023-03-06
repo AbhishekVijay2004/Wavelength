@@ -87,7 +87,11 @@
         </div>
       </div>
       <br>
-        <textarea class="multi-line-text-entry" type="text" maxlength="250" placeholder="Description" onfocus="this.placeholder=''" onblur="this.placeholder = 'Description'"></textarea>
+        <textarea class="multi-line-text-entry" type="text" maxlength="250" placeholder="Caption" onfocus="this.placeholder=''" onblur="this.placeholder = 'Caption'"></textarea>
+        <div id="the-count">
+            <span id="current">0</span>
+            <span id="maximum">/ 250</span>
+          </div>
         <div class="switch-container">
         <div>
           <h2 class="setting-label">
@@ -125,5 +129,7 @@
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
   </body>
 </html>

@@ -217,8 +217,8 @@
   font-size: 2.5vw;
   font-weight: 400;
   width: 100%;
+  margin-top: 1vw;
 }
-
 #search-container{
   display: inline-block;
   height: 0vh;
