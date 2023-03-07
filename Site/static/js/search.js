@@ -10,7 +10,7 @@ function Search(){
       "Content-type": "application/json; charset=UTF-8"
     }
   })
-  .then((response) => response.json())
+  .then((response) => response.text())
   .then((json) => console.log(json));
   var NUM_RESULTS = 5;
   for (var i = 0; i < NUM_RESULTS; i++){
