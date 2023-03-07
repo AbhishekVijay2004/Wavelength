@@ -154,7 +154,7 @@
     <script type="text/javascript">
       function Search(){
         var userQuery = document.getElementById("search-box").value;
-        var newURL = "{{ url_for('search_song(" + userQuery + ")')}}";
+        var newURL = "{{ url_for('search_song')}}";
         window.location.href = newURL;
         /*
         fetch("{{url_for('search_song')}}", {
@@ -172,8 +172,8 @@
         var NUM_RESULTS = 5;
         for (var i = 0; i < NUM_RESULTS; i++){
           var indexString = i.toString();
-          document.getElementById("search-image-" + indexString).src = "{{images[" + indexString + "]}}";
-          document.getElementById("search-title-" + indexString).src = "{{titles[" + indexString + "]}} - {{artists[" + indexString + "]}}";
+          document.getElementById("search-image-" + indexString).src = "{% raw %}{{images[" + indexString + "]}}{% endraw %}";
+          document.getElementById("search-title-" + indexString).src = "{% raw %}{{titles[" + indexString + "]}} - {{artists[" + indexString + "]}}{% endraw %}";
         }
       }
     </script>
