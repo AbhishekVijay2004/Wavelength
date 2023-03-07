@@ -1,6 +1,6 @@
 function Search(){
   var userQuery = document.getElementById("search-box").value;
-  fetch("https://127.0.0.1:5000/search_song", {
+  fetch("{{url_for('search_song')}}", {
     method: "POST",
     body: JSON.stringify({
       query: userQuery
