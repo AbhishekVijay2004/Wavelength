@@ -62,7 +62,7 @@
     <div class="main-content content-newPost clsScroll" id="hideScroll">
       <h1 class="content-title">New Post</h1>
       <div>
-        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeydown="href={{ url_for('search_song')}}"></input>
+        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeydown="href={{ url_for('search_song')}};Search()"></input>
         <div id="search-container">
           <div style="margin-top:2vh;"></div>
           <div class="search-result">
@@ -97,7 +97,7 @@
         <div class="spcontainer">
           <div class="spplayer">
             <div class="spblurrer">
-              <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+              <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>
             </div>
           </div>
           <div class="spsongInfo">
@@ -106,7 +106,7 @@
               <div class="spsongTitle">Matadora</div>
               <div class="spartistTitle">Sofi Tukker</div>
             </div>
-            <div id="spAudiocontainer">    
+            <div id="spAudiocontainer">
               <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
               <div class="spsongCircle"></div>
             <button class="spplay-pause-btn"></button>
@@ -151,6 +151,7 @@
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/search.js')}}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
