@@ -1,6 +1,6 @@
 function Search(){
   var userQuery = document.getElementById("search-box").value;
-  fetch("{{url_for('search_song')}}", {
+  fetch("{{url_for('song')}}", {
     method: "POST",
     body: JSON.stringify({
       query: userQuery
