@@ -1,5 +1,6 @@
 function Search(){
   var userQuery = document.getElementById("search-box").value;
+  console.log(JSON.stringify({query: userQuery}));
   fetch("/search_song", {
     method: "POST",
     body: JSON.stringify({
