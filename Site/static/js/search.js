@@ -1,6 +1,16 @@
 function Search(){
-  var query = document.getElementById("search-box").value;
-  window.location.href = "{{url_for('search_song(" + query + ")')}}";
+  var userQuery = document.getElementById("search-box").value;
+  fetch("/search_song", {
+    method: "POST",
+    body: JSON.stringify({
+      query: userQuery
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+  .then((response) => response.json())
+  .then((json) => console.log(json));
   var NUM_RESULTS = 5;
   for (var i = 0; i < NUM_RESULTS; i++){
     var indexString = i.toString();
