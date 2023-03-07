@@ -154,7 +154,8 @@
     <script type="text/javascript">
       function Search(){
         var userQuery = document.getElementById("search-box").value;
-        window.location.href = "{{ url_for('search_song(" + userQuery + ")')}}"
+        var newURL = "{{ url_for('search_song(" + userQuery + ")')}}";
+        window.location.href = newURL;
         /*
         fetch("{{url_for('search_song')}}", {
           method: "POST",
