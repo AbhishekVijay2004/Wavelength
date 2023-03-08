@@ -119,11 +119,13 @@ def get_follower_accounts(userid):
 	return accounts
 
 
-db, cursor = connectdb()
+
+if __name__ == "__main__":
+	db, cursor = connectdb()
 
 
-print(get_num_followers(2))
-print(get_follower_accounts(2))
+	print(get_num_followers(2))
+	print(get_follower_accounts(2))
 
 
-db.close()
+	db.close()

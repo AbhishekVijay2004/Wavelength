@@ -1,16 +1,3 @@
-'''
-make updated database schema for normalised tables
-
-what's needed
-creating a user
-creating a post
-adding a like/dislike
-adding a comment
-deleting a user
-deleting a post
-removing a like/dislike
-removing a comment'''
-
 import mysql.connector
 
 def connectdb():
@@ -136,9 +123,7 @@ def alter_user(userID, key, value):
 
 
 
-
-db, cursor = connectdb()
-
-
-db.commit()
-db.close()
+if __name__ == "__main__":
+	db, cursor = connectdb()
+	db.commit()
+	db.close()
