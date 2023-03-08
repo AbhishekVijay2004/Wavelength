@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, session
+from flask import Flask, render_template, url_for, redirect, request, session, jsonify
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
@@ -67,24 +67,23 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-@app.route('/song', methods=['GET', 'POST'])
-def search_song(query):
+
+@app.route('/song')
+def search_song():
     #return the song based on query
+    query = request.args.get('query')
     song = sp.search(query, type='track', limit=5, market='GB')
     songs = song['tracks']['items']
-    images = []
-    titles = []
-    artists = []
-    ids = []
+    data = []
     for song in songs:
         album = song['album']
-        titles.append(song['name'])
-        ids.append(song['id'])
-        #name of the artist
-        artists.append(song['artists'][0]['name'])
-        #get 64x64 album image
-        images.append(album['images'][2]['url'])
-    return render_template('newPost.html', images=images, titles=titles, artists=artists, ids=ids)
+        item = {}
+        item['title'] = song['name']
+        item['id'] = song['id']
+        item['artist'] = song['artists'][0]['name']
+        item['image'] = album['images'][2]['url']
+        data.append(item)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug = True)

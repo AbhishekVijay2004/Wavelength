@@ -62,7 +62,7 @@
     <div class="main-content content-newPost clsScroll" id="hideScroll">
       <h1 class="content-title">New Post</h1>
       <div>
-        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeydown="Search()"></input>
+        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()"></input>
         <div id="search-container">
           <div style="margin-top:2vh;"></div>
           <div class="search-result">
@@ -151,31 +151,28 @@
     </div>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
-    <script type="text/javascript">
-      function Search(){
-        var userQuery = document.getElementById("search-box").value;
-        var newURL = "{{ url_for('search_song')}}";
-        window.location.href = newURL;
-        /*
-        fetch("{{url_for('search_song')}}", {
-          method: "POST",
-          body: JSON.stringify({
-            query: userQuery
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-        })
-        .then((response) => response.text())
-        .then((json) => console.log(json));
-        */
-        var NUM_RESULTS = 5;
-        for (var i = 0; i < NUM_RESULTS; i++){
-          var indexString = i.toString();
-          document.getElementById("search-image-" + indexString).src = "{% raw %}{{images[" + indexString + "]}}{% endraw %}";
-          document.getElementById("search-title-" + indexString).src = "{% raw %}{{titles[" + indexString + "]}} - {{artists[" + indexString + "]}}{% endraw %}";
-        }
-      }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function Search() {
+        var userQuery = document.getElementById('search-box').value;
+        $.ajax({
+          url: '/song',
+          data: {query: userQuery},
+          type: 'GET',
+          success: function(data) {
+            var NUM_RESULTS = 5;
+            for (var i = 0; i < NUM_RESULTS; i++){
+              var indexString = i.toString();
+              document.getElementById("search-image-" + indexString).src = data[i].image;
+              document.getElementById("search-title-" + indexString).textContent = data[i].title; 
+            }
+    },
+    error: function(error) {
+      console.error(error);
+    }
+  });
+}
+      
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
