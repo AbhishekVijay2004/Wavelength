@@ -102,3 +102,10 @@
 .search-result h2{
   margin: 1vw;
 }
+.error{
+  font-size: 1vw;
+  color: rgb(255, 77, 77);
+  text-align: center;
+  margin-top: 0.2vw;
+  margin-bottom: 0.2vw;
+}

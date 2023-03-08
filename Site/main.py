@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, redirect, request, session, jsonify
-import spotipy
+from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash
+import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
@@ -45,32 +45,70 @@ def post():
 
 @app.route('/signon')
 def signon():
+    # session["username"] = username
     return render_template('login.html')
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-@app.route('/setup')
-def setup():
-    return render_template('setup.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        session["username"] = username
 
-        print(username, password)
+        if (len(username) < 1):
+            flash("Not a valid username", category="error")
+            print("Error")
+        elif (len(password) < 1):
+            flash("Password must be over 1 character", category="error")
+            print("Error")
+        else:
+            session["username"] = username
+            print(username, password)
+            return redirect(url_for('home'))
 
-    return redirect(url_for('home'))
+    return redirect(url_for('signon'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
     session.pop('username', None)
     return redirect(url_for('signon'))
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/registration', methods = ['GET', 'POST'] )
+def registration():
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password1 = request.form['password1']
+        password2 = request.form['password2']
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
+        if not (re.search(regex,email)):
+            flash("Please enter a valid email.", category="error")
+            print("Error")
+        elif (len(username) < 1):
+            flash("Please enter a username", category="error")
+            print("Error")
+        # elif (username == checkUsername()):
+        #     flash("Username taken", category="error")
+        #     print("Error")
+        elif (len(password1) < 7):
+            flash("Password must be over 7 characters", category="error")
+            print("Error")
+        elif (password1 != password2):
+            flash("Passwords do not match", category="error")
+            print("Error")
+        else:
+            print(f"Email: {email}, Username: {username}, Password: {password1}")
+            return redirect(url_for('setup'))
+
+    return render_template('register.html')
+
+@app.route('/setup')
+def setup():
+    return render_template('setup.html')
 
 @app.route('/song')
 def search_song():

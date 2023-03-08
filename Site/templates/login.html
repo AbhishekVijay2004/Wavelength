@@ -9,8 +9,19 @@
 <br>
 <input class="single-line-text-entry" type="text" name = "password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
 <br>
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+    {% for catagory, message in messages %}
+    {% if catagory == "error" %}
+    <div class="error">
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
 <div class="button-container">
-    <button type = "submit" class="button" onclick="navigateToHomePage()">Sign-in</button>
+    <button type="submit" class="button">Sign-in</button>
     </form>
     <button type = "button" class="button" onclick="navigateToRegisterPage()">Register</button>
 </div>
@@ -18,9 +29,6 @@
 
 {% block javascript %}
 <script>
-    function navigateToHomePage() {
-        window.location.href = "{{ url_for('home') }}";
-    }
     function navigateToRegisterPage() {
         window.location.href = "{{ url_for('register') }}";
     }
