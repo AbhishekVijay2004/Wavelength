@@ -111,7 +111,7 @@
             <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{topSong}}';HideMiniSearch()" onkeydown="href={{ url_for('search_song')}}"></input>
           </div>
           <div id="search-container">
-            <div style="margin-top:2vh;"></div>
+            <div style="margin-top:1vw;"></div>
             <div class="search-result">
               <img id="search-image-0">
               <h2 id="search-title-0"></h2>
@@ -164,7 +164,6 @@
     <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
   </body>
 </html>
