@@ -3,8 +3,14 @@ import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
+# # ------- Variables for testing -------
+# # ------- Remove once DB synced -------
 
-
+email = "Email not linked"
+username = "Username not linked"
+display_name = "Display name not linked"
+bio = "Bio not linked"
+top_song = "Top song not linked"
 
 app = Flask(__name__)
 app.secret_key = "abhishek"
@@ -37,7 +43,7 @@ def home():
 
 @app.route('/settings')
 def settings():
-    return render_template('settings.html')
+    return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
 def post():
@@ -50,6 +56,7 @@ def signon():
 
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
+    global email, username, password
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -63,6 +70,11 @@ def login():
         else:
             session["username"] = username
             print(username, password)
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
+            if (re.search(regex,username)):
+                email = username
+                
             return redirect(url_for('home'))
 
     return redirect(url_for('signon'))
@@ -78,6 +90,7 @@ def register():
 
 @app.route('/registration', methods = ['GET', 'POST'] )
 def registration():
+    global email, username, password
     if request.method == 'POST':
         email = request.form['email']
         username = request.form['username']
@@ -102,6 +115,7 @@ def registration():
             print("Error")
         else:
             print(f"Email: {email}, Username: {username}, Password: {password1}")
+            password = password1
             return redirect(url_for('setup'))
 
     return render_template('register.html')

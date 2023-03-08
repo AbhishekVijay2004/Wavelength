@@ -36,16 +36,20 @@
           </label>
         </div>
         <div class="profile-setting">
+          <h2 class="profile-setting-label">Email:</h2>
+          <input class="single-line-text-entry" type="text" placeholder="{{ email }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ email }}'">
+        </div>
+        <div class="profile-setting">
           <h2 class="profile-setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{username}}'">
+          <input class="single-line-text-entry" type="text" placeholder="{{ username }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ username }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Display Name:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{display_name}}'">
+          <input class="single-line-text-entry" type="text" placeholder="{{ display_name }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ display_name }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Bio:</h2>
-          <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{bio}}'" style="height: 6vw;"></textarea>
+          <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{ bio }}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{ bio }}'" style="height: 6vw;"></textarea>
           <div id="the-count">
             <span id="current">0</span>
             <span id="maximum">/ 100</span>
@@ -53,7 +57,7 @@
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Top Song:</h2>
-          <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{topSong}}';HideMiniSearch()" onkeyup="Search()"></input>
+          <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{ top_song }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{top_song}}';HideMiniSearch()" onkeyup="Search()"></input>
         </div>
         <div id="search-container">
           <div style="margin-top:1vw;"></div>
