@@ -10,14 +10,12 @@
 }
 .single-line-text-entry{
   margin-top: 1vw !important;
-  font-size: .75vw !important;
   margin-left: 1vw !important;
   margin-bottom: 1vw !important;
 }
 .multi-line-text-entry{
   width: 20vw !important;
-  font-size: .75vw !important;
-  height: 2.5vw !important;
+  height: 4vw !important;
   margin-top: 1vw !important;
   margin-left: 1vw !important;
   margin-bottom: 1vw !important;
