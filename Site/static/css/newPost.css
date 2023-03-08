@@ -68,13 +68,11 @@ input:checked + .setting-slider:before{
   font-weight: 400;
 }
 .single-line-text-entry {
-  font-size: 1vw;
   margin-top: 1vw;
 }
 .multi-line-text-entry {
   width: 30vw;
   height: 10vw;
-  font-size: 1vw;
 }
 #the-count {
   margin-bottom: 2vw;
