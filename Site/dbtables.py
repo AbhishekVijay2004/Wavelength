@@ -102,7 +102,7 @@ if __name__ == "__main__":
 	try:
 		drop_all()
 	except:
-		print("couldn't drop everything")
+		print("couldn't drop everything	")
 
 	create_table_users()
 	create_table_posts()
