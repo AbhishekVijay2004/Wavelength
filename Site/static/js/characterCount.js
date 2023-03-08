@@ -1,10 +1,8 @@
-$('textarea').keyup(function() {
-    
-  var characterCount = $(this).val().length,
-      current = $('#current'),
-      maximum = $('#maximum'),
-      theCount = $('#the-count');
-    
-  current.text(characterCount);  
-      
+document.querySelector('textarea').addEventListener('keyup', function(){
+  var characterCount = this.value.length;
+  var current = document.querySelector('#current');
+  var maximum = document.querySelector('#maximum');
+  var theCount = document.querySelector('#the-count');
+
+  current.textContent = characterCount;
 });
