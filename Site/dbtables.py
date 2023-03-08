@@ -17,8 +17,7 @@ def create_table_users():
 	global cursor
 	sql = """
 		CREATE TABLE users (
-			userID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-			username VARCHAR(40) NOT NULL,
+			username VARCHAR(40) NOT NULL PRIMARY KEY,
 			password VARCHAR(40) NOT NULL,
 			profilePic VARCHAR(60),
 			url VARCHAR(60),
@@ -35,8 +34,8 @@ def create_table_posts():
 			createdAt DATETIME,
 			postText VARCHAR(500),
 			postContent VARCHAR(60),
-			userID INT,
-			FOREIGN KEY(userID) REFERENCES users(userID)
+			username VARCHAR(40),
+			FOREIGN KEY(username) REFERENCES users(username)
 			)"""
 	cursor.execute(sql)
 	print('posts table created')
@@ -47,11 +46,11 @@ def create_table_like():
 	sql = """
 		CREATE TABLE likes (
 			postID INT NOT NULL,
-			userID INT NOT NULL,
+			username VARCHAR(40) NOT NULL,
 			type VARCHAR(10),
-			PRIMARY KEY (postID, userID),
+			PRIMARY KEY (postID, username),
 			FOREIGN KEY(postID) REFERENCES posts(postID),
-			FOREIGN KEY (userID) REFERENCES users(userID)
+			FOREIGN KEY (username) REFERENCES users(username)
 			)"""
 	cursor.execute(sql)
 	print('added likes table')
@@ -65,11 +64,11 @@ def create_table_comments():
 		CREATE TABLE comments(
 			commentID INT AUTO_INCREMENT NOT NULL,
 			postID INT NOT NULL,
-			userID INT NOT NULL,
+			username VARCHAR(40) NOT NULL,
 			commentText VARCHAR(200),
 			PRIMARY KEY (commentID),
 			FOREIGN KEY (postID) REFERENCES posts(postID),
-			FOREIGN KEY (userID) REFERENCES users(userID)
+			FOREIGN KEY (username) REFERENCES users(username)
 			)"""
 	cursor.execute(sql)
 	print('added comments table')
@@ -78,11 +77,11 @@ def create_table_following():
 	global cursor
 	sql = """
 		CREATE TABLE following(
-			userID INT NOT NULL,
-			followerID INT NOT NULL,
-			PRIMARY KEY(userID, followerID),
-			FOREIGN KEY(userID) REFERENCES users(userID),
-			FOREIGN KEY (followerID) REFERENCES users(userID)
+			username VARCHAR(40) NOT NULL,
+			username_follow VARCHAR(40) NOT NULL,
+			PRIMARY KEY(username, username_follow),
+			FOREIGN KEY(username) REFERENCES users(username),
+			FOREIGN KEY (username_follow) REFERENCES users(username)
 			)"""
 	cursor.execute(sql)
 	print('added following table')
@@ -97,15 +96,20 @@ def drop_all():
 			print("table doesn't exist")
 	print('tables dropped')
 
-db, cursor = connectdb()
-drop_all()
 
-create_table_users()
-create_table_posts()
-create_table_like()
-create_table_comments()
-create_table_following()
+if __name__ == "__main__":
+	db, cursor = connectdb()
+	try:
+		drop_all()
+	except:
+		print("couldn't drop everything	")
+
+	create_table_users()
+	create_table_posts()
+	create_table_like()
+	create_table_comments()
+	create_table_following()
 
 
-db.commit()
-db.close()
+	db.commit()
+	db.close()

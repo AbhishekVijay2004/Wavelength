@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Music brings us closer.">
+    <meta property="og:image" content="media/preview.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/sign-on.css')}}">
+  </head>
+  <body>
+    <div class="main-content content-signOn clsScroll" id="hideScroll">
+        <br>
+        <center>
+            <img id="logo" src="{{url_for('static', filename = 'media/icons/logo-white-cropped-notext.png')}}">
+        </center>
+        <p class="logo-text">Wavelength</p>
+        <br>
+        {% block content%}
+        {% endblock %}
+    </div>
+
+    {% block javascript %}
+    {% endblock %}
+  </body>
+</html>

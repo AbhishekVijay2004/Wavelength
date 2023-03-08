@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Register | Wavelength</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Music brings us closer.">
-    <meta property="og:image" content="media/preview.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/signOn.css')}}">
-  </head>
-  <body>
-  	<div class="main-content content-signOn">
-  		<br>
-  		<center>
-  			<img id="logo" src="{{url_for('static', filename = 'media/icons/logo-white-cropped-notext.png')}}">
-  		</center>
-  		<p class="logo-text">Wavelength</p>
-  		<br>
-      <br>
-  		<input class="single-line-text-entry" type="text" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Email'"></input>
-      <br>
-      <input class="single-line-text-entry" type="text" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
-      <br>
-      <input class="single-line-text-entry" type="text" placeholder="Repeat Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
-      <br>
-      <button class="button" onclick="navigateToCreationPage()">Register</button>
-      <script>
-        function navigateToCreationPage() {
-            window.location.href = "{{ url_for('creation') }}";
-        }
-      </script>
-  	</div>
-  	<script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
-  </body>
-</html>
+{% extends "sign-on.html" %}
+
+{% block title %}Register | Wavelength{% endblock %}
+
+{% block content%}
+<br>
+<input class="single-line-text-entry" type="text" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Email'"></input>
+<br>
+<input class="single-line-text-entry" type="text" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
+<br>
+<input class="single-line-text-entry" type="text" placeholder="Repeat Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
+<br>
+<button class="button" onclick="navigateToSetupPage()">Register</button>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function navigateToSetupPage() {
+        window.location.href = "{{ url_for('setup') }}";
+    }
+</script>
+{% endblock %} 
+

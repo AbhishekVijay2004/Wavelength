@@ -21,7 +21,7 @@ def index():
     if "username" in session:
         return redirect(url_for('home'))
     else:
-        return render_template('signIn.html')
+        return redirect(url_for('signon'))
 
 @app.route('/profile')
 def profile():
@@ -33,7 +33,7 @@ def friends():
 
 @app.route('/home')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/settings')
 def settings():
@@ -41,15 +41,19 @@ def settings():
 
 @app.route('/post')
 def post():
-    return render_template('newPost.html')
+    return render_template('new-post.html')
+
+@app.route('/signon')
+def signon():
+    return render_template('login.html')
 
 @app.route('/register')
 def register():
     return render_template('register.html')
 
-@app.route('/creation')
-def creation():
-    return render_template('creation.html')
+@app.route('/setup')
+def setup():
+    return render_template('setup.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
@@ -65,7 +69,7 @@ def login():
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
     session.pop('username', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('signon'))
 
 
 @app.route('/song')
