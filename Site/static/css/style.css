@@ -139,7 +139,7 @@
   width: 20vw;
   height: 1.5vw;
   text-align: left;
-  font-size: 0.75vw;
+  font-size: 1vw;
   color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;
@@ -151,8 +151,8 @@
 }
 .multi-line-text-entry {
   width: 30vw;
-  height: 15vw;
   text-align: left;
+  font-size: 1vw;
   color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;

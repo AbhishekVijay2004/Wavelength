@@ -119,11 +119,11 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595')"></div>  
+        <div class="sprepeating-image" style="background-image:url('https://m.media-amazon.com/images/I/21lIoN-uPML._AC_SX466_.jpg')"></div>  
       </div>
     </div>
     <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b27394d08ab63e57b0cae74e8595');"></div>
+      <div class="spitem spalbumImage" style="  background-image:url('https://m.media-amazon.com/images/I/21lIoN-uPML._AC_SX466_.jpg');"></div>
       <div class="spitem spsongDetails">
         <div class="spsongTitle">Californication (Deluxe Edition)</div>
         <div class="spartistTitle">Red Hot Chilli Peppers</div>
