@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile | Wavelength</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Music brings us closer.">
+    <meta property="og:image" content="media/preview.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/profile.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
+  </head>
+  <body>
+    <div class="bar-left">
+      <div class="logo-left-container">
+        <img id="logo-left" src="{{url_for('static', filename = 'media/icons/logo-transparent-cropped-notext.png')}}">
+        <p class="logo-left-text">Wavelength</p>
+      </div>
+      <div class="flex-break"></div>
+      <div class="left-bar-widget" onclick="navigateToHomePage()">
+        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/home-icon-transparent.png')}}">
+        <p class="widget-text">Home</p>
+      </div>
+      <div class="left-bar-widget" onclick="navigateToPostPage()">
+        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/new-post-icon-transparent.png')}}">
+        <p class="widget-text">Post</p>
+      </div>
+      <div class="left-bar-widget" onclick="navigateToFriendsPage()">
+        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/friends-icon-transparent.png')}}">
+        <p class="widget-text">Friends</p>
+      </div>
+      <div class="left-bar-widget" onclick="navigateToProfilePage()">
+        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/profile-icon-transparent.png')}}">
+        <p class="widget-text">Profile</p>
+      </div>
+      <div class="left-bar-widget" onclick="navigateToSettingsPage()">
+        <img class="widget-icon" src="{{url_for('static', filename = 'media/icons/settings-icon-transparent.png')}}">
+        <p class="widget-text">Settings</p>
+      </div>
+      <script>
+        function navigateToHomePage() {
+            window.location.href = "{{ url_for('home') }}";
+        }
+
+        function navigateToProfilePage() {
+            window.location.href = "{{ url_for('profile') }}";
+        }
+
+        function navigateToFriendsPage() {
+            window.location.href = "{{ url_for('friends') }}";
+        }
+
+        function navigateToSettingsPage() {
+            window.location.href = "{{ url_for('settings') }}";
+        }
+
+        function navigateToPostPage() {
+            window.location.href = "{{ url_for('post') }}";
+        } 
+      </script>
+    </div>
+    <div class="bar-right">
+    </div>
+    <div class="main-content content-profile">
+      <div class="profile-info-container">
+        <img class="profile-picture" src="{{url_for('static', filename = 'media/trumpie.jpg')}}">
+        <div class="name-container">
+          <h1 class="real-name">Joe Bloggs</h1>
+          <h2 class="username">(@joebloggs69420)</h2>
+          <p class="bio">
+            Kanye did nothing wrong! Proud Swiftie, #votetrump2024.
+          </p>
+        </div>
+      </div>
+      <!-- ------------------- song player --------------- -->
+      <div class="spcontainer">
+    <div class="spplayer">
+      <div class="spblurrer">
+        <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+      </div>
+    </div>
+    <div class="spsongInfo">
+      <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+      <div class="spitem spsongDetails">
+        <div class="spsongTitle">Matadora</div>
+        <div class="spartistTitle">Sofi Tukker</div>
+      </div>
+      <div id="spAudiocontainer">    
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <div class="spsongCircle"></div>
+      <button class="spplay-pause-btn"></button>
+      </div>
+    </div>
+  </div> 
+
+      <!-- ------------------- end of song player --------------- --> 
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
+    
+  </body>
+</html>

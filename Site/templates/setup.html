@@ -1,0 +1,97 @@
+{% extends "sign-on.html" %}
+
+{% block title %}Setup | Wavelength{% endblock %}
+
+{% block content%}
+<h1 style="margin-top: 2vw; margin-bottom: 2vw">Create Your Profile!</h1>
+<div class="content-creation">
+    <div class="settings-container">
+        <div class="profile-settings-container">
+            <div class="profile-setting">
+                <h2 class="profile-setting-label">Profile Picture:</h2>
+                <label class="profile-picture-setting">
+                    <input type="file" accept="image/png, image/jpeg">
+                    <span class="profile-picture-span" style="background-image: url('media/trumpie.jpg')"></span>
+                </label>
+                </div>
+                <div class="profile-setting">
+                    <h2 class="profile-setting-label">Username:</h2>
+                    <input class="single-line-text-entry" type="text" placeholder="{{username}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{username}}'">
+                </div>
+                <div class="profile-setting">
+                    <h2 class="profile-setting-label">Display Name:</h2>
+                    <input class="single-line-text-entry" type="text" placeholder="{{display_name}}" onfocus="this.placeholder=''" onblur="this.placeholder='{{display_name}}'">
+                </div>
+                <div class="profile-setting">
+                    <h2 class="profile-setting-label">Bio:</h2>
+                    <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{bio}}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{bio}}'" style="height: 6vw;"></textarea>
+                <div id="the-count">
+                    <span id="current">0</span>
+                    <span id="maximum">/ 100</span>
+                </div>
+            </div>
+            <div class="profile-setting">
+                <h2 class="profile-setting-label">Top Song:</h2>
+                <input class="single-line-text-entry" id="search-box" type="text" placeholder="{{topSong}}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{topSong}}';HideMiniSearch()" onkeyup="Search()"></input>
+            </div>
+            <div id="search-container">
+                <div style="margin-top:1vw;"></div>
+                <div class="search-result">
+                    <img id="search-image-0">
+                    <h2 id="search-title-0"></h2>
+                </div>
+                <div class="search-result">
+                    <img id="search-image-1">
+                    <h2 id="search-title-1"></h2>
+                </div>
+                <div class="search-result">
+                    <img id="search-image-2">
+                    <h2 id="search-title-2"></h2>
+                </div>
+                <div class="search-result">
+                    <img id="search-image-3">
+                    <h2 id="search-title-3"></h2>
+                </div>
+                <div class="search-result">
+                    <img id="search-image-4">
+                    <h2 id="search-title-4"></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<center><button type = "submit" class="button" onclick="navigateToHomePage()">Continue</button></center>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function Search() {
+    var userQuery = document.getElementById('search-box').value;
+    $.ajax({
+      url: '/song',
+      data: {query: userQuery},
+      type: 'GET',
+      success: function(data) {
+        var NUM_RESULTS = 5;
+        for (var i = 0; i < NUM_RESULTS; i++){
+          var indexString = i.toString();
+          document.getElementById("search-image-" + indexString).src = data[i].image;
+          document.getElementById("search-title-" + indexString).textContent = data[i].title; 
+        }
+      },
+      error: function(error) {
+      console.error(error);
+      }
+    });
+  }   
+</script>
+<script>
+    function navigateToHomePage() {
+        window.location.href = "{{ url_for('home') }}";
+    }
+</script>
+{% endblock %} 
+

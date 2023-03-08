@@ -1,0 +1,29 @@
+{% extends "sign-on.html" %}
+
+{% block title %}Login | Wavelength{% endblock %}
+
+{% block content%}
+<br>
+<form method = 'POST' action="/login">
+<input class="single-line-text-entry" type="text" name = "username" placeholder="Username or Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username or Email'"></input>
+<br>
+<input class="single-line-text-entry" type="text" name = "password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
+<br>
+<div class="button-container">
+    <button type = "submit" class="button" onclick="navigateToHomePage()">Sign-in</button>
+    </form>
+    <button type = "button" class="button" onclick="navigateToRegisterPage()">Register</button>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function navigateToHomePage() {
+        window.location.href = "{{ url_for('home') }}";
+    }
+    function navigateToRegisterPage() {
+        window.location.href = "{{ url_for('register') }}";
+    }
+    </script>
+{% endblock %} 
+
