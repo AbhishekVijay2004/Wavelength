@@ -69,12 +69,12 @@ def login():
             print("Error")
         else:
             session["username"] = username
-            print(username, password)
             regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
             if (re.search(regex,username)):
                 email = username
-                
+
+            print(f"Email: {email}, Username: {username}, Password: {password}")
             return redirect(url_for('home'))
 
     return redirect(url_for('signon'))
@@ -99,7 +99,7 @@ def registration():
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
         if not (re.search(regex,email)):
-            flash("Please enter a valid email.", category="error")
+            flash("Please enter a valid email", category="error")
             print("Error")
         elif (len(username) < 1):
             flash("Please enter a username", category="error")
@@ -122,6 +122,29 @@ def registration():
 
 @app.route('/setup')
 def setup():
+    return render_template('setup.html')
+
+@app.route('/creation', methods = ['GET', 'POST'] )
+def creation():
+    global display_name, bio, top_song
+    if request.method == 'POST':
+        display_name = request.form['display_name']
+        bio = request.form['bio']
+        top_song = request.form['top_song']
+
+        if (len(display_name) < 1):
+            flash("Please enter a display name", category="error")
+            print("Error")
+        elif (len(bio) < 1):
+            flash("Please enter a bio", category="error")
+            print("Error")
+        elif (len(top_song) < 1):
+            flash("Please enter a top song", category="error")
+            print("Error")
+        else:
+            print(f"Display Name: {display_name}, Bio: {bio}, Top Song: {top_song}")
+            return redirect(url_for('home'))
+
     return render_template('setup.html')
 
 @app.route('/song')
