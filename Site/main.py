@@ -51,7 +51,6 @@ def post():
 
 @app.route('/signon')
 def signon():
-    # session["username"] = username
     return render_template('login.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
@@ -69,10 +68,12 @@ def login():
             print("Error")
         else:
             session["username"] = username
-            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
             if (re.search(regex,username)):
                 email = username
+            else:
+                email = email
 
             print(f"Email: {email}, Username: {username}, Password: {password}")
             return redirect(url_for('home'))
