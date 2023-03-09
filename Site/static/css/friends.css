@@ -37,6 +37,7 @@
 }
 .profile-image:hover{
   border-color: var(--primary-highlight-2);
+  cursor: pointer;
   transition: border-color 0.25s;
 }
 .profile-text-header {
