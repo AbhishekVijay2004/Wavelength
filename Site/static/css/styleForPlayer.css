@@ -33,7 +33,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .spplayer {
   position:absolute;
   top:0;
@@ -53,15 +52,12 @@
   height:10vw;
   border-radius:10px;
   overflow:hidden;
-   user-select: none;
-
+  user-select: none;
 }
-
 .spitem {
   flex: 2;
   margin: 0 10px;
 }
-
 .spalbumImage {
   flex: 0 0 auto;  
   aspect-ratio : 1;
@@ -69,16 +65,13 @@
   background-size: 100%;
   border-radius:10px;
   box-shadow: 0vw 0vw 0.1vw black;
-
 }
-
 .spsongDetails {
   flex: 3;
   display: flex;
   justify-content: space-between;
   flex-direction:column;
 }
-
 .spsongTitle{
   color:var(--text-colour);
   text-align:left ;
@@ -86,14 +79,12 @@
   font-size:2.5vw;
   max-width: 20vw;
 }
-
 .spartistTitle{
   color:var(--text-colour);
   text-shadow: 0vw 0vw 0.1vw black;
   text-align:left ;
   font-size:1.5vw;
 }
-
 #spAudiocontainer {
   height:90%;
   transform: translateX(-5vw);
@@ -108,14 +99,13 @@
   height: 80%;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: none;
+  border: solid 0.15vw var(--primary-highlight-2);
   background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M8 5v14l11-7z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60%;
   transition: background-size 0.1s;
-
   background-size: 60%;
 }
 .spplay-pause-btn.playing {
@@ -123,10 +113,10 @@
 }
 .spsongCircle {
   position:absolute;
-height: 100%;
+  height: 100%;
   aspect-ratio: 1;
-border-radius: 50%;
-background-color: purple;
-clip-path: polygon(0 0);
+  border-radius: 50%;
+  background-color: purple;
+  clip-path: polygon(0 0);
 }
 
