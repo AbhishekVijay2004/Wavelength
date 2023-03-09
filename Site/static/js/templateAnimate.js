@@ -64,17 +64,17 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg')"></div>  
+        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d00001e02cf1f6466a493eb73d6d9d280')"></div>  
       </div>
     </div>
     <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://i1.sndcdn.com/artworks-000142105824-y39ojb-t500x500.jpg');"></div>
+      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d00001e02cf1f6466a493eb73d6d9d280');"></div>
       <div class="spitem spsongDetails">
-        <div class="spsongTitle">Matadora</div>
-        <div class="spartistTitle">Sofi Tukker</div>
+        <div class="spsongTitle">I Wanna Be Adored</div>
+        <div class="spartistTitle">The Stone Roses</div>
       </div>
       <div id="spAudiocontainer">    
-        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/77f3d7ea6be27d21fdbf489e01011012c044ebbf?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/64b634d8fa849d4f839eb86b28f29ed76d042bad?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
         <div class="spsongCircle"></div>
       <button class="spplay-pause-btn"></button>
       </div>
@@ -119,17 +119,17 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://m.media-amazon.com/images/I/21lIoN-uPML._AC_SX466_.jpg')"></div>  
+        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b2734ce8b4e42588bf18182a1ad2')"></div>  
       </div>
     </div>
     <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://m.media-amazon.com/images/I/21lIoN-uPML._AC_SX466_.jpg');"></div>
+      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b2734ce8b4e42588bf18182a1ad2');"></div>
       <div class="spitem spsongDetails">
-        <div class="spsongTitle">Californication (Deluxe Edition)</div>
-        <div class="spartistTitle">Red Hot Chilli Peppers</div>
+        <div class="spsongTitle">While My Guitar Gently Weeps</div>
+        <div class="spartistTitle">The Beatles</div>
       </div>
       <div id="spAudiocontainer">    
-        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/9acb29dd77bbaa50e13e655b68ef5c0a99549a38?cid=774b29d4f13844c495f206cafdad9c86"></audio>
+        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/221c7b7d13e8339e8c153697d44d7734f4247ed9?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
         <div class="spsongCircle"></div>
       <button class="spplay-pause-btn"></button>
       </div>

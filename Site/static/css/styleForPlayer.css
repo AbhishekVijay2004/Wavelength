@@ -9,7 +9,7 @@
   bottom:50%;
 }
 .spblurrer {
-  filter: blur(40px);
+  filter: blur(10px);
   width:100%;
   height:100%;
   flex-grow: 1;
@@ -68,6 +68,8 @@
   height:90%;
   background-size: 100%;
   border-radius:10px;
+  box-shadow: 0vw 0vw 0.1vw black;
+
 }
 
 .spsongDetails {
