@@ -92,4 +92,11 @@ input:checked + .setting-slider:before{
 .spplay-pause-btn {
   height: 4vw !important;
   width: 4vw !important;
+  position:absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0) !important;
+  border: none 0.05vw black !important;
+  background-image: none !important;
 }
+
