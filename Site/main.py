@@ -165,6 +165,42 @@ def search_song():
         data.append(item)
     return jsonify(data)
 
+@app.route('/selectResult')
+def select_result():
+    '''
+    Adds the selected song to the database and returns information about the song.
+
+    Arguments (passed in the GET request):
+    - id (string)   : Spotify ID of the song.
+    - page (string) : Name of the page that the request has come from.
+
+    Returns:
+    - data (JSON string) : Array containing the following information about the song:
+        * title  : Title of the song.
+        * artist : Artist of the song.
+        * image  : Album art of the song.
+        * audio  : Preview url of the audio for the song.
+    '''
+    #Gets the song ID and page name from the GET request
+    songID = request.args.get("id")
+    pageID = request.args.get("page")
+    if pageID == "settings" or pageID == "setup":
+        #TODO: Add song as user's top song in database
+        pass
+    #If the page ID is new post, this should be handled on the frontend
+    #Searches for the song using the song ID
+    searchResult = sp.search(songID, type="track", limit=1, market="GB")
+    print(searchResult)
+    song = searchResult["tracks"]["items"][0]
+    #Constructs return as single-element dict array
+    data = [{
+    "title"  : song["name"],
+    "artist" : song["artists"][0]["name"],
+    "image"  : song["album"]["images"][2]["url"],
+    "audio"  : song["preview_url"]
+    }]
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(debug = True)
 

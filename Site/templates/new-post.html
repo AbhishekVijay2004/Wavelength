@@ -5,32 +5,33 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/newPost.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
-{% endblock %} 
+{% endblock %}
 
 {% block content%}
+<div id="pageID" style="display:none">newPost</div>
 <div class="main-content content-newPost clsScroll" id="hideScroll">
   <h1 class="content-title">New Post</h1>
   <div>
-    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()"></input>
+    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';" onkeyup="Search()"></input>
     <div id="search-container">
-      <div style="margin-top:2vh;"></div>
-      <div class="search-result">
+      <div style="margin-top:1vw;"></div>
+      <div class="search-result" id="search-result-0">
         <img id="search-image-0">
         <h2 id="search-title-0"></h2>
       </div>
-      <div class="search-result">
+      <div class="search-result" id="search-result-1">
         <img id="search-image-1">
         <h2 id="search-title-1"></h2>
       </div>
-      <div class="search-result">
+      <div class="search-result" id="search-result-2">
         <img id="search-image-2">
         <h2 id="search-title-2"></h2>
       </div>
-      <div class="search-result">
+      <div class="search-result" id="search-result-3">
         <img id="search-image-3">
         <h2 id="search-title-3"></h2>
       </div>
-      <div class="search-result">
+      <div class="search-result" id="search-result-4">
         <img id="search-image-4">
         <h2 id="search-title-4"></h2>
       </div>
@@ -45,17 +46,17 @@
     <div class="spcontainer">
       <div class="spplayer">
         <div class="spblurrer">
-          <div class="sprepeating-image" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
+          <div class="sprepeating-image" id="resultBackground" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
         </div>
       </div>
       <div class="spsongInfo">
-        <div class="spitem spalbumImage" style="  background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg');"></div>
+        <div class="spitem spalbumImage" id="resultImage" style="  background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg');"></div>
         <div class="spitem spsongDetails">
-          <div class="spsongTitle">Sail To The Moon</div>
-          <div class="spartistTitle">Radiohead</div>
+          <div class="spsongTitle" id="resultTitle">Sail To The Moon</div>
+          <div class="spartistTitle" id="resultArtist">Radiohead</div>
         </div>
         <div id="spAudiocontainer">
-          <audio class="audio-player" src="https://p.scdn.co/mp3-preview/858f7c324686e4a7b41a8648695b0f563d348b1f?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
+          <audio class="audio-player" id="resultAudio" src="https://p.scdn.co/mp3-preview/858f7c324686e4a7b41a8648695b0f563d348b1f?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
           <div class="spsongCircle"></div>
         <button class="spplay-pause-btn"></button>
         </div>
@@ -92,35 +93,14 @@
     </div>
   </div>
   <br><br>
-  <button class="button">Post</button>
+  <button class="button" id="postButton" onclick="PostSong()">Post</button>
 </div>
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  function Search() {
-    var userQuery = document.getElementById('search-box').value;
-    $.ajax({
-      url: '/song',
-      data: {query: userQuery},
-      type: 'GET',
-      success: function(data) {
-        var NUM_RESULTS = 5;
-        for (var i = 0; i < NUM_RESULTS; i++){
-          var indexString = i.toString();
-          document.getElementById("search-image-" + indexString).src = data[i].image;
-          document.getElementById("search-title-" + indexString).textContent = data[i].title; 
-        }
-      },
-      error: function(error) {
-      console.error(error);
-      }
-    });
-  }   
-</script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/search.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
-{% endblock %} 
-
+{% endblock %}
