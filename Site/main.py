@@ -189,9 +189,10 @@ def select_result():
         pass
     #If the page ID is new post, this should be handled on the frontend
     #Searches for the song using the song ID
-    searchResult = sp.search(songID, type="track", limit=1, market="GB")
-    print(searchResult)
-    song = searchResult["tracks"]["items"][0]
+    # searchResult = sp.search(songID, type="track", limit=1, market="GB")
+    # searching for song using songid uses the .track method
+    song = sp.track(songID)
+    print(list(song))
     #Constructs return as single-element dict array
     data = [{
     "title"  : song["name"],
@@ -199,6 +200,7 @@ def select_result():
     "image"  : song["album"]["images"][2]["url"],
     "audio"  : song["preview_url"]
     }]
+    print(data)
     return jsonify(data)
 
 if __name__ == '__main__':
