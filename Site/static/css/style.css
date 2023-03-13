@@ -178,9 +178,12 @@
   border: solid 0.1rem var(--primary-colour);
   border-radius: 0.75rem;
 }
-.button:active {
+.button:hover {
   color: white;
   border-color: var(--primary-highlight-2);
+}
+.button:active {
+  color: white;
   transform: translateY(0.25vh);
 }
 .clsScroll {

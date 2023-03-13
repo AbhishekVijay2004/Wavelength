@@ -1,10 +1,16 @@
-from flask import Flask, render_template, url_for, redirect, request, session, jsonify
-import spotipy
+from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash
+import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
+# # ------- Variables for testing -------
+# # ------- Remove once DB synced -------
 
-
+email = "Email not linked"
+username = "Username not linked"
+display_name = "Display name not linked"
+bio = "Bio not linked"
+top_song = "Top song not linked"
 
 app = Flask(__name__)
 app.secret_key = "abhishek"
@@ -37,7 +43,7 @@ def home():
 
 @app.route('/settings')
 def settings():
-    return render_template('settings.html')
+    return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
 def post():
@@ -47,30 +53,100 @@ def post():
 def signon():
     return render_template('login.html')
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-@app.route('/setup')
-def setup():
-    return render_template('setup.html')
-
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
+    global email, username, password
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        session["username"] = username
 
-        print(username, password)
+        if (len(username) < 1):
+            flash("Not a valid username", category="error")
+            print("Error")
+        elif (len(password) < 1):
+            flash("Password must be over 1 character", category="error")
+            print("Error")
+        else:
+            session["username"] = username
 
-    return redirect(url_for('home'))
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+            if (re.search(regex,username)):
+                email = username
+            else:
+                email = email
+
+            print(f"Email: {email}, Username: {username}, Password: {password}")
+            return redirect(url_for('home'))
+
+    return redirect(url_for('signon'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
     session.pop('username', None)
     return redirect(url_for('signon'))
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/registration', methods = ['GET', 'POST'] )
+def registration():
+    global email, username, password
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password1 = request.form['password1']
+        password2 = request.form['password2']
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
+        if not (re.search(regex,email)):
+            flash("Please enter a valid email", category="error")
+            print("Error")
+        elif (len(username) < 1):
+            flash("Please enter a username", category="error")
+            print("Error")
+        # elif (username == checkUsername()):
+        #     flash("Username taken", category="error")
+        #     print("Error")
+        elif (len(password1) < 7):
+            flash("Password must be over 7 characters", category="error")
+            print("Error")
+        elif (password1 != password2):
+            flash("Passwords do not match", category="error")
+            print("Error")
+        else:
+            print(f"Email: {email}, Username: {username}, Password: {password1}")
+            password = password1
+            return redirect(url_for('setup'))
+
+    return render_template('register.html')
+
+@app.route('/setup')
+def setup():
+    return render_template('setup.html')
+
+@app.route('/creation', methods = ['GET', 'POST'] )
+def creation():
+    global display_name, bio, top_song
+    if request.method == 'POST':
+        display_name = request.form['display_name']
+        bio = request.form['bio']
+        top_song = request.form['top_song']
+
+        if (len(display_name) < 1):
+            flash("Please enter a display name", category="error")
+            print("Error")
+        elif (len(bio) < 1):
+            flash("Please enter a bio", category="error")
+            print("Error")
+        elif (len(top_song) < 1):
+            flash("Please enter a top song", category="error")
+            print("Error")
+        else:
+            print(f"Display Name: {display_name}, Bio: {bio}, Top Song: {top_song}")
+            return redirect(url_for('home'))
+
+    return render_template('setup.html')
 
 @app.route('/song')
 def search_song():
@@ -87,6 +163,44 @@ def search_song():
         item['artist'] = song['artists'][0]['name']
         item['image'] = album['images'][2]['url']
         data.append(item)
+    return jsonify(data)
+
+@app.route('/selectResult')
+def select_result():
+    '''
+    Adds the selected song to the database and returns information about the song.
+
+    Arguments (passed in the GET request):
+    - id (string)   : Spotify ID of the song.
+    - page (string) : Name of the page that the request has come from.
+
+    Returns:
+    - data (JSON string) : Array containing the following information about the song:
+        * title  : Title of the song.
+        * artist : Artist of the song.
+        * image  : Album art of the song.
+        * audio  : Preview url of the audio for the song.
+    '''
+    #Gets the song ID and page name from the GET request
+    songID = request.args.get("id")
+    pageID = request.args.get("page")
+    if pageID == "settings" or pageID == "setup":
+        #TODO: Add song as user's top song in database
+        pass
+    #If the page ID is new post, this should be handled on the frontend
+    #Searches for the song using the song ID
+    # searchResult = sp.search(songID, type="track", limit=1, market="GB")
+    # searching for song using songid uses the .track method
+    song = sp.track(songID)
+    print(list(song))
+    #Constructs return as single-element dict array
+    data = [{
+    "title"  : song["name"],
+    "artist" : song["artists"][0]["name"],
+    "image"  : song["album"]["images"][2]["url"],
+    "audio"  : song["preview_url"]
+    }]
+    print(data)
     return jsonify(data)
 
 if __name__ == '__main__':

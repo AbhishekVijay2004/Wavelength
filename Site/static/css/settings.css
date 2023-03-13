@@ -143,9 +143,10 @@ input:checked + .setting-slider:before{
   border: solid 0.2vw var(--primary-colour);
   border-radius: 1rem;
 }
-.settingButton:active {
-  color: white;
+.settingButton:hover {
   border-color: var(--primary-highlight-2);
+}
+.settingButton:active {
   transform: translateY(0.25vh);
 }
 #search-container{

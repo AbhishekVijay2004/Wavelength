@@ -4,20 +4,30 @@
 
 {% block content%}
 <br>
-<input class="single-line-text-entry" type="text" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Email'"></input>
+<form method = 'POST' action="/registration">
+<input class="single-line-text-entry" type="text" placeholder="Email" name ="email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Email'"></input>
 <br>
-<input class="single-line-text-entry" type="text" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
+<input class="single-line-text-entry" type="text" placeholder="Username" name ="username" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username'"></input>
 <br>
-<input class="single-line-text-entry" type="text" placeholder="Repeat Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
+<input class="single-line-text-entry" type="text" placeholder="Password" name ="password1" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
 <br>
-<button class="button" onclick="navigateToSetupPage()">Register</button>
+<input class="single-line-text-entry" type="text" placeholder="Repeat Password" name ="password2" onfocus="this.placeholder=''" onblur="this.placeholder = 'Repeat Password'"></input>
+<br>
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+    {% for catagory, message in messages %}
+    {% if catagory == "error" %}
+    <div class="error">
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<button type="submit" class="button">Register</button>
+</form>
 {% endblock %}
 
 {% block javascript %}
-<script>
-    function navigateToSetupPage() {
-        window.location.href = "{{ url_for('setup') }}";
-    }
-</script>
 {% endblock %} 
 

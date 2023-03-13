@@ -5,22 +5,30 @@
 {% block content%}
 <br>
 <form method = 'POST' action="/login">
-<input class="single-line-text-entry" type="text" name = "username" placeholder="Username or Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username or Email'"></input>
+<input class="single-line-text-entry" type="text" name="username" placeholder="Username or Email" onfocus="this.placeholder=''" onblur="this.placeholder = 'Username or Email'"></input>
 <br>
-<input class="single-line-text-entry" type="text" name = "password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
+<input class="single-line-text-entry" type="text" name="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder = 'Password'"></input>
 <br>
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+    {% for catagory, message in messages %}
+    {% if catagory == "error" %}
+    <div class="error">
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
 <div class="button-container">
-    <button type = "submit" class="button" onclick="navigateToHomePage()">Sign-in</button>
+    <button type="submit" class="button">Sign-in</button>
     </form>
-    <button type = "button" class="button" onclick="navigateToRegisterPage()">Register</button>
+    <button type ="button" class="button" onclick="navigateToRegisterPage()">Register</button>
 </div>
 {% endblock %}
 
 {% block javascript %}
 <script>
-    function navigateToHomePage() {
-        window.location.href = "{{ url_for('home') }}";
-    }
     function navigateToRegisterPage() {
         window.location.href = "{{ url_for('register') }}";
     }
