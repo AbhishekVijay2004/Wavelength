@@ -3,6 +3,7 @@
 {% block title %}Setup | Wavelength{% endblock %}
 
 {% block content%}
+<div id="pageID" style="display:none">setup</div>
 <h1 style="margin-top: 2vw; margin-bottom: 2vw">Create Your Profile!</h1>
 <div class="content-creation">
     <div class="settings-container">
@@ -33,25 +34,25 @@
             </div>
             <div id="search-container">
                 <div style="margin-top:1vw;"></div>
-                <div class="search-result">
-                    <img id="search-image-0">
-                    <h2 id="search-title-0"></h2>
+                <div class="search-result" id="search-result-0">
+                  <img id="search-image-0">
+                  <h2 id="search-title-0"></h2>
                 </div>
-                <div class="search-result">
-                    <img id="search-image-1">
-                    <h2 id="search-title-1"></h2>
+                <div class="search-result" id="search-result-1">
+                  <img id="search-image-1">
+                  <h2 id="search-title-1"></h2>
                 </div>
-                <div class="search-result">
-                    <img id="search-image-2">
-                    <h2 id="search-title-2"></h2>
+                <div class="search-result" id="search-result-2">
+                  <img id="search-image-2">
+                  <h2 id="search-title-2"></h2>
                 </div>
-                <div class="search-result">
-                    <img id="search-image-3">
-                    <h2 id="search-title-3"></h2>
+                <div class="search-result" id="search-result-3">
+                  <img id="search-image-3">
+                  <h2 id="search-title-3"></h2>
                 </div>
-                <div class="search-result">
-                    <img id="search-image-4">
-                    <h2 id="search-title-4"></h2>
+                <div class="search-result" id="search-result-4">
+                  <img id="search-image-4">
+                  <h2 id="search-title-4"></h2>
                 </div>
             </div>
         </div>
@@ -78,26 +79,5 @@
 <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  function Search() {
-    var userQuery = document.getElementById('search-box').value;
-    $.ajax({
-      url: '/song',
-      data: {query: userQuery},
-      type: 'GET',
-      success: function(data) {
-        var NUM_RESULTS = 5;
-        for (var i = 0; i < NUM_RESULTS; i++){
-          var indexString = i.toString();
-          document.getElementById("search-image-" + indexString).src = data[i].image;
-          document.getElementById("search-title-" + indexString).textContent = data[i].title; 
-        }
-      },
-      error: function(error) {
-      console.error(error);
-      }
-    });
-  }   
-</script>
-{% endblock %} 
-
+<script type="text/javascript" src="{{url_for('static', filename = 'js/search.js')}}"></script>
+{% endblock %}
