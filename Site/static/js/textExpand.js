@@ -39,8 +39,11 @@
 		const newComment = document.createElement('div');
 		newComment.classList.add('newComment');
 		newComment.innerHTML = `
-		
-      	<input type="text" id="fname" name="fname" size="90%" class="bigText">
+		<a href url="http://google.com">
+			<div class="commentProfilePic" style="background-image:url('./static/media/avatar.jpg');">
+          	</div>
+      	</a>
+      	<input type="text" id="fname" name="fname" class="bigText">
         <input type="submit" value="Submit">
 
 	`;
@@ -57,7 +60,7 @@
 		comment.classList.add('commentContainer');
 		comment.innerHTML = `
 		<a href url="http://google.com">
-			<div class="commentProfilePic">
+			<div class="commentProfilePic" style="background-image:url('./static/media/avatar.jpg');">
           	</div>
       	</a>
       <div class="commentText">

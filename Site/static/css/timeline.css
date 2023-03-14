@@ -13,45 +13,6 @@ flex-direction: column;
 border-radius: 20px;
 margin-bottom: 50px;
 }
-.spotifyTemplate {
-width: 100%;
-margin: auto;
-height: 10vw;
-display: flex;
-border-radius: 1vw;
-align-items: center;
-}
-.photoTemplate {
-width: 8vw;
-height: 8vw;
-border-radius: 1vw;
-margin-left: 1vw;
-}
-.textTemplate {
-flex: 3;
-height: 150px;
-}
-.footerTemplate {
-flex: 0;
-display: flex;
-justify-content: space-between;
-flex-direction: row;
-height: 10px;
-}
-.reactionsTemplate{
-border-radius: 10px;
-flex-basis: auto;
-background-color: var(--background-highlight-2);
-color:var(--background-highlight-2);
-user-select: none;
-}
-.commentsTemplate{
-border-radius: 10px;
-flex-basis: auto;
-background-color: var(--background-highlight-3);
-color:var(--background-highlight-3);
-user-select: none;
-}
 
 /*For the actual posts*/
 
@@ -63,10 +24,6 @@ flex-direction: column;
 background-color:var(--background-highlight-1);
 border-radius: 20px;
 margin-bottom: 50px;
-}
-.spotify {
-flex-basis: auto;
-flex: 0;
 }
 .text {
 min-height: 150px;
@@ -128,7 +85,6 @@ flex-direction:row;
 
 }
 .commentProfilePic {
-	background-image: url('../media/avatar.jpg');
 	background-color:red;
 	background-size:50px;
 	min-width:50px;
@@ -147,11 +103,13 @@ flex-direction:row;
 	text-align:left;
 }
 .newComment {
-	width=100%;
+	width:100%;
+
 	display:flex;
 	flex-direction:row;
-	justify-content:space-around;
+	justify-content:center;
 }
 .bigText {
     height:40px;
+    width:85%;
 }

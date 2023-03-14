@@ -40,20 +40,25 @@ const pSBC=(p,c0,c1,l)=>{
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
 		postElement.innerHTML = `
-		<div class = "spotifyTemplate">
-			<div class="photoTemplate"></div>
-		</div>
-	  	<div id="textTemplate" class="textTemplate"></div>
-		<div class = "footerTemplate">
-				<div class = "reactionsTemplate">................</div>
-				<div class = "commentsTemplate">Comments</div>
+		<div class="spcontainer">
+    <div class="spplayer">
+      
+    </div>
+    <div class="spsongInfo">
+      <div class="spitem spalbumImage"></div>
+      </div></div>
+      	  	<div id="text" class="text"></div>
+      <div class = "footer">
+				<div class = "posReact"></div>
+				<div class = "negReact"></div>
+				<div class = "comments"></div>
 		</div>
 	`;
 		arrayOfPlaceholders.push(postElement)
 		const randomColorOne = getRandomColor();
 		spotifyColours.push(randomColorOne);
-		postElement.getElementsByClassName('spotifyTemplate')[0].style.backgroundColor = randomColorOne;
-		postElement.getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
+		postElement.getElementsByClassName('spplayer')[0].style.backgroundColor = randomColorOne;
+		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
 	function loadPost() {
@@ -99,7 +104,6 @@ const pSBC=(p,c0,c1,l)=>{
 		expandedPosts.push(false);
 		expandedComments.push(false);
 		commentsOpened.push(false);
-		console.log();
 		const textBit = postElement.querySelector('.text');
 		const commentBit = postElement.querySelector('.comments');
 		textBit.addEventListener('click', clickOnText);
@@ -140,7 +144,7 @@ const pSBC=(p,c0,c1,l)=>{
 
       <!-- ------------------- end of song player --------------- --> 
 	  	<div id="text" class="text">
-	  		Lorem  ipsum dolor sit amet.
+	  		Lorem  ipsum dolor sit amet. him there is big at in the big man himself what if this is the large boy who follow request if you are what is up i hope this yay okay what if acceptmake tedxt smaller if more word go onto nextline
 		</div>
 		<div class = "footer">
 				<div class = "posReact"></div>
@@ -153,7 +157,6 @@ const pSBC=(p,c0,c1,l)=>{
 		expandedPosts.push(false);
 		expandedComments.push(false);
 		commentsOpened.push(false);
-		console.log();
 		const textBit = postElement.querySelector('.text');
 		const commentBit = postElement.querySelector('.comments');
 		textBit.addEventListener('click', clickOnText);
@@ -179,8 +182,8 @@ const pSBC=(p,c0,c1,l)=>{
 	    } 
 
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
-			arrayOfPlaceholders[i].getElementsByClassName('spotifyTemplate')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
-	  	arrayOfPlaceholders[i].getElementsByClassName('photoTemplate')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
+			arrayOfPlaceholders[i].getElementsByClassName('spplayer')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
+	  	arrayOfPlaceholders[i].getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
 	  	const backgrColor = getComputedStyle(document.documentElement).getPropertyValue('--background-highlight-1');
 			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, backgrColor);
 		}
