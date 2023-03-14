@@ -87,23 +87,23 @@ flex-direction: row;
 flex: 1;
 }
 .posReact{
-	background-image: url('../js/like.png');
+	background-image: url('../media/icons/like-icon.png');
 	min-width: 50px;
-	min-height: 60px;
+	min-height: 50px;
 	background-size:50px;
 cursor:pointer;
 }
 .negReact{
-	background-image: url('../js/dislike.png');
+	background-image: url('../media/icons/dislike-icon.png');
 	min-width: 50px;
-	min-height: 60px;
+	min-height: 50px;
 	background-size:50px;
 cursor:pointer;
 }
 .comments{
-	background-image: url('../js/comments.png');
+	background-image: url('../media/icons/comment-icon.png');
 	min-width: 50px;
-	min-height: 60px;
+	min-height: 50px;
 	background-size:50px;
 color: var(--text-colour);
 cursor:pointer;
