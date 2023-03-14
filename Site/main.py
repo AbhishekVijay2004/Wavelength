@@ -4,22 +4,18 @@ from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
 import mysql.connector 
-import argon2
+from argon2 import PasswordHasher
 
 # # ------- Variables for testing -------
 # # ------- Remove once DB synced -------
-
-email = "Email not linked"
-username = "Username not linked"
-display_name = "Display name not linked"
-bio = "Bio not linked"
-top_song = "Top song not linked"
 
 app = Flask(__name__)
 app.secret_key = "abhishek"
 app.use_static = True
 
 scope = "user-top-read"
+
+ph = PasswordHasher()
 
 load_dotenv()
 
@@ -50,7 +46,7 @@ def settings():
     # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
     # db.commit()
     # db.close()
-    return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
+    return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profilePic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
 
 @app.route('/post')
 def post():
@@ -71,7 +67,7 @@ def login():
         password = request.form['password']
 
         if (len(username) < 1):
-            flash("Not a valid username", category="error")
+            flash("Please enter a username or email", category="error")
             print("Error")
         elif (len(password) < 1):
             flash("Password must be over 1 character", category="error")
@@ -87,20 +83,24 @@ def login():
                     user = True
 
         if (user == True):
-            session["username"] = userDetailsList[0]
-            session["password"] = userDetailsList[1]
-            session["email"] = userDetailsList[2]
-            session["profilePic"] = userDetailsList[3]
-            session["bio"] = userDetailsList[4]
-            session["topSong"] = userDetailsList[5]
-            session["displayName"] = userDetailsList[6]
+            if (ph.verify(userDetailsList[1], password)):
+                session["username"] = userDetailsList[0]
+                session["password"] = userDetailsList[1]
+                session["email"] = userDetailsList[3]
+                session["profilePic"] = userDetailsList[2]
+                session["bio"] = userDetailsList[4]
+                session["topSong"] = userDetailsList[5]
+                session["displayName"] = userDetailsList[6]
 
-            db.commit()
-            db.close()
-            print(session)
+                db.commit()
+                db.close()
+                print(session)
 
-            return redirect(url_for('home'))
+                return redirect(url_for('home'))
 
+            else:
+                flash("Password is incorrect", category="error")
+                print("Error")
         else:
             flash("User does not exist", category="error")
             print("Error")
@@ -142,12 +142,9 @@ def registration():
             flash("Passwords do not match", category="error")
             print("Error")
         else:
-            print(f"Email: {email}, Username: {username}, Password: {password1}")
-            password = password1
             db, cursor = connectdb()
-            bytePass = bytes(password1, 'utf-8')
-            hashed_password = argon2.hash_password(bytePass)
-            hashed_password  = hashed_password[:199]
+            hashed_password = ph.hash(password1)
+            hashed_password = hashed_password[:199]
             print(hashed_password)
             create_user(cursor, db, email, username, hashed_password)
             db.commit()
