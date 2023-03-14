@@ -104,8 +104,9 @@ def login():
                 flash("Password is incorrect", category="error")
                 print("Error")
         else:
-            flash("User does not exist", category="error")
-            print("Error")
+            if (len(usernameOrEmail) >= 1 and len(password) >= 1):
+                flash("User does not exist", category="error")
+                print("Error")
 
     db.commit()
     db.close()
