@@ -13,13 +13,14 @@ def connectdb():
 
 
 
-def create_user(cursor, username, password, profilePic=None, email=None, bio=None, topsong=None, displayname=None):
+def create_user(cursor, db, username, password, profilePic=None, email=None, bio=None, topsong=None, displayname=None):
 	if displayname == None:
 		displayname = username
 	sql = """
 		INSERT INTO users (username, password, profilePic, email, bio, topsong, displayname)
 		VALUES (%s, %s, %s, %s, %s, %s, %s)"""
 	cursor.execute(sql, (username, password, profilePic, email, bio, topsong, displayname))
+	db.commit()
 	print('user added')
 
 def delete_user(username, cursor, db):
@@ -96,7 +97,7 @@ def delete_comment(commentID, cursor, db):
 	print(f'comment {commentID[0]} deleted')
 
 def add_comment_like(commentID, username, liketype, cursor, db):
-	delete_comment_like(commentID, username)
+	delete_comment_like(commentID, username, cursor, db)
 	sql = """
 		INSERT INTO commentlikes(commentID, username, type)
 		VALUES (%s, %s, %s)"""
@@ -234,3 +235,12 @@ def get_follower_accounts(username, cursor):
 	accounts = [result[0] for result in results]
 	return accounts
 
+
+
+if __name__ == "__main__":
+	db, cursor = connectdb()
+	# create a user
+	# create_user(cursor, db, 'matt', 'password', 'matt@uni.init')
+	# create_post(cursor, db, 'matt', 'hello')
+	# add_comment(1, 'matt', 'this is shit', cursor, db)
+	add_comment_like(1, 'matt', 'dislike', cursor, db)
