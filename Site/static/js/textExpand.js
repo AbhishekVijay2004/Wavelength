@@ -4,7 +4,7 @@
 
 	function clickOnText() {
 		let elmnt = this;
-		let i = arrayOfPosts.indexOf(this);
+		let i = arrayOfPosts.indexOf(this.parentNode);
 	    if (elmnt.scrollHeight > 150) {
 		    expandedPosts[i] = !expandedPosts[i];
 		    if (expandedPosts[i]) {
@@ -20,14 +20,15 @@
 	function clickOnComments() {
 		let elmnt = this;
 		commSec = elmnt.parentNode.parentNode.querySelector('.commentSection');	
-			    	console.log(commSec.scrollHeight);
-
-		let i = arrayOfPosts.indexOf(this);
+		let i = arrayOfPosts.indexOf(this.parentNode.parentNode);
+		if (commentsOpened[i] == '0') {
+			commentsOpened[i] = 1;
+		    loadCommentsSection(commSec);
+}
 		    expandedComments[i] = !expandedComments[i];
 		    if (expandedComments[i]) {
 		      commSec.style.maxHeight = '250px';
 		      commSec.style.display = 'inline';
-		      loadCommentsSection(commSec);
 	    	} else {		    	
 		      commSec.style.maxHeight = '0px';
 		      commSec.style.display = 'none';
@@ -74,6 +75,13 @@ Nunc eu mollis elit. Nulla non ligula at dui rhoncus dapibus sit amet cursus nib
 	function onResizeOrLoad(e) {
 	    for (var i = 0; i < arrayOfPosts.length; i++) {
 	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]
+	    	
+
+	    	currentTextbox.style.fontSize="98px";
+	    	while (currentTextbox.scrollHeight > 150 && currentTextbox.style.fontSize.substring(0,2) > 20) {
+	    		console.log("HI");
+	    			currentTextbox.style.fontSize = parseInt(currentTextbox.style.fontSize.substring(0,2)) - 2 + "px";
+	    	}
 			if (currentTextbox.scrollHeight > 150 && expandedPosts[i] == false) {
 			    currentTextbox.style.cursor = 'pointer';
 			    currentTextbox.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)'; 
@@ -91,3 +99,6 @@ Nunc eu mollis elit. Nulla non ligula at dui rhoncus dapibus sit amet cursus nib
 			}
 		}
     }; //checks if the text gets smaller/larger than 150px when resized, so toggle for textboxes can be disabled/enabled
+
+
+    

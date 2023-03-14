@@ -98,6 +98,7 @@ const pSBC=(p,c0,c1,l)=>{
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
 		expandedComments.push(false);
+		commentsOpened.push(false);
 		console.log();
 		const textBit = postElement.querySelector('.text');
 		const commentBit = postElement.querySelector('.comments');
@@ -139,9 +140,7 @@ const pSBC=(p,c0,c1,l)=>{
 
       <!-- ------------------- end of song player --------------- --> 
 	  	<div id="text" class="text">
-	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
-	  		<br><br>
-				Donec quis ultrices nibh. Fusce blandit mi ut ex ultrices, vitae pellentesque lorem finibus. Integer iaculis varius fermentum. Mauris a urna nibh. Nullam efficitur pretium eros nec gravida. Pellentesque sodales ex dolor, sit amet pharetra leo porta at. Quisque molestie mollis enim, et rhoncus dui imperdiet at. Maecenas commodo ligula eu elit bibendum auctor. Cras ultrices accumsan varius. Aliquam erat volutpat. Morbi mattis lacus vitae est posuere pellentesque. Vivamus egestas quis mauris a efficitur. Nulla fringilla nulla ligula, luctus interdum quam congue ut. Nulla et mauris eget urna consequat euismod ut eu metus. Nullam a mollis massa.
+	  		Lorem  ipsum dolor sit amet.
 		</div>
 		<div class = "footer">
 				<div class = "posReact"></div>
@@ -153,6 +152,7 @@ const pSBC=(p,c0,c1,l)=>{
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
 		expandedComments.push(false);
+		commentsOpened.push(false);
 		console.log();
 		const textBit = postElement.querySelector('.text');
 		const commentBit = postElement.querySelector('.comments');
@@ -196,6 +196,7 @@ const pSBC=(p,c0,c1,l)=>{
 	var arrayOfPosts = [];
 	var expandedPosts = [];
 	var expandedComments = [];
+	var commentsOpened = [];
 	var change = 0.01;
 	var pos = 1;
 

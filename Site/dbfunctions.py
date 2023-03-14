@@ -162,7 +162,7 @@ def get_user_details(cursor, username):
 		return None
 	return result[0]
 
-def get_user_details_by_email(cusor, email):
+def get_user_details_by_email(cursor, email):
 	sql = """
 		SELECT * FROM users
 		WHERE (email = %s)"""
