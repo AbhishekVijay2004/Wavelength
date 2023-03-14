@@ -46,10 +46,10 @@ def home():
 
 @app.route('/settings')
 def settings():
-    db, cursor = connectdb()
-    get_user_details(cursor, db, session["username"], username, password, profilePic, url)
-    db.commit()
-    db.close()
+    # db, cursor = connectdb()
+    # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
+    # db.commit()
+    # db.close()
     return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
@@ -83,6 +83,10 @@ def login():
                 email = email
 
             print(f"Email: {email}, Username: {username}, Password: {password}")
+            # db, cursor = connectdb()
+            # get_user_details(cursor, username)
+            # db.commit()
+            # db.close()
             return redirect(url_for('home'))
 
     return redirect(url_for('signon'))
