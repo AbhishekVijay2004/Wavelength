@@ -84,6 +84,7 @@
   text-shadow: 0vw 0vw 0.1vw black;
   text-align:left ;
   font-size:1.5vw;
+  max-width: 20vw;
 }
 #spAudiocontainer {
   height:90%;
