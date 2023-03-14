@@ -62,14 +62,12 @@ def signon():
 
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
-    global email, username, password
-
     regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$" 
     user = False          
     db, cursor = connectdb()
 
     if request.method == 'POST':
-        username = request.form['username']
+        usernameOrEmail = request.form['username']
         password = request.form['password']
 
         if (len(username) < 1):
@@ -79,12 +77,12 @@ def login():
             flash("Password must be over 1 character", category="error")
             print("Error")
         else:
-            if (re.search(regex,username)):
-                userDetailsList = get_user_details_by_email(cursor, email)
+            if (re.search(regex,usernameOrEmail)):
+                userDetailsList = get_user_details_by_email(cursor, usernameOrEmail)
                 if (userDetailsList != False):
                     user = True
             else:
-                userDetailsList = get_user_details(cursor, username)
+                userDetailsList = get_user_details(cursor, usernameOrEmail)
                 if (userDetailsList != False):
                     user = True
 

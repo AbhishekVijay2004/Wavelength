@@ -227,7 +227,7 @@ def get_like_accounts(cursor,postid, like='like'):
 
 
 def get_num_comment_likes(cursor, db, commentID, like='like'):
-	sql """
+	sql = """
 		SELECT SUM(username) FROM commentlikes
 		WHERE (type=%s AND commentID = %s)"""
 	cursor.execute(sql, (like, commentID))
