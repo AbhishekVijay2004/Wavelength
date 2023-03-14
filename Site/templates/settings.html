@@ -38,19 +38,19 @@
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Email:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{ email }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ email }}'">
+          <input class="single-line-text-entry" type="text" placeholder="{{ email }}" onfocus="this.value='{{ email }}'" onblur="this.placeholder='{{ email }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{ username }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ username }}'">
+          <input class="single-line-text-entry" type="text" placeholder="{{ username }}" onfocus="this.value='{{ username }}'" onblur="this.placeholder='{{ username }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Display Name:</h2>
-          <input class="single-line-text-entry" type="text" placeholder="{{ display_name }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ display_name }}'">
+          <input class="single-line-text-entry" type="text" placeholder="{{ display_name }}" onfocus="this.value='{{ display_name }}'" onblur="this.placeholder='{{ display_name }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Bio:</h2>
-          <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{ bio }}" onfocus="this.placeholder=''" onblur="this.placeholder ='{{ bio }}'" style="height: 6vw;"></textarea>
+          <textarea class="multi-line-text-entry" type="text" maxlength="100" placeholder="{{ bio }}" onfocus="this.value='{{ bio }}'" onblur="this.placeholder ='{{ bio }}'" style="height: 6vw;"></textarea>
           <div id="the-count">
             <span id="current">0</span>
             <span id="maximum">/ 60</span>
@@ -120,4 +120,5 @@ function logout() {
 <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/occupyProfilePic.js')}}"></script>
 {% endblock %}

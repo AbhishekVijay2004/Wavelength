@@ -114,6 +114,12 @@ def login():
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
     session.pop('username', None)
+    session.pop('password', None)
+    session.pop('email', None)
+    session.pop('profilePic', None)
+    session.pop('bio', None)
+    session.pop('topSong', None)
+    session.pop('displayName', None)
     return redirect(url_for('signon'))
 
 @app.route('/register')
@@ -176,8 +182,8 @@ def setup():
 
 @app.route('/creation', methods = ['GET', 'POST'] )
 def creation():
-    global display_name, bio, top_song
-    
+    display_name, bio, top_song = "", "", ""
+
     if request.method == 'POST':
         change = False
         display_name = request.form['display_name']
@@ -213,11 +219,11 @@ def creation():
             session["topSong"] = top_song
             session["displayName"] = display_name
             return redirect(url_for('home'))
-        
+                
     try:
-        return render_template('setup.html', profile_pic=session["profilePic"])
+        return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song)
     except:
-        return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png')
+        return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png', display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/song')
 def search_song():

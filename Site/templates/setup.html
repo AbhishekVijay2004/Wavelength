@@ -18,11 +18,11 @@
                 </div>
                 <div class="profile-setting">
                     <h2 class="profile-setting-label">Display Name:</h2>
-                    <input class="single-line-text-entry" type="text" name="display_name">
+                    <input class="single-line-text-entry" type="text" name="display_name" value="{{ display_name }}">
                 </div>
                 <div class="profile-setting">
                     <h2 class="profile-setting-label">Bio:</h2>
-                    <textarea class="multi-line-text-entry" type="text" name="bio" maxlength="100" style="height: 6vw;"></textarea>
+                    <textarea class="multi-line-text-entry" type="text" name="bio" maxlength="100" style="height: 6vw;">{{ bio }}</textarea>
                 <div id="the-count">
                     <span id="current">0</span>
                     <span id="maximum">/ 60</span>
@@ -30,7 +30,7 @@
             </div>
             <div class="profile-setting">
                 <h2 class="profile-setting-label">Top Song:</h2>
-                <input class="single-line-text-entry" id="search-box" type="text" name="top_song" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()"></input>
+                <input class="single-line-text-entry" id="search-box" type="text" name="top_song" value="{{ top_song }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()"></input>
             </div>
             <div id="search-container">
                 <div style="margin-top:1vw;"></div>
@@ -80,16 +80,5 @@
 <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/search.js')}}"></script>
-<script>
-    const input = document.getElementById('profile-pic-input');
-    const span = document.querySelector('.profile-picture-span');
-    input.addEventListener('change', function() {
-        const file = input.files[0];
-        const reader = new FileReader();
-        reader.onload = function() {
-        span.style.backgroundImage = `url(${reader.result})`;
-        }
-        reader.readAsDataURL(file);
-    });
-</script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/occupyProfilePic.js')}}"></script>
 {% endblock %}

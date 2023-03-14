@@ -153,6 +153,7 @@
   width: 30vw;
   text-align: left;
   font-size: 1vw;
+  font-family: "roboto_condensed";
   color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;
