@@ -1,17 +1,16 @@
 from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash
-import spotipy, re
+import spotipy, re, mysql.connector, os
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
-import mysql.connector 
 from argon2 import PasswordHasher
+from werkzeug.utils import secure_filename
 
-# # ------- Variables for testing -------
-# # ------- Remove once DB synced -------
 
 app = Flask(__name__)
 app.secret_key = "abhishek"
 app.use_static = True
+app.config['UPLOAD_FOLDER'] = 'static/media/profilePictures/'
 
 scope = "user-top-read"
 
@@ -30,26 +29,30 @@ def index():
 
 @app.route('/profile')
 def profile():
+    print(session)
     return render_template('profile.html')
 
 @app.route('/friends')
 def friends():
+    print(session)
     return render_template('friends.html')
 
 @app.route('/home')
 def home():
+    print(session)
     return render_template('home.html')
 
 @app.route('/settings')
 def settings():
-    # db, cursor = connectdb()
-    # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
-    # db.commit()
-    # db.close()
-    return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profilePic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
+    print(session)
+    try:
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
+    except:
+        return redirect(url_for('signon'))
 
 @app.route('/post')
 def post():
+    print(session)
     return render_template('new-post.html')
 
 @app.route('/signon')
@@ -66,11 +69,11 @@ def login():
         usernameOrEmail = request.form['username']
         password = request.form['password']
 
-        if (len(username) < 1):
-            flash("Please enter a username or email", category="error")
+        if (len(usernameOrEmail) < 1):
+            flash("Please enter your username or email", category="error")
             print("Error")
         elif (len(password) < 1):
-            flash("Password must be over 1 character", category="error")
+            flash("Please enter your password", category="error")
             print("Error")
         else:
             if (re.search(regex,usernameOrEmail)):
@@ -83,28 +86,29 @@ def login():
                     user = True
 
         if (user == True):
-            if (ph.verify(userDetailsList[1], password)):
-                session["username"] = userDetailsList[0]
-                session["password"] = userDetailsList[1]
-                session["email"] = userDetailsList[3]
-                session["profilePic"] = userDetailsList[2]
-                session["bio"] = userDetailsList[4]
-                session["topSong"] = userDetailsList[5]
-                session["displayName"] = userDetailsList[6]
+            try:
+                if (ph.verify(userDetailsList[1], password)):
+                    session["username"] = userDetailsList[0]
+                    session["password"] = userDetailsList[1]
+                    session["email"] = userDetailsList[3]
+                    session["profilePic"] = userDetailsList[2]
+                    session["bio"] = userDetailsList[4]
+                    session["topSong"] = userDetailsList[5]
+                    session["displayName"] = userDetailsList[6]
+                    print(session)
 
-                db.commit()
-                db.close()
-                print(session)
-
-                return redirect(url_for('home'))
-
-            else:
+                    db.commit()
+                    db.close()
+                    return redirect(url_for('home'))
+            except:
                 flash("Password is incorrect", category="error")
                 print("Error")
         else:
             flash("User does not exist", category="error")
             print("Error")
 
+    db.commit()
+    db.close()
     return redirect(url_for('signon'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
@@ -120,11 +124,12 @@ def register():
 def registration():
     global email, username, password
     if request.method == 'POST':
+        db, cursor = connectdb()
         email = request.form['email']
         username = request.form['username']
         password1 = request.form['password1']
         password2 = request.form['password2']
-        regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$" 
+        regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
         if not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
@@ -132,27 +137,37 @@ def registration():
         elif (len(username) < 1):
             flash("Please enter a username", category="error")
             print("Error")
-        # elif (username == checkUsername()):
-        #     flash("Username taken", category="error")
-        #     print("Error")
         elif (len(password1) < 7):
             flash("Password must be over 7 characters", category="error")
+            print("Error")
+        elif (password1 == username):
+            flash("Password and username must not match", category="error")
             print("Error")
         elif (password1 != password2):
             flash("Passwords do not match", category="error")
             print("Error")
         else:
-            db, cursor = connectdb()
-            hashed_password = ph.hash(password1)
-            hashed_password = hashed_password[:199]
-            print(hashed_password)
-            create_user(cursor, db, email, username, hashed_password)
-            db.commit()
-            db.close()
-            return redirect(url_for('setup'))
-
-
-
+            if (get_user_details(cursor, username)):
+                flash("Username taken", category="error")
+                print("Error")
+            elif (get_user_details_by_email(cursor, email)):
+                flash("Email already taken", category="error")
+                print("Error")
+            else:
+                hashed_password = ph.hash(password1)
+                hashed_password = hashed_password[:199]
+                print(hashed_password)
+                print(email)
+                create_user(cursor, db, username, hashed_password, email)
+                db.commit()
+                db.close()
+                session["username"] = username
+                session["password"] = hashed_password
+                session["email"] = email
+                return redirect(url_for('setup'))
+    
+    db.commit()
+    db.close()
     return render_template('register.html')
 
 @app.route('/setup')
@@ -162,12 +177,29 @@ def setup():
 @app.route('/creation', methods = ['GET', 'POST'] )
 def creation():
     global display_name, bio, top_song
+    
     if request.method == 'POST':
+        change = False
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['top_song']
 
-        if (len(display_name) < 1):
+        try:
+            profile_pic = request.files['profile_pic']
+        except:
+            pass
+        if ('profile_pic' not in request.files or profile_pic.filename == ''):
+            session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
+        else:
+            profile_pic = request.files['profile_pic']
+            filename = secure_filename(profile_pic.filename)
+            profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            change = True            
+
+        if (change == True):
+            pass
+        elif (len(display_name) < 1):
             flash("Please enter a display name", category="error")
             print("Error")
         elif (len(bio) < 1):
@@ -177,10 +209,15 @@ def creation():
             flash("Please enter a top song", category="error")
             print("Error")
         else:
-            print(f"Display Name: {display_name}, Bio: {bio}, Top Song: {top_song}")
+            session["bio"] = bio
+            session["topSong"] = top_song
+            session["displayName"] = display_name
             return redirect(url_for('home'))
-
-    return render_template('setup.html')
+        
+    try:
+        return render_template('setup.html', profile_pic=session["profilePic"])
+    except:
+        return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png')
 
 @app.route('/song')
 def search_song():
