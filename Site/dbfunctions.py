@@ -139,7 +139,7 @@ def alter_user(username, key, value, cursor, db):
 	db.commit()
 	print(f'{key} changed to {value}')
 
-def get_user_details(cursor, db, username, param='*'):
+def get_user_detail(cursor, db, username, param='*'):
 	if param not in ['username', 'password', 'profilePic', 'email', 'displayname', 'profilePic', 'topsong', 'bio', '*']:
 		return 'invalid query'
 	else:
@@ -149,6 +149,14 @@ def get_user_details(cursor, db, username, param='*'):
 		cursor.execute(sql, (username, ))
 		result = cursor.fetchone()
 		return result
+
+def get_user_details(cursor, username):
+	sql = """
+		SELECT * FROM users
+		WHERE (username = %s)"""
+	cursor.execute(sql, (username, ))
+	result = cursor.fetchall()
+	return result[0]
 
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
@@ -243,4 +251,5 @@ if __name__ == "__main__":
 	# create_user(cursor, db, 'matt', 'password', 'matt@uni.init')
 	# create_post(cursor, db, 'matt', 'hello')
 	# add_comment(1, 'matt', 'this is shit', cursor, db)
-	add_comment_like(1, 'matt', 'dislike', cursor, db)
+	# add_comment_like(1, 'matt', 'dislike', cursor, db)
+	print(get_user_details(cursor, 'matt'))
