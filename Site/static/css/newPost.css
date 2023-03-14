@@ -95,8 +95,8 @@ input:checked + .setting-slider:before{
   position:absolute;
   aspect-ratio: 1;
   border-radius: 50%;
-  background-color: rgba(0,0,0,0) !important;
-  border: none 0.05vw black !important;
-  background-image: none !important;
+  border: solid 0.1vw var(--background-highlight-1) !important;
+  background-color: #ffffff !important;
+  background-image: url('../media/icons/play-pause-icon.png') !important;
 }
 
