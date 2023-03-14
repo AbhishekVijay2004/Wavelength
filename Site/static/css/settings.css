@@ -198,3 +198,13 @@ input:checked + .setting-slider:before{
   height: 4vw !important;
   width: 4vw !important;
 }
+.spplay-pause-btn {
+  height: 4vw !important;
+  width: 4vw !important;
+  position:absolute;
+  aspect-ratio: 1;
+  border-radius: 50% !important;
+  border: solid 0.1vw var(--background-highlight-1) !important;
+  background-color: #ffffff !important;
+  background-image: url('../media/icons/play-pause-icon.png') !important;
+}
