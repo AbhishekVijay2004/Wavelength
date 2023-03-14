@@ -63,6 +63,11 @@ def signon():
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
     global email, username, password
+
+    regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$" 
+    user = False          
+    db, cursor = connectdb()
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -74,21 +79,16 @@ def login():
             flash("Password must be over 1 character", category="error")
             print("Error")
         else:
-            try:
-                user = True
-            except IndexError:
-                flash("User does not exist", category="error")
-                print("Error")
-                user = False
-        if (user == True):
-            regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"            
-            db, cursor = connectdb()
-
             if (re.search(regex,username)):
                 userDetailsList = get_user_details_by_email(cursor, email)
+                if (userDetailsList != False):
+                    user = True
             else:
                 userDetailsList = get_user_details(cursor, username)
-            
+                if (userDetailsList != False):
+                    user = True
+
+        if (user == True):
             session["username"] = userDetailsList[0]
             session["password"] = userDetailsList[1]
             session["email"] = userDetailsList[2]
@@ -99,9 +99,13 @@ def login():
 
             db.commit()
             db.close()
-            
             print(session)
+
             return redirect(url_for('home'))
+
+        else:
+            flash("User does not exist", category="error")
+            print("Error")
 
     return redirect(url_for('signon'))
 

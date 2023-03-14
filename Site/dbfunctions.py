@@ -157,19 +157,22 @@ def get_user_details(cursor, username):
 		WHERE (username = %s)"""
 	cursor.execute(sql, (username, ))
 	result = cursor.fetchall()
-	if len(result) == 0:
-		return None
-	return result[0]
+	try:
+		return result[0]
+	except IndexError:
+		return False
 
 def get_user_details_by_email(cursor, email):
 	sql = """
 		SELECT * FROM users
 		WHERE (email = %s)"""
 	cursor.execute(sql, (email,))
-	resultt = cursor.fetchall()
-	if len(result) == 0:
-		return None
-	return result[0]
+	result = cursor.fetchall()
+	try:
+		return result[0]
+	except IndexError:
+		return False
+
 
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
