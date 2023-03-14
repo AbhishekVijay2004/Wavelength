@@ -3,7 +3,7 @@ import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
-import _mysql_connector 
+import mysql.connector 
 import argon2
 
 # # ------- Variables for testing -------
@@ -46,10 +46,10 @@ def home():
 
 @app.route('/settings')
 def settings():
-    db, cursor = connectdb()
-    get_user_details(cursor, db, session["username"], username, password, profilePic, url)
-    db.commit()
-    db.close()
+    # db, cursor = connectdb()
+    # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
+    # db.commit()
+    # db.close()
     return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
@@ -74,15 +74,25 @@ def login():
             flash("Password must be over 1 character", category="error")
             print("Error")
         else:
-            session["username"] = username
-
-            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+            regex = '([-!#-'+/-9=?A-Z^-~]+(\.[-!#-'+/-9=?A-Z^-~]+)|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)|\[((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|IPv6:((((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){6}|::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){5}|[0-9A-Fa-f]{0,4}::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){4}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):)?(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){3}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,2}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){2}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,3}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,4}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,5}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,6}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)|(?!IPv6:)[0-9A-Za-z-]*[0-9A-Za-z]:[!-Z^-~]+)])'
+            db, cursor = connectdb()
             if (re.search(regex,username)):
-                email = username
+                userDetailsList = get_user_details_by_email(cursor, email)
             else:
-                email = email
+                userDetailsList = get_user_details(cursor, username)
+            
+            session["username"] = userDetailsList[0]
+            session["password"] = userDetailsList[1]
+            session["email"] = userDetailsList[2]
+            session["profilePic"] = userDetailsList[3]
+            session["bio"] = userDetailsList[4]
+            session["topSong"] = userDetailsList[5]
+            session["displayName"] = userDetailsList[6]
 
-            print(f"Email: {email}, Username: {username}, Password: {password}")
+            db.commit()
+            db.close()
+            
+            print(session)
             return redirect(url_for('home'))
 
     return redirect(url_for('signon'))
