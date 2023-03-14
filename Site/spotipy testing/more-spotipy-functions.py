@@ -1,4 +1,3 @@
-
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -11,7 +10,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secre
 
 
 def get_followed_artists():
-    # gets the first 50 followed artists
+    # gets the first 50 followed artists and returns artist names
     followed_array = []
     response = sp.current_user_followed_artists(limit=50, after=None)
     for artist in response['artists']['items']:
@@ -20,7 +19,7 @@ def get_followed_artists():
 
 
 def get_top_artists():
-    #gets top 10 artists
+    #gets top 10 artists and returns artist names
     array = []
     response= sp.current_user_top_artists(limit=10, offset=0, time_range='medium_term')
     for i, item in enumerate(response['items']):
