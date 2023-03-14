@@ -192,6 +192,12 @@
   width: 48vw;
   height: 98vh;
 }
+.clsScrollRight {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 24vw;
+  height: 98vh;
+}
 #hideScroll::-webkit-scrollbar {
   display: none;
 }
@@ -278,6 +284,55 @@
   background-size: auto 6vw;
   background-position: center;
   border: 0.25vw solid var(--primary-colour);
+}
+#notifications-container{
+  text-align: center;
+}
+.notifications-title{
+  font-weight: 200;
+  font-size: 3vw;
+  margin: 0;
+  margin-top: 1vw;
+}
+.notification-box{
+  width: 90%;
+  height: 10vw;
+  margin: auto;
+  margin-top: 1vw;
+  background-color: var(--background-highlight-1);
+  border-radius: 1vw;
+  color: white;
+  font-size: 2vw;
+}
+.notification-name{
+  text-align: left;
+  margin-top: 1.3vw;
+}
+.notification-type{
+  margin-bottom: 0;
+  font-weight: 200;
+}
+.notification-picture {
+  height: 6vw;
+  width: 6vw;
+  margin-left: 1vw;
+  object-fit: cover;
+  box-sizing: border-box;
+  border: solid 0.2vw var(--primary-colour);
+  border-radius: 50%;
+  float:left;
+  margin-right: 1vw;
+}
+.follow-accept-button{
+  background-color: var(--primary-colour);
+  width: 6vw;
+  height: 3vw;
+  margin: auto;
+  border-radius: 1.5vw;
+  cursor: pointer;
+}
+.follow-accept-button:hover{
+  background-color: var(--primary-highlight-1);
 }
 @font-face {
     font-family: 'roboto_condensed';

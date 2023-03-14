@@ -224,6 +224,25 @@ def select_result():
     print(data)
     return jsonify(data)
 
+@app.route('/getNotifications')
+def get_notifications():
+    data = []
+    ###TODO: GET NOTIFICATIONS###
+    from random import randint
+    titles = ["Follow Request", "Like", "Comment"]
+    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
+    for i in range(20):
+        nameLength = randint(3, 12)
+        name = ""
+        for j in range(nameLength): name += letters[randint(0, 25)]
+        item = {
+            "title"      : titles[randint(0, 2)],
+            "name"       : name,
+            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
+        }
+        data.append(item)
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(debug = True)
 

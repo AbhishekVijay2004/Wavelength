@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
     {% block stylesheets %}
-    {% endblock %} 
+    {% endblock %}
   </head>
   <body>
     <div class="bar-left">
@@ -56,15 +56,23 @@
 
         function navigateToPostPage() {
             window.location.href = "{{ url_for('post') }}";
-        } 
+        }
       </script>
     </div>
     {% block content %}
-    {% endblock %}  
-    <div class="bar-right">
+    {% endblock %}
+    <div class="bar-right clsScrollRight">
+      <div id="notifications-container">
+        <h2 class="notifications-title">Notifications</h2>
+        <div class="notification-box">
+        </div>
+      </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/accept-request.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename = 'js/get-notifications.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     {% block javascript %}
-    {% endblock %} 
+    {% endblock %}
   </body>
 </html>

@@ -158,6 +158,14 @@ def get_user_details(cursor, username):
 	result = cursor.fetchall()
 	return result[0]
 
+def get_user_details_by_email(cusor, email):
+	sql = """
+		SELECT * FROM users
+		WHERE (email = %s)"""
+	cursor.execute(sql, (email,))
+	resultt = cursor.fetchall()
+	return result[0]
+
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
 		return 'invalid query'
