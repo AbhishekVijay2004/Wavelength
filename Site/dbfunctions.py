@@ -25,7 +25,7 @@ def create_user(cursor, db, username, password, email, profilePic=None, bio=None
 def delete_user(username, cursor, db):
 	username = (username, )
 	sql = """
-		DELETE FROM users 
+		DELETE FROM users
 		WHERE username = %s"""
 	cursor.execute(sql, username)
 	db.commit()
