@@ -205,7 +205,7 @@ def list_user_posts(username, cursor):
 def get_num_likes(cursor, db, postid, like='like'):
 	# get num likes or dislikes depending on parameter passed
 	sql = """
-		SELECT SUM(postID) FROM likes
+		SELECT SUM(username) FROM likes
 		WHERE (type = %s AND postID = %s)"""
 	cursor.execute(sql, (like, postid))
 	result = cursor.fetchone()
@@ -221,6 +221,15 @@ def get_like_accounts(cursor,postid, like='like'):
 	# change into list of usernames
 	accounts = [result[0] for result in results]
 	return accounts
+
+
+def get_num_comment_likes(cursor, db, commentID, like='like'):
+	sql """
+		SELECT SUM(username) FROM commentlikes
+		WHERE (type=%s AND commentID = %s)"""
+	cursor.execute(sql, (like, commentID))
+	result = cursor.fetchone()
+	return result[0]
 
 def get_num_following(username, cursor):
 	sql = """
