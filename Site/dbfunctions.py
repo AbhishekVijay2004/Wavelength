@@ -95,6 +95,23 @@ def delete_comment(commentID, cursor, db):
 	db.commit()
 	print(f'comment {commentID[0]} deleted')
 
+def add_comment_like(commentID, username, liketype, cursor, db):
+	delete_comment_like(commentID, username)
+	sql = """
+		INSERT INTO commentlikes(commentID, username, type)
+		VALUES (%s, %s, %s)"""
+	cursor.execute(sql, (commentID, username, liketype))
+	db.commit()
+
+def delete_comment_like(commentID, username, cursor, db):
+	## will function for both like and dislike
+	sql = """
+		DELETE FROM commentlikes
+		WHERE (commentID = %s) AND (username = %s)"""
+	cursor.execute(sql, (commentID, username))
+	db.commit()
+	print('like deleted')
+
 
 def add_follow(username, followername, cursor, db):
 	sql = """
