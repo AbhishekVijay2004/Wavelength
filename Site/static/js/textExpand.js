@@ -19,28 +19,49 @@
 
 	function clickOnComments() {
 		let elmnt = this;
-		commSec = elmnt.parentNode.parentNode.querySelector('.commentSection');
+		commSec = elmnt.parentNode.parentNode.querySelector('.commentSection');	
+			    	console.log(commSec.scrollHeight);
+
 		let i = arrayOfPosts.indexOf(this);
 		    expandedComments[i] = !expandedComments[i];
 		    if (expandedComments[i]) {
-		    	console.log(commSec.scrollHeight);
 		      commSec.style.maxHeight = '250px';
 		      commSec.style.display = 'inline';
-		      loadComment(commSec);
-	    	} else {
+		      loadCommentsSection(commSec);
+	    	} else {		    	
 		      commSec.style.maxHeight = '0px';
 		      commSec.style.display = 'none';
 	    	}
+	}
+
+	function loadCommentsSection(parnt) {
+		const newComment = document.createElement('div');
+		newComment.classList.add('newComment');
+		newComment.innerHTML = `
+		
+      	<input type="text" id="fname" name="fname" size="90%" class="bigText">
+        <input type="submit" value="Submit">
+
+	`;
+		parnt.appendChild(newComment);
+		loadComment(parnt);
+		loadComment(parnt);
+		loadComment(parnt);
+		loadComment(parnt);
+		loadComment(parnt);
 	}
 
 	function loadComment(parnt) {
 		const comment = document.createElement('div');
 		comment.classList.add('commentContainer');
 		comment.innerHTML = `
+		<a href url="http://google.com">
 			<div class="commentProfilePic">
-          
-      </div>
+          	</div>
+      	</a>
       <div class="commentText">
+      <b><u><a href url="http://google.com">John Bishop</a></b></u>
+      <br>
           eipit vehicula. Vestibulum ultricies odio non eros posuere aliquam. Aliquam ac vulputate mi, nec rhoncus justo. Suspendisse vel ultricies eros. Vivamus bibendum non elit eget facilisis. Suspendisse condimentum odio ut purus convallis, vel pretium mauris varius. Donec rutrum eleifend mi scelerisque accumsan.
 <br><br>
 Nunc eu mollis elit. Nulla non ligula at dui rhoncus dapibus sit amet cursus nibh. Nam maximus tempor eros, id lobortis augue imperdiet non. Morbi maximus pharetra imperdiet. Proin accumsan sit amet lorem eget accumsan. Nulla facilisi. Nulla facilisi. Mauris elit quam, mollis a enim in, pharetra ornare massa. In quis convallis urna.

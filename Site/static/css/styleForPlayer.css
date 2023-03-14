@@ -107,6 +107,7 @@
   background-size: 60%;
   transition: background-size 0.1s;
   background-size: 60%;
+  cursor:pointer;
 }
 .spplay-pause-btn.playing {
   background-size: 90%;
