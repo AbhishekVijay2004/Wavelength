@@ -12,8 +12,7 @@ def connectdb():
 	return db, cursor
 
 
-
-def create_user(cursor, db, username, password, profilePic=None, email=None, bio=None, topsong=None, displayname=None):
+def create_user(cursor, db, username, password, email, profilePic=None, bio=None, topsong=None, displayname=None):
 	if displayname == None:
 		displayname = username
 	sql = """
@@ -148,6 +147,8 @@ def get_user_detail(cursor, db, username, param='*'):
 			WHERE (username = %s)"""
 		cursor.execute(sql, (username, ))
 		result = cursor.fetchone()
+		if len(result) == 0:
+			return None
 		return result
 
 def get_user_details(cursor, username):
@@ -156,14 +157,18 @@ def get_user_details(cursor, username):
 		WHERE (username = %s)"""
 	cursor.execute(sql, (username, ))
 	result = cursor.fetchall()
+	if len(result) == 0:
+		return None
 	return result[0]
 
-def get_user_details_by_email(cusor, email):
+def get_user_details_by_email(cursor, email):
 	sql = """
 		SELECT * FROM users
 		WHERE (email = %s)"""
 	cursor.execute(sql, (email,))
 	resultt = cursor.fetchall()
+	if len(result) == 0:
+		return None
 	return result[0]
 
 def get_post_details(cursor, db, postid, param='*',):
@@ -258,6 +263,6 @@ if __name__ == "__main__":
 	# create a user
 	# create_user(cursor, db, 'matt', 'password', 'matt@uni.init')
 	# create_post(cursor, db, 'matt', 'hello')
-	# add_comment(1, 'matt', 'this is shit', cursor, db)
-	# add_comment_like(1, 'matt', 'dislike', cursor, db)
+	# add_comment(2, 'matt', 'this is shit', cursor, db)
+	# add_comment_like(3, 'matt', 'dislike', cursor, db)
 	print(get_user_details(cursor, 'matt'))

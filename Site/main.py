@@ -46,10 +46,10 @@ def home():
 
 @app.route('/settings')
 def settings():
-    db, cursor = connectdb()
-    get_user_details(cursor, db, session["username"], username, password, profilePic, url)
-    db.commit()
-    db.close()
+    # db, cursor = connectdb()
+    # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
+    # db.commit()
+    # db.close()
     return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
@@ -74,15 +74,33 @@ def login():
             flash("Password must be over 1 character", category="error")
             print("Error")
         else:
-            session["username"] = username
+            try:
+                user = True
+            except IndexError:
+                flash("User does not exist", category="error")
+                print("Error")
+                user = False
+        if (user == True):
+            regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"            
+            db, cursor = connectdb()
 
-            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
             if (re.search(regex,username)):
-                email = username
+                userDetailsList = get_user_details_by_email(cursor, email)
             else:
-                email = email
+                userDetailsList = get_user_details(cursor, username)
+            
+            session["username"] = userDetailsList[0]
+            session["password"] = userDetailsList[1]
+            session["email"] = userDetailsList[2]
+            session["profilePic"] = userDetailsList[3]
+            session["bio"] = userDetailsList[4]
+            session["topSong"] = userDetailsList[5]
+            session["displayName"] = userDetailsList[6]
 
-            print(f"Email: {email}, Username: {username}, Password: {password}")
+            db.commit()
+            db.close()
+            
+            print(session)
             return redirect(url_for('home'))
 
     return redirect(url_for('signon'))
@@ -104,7 +122,7 @@ def registration():
         username = request.form['username']
         password1 = request.form['password1']
         password2 = request.form['password2']
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$" 
 
         if not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
@@ -129,7 +147,7 @@ def registration():
             hashed_password = argon2.hash_password(bytePass)
             hashed_password  = hashed_password[:199]
             print(hashed_password)
-            create_user(cursor, username, hashed_password)
+            create_user(cursor, db, email, username, hashed_password)
             db.commit()
             db.close()
             return redirect(url_for('setup'))
