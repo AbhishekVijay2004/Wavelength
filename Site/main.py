@@ -3,7 +3,7 @@ import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
-import _mysql_connector 
+import mysql.connector 
 import argon2
 
 # # ------- Variables for testing -------

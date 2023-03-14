@@ -303,6 +303,7 @@
   border-radius: 1vw;
   color: white;
   font-size: 2vw;
+  position: relative;
 }
 .notification-name{
   text-align: left;
@@ -322,6 +323,21 @@
   border-radius: 50%;
   float:left;
   margin-right: 1vw;
+}
+.notification-close{
+  position: absolute;
+  top: 0.75vw;
+  right: 0.75vw;
+  width: 2vw;
+  height: 2vw;
+  content: url("../media/icons/cross-icon.png");
+  cursor: pointer;
+  line-height: 2vw;
+}
+.notification-close:hover{
+  width: 2.5vw;
+  height: 2.5vw;
+  transition: all 0.25s;
 }
 .follow-accept-button{
   background-color: var(--primary-colour);
