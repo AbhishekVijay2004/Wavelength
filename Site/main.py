@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
 import _mysql_connector 
+import argon2
 
 # # ------- Variables for testing -------
 # # ------- Remove once DB synced -------
@@ -120,7 +121,11 @@ def registration():
             print(f"Email: {email}, Username: {username}, Password: {password1}")
             password = password1
             db, cursor = connectdb()
-            create_user(cursor, username, password1)
+            bytePass = bytes(password1, 'utf-8')
+            hashed_password = argon2.hash_password(bytePass)
+            hashed_password  = hashed_password[:199]
+            print(hashed_password)
+            create_user(cursor, username, hashed_password)
             db.commit()
             db.close()
             return redirect(url_for('setup'))
