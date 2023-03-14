@@ -45,10 +45,10 @@ def home():
 
 @app.route('/settings')
 def settings():
-    # db, cursor = connectdb()
-    # get_user_details(cursor, db, session["username"], username, password, profilePic, url)
-    # db.commit()
-    # db.close()
+    db, cursor = connectdb()
+    get_user_details(cursor, db, session["username"], username, password, profilePic, url)
+    db.commit()
+    db.close()
     return render_template('settings.html', email=email, username=username, display_name=display_name, bio=bio, top_song=top_song)
 
 @app.route('/post')
