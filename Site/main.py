@@ -2,9 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, session, j
 import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
-from dbinserts import *
-from dbtables import *
-from dbqueries import *
+from dbfunctions import *
 import _mysql_connector 
 
 # # ------- Variables for testing -------

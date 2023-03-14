@@ -13,12 +13,11 @@ def connectdb():
 
 
 
-def create_user(username, password, profilePic=None, url=None, spotifyID=0, cursor, db):
+def create_user(cursor, username, password, profilePic=None, url=None, spotifyID=0):
 	sql = """
 		INSERT INTO users (username, password, profilePic, url, spotifyID)
 		VALUES (%s, %s, %s, %s, %s)"""
 	cursor.execute(sql, (username, password, profilePic, url, spotifyID))
-	db.commit()
 	print('user added')
 
 def delete_user(username, cursor, db):
@@ -31,7 +30,7 @@ def delete_user(username, cursor, db):
 	print('user deleted')
 
 
-def create_post(username, postText='', postContent='', cursor, db):
+def create_post(cursor, db, username, postText='', postContent=''):
 	sql = """
 		INSERT INTO posts (username, postText, postContent, createdAt)
 		VALUES (%s, %s, %s, NOW())"""
@@ -120,7 +119,7 @@ def alter_user(username, key, value, cursor, db):
 	db.commit()
 	print(f'{key} changed to {value}')
 
-def get_user_details(username, param='*', cursor):
+def get_user_details(cursor, db, username, param='*'):
 	if param not in ['username', 'password', 'profilePic', 'url', 'spotifyID', '*']:
 		return 'invalid query'
 	else:
@@ -131,7 +130,7 @@ def get_user_details(username, param='*', cursor):
 		result = cursor.fetchone()
 		return result
 
-def get_post_details(postid, param='*', cursor):
+def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
 		return 'invalid query'
 	else:
@@ -142,7 +141,7 @@ def get_post_details(postid, param='*', cursor):
 		result = cursor.fetchone()
 		return result
 
-def get_comment_details(commentid, param='*', cursor):
+def get_comment_details(cursor, db, commentid, param='*'):
 	if param not in ['username', 'postID', 'commentText', '*']:
 		return 'invalid query'
 	else:
@@ -162,7 +161,7 @@ def list_user_posts(username, cursor):
 	result = cursor.fetchall()
 	return result
 
-def get_num_likes(postid, like='like', cursor):
+def get_num_likes(cursor, db, postid, like='like'):
 	# get num likes or dislikes depending on parameter passed
 	sql = """
 		SELECT SUM(postID) FROM likes
@@ -172,7 +171,7 @@ def get_num_likes(postid, like='like', cursor):
 	return result[0]
 
 
-def get_like_accounts(postid, like='like', cursor):
+def get_like_accounts(cursor,postid, like='like'):
 	sql = """
 		SELECT username FROM likes
 		WHERE (type=%s AND postID = %s)"""
