@@ -13,11 +13,13 @@ def connectdb():
 
 
 
-def create_user(cursor, username, password, profilePic=None, url=None, spotifyID=0):
+def create_user(cursor, username, password, profilePic=None, email=None, bio=None, topsong=None, displayname=None):
+	if displayname == None:
+		displayname = username
 	sql = """
-		INSERT INTO users (username, password, profilePic, url, spotifyID)
-		VALUES (%s, %s, %s, %s, %s)"""
-	cursor.execute(sql, (username, password, profilePic, url, spotifyID))
+		INSERT INTO users (username, password, profilePic, email, bio, topsong, displayname)
+		VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+	cursor.execute(sql, (username, password, profilePic, email, bio, topsong, displayname))
 	print('user added')
 
 def delete_user(username, cursor, db):
@@ -78,8 +80,8 @@ def add_dislike(postID, username, cursor, db):
 
 def add_comment(postID, username, text, cursor, db):
 	sql = """
-		INSERT INTO comments(postID, username, commentText)
-		VALUES (%s, %s, %s)"""
+		INSERT INTO comments(postID, username, commentText, createdAt)
+		VALUES (%s, %s, %s, NOW())"""
 	cursor.execute(sql, (postID, username, text))
 	db.commit()
 	print(f'{username} commented {text} on {postID}')
@@ -93,20 +95,37 @@ def delete_comment(commentID, cursor, db):
 	db.commit()
 	print(f'comment {commentID[0]} deleted')
 
-
-def add_follow(username, followerID, cursor, db):
+def add_comment_like(commentID, username, liketype, cursor, db):
+	delete_comment_like(commentID, username)
 	sql = """
-		INSERT INTO following(username, followerID)
+		INSERT INTO commentlikes(commentID, username, type)
+		VALUES (%s, %s, %s)"""
+	cursor.execute(sql, (commentID, username, liketype))
+	db.commit()
+
+def delete_comment_like(commentID, username, cursor, db):
+	## will function for both like and dislike
+	sql = """
+		DELETE FROM commentlikes
+		WHERE (commentID = %s) AND (username = %s)"""
+	cursor.execute(sql, (commentID, username))
+	db.commit()
+	print('like deleted')
+
+
+def add_follow(username, followername, cursor, db):
+	sql = """
+		INSERT INTO following(username, username_follow)
 		VALUES (%s, %s)"""
-	cursor.execute(sql, (username, followerID))
+	cursor.execute(sql, (username, username_follow))
 	db.commit()
 	print(f'{followerID} followed {username}')
 
-def delete_follow(username, followerID, cursor, db):
+def delete_follow(username, followername, cursor, db):
 	sql = """
 		DELETE FROM following
-		WHERE (username = %s) AND (followerID = %s)"""
-	cursor.execute(sql, (username, followerID))
+		WHERE (username = %s) AND (username_follow = %s)"""
+	cursor.execute(sql, (username, followername))
 	db.commit()
 	print('friendship deleted')
 
@@ -120,7 +139,7 @@ def alter_user(username, key, value, cursor, db):
 	print(f'{key} changed to {value}')
 
 def get_user_details(cursor, db, username, param='*'):
-	if param not in ['username', 'password', 'profilePic', 'url', 'spotifyID', '*']:
+	if param not in ['username', 'password', 'profilePic', 'email', 'displayname', 'profilePic', 'topsong', 'bio', '*']:
 		return 'invalid query'
 	else:
 		sql = f"""
@@ -142,7 +161,7 @@ def get_post_details(cursor, db, postid, param='*',):
 		return result
 
 def get_comment_details(cursor, db, commentid, param='*'):
-	if param not in ['username', 'postID', 'commentText', '*']:
+	if param not in ['username', 'postID', 'commentText', 'createdAt', '*']:
 		return 'invalid query'
 	else:
 		sql = f"""
