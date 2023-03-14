@@ -12,7 +12,7 @@
 <div class="main-content content-newPost clsScroll" id="hideScroll">
   <h1 class="content-title">New Post</h1>
   <div>
-    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';" onkeyup="Search()"></input>
+    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()" onmousedown="HideSearch()"></input>
     <div id="search-container">
       <div style="margin-top:1vw;"></div>
       <div class="search-result" id="search-result-0">
