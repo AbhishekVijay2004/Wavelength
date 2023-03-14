@@ -13,17 +13,14 @@ def connectdb():
 
 
 
-def create_user(username, password, profilePic=None, url=None, spotifyID=0):
-	global cursor, db
+def create_user(cursor, username, password, profilePic=None, url=None, spotifyID=0):
 	sql = """
 		INSERT INTO users (username, password, profilePic, url, spotifyID)
 		VALUES (%s, %s, %s, %s, %s)"""
 	cursor.execute(sql, (username, password, profilePic, url, spotifyID))
-	db.commit()
 	print('user added')
 
-def delete_user(username):
-	global cursor, db
+def delete_user(username, cursor, db):
 	username = (username, )
 	sql = """
 		DELETE FROM users 
@@ -33,16 +30,14 @@ def delete_user(username):
 	print('user deleted')
 
 
-def create_post(username, postText='', postContent=''):
-	global cursor, db
+def create_post(cursor, db, username, postText='', postContent=''):
 	sql = """
 		INSERT INTO posts (username, postText, postContent, createdAt)
 		VALUES (%s, %s, %s, NOW())"""
 	cursor.execute(sql, (username, postText, postContent))
 	db.commit()
 
-def delete_post(postID):
-	global cursor, db
+def delete_post(postID, cursor, db):
 	#make a tuple value
 	postID = (postID, )
 	sql = """
@@ -52,8 +47,7 @@ def delete_post(postID):
 	db.commit()
 
 
-def add_like(postID, username):
-	global cursor, db
+def add_like(postID, username, cursor, db):
 	delete_like(postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
@@ -62,9 +56,8 @@ def add_like(postID, username):
 	db.commit()
 	print(f'{username} liked {postID}')
 
-def delete_like(postID, username):
+def delete_like(postID, username, cursor, db):
 	## will function for both like and dislike
-	global cursor, db
 	sql = """
 		DELETE FROM likes
 		WHERE (postID = %s) AND (username = %s)"""
@@ -73,8 +66,7 @@ def delete_like(postID, username):
 	print('like deleted')
 
 
-def add_dislike(postID, username):
-	global cursor, db
+def add_dislike(postID, username, cursor, db):
 	delete_like(postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
@@ -84,8 +76,7 @@ def add_dislike(postID, username):
 	print(f'{username} disliked {postID}')
 
 
-def add_comment(postID, username, text):
-	global cursor, db
+def add_comment(postID, username, text, cursor, db):
 	sql = """
 		INSERT INTO comments(postID, username, commentText)
 		VALUES (%s, %s, %s)"""
@@ -93,8 +84,7 @@ def add_comment(postID, username, text):
 	db.commit()
 	print(f'{username} commented {text} on {postID}')
 
-def delete_comment(commentID):
-	global cursor, db
+def delete_comment(commentID, cursor, db):
 	commentID = (commentID, )
 	sql = """
 		DELETE FROM comments
@@ -104,8 +94,7 @@ def delete_comment(commentID):
 	print(f'comment {commentID[0]} deleted')
 
 
-def add_follow(username, followerID):
-	global cursor, db
+def add_follow(username, followerID, cursor, db):
 	sql = """
 		INSERT INTO following(username, followerID)
 		VALUES (%s, %s)"""
@@ -113,8 +102,7 @@ def add_follow(username, followerID):
 	db.commit()
 	print(f'{followerID} followed {username}')
 
-def delete_follow(username, followerID):
-	global cursor, db
+def delete_follow(username, followerID, cursor, db):
 	sql = """
 		DELETE FROM following
 		WHERE (username = %s) AND (followerID = %s)"""
@@ -122,17 +110,16 @@ def delete_follow(username, followerID):
 	db.commit()
 	print('friendship deleted')
 
-def alter_user(username, key, value):
-	global cursor
+def alter_user(username, key, value, cursor, db):
 	sql = f"""
 		UPDATE users
 		SET {key} = %s
 		WHERE (username = %s)"""
 	cursor.execute(sql, (value, username))
+	db.commit()
 	print(f'{key} changed to {value}')
 
-def get_user_details(username, param='*'):
-	global cursor, db
+def get_user_details(cursor, db, username, param='*'):
 	if param not in ['username', 'password', 'profilePic', 'url', 'spotifyID', '*']:
 		return 'invalid query'
 	else:
@@ -143,8 +130,7 @@ def get_user_details(username, param='*'):
 		result = cursor.fetchone()
 		return result
 
-def get_post_details(postid, param='*'):
-	global cursor
+def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
 		return 'invalid query'
 	else:
@@ -155,8 +141,7 @@ def get_post_details(postid, param='*'):
 		result = cursor.fetchone()
 		return result
 
-def get_comment_details(commentid, param='*'):
-	global cursor
+def get_comment_details(cursor, db, commentid, param='*'):
 	if param not in ['username', 'postID', 'commentText', '*']:
 		return 'invalid query'
 	else:
@@ -168,8 +153,7 @@ def get_comment_details(commentid, param='*'):
 		return result
 
 ##get list of users posts
-def list_user_posts(username):
-	global cursor
+def list_user_posts(username, cursor):
 	sql = """
 		SELECT * FROM posts
 		WHERE (username = %s)"""
@@ -177,9 +161,8 @@ def list_user_posts(username):
 	result = cursor.fetchall()
 	return result
 
-def get_num_likes(postid, like='like'):
+def get_num_likes(cursor, db, postid, like='like'):
 	# get num likes or dislikes depending on parameter passed
-	global cursor
 	sql = """
 		SELECT SUM(postID) FROM likes
 		WHERE (type = %s AND postID = %s)"""
@@ -188,8 +171,7 @@ def get_num_likes(postid, like='like'):
 	return result[0]
 
 
-def get_like_accounts(postid, like='like'):
-	global cursor
+def get_like_accounts(cursor,postid, like='like'):
 	sql = """
 		SELECT username FROM likes
 		WHERE (type=%s AND postID = %s)"""
@@ -199,8 +181,7 @@ def get_like_accounts(postid, like='like'):
 	accounts = [result[0] for result in results]
 	return accounts
 
-def get_num_following(username):
-	global cursor
+def get_num_following(username, cursor):
 	sql = """
 		SELECT SUM(username) FROM following
 		WHERE (followerID = %s)"""
@@ -208,8 +189,7 @@ def get_num_following(username):
 	results = cursor.fetchone()
 	return results[0]
 
-def get_following_accounts(username):
-	global cursor
+def get_following_accounts(username, cursor):
 	sql = """
 		SELECT username FROM following
 		WHERE (followerID = %s)"""
@@ -218,8 +198,7 @@ def get_following_accounts(username):
 	accounts = [result[0] for result in results]
 	return accounts
 
-def get_num_followers(username):
-	global cursor
+def get_num_followers(username, cursor):
 	sql = """
 		SELECT SUM(followerID) FROM following
 		WHERE (username = %s)"""
@@ -227,8 +206,7 @@ def get_num_followers(username):
 	results = cursor.fetchone()
 	return results[0]
 
-def get_follower_accounts(username):
-	global cursor
+def get_follower_accounts(username, cursor):
 	sql = """
 		SELECT followerID FROM following
 		WHERE (username = %s)"""

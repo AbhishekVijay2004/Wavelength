@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, redirect, request, session, j
 import spotipy, re
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
+from dbfunctions import *
+import _mysql_connector 
 
 # # ------- Variables for testing -------
 # # ------- Remove once DB synced -------
@@ -117,7 +119,13 @@ def registration():
         else:
             print(f"Email: {email}, Username: {username}, Password: {password1}")
             password = password1
+            db, cursor = connectdb()
+            create_user(cursor, username, password1)
+            db.commit()
+            db.close()
             return redirect(url_for('setup'))
+
+
 
     return render_template('register.html')
 

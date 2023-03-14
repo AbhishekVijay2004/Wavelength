@@ -13,8 +13,7 @@ def connectdb():
 
 
 
-def create_user(username, password, profilePic=None, url=None, spotifyID=0):
-	global cursor
+def create_user(cursor, username, password, profilePic=None, url=None, spotifyID=0):
 	sql = """
 		INSERT INTO users (username, password, profilePic, url, spotifyID)
 		VALUES (%s, %s, %s, %s, %s)"""
