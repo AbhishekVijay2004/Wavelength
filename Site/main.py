@@ -269,7 +269,7 @@ def setup():
 
 @app.route('/creation', methods = ['GET', 'POST'] )
 def creation():
-    display_name, bio, top_song = "", "", ""
+    display_name, bio, top_song, song_name = "", "", "", ""
     db, cursor = connectdb()
 
     if request.method == 'POST':
@@ -277,6 +277,7 @@ def creation():
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['songID']
+        song_name = request.form['cachedName']
 
         try:
             profile_pic = request.files['profile_pic']
@@ -284,7 +285,10 @@ def creation():
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
-            alter_user(username, "profilePic", session["profilePic"], cursor, db)
+            try: 
+                alter_user(username, "profilePic", session["profilePic"], cursor, db)
+            except NameError:
+                return redirect(url_for('signOn'))
         else:
             profile_pic = request.files['profile_pic']
             filename = secure_filename(profile_pic.filename)
@@ -324,7 +328,7 @@ def creation():
     db.commit()
     db.close()
     try:
-        return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song)
+        return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song, cachedName=song_name)
     except:
         return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png', display_name=display_name, bio=bio, top_song=top_song)
 
