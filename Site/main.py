@@ -25,7 +25,7 @@ def index():
     if "username" in session:
         return redirect(url_for('home'))
     else:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
 
 @app.route('/home')
 def home():
@@ -35,6 +35,8 @@ def home():
 @app.route('/post', methods = ['GET', 'POST'] )
 def post():
     print(session)
+    if request.method == 'POST':
+        return redirect(url_for('home'))
     return render_template('new-post.html')
 
 @app.route('/friends')
@@ -108,10 +110,10 @@ def settings():
     try:
         return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
     except:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
 
-@app.route('/signon')
-def signon():
+@app.route('/signOn')
+def signOn():
     return render_template('login.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
@@ -160,7 +162,7 @@ def login():
 
     db.commit()
     db.close()
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
@@ -171,7 +173,7 @@ def logout():
     session.pop('bio', None)
     session.pop('topSong', None)
     session.pop('displayName', None)
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/register')
 def register():
