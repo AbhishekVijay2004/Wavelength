@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/profile.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/timeline.css')}}">
-{% endblock %} 
+{% endblock %}
 
 {% block content%}
 <div class="main-content clsScroll" id="hideScroll">
@@ -25,7 +25,7 @@
       </div>
     </div>
     <p class="bio">Kanye did nothing wrong! Proud Swiftie, #votetrump2024.</p>
-    <div class="spcontainer1">
+    <div class="spcontainer1" id="resultPreview">
       <div class="spplayer1">
         <div class="spblurrer1">
           <div class="sprepeating-image1" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
@@ -48,7 +48,7 @@
   <div class="timeline-content content-home">
     <!-- timeline content goes here, is added by js. -->
   </div>
-</div> 
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -56,5 +56,4 @@
 <script type="text/javascript" src="{{url_for('static', filename = 'js/templateAnimate.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/replaceTemplatesWithPosts.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/textExpand.js')}}"></script>
-{% endblock %} 
-
+{% endblock %}

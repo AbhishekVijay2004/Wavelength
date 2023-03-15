@@ -377,6 +377,11 @@ def get_notifications():
         data.append(item)
     return jsonify(data)
 
+@app.route('/follow')
+def follow_user():
+    follower = request.args.get("follower")
+    followee = request.args.get("followee")
+
 if __name__ == '__main__':
     app.run(debug = True)
 

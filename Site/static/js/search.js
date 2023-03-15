@@ -30,6 +30,7 @@ function ResultSelected(result){
       document.getElementById("resultTitle").innerHTML = data[0].title;
       document.getElementById("resultArtist").innerHTML = data[0].artist;
       document.getElementById("resultAudio").src = data[0].audio;
+      document.getElementById("resultPreview").style.display = "block";
     },
     error: function(error) {
       console.error(error);
