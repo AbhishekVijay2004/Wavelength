@@ -93,7 +93,8 @@ def settings():
         username = request.form['username']
         display_name = request.form['display_name']
         bio = request.form['bio']
-        top_song = request.form['top_song']
+        top_song = request.form['songID']
+        song_name = request.form['cachedName']
 
         regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
@@ -142,9 +143,11 @@ def settings():
     db.commit()
     db.close()
     try:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], cachedName=song_name)
+    except UnboundLocalError:
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"])
     except:
-        return redirect(url_for('signOn'))
+            return redirect(url_for('signOn'))
 
 @app.route('/signOn')
 def signOn():
@@ -337,9 +340,16 @@ def creation():
 @app.route('/song')
 def search_song():
     #return the song based on query
+    print("here")
     query = request.args.get('query')
+    print("here")
+    print(query)
     song = sp.search(query, type='track', limit=5, market='GB')
+    print("here")
+    print(song)
     songs = song['tracks']['items']
+    print("here")
+    print(songs)
     if len(songs) == 0:
         return []
     if len(query) == 0:
