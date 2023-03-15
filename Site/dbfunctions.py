@@ -271,6 +271,22 @@ def get_follower_accounts(username, cursor):
 	accounts = [result[0] for result in results]
 	return accounts
 
+def create_notification(cursor, db, recipient, sender, type, postID=None):
+	sql = """
+		INSERT INTO notifications (recipient, sender, type, postID)
+		VALUES(%s, %s, %s, %s)"""
+	cursor.execute(sql, (recipient, sender, type, postID))
+	db.commit()
+
+def view_notifications(cursor, recipient):
+	sql = """
+		SELECT * FROM notifications
+		WHERE (recipient = %s)"""
+	cursor.execute(sql, (recipient, ))
+	result = cursor.fetchall()
+	return result
+
+
 
 
 if __name__ == "__main__":
@@ -282,5 +298,6 @@ if __name__ == "__main__":
 	# add_comment_like(3, 'matt', 'dislike', cursor, db)
 	# print(get_user_details(cursor, 'matt'))
 	# print(get_user_details_by_email(cursor, 'jonny.breeze2003@gmail.com'))
-	print(get_user_detail(cursor, 'testusername', 'email'))
-	print(get_user_detail(cursor, 'testusername'))
+	# create_notification(cursor, db, 'matt', 'jonnytest', 'follow')
+	# create_notification(cursor, db, 'matt', 'jonnytest', 'comment', '2')
+	print(view_notifications(cursor, 'matt'))
