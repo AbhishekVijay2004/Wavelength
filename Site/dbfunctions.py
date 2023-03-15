@@ -300,4 +300,5 @@ if __name__ == "__main__":
 	# print(get_user_details_by_email(cursor, 'jonny.breeze2003@gmail.com'))
 	# create_notification(cursor, db, 'matt', 'jonnytest', 'follow')
 	# create_notification(cursor, db, 'matt', 'jonnytest', 'comment', '2')
-	print(view_notifications(cursor, 'matt'))
+	# print(view_notifications(cursor, 'matt'))
+	print(get_user_details(cursor, 'atsu'))

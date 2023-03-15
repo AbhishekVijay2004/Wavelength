@@ -292,22 +292,24 @@ def creation():
     except:
         return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png', display_name=display_name, bio=bio, top_song=top_song)
 
-@app.route('/song')
-def search_song():
-    #return the song based on query
-    query = request.args.get('query')
-    song = sp.search(query, type='track', limit=5, market='GB')
-    songs = song['tracks']['items']
-    data = []
-    for song in songs:
-        album = song['album']
-        item = {}
-        item['title'] = song['name']
-        item['id'] = song['id']
-        item['artist'] = song['artists'][0]['name']
-        item['image'] = album['images'][2]['url']
-        data.append(item)
-    return jsonify(data)
+# @app.route('/song')
+# def search_song():
+#     #return the song based on query
+#     query = request.args.get('query')
+#     song = sp.search(query, type='track', limit=5, market='GB')
+#     songs = song['tracks']['items']
+#     data = []
+#     for song in songs:
+#         album = song['album']
+#         item = {}
+#         item['title'] = song['name']
+#         item['id'] = song['id']
+#         item['artist'] = song['artists'][0]['name']
+#         item['image'] = album['images'][2]['url']
+#         data.append(item)
+#     return jsonify(data)
+
+
 
 @app.route('/selectResult')
 def select_result():
@@ -335,8 +337,8 @@ def select_result():
     #Searches for the song using the song ID
     # searchResult = sp.search(songID, type="track", limit=1, market="GB")
     # searching for song using songid uses the .track method
-    song = sp.track(songID)
-    print(list(song))
+    song = sp.track(songID, market='GB')
+    print(song)
     #Constructs return as single-element dict array
     data = [{
     "title"  : song["name"],
