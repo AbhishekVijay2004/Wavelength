@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from dbfunctions import *
 from argon2 import PasswordHasher
 from werkzeug.utils import secure_filename
+from spotify_functions import *
 
 
 app = Flask(__name__)
@@ -25,22 +26,62 @@ def index():
     if "username" in session:
         return redirect(url_for('home'))
     else:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
 
-@app.route('/profile')
-def profile():
+@app.route('/home')
+def home():
     print(session)
-    return render_template('profile.html')
+    return render_template('home.html')
+
+@app.route('/post', methods = ['GET', 'POST'] )
+def post():
+    print(session)
+    if request.method == 'POST':
+        return redirect(url_for('home'))
+    return render_template('new-post.html')
 
 @app.route('/friends')
 def friends():
     print(session)
     return render_template('friends.html')
 
-@app.route('/home')
-def home():
+@app.route('/profile')
+def profile():
+    # still editting
     print(session)
-    return render_template('home.html')
+    print(session["topSong"])
+
+    try:
+        song_name = get_track_title(session["topSong"])
+        song_url = get_track_preview(session["topSong"])
+        artist_name = get_track_artist_name(session["topSong"])
+        album_image = get_track_image(session["topSong"])
+    except:
+        song_name="No Song Registered"
+        song_url = None
+        artist_name = ""
+        album_image = None
+    
+    if session["bio"] == None:
+        bio = ""
+    else:
+        bio = session["bio"]
+    
+    if session["displayName"] == None:
+        display_name = ""
+    else:
+        display_name = session["displayName"]
+
+    if session["profilePic"] == None:
+        profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
+    else:
+        profile_pic = session["profilePic"]
+
+    return render_template('profile.html', 
+                           email=session["email"], username=session["username"], 
+                           display_name=display_name, profile_pic=profile_pic, 
+                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name, 
+                           album_image=album_image)
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
@@ -103,15 +144,10 @@ def settings():
     try:
         return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
     except:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
 
-@app.route('/post')
-def post():
-    print(session)
-    return render_template('new-post.html')
-
-@app.route('/signon')
-def signon():
+@app.route('/signOn')
+def signOn():
     return render_template('login.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
@@ -160,7 +196,7 @@ def login():
 
     db.commit()
     db.close()
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
@@ -171,7 +207,7 @@ def logout():
     session.pop('bio', None)
     session.pop('topSong', None)
     session.pop('displayName', None)
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/register')
 def register():
@@ -233,14 +269,15 @@ def setup():
 
 @app.route('/creation', methods = ['GET', 'POST'] )
 def creation():
-    display_name, bio, top_song = "", "", ""
+    display_name, bio, top_song, song_name = "", "", "", ""
+    db, cursor = connectdb()
 
     if request.method == 'POST':
         change = False
         display_name = request.form['display_name']
         bio = request.form['bio']
-        top_song = request.form['top_song']
-        db, cursor = connectdb()
+        top_song = request.form['songID']
+        song_name = request.form['cachedName']
 
         try:
             profile_pic = request.files['profile_pic']
@@ -248,7 +285,10 @@ def creation():
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
-            alter_user(username, "profilePic", session["profilePic"], cursor, db)
+            try: 
+                alter_user(username, "profilePic", session["profilePic"], cursor, db)
+            except NameError:
+                return redirect(url_for('signOn'))
         else:
             profile_pic = request.files['profile_pic']
             filename = secure_filename(profile_pic.filename)
@@ -288,7 +328,7 @@ def creation():
     db.commit()
     db.close()
     try:
-        return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song)
+        return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song, cachedName=song_name)
     except:
         return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png', display_name=display_name, bio=bio, top_song=top_song)
 
@@ -409,7 +449,7 @@ def fetch_notifications():
     - recipient (string)
 
     Returns:
-    - data (JSON string): Array containing following information about each 
+    - data (JSON string): Array containing following information about each
         * notificationID (int)
         * recipient (string)
         * sender (string)

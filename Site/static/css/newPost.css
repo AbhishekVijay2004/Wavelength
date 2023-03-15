@@ -12,7 +12,7 @@
   width: 35vw;
   display: flex;
   margin: auto;
-  margin-top: 3vw;
+  margin-top: 1vw;
   justify-content: space-evenly;
 }
 .setting-label{
@@ -76,7 +76,7 @@ input:checked + .setting-slider:before{
   height: 10vw;
 }
 #the-count {
-  margin-bottom: 2vw;
+  margin-bottom: 1vw;
 }
 .spcontainer{
   width: 40vw !important;

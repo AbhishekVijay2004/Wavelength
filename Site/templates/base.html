@@ -6,6 +6,7 @@
     <meta name="description" content="Music brings us closer.">
     <meta property="og:image" content="media/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename = 'media/icons/logo-transparent.png')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
     {% block stylesheets %}
     {% endblock %}
@@ -41,19 +42,15 @@
         function navigateToHomePage() {
             window.location.href = "{{ url_for('home') }}";
         }
-
         function navigateToProfilePage() {
             window.location.href = "{{ url_for('profile') }}";
         }
-
         function navigateToFriendsPage() {
             window.location.href = "{{ url_for('friends') }}";
         }
-
         function navigateToSettingsPage() {
             window.location.href = "{{ url_for('settings') }}";
         }
-
         function navigateToPostPage() {
             window.location.href = "{{ url_for('post') }}";
         }
@@ -69,7 +66,6 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="{{url_for('static', filename = 'js/accept-request.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/get-notifications.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename = 'js/homepage-buttons.js')}}"></script>
     {% block javascript %}

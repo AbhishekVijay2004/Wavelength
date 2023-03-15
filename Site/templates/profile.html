@@ -6,39 +6,39 @@
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/profile.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/timeline.css')}}">
-{% endblock %} 
+{% endblock %}
 
 {% block content%}
 <div class="main-content clsScroll" id="hideScroll">
   <div class="profile-container">
     <div class="information-container">
       <div class="text-containner">
-        <p class="display-name">Joe Bloggs</p>
-        <p class="username">@joebloggs69420</p>
+        <p class="display-name">{{ username }}</p>
+        <p class="username">{{ display_name }}</p>
         <p class="friends">Friends: <span style="font-weight: 400;">999</span></p>
       </div>
-      <img class="profile-picture" src="{{url_for('static', filename = 'media/trumpie.jpg')}}">
+      <img class="profile-picture" src="{{ profile_pic }}">
       <div class="text-containner" style="margin-bottom: 0.1vw;">
         <p class="stats">Posts: <span style="font-weight: 400;">999</span></p>
         <p class="stats">Likes: <span style="font-weight: 400;">999</span></p>
         <p class="stats">Comments: <span style="font-weight: 400;">999</span></p>
       </div>
     </div>
-    <p class="bio">Kanye did nothing wrong! Proud Swiftie, #votetrump2024.</p>
-    <div class="spcontainer1">
+    <p class="bio">{{ bio }}</p>
+    <div class="spcontainer1" id="resultPreview">
       <div class="spplayer1">
         <div class="spblurrer1">
-          <div class="sprepeating-image1" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
+          <div class="sprepeating-image1" style="background-image:url('{{ album_image }}')"></div>
         </div>
       </div>
       <div class="spsongInfo1">
-        <div class="spitem1 spalbumImage1" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg');"></div>
+        <div class="spitem1 spalbumImage1" style="background-image:url('{{ album_image }}');"></div>
         <div class="spitem1 spsongDetails1">
-          <div class="spsongTitle1">Sail To The Moon</div>
-          <div class="spartistTitle1">Radiohead</div>
+          <div class="spsongTitle1">{{ song_name }}</div>
+          <div class="spartistTitle1">{{ artist_name }}</div>
         </div>
         <div id="spAudiocontainer1">
-          <audio class="audio-player1" src="https://p.scdn.co/mp3-preview/858f7c324686e4a7b41a8648695b0f563d348b1f?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
+          <audio class="audio-player1" src="{{ song_url }}"></audio>
           <div class="spsongCircle1"></div>
           <button class="spplay-pause-btn1"></button>
         </div>
@@ -48,7 +48,7 @@
   <div class="timeline-content content-home">
     <!-- timeline content goes here, is added by js. -->
   </div>
-</div> 
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -56,5 +56,4 @@
 <script type="text/javascript" src="{{url_for('static', filename = 'js/templateAnimate.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/replaceTemplatesWithPosts.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/textExpand.js')}}"></script>
-{% endblock %} 
-
+{% endblock %}

@@ -13,7 +13,7 @@
                 <label class="profile-picture-setting">
                     <form method = 'POST' action="/creation" enctype="multipart/form-data" id="upload-image">
                     <input type="file" id="profile-pic-input" name="profile_pic" accept="image/png, image/jpeg" onchange="document.getElementById('upload-image').submit()">
-                    <span class="profile-picture-span" style="background-image: url({{ profile_pic }})"></span>
+                    <span class="profile-picture-span" style="background-image: url('{{ profile_pic }}')"></span>
                 </label>
                 </div>
                 <div class="profile-setting">
@@ -30,7 +30,8 @@
             </div>
             <div class="profile-setting">
                 <h2 class="profile-setting-label">Top Song:</h2>
-                <input class="single-line-text-entry" id="search-box" type="text" name="top_song" value="{{ top_song }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()"></input>
+                <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ top_song }}">
+                <input class="single-line-text-entry" id="search-box" type="text" name="cachedName" value="{{ cachedName }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()">
             </div>
             <div id="search-container">
                 <div style="margin-top:1vw;"></div>
@@ -73,6 +74,30 @@
     <button type = "submit" class="button">Continue</button>
     </form>
 </center>
+<div style="display:none">
+    <div id="resultPreview" style="display:none">
+        <h2 class="setting-label">Song Preview:</h2>
+        <div class="spcontainer">
+        <div class="spplayer">
+            <div class="spblurrer">
+            <div class="sprepeating-image" id="resultBackground" style=""></div>
+            </div>
+        </div>
+        <div class="spsongInfo">
+            <div class="spitem spalbumImage" id="resultImage" style=""></div>
+            <div class="spitem spsongDetails">
+            <div class="spsongTitle" id="resultTitle"></div>
+            <div class="spartistTitle" id="resultArtist"></div>
+            </div>
+            <div id="spAudiocontainer">
+            <audio class="audio-player" id="resultAudio" src=""></audio>
+            <div class="spsongCircle"></div>
+            <button class="spplay-pause-btn"></button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascript %}

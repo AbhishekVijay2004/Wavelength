@@ -144,7 +144,7 @@ const pSBC=(p,c0,c1,l)=>{
 
       <!-- ------------------- end of song player --------------- --> 
 	  	<div id="text" class="text">
-	  		Lorem  ipsum dolor sit amet. him there is big at in the big man himself what if this is the large boy who follow request if you are what is up i hope this yay okay what if acceptmake tedxt smaller if more word go onto nextline
+	  		Lorem  ipsum dolor sit amet. him there is big at in the big man himself what.
 		</div>
 		<div class = "footer">
 				<div class = "posReact"></div>

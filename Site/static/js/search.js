@@ -28,8 +28,10 @@ function ResultSelected(result){
       document.getElementById("resultBackground").style.backgroundImage = "url('" + data[0].image + "')";
       document.getElementById("resultImage").style.backgroundImage = "url('" + data[0].image + "')";
       document.getElementById("resultTitle").innerHTML = data[0].title;
+      document.getElementById("search-box").value = data[0].title;
       document.getElementById("resultArtist").innerHTML = data[0].artist;
       document.getElementById("resultAudio").src = data[0].audio;
+      document.getElementById("resultPreview").style.display = "block";
     },
     error: function(error) {
       console.error(error);
@@ -39,4 +41,5 @@ function ResultSelected(result){
     document.getElementById("postButton").setAttribute("onclick", "PostSong(" + result + ")");
   }
   document.getElementById("selectedSongID").value = result;
+  console.log(document.getElementById("selectedSongID").value)
 }
