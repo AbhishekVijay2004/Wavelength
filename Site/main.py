@@ -71,7 +71,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
+        print(username)
         if (len(username) < 1):
             flash("Not a valid username", category="error")
             print("Error")
@@ -80,7 +80,8 @@ def login():
             print("Error")
         else:
             if (re.search(regex,username)):
-                userDetailsList = get_user_details_by_email(cursor, email)
+                userDetailsList = get_user_details_by_email(cursor, username)
+                print(userDetailsList)
                 if (userDetailsList != False):
                     user = True
             else:
@@ -89,13 +90,16 @@ def login():
                     user = True
 
         if (user == True):
-            session["username"] = userDetailsList[0]
-            session["password"] = userDetailsList[1]
-            session["email"] = userDetailsList[2]
-            session["profilePic"] = userDetailsList[3]
-            session["bio"] = userDetailsList[4]
-            session["topSong"] = userDetailsList[5]
-            session["displayName"] = userDetailsList[6]
+            # session["username"] = userDetailsList[0]
+            # session["password"] = userDetailsList[1]
+            # session["email"] = userDetailsList[2]
+            # session["profilePic"] = userDetailsList[3]
+            # session["bio"] = userDetailsList[4]
+            # session["topSong"] = userDetailsList[5]
+            # session["displayName"] = userDetailsList[6]
+
+            for i, val in enumerate(['username', 'password', 'email', 'profilePic', 'bio', 'topSong', 'displayName']):
+                session[val] = userDetailsList[i]
 
             db.commit()
             db.close()

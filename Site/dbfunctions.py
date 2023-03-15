@@ -166,8 +166,9 @@ def get_user_details_by_email(cursor, email):
 	sql = """
 		SELECT * FROM users
 		WHERE (email = %s)"""
-	cursor.execute(sql, (email,))
+	cursor.execute(sql, (email, ))
 	result = cursor.fetchall()
+	print(result)
 	try:
 		return result[0]
 	except IndexError:
@@ -227,7 +228,7 @@ def get_like_accounts(cursor,postid, like='like'):
 
 
 def get_num_comment_likes(cursor, db, commentID, like='like'):
-	sql """
+	sql = """
 		SELECT SUM(username) FROM commentlikes
 		WHERE (type=%s AND commentID = %s)"""
 	cursor.execute(sql, (like, commentID))
@@ -277,4 +278,5 @@ if __name__ == "__main__":
 	# create_post(cursor, db, 'matt', 'hello')
 	# add_comment(2, 'matt', 'this is shit', cursor, db)
 	# add_comment_like(3, 'matt', 'dislike', cursor, db)
-	print(get_user_details(cursor, 'matt'))
+	# print(get_user_details(cursor, 'matt'))
+	print(get_user_details_by_email(cursor, 'jonny.breeze2003@gmail.com'))
