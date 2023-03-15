@@ -27,20 +27,25 @@ def index():
     else:
         return redirect(url_for('signon'))
 
-@app.route('/profile')
-def profile():
+@app.route('/home')
+def home():
     print(session)
-    return render_template('profile.html')
+    return render_template('home.html')
+
+@app.route('/post', methods = ['GET', 'POST'] )
+def post():
+    print(session)
+    return render_template('new-post.html')
 
 @app.route('/friends')
 def friends():
     print(session)
     return render_template('friends.html')
 
-@app.route('/home')
-def home():
+@app.route('/profile')
+def profile():
     print(session)
-    return render_template('home.html')
+    return render_template('profile.html')
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
@@ -104,11 +109,6 @@ def settings():
         return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
     except:
         return redirect(url_for('signon'))
-
-@app.route('/post')
-def post():
-    print(session)
-    return render_template('new-post.html')
 
 @app.route('/signon')
 def signon():
