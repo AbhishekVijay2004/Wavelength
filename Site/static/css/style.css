@@ -149,10 +149,18 @@
   outline: none;
   border: 0.15vw solid var(--primary-highlight-1);
 }
+#pwdCheck {
+  font-size: 1vw;
+}
+#pwdCheckbox{
+  accent-color: var(--primary-colour);
+  cursor: pointer;
+}
 .multi-line-text-entry {
   width: 30vw;
   text-align: left;
   font-size: 1vw;
+  font-family: "roboto_condensed";
   color: var(--text-colour);
   background-color: var(--background-colour);
   border-radius: 0.25rem;
@@ -162,7 +170,6 @@
 .multi-line-text-entry:focus{
   outline: none;
   border: 0.15vw solid var(--primary-highlight-1);
-  placeholder: "";
 }
 .button {
   display: inline-block;

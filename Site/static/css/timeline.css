@@ -45,26 +45,56 @@ flex-direction: row;
 flex: 1;
 }
 .posReact{
-	background-image: url('../media/icons/like-icon.png');
-	min-width: 50px;
-	min-height: 50px;
-	background-size:50px;
+background-image: url('../media/icons/like-icon.png');
+min-width: 3vw;
+min-height: 3vw;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
 cursor:pointer;
+transition: 0.25s;
 }
 .negReact{
-	background-image: url('../media/icons/dislike-icon.png');
-	min-width: 50px;
-	min-height: 50px;
-	background-size:50px;
+background-image: url('../media/icons/dislike-icon.png');
+min-width: 3vw;
+min-height: 3vw;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
 cursor:pointer;
+transition: 0.25s;
 }
 .comments{
-	background-image: url('../media/icons/comment-icon.png');
-	min-width: 50px;
-	min-height: 50px;
-	background-size:50px;
+background-image: url('../media/icons/comment-icon.png');
+min-width: 3vw;
+min-height: 3vw;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
 color: var(--text-colour);
 cursor:pointer;
+transition: 0.25s;
+}
+.posReact:hover{
+min-width: 3.25vw;
+min-height: 3.25vw;
+background-size: 3.25vw;
+transform: translateX(-0.125vw);
+padding: 0;
+}
+.negReact:hover{
+min-width: 3.25vw;
+min-height: 3.25vw;
+background-size: 3.25vw;
+transform: translateX(-0.125vw);
+padding: 0;
+}
+.comments:hover{
+min-width: 3.25vw;
+min-height: 3.25vw;
+background-size: 3.25vw;
+transform: translateX(-0.125vw);
+padding: 0;
 }
 .commentSection{
 overflow:auto;
