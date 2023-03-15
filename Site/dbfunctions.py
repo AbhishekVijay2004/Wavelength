@@ -138,7 +138,7 @@ def alter_user(username, key, value, cursor, db):
 	db.commit()
 	print(f'{key} changed to {value}')
 
-def get_user_detail(cursor, db, username, param='*'):
+def get_user_detail(cursor, username, param='*'):
 	if param not in ['username', 'password', 'profilePic', 'email', 'displayname', 'profilePic', 'topsong', 'bio', '*']:
 		return 'invalid query'
 	else:
@@ -149,6 +149,8 @@ def get_user_detail(cursor, db, username, param='*'):
 		result = cursor.fetchone()
 		if len(result) == 0:
 			return None
+		elif (param != '*'):
+			return result[0]
 		return result
 
 def get_user_details(cursor, username):
@@ -279,4 +281,6 @@ if __name__ == "__main__":
 	# add_comment(2, 'matt', 'this is shit', cursor, db)
 	# add_comment_like(3, 'matt', 'dislike', cursor, db)
 	# print(get_user_details(cursor, 'matt'))
-	print(get_user_details_by_email(cursor, 'jonny.breeze2003@gmail.com'))
+	# print(get_user_details_by_email(cursor, 'jonny.breeze2003@gmail.com'))
+	print(get_user_detail(cursor, 'testusername', 'email'))
+	print(get_user_detail(cursor, 'testusername'))
