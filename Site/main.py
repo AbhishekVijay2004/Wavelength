@@ -298,6 +298,10 @@ def search_song():
     query = request.args.get('query')
     song = sp.search(query, type='track', limit=5, market='GB')
     songs = song['tracks']['items']
+    if len(songs) == 0:
+        return []
+    if len(query) == 0:
+        return []
     data = []
     for song in songs:
         album = song['album']
@@ -308,6 +312,8 @@ def search_song():
         item['image'] = album['images'][2]['url']
         data.append(item)
     return jsonify(data)
+
+
 
 @app.route('/selectResult')
 def select_result():
@@ -336,7 +342,6 @@ def select_result():
     # searchResult = sp.search(songID, type="track", limit=1, market="GB")
     # searching for song using songid uses the .track method
     song = sp.track(songID)
-    print(list(song))
     #Constructs return as single-element dict array
     data = [{
     "title"  : song["name"],
@@ -344,7 +349,11 @@ def select_result():
     "image"  : song["album"]["images"][2]["url"],
     "audio"  : song["preview_url"]
     }]
-    print(data)
+    if song['preview_url'] == None:
+        # run a search on the name to find the preview url
+        song = sp.search(data[0]['title'] + data[0]['artist'], type='track', limit=1, market='GB')
+        preview = song['tracks']['items'][0]['preview_url']
+        data[0]['audio'] = preview
     return jsonify(data)
 
 @app.route('/getNotifications')
