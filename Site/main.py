@@ -64,7 +64,7 @@ def settings():
                 session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
         except:
-            pass         
+            pass
 
         if not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
@@ -97,7 +97,7 @@ def settings():
             db.commit()
             db.close()
             return redirect(url_for('home'))
-    
+
     db.commit()
     db.close()
     try:
@@ -116,8 +116,8 @@ def signon():
 
 @app.route('/login', methods = ['GET', 'POST'] )
 def login():
-    regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$" 
-    user = False          
+    regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
+    user = False
     db, cursor = connectdb()
 
     if request.method == 'POST':
@@ -227,7 +227,7 @@ def registration():
                 session["password"] = hashed_password
                 session["email"] = email
                 return redirect(url_for('setup'))
-    
+
     db.commit()
     db.close()
     return render_template('register.html')
@@ -260,7 +260,7 @@ def creation():
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
-            change = True            
+            change = True
 
         if (change == True):
             pass
@@ -289,9 +289,9 @@ def creation():
             db.commit()
             db.close()
             return redirect(url_for('home'))
-    
+
     db.commit()
-    db.close()    
+    db.close()
     try:
         return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song)
     except:
@@ -354,6 +354,17 @@ def select_result():
 
 @app.route('/getNotifications')
 def get_notifications():
+    '''
+    Returns the notifications for the user.
+
+    Arguments: None
+
+    Returns:
+    - data (JSON string):
+        * title (string)      : Type of notification e.g. follow request, like.
+        * name (string)       : Username of the notification causer.
+        * profilePic (string) : URL of notification causer's profile picture.
+    '''
     data = []
     ###TODO: GET NOTIFICATIONS###
     from random import randint
