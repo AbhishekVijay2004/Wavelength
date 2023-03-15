@@ -26,7 +26,24 @@ def index():
     if "username" in session:
         return redirect(url_for('home'))
     else:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
+
+@app.route('/home')
+def home():
+    print(session)
+    return render_template('home.html')
+
+@app.route('/post', methods = ['GET', 'POST'] )
+def post():
+    print(session)
+    if request.method == 'POST':
+        return redirect(url_for('home'))
+    return render_template('new-post.html')
+
+@app.route('/friends')
+def friends():
+    print(session)
+    return render_template('friends.html')
 
 @app.route('/profile')
 def profile():
@@ -65,16 +82,6 @@ def profile():
                            display_name=display_name, profile_pic=profile_pic, 
                            bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name, 
                            album_image=album_image)
-
-@app.route('/friends')
-def friends():
-    print(session)
-    return render_template('friends.html')
-
-@app.route('/home')
-def home():
-    print(session)
-    return render_template('home.html')
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
@@ -137,15 +144,10 @@ def settings():
     try:
         return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
     except:
-        return redirect(url_for('signon'))
+        return redirect(url_for('signOn'))
 
-@app.route('/post')
-def post():
-    print(session)
-    return render_template('new-post.html')
-
-@app.route('/signon')
-def signon():
+@app.route('/signOn')
+def signOn():
     return render_template('login.html')
 
 @app.route('/login', methods = ['GET', 'POST'] )
@@ -194,7 +196,7 @@ def login():
 
     db.commit()
     db.close()
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/logout', methods = ['GET', 'POST'] )
 def logout():
@@ -205,7 +207,7 @@ def logout():
     session.pop('bio', None)
     session.pop('topSong', None)
     session.pop('displayName', None)
-    return redirect(url_for('signon'))
+    return redirect(url_for('signOn'))
 
 @app.route('/register')
 def register():

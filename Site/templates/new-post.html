@@ -12,8 +12,9 @@
 <div class="main-content content-newPost clsScroll" id="hideScroll">
   <h1 class="content-title">New Post</h1>
   <div>
+    <form method = 'POST' action="/post">
     <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{  new_song  }}">
-    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()" onmousedown="HideSearch()"></input>
+    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
     <div id="search-container">
       <div style="margin-top:1vw;"></div>
       <div class="search-result" id="search-result-0">
@@ -43,25 +44,6 @@
     <div id="the-count">
       <span id="current">0</span>
       <span id="maximum">/ 250</span>
-    </div>
-    <div class="spcontainer" id="resultPreview" style="display:none">
-      <div class="spplayer">
-        <div class="spblurrer">
-          <div class="sprepeating-image" id="resultBackground" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
-        </div>
-      </div>
-      <div class="spsongInfo">
-        <div class="spitem spalbumImage" id="resultImage" style="  background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg');"></div>
-        <div class="spitem spsongDetails">
-          <div class="spsongTitle" id="resultTitle">Sail To The Moon</div>
-          <div class="spartistTitle" id="resultArtist">Radiohead</div>
-        </div>
-        <div id="spAudiocontainer">
-          <audio class="audio-player" id="resultAudio" src="https://p.scdn.co/mp3-preview/858f7c324686e4a7b41a8648695b0f563d348b1f?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
-          <div class="spsongCircle"></div>
-          <button class="spplay-pause-btn"></button>
-        </div>
-      </div>
     </div>
     <div class="switch-container">
       <div>
@@ -94,7 +76,30 @@
     </div>
   </div>
   <br><br>
-  <button class="button" id="postButton" onclick="PostSong()">Post</button>
+  <button class="button" id="postButton">Post</button>
+  </form>
+  <div id="resultPreview" style="display:none">
+    <h2 class="setting-label">Song Preview:</h2>
+    <div class="spcontainer">
+      <div class="spplayer">
+        <div class="spblurrer">
+          <div class="sprepeating-image" id="resultBackground" style=""></div>
+        </div>
+      </div>
+      <div class="spsongInfo">
+        <div class="spitem spalbumImage" id="resultImage" style=""></div>
+        <div class="spitem spsongDetails">
+          <div class="spsongTitle" id="resultTitle"></div>
+          <div class="spartistTitle" id="resultArtist"></div>
+        </div>
+        <div id="spAudiocontainer">
+          <audio class="audio-player" id="resultAudio" src=""></audio>
+          <div class="spsongCircle"></div>
+          <button class="spplay-pause-btn"></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
