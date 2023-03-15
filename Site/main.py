@@ -190,6 +190,7 @@ def creation():
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['top_song']
+        db, cursor = connectdb()
 
         try:
             profile_pic = request.files['profile_pic']
@@ -197,11 +198,13 @@ def creation():
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
+            alter_user(username, "profilePic", session["profilePic"], cursor, db)
         else:
             profile_pic = request.files['profile_pic']
             filename = secure_filename(profile_pic.filename)
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            alter_user(username, "profilePic", session["profilePic"], cursor, db)
             change = True            
 
         if (change == True):
@@ -217,10 +220,23 @@ def creation():
             print("Error")
         else:
             session["bio"] = bio
+            alter_user(session["username"], "bio", session["bio"], cursor, db)
             session["topSong"] = top_song
+            alter_user(session["username"], "topSong", session["topSong"], cursor, db)
             session["displayName"] = display_name
+            alter_user(session["username"], "displayName", session["displayName"], cursor, db)
+
+            #Please change to singular form when fixed
+            userDetailsList = get_user_details(cursor, session["username"])
+            session["profilePic"] =  userDetailsList[2]
+            #Please change to singular form when fixed
+
+            db.commit()
+            db.close()
             return redirect(url_for('home'))
-                
+    
+    db.commit()
+    db.close()    
     try:
         return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song)
     except:
