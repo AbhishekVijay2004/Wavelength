@@ -42,9 +42,64 @@ def home():
     print(session)
     return render_template('home.html')
 
-@app.route('/settings')
+@app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
     print(session)
+    db, cursor = connectdb()
+
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        display_name = request.form['display_name']
+        bio = request.form['bio']
+        top_song = request.form['top_song']
+
+        regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
+
+        try:
+            profile_pic = request.files['profile_pic']
+            if (profile_pic.filename != ''):
+                filename = secure_filename(profile_pic.filename)
+                profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
+        except:
+            pass         
+
+        if not (re.search(regex,email)):
+            flash("Please enter a valid email", category="error")
+            print("Error")
+        elif (len(username) < 1):
+            flash("Please enter a username", category="error")
+            print("Error")
+        elif (len(display_name) < 1):
+            flash("Please enter a display name", category="error")
+            print("Error")
+        elif (len(bio) < 1):
+            flash("Please enter a bio", category="error")
+            print("Error")
+        elif (len(top_song) < 1):
+            flash("Please enter a top song", category="error")
+            print("Error")
+        else:
+            session["bio"] = bio
+            alter_user(session["username"], "bio", session["bio"], cursor, db)
+            session["topSong"] = top_song
+            alter_user(session["username"], "topSong", session["topSong"], cursor, db)
+            session["displayName"] = display_name
+            alter_user(session["username"], "displayName", session["displayName"], cursor, db)
+
+            #Please change to singular form when fixed
+            userDetailsList = get_user_details(cursor, session["username"])
+            session["profilePic"] =  userDetailsList[2]
+            #Please change to singular form when fixed
+
+            db.commit()
+            db.close()
+            return redirect(url_for('home'))
+    
+    db.commit()
+    db.close()
     try:
         return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
     except:
@@ -204,7 +259,7 @@ def creation():
             filename = secure_filename(profile_pic.filename)
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            alter_user(username, "profilePic", session["profilePic"], cursor, db)
+            alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
             change = True            
 
         if (change == True):
