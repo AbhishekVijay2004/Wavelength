@@ -202,8 +202,8 @@
 .clsScrollRight {
   overflow-x: hidden;
   overflow-y: auto;
-  width: 24vw;
-  height: 98vh;
+  width: 25vw;
+  height: 100vh;
 }
 #hideScroll::-webkit-scrollbar {
   display: none;
