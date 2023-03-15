@@ -377,6 +377,55 @@ def get_notifications():
         data.append(item)
     return jsonify(data)
 
+@app.route('/sendNotification')
+def send_notification():
+    '''
+    Sends a notification to a user
+
+    Arguments:
+    - recipient (string)
+    - sender (string)
+    - version (string)
+    - postID (int) default: None
+
+    Returns: None
+    '''
+    postID = None
+    recipient = request.args.get("recipient")
+    sender = request.args.get("sender")
+    version = request.args.get("version")
+    postID = request.args.get("postID")
+    db, cursor = connectdb()
+    create_notification(cursor, db, recipient, sender, version, postID)
+
+@app.route('/fetchNotification')
+def fetch_notifications():
+    '''
+    Fetches all of a users notifications
+
+    Arguments:
+    - recipient (string)
+
+    Returns:
+    - data (JSON string): Array containing following information about each 
+        * notificationID (int)
+        * recipient (string)
+        * sender (string)
+        * type (string)
+        * postID (int) often None
+    '''
+    recipient = request.args.get("recipient")
+    db, cursor = connectdb()
+    notifications = view_notifications(cursor, recipient)
+    data = []
+    for notification in notifications:
+        item = {}
+        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'type', 'postID']):
+            item[val] = notification[i]
+        data.append(item)
+    return jsonify(data)
+
+
 if __name__ == '__main__':
     app.run(debug = True)
 
