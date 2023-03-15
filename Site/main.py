@@ -123,28 +123,16 @@ def login():
     if request.method == 'POST':
         usernameOrEmail = request.form['username']
         password = request.form['password']
-<<<<<<< HEAD
-        print(username)
-        if (len(username) < 1):
-            flash("Not a valid username", category="error")
-=======
 
         if (len(usernameOrEmail) < 1):
             flash("Please enter your username or email", category="error")
->>>>>>> origin
             print("Error")
         elif (len(password) < 1):
             flash("Please enter your password", category="error")
             print("Error")
         else:
-<<<<<<< HEAD
-            if (re.search(regex,username)):
-                userDetailsList = get_user_details_by_email(cursor, username)
-                print(userDetailsList)
-=======
             if (re.search(regex,usernameOrEmail)):
                 userDetailsList = get_user_details_by_email(cursor, usernameOrEmail)
->>>>>>> origin
                 if (userDetailsList != False):
                     user = True
             else:
@@ -153,35 +141,11 @@ def login():
                     user = True
 
         if (user == True):
-<<<<<<< HEAD
-            # session["username"] = userDetailsList[0]
-            # session["password"] = userDetailsList[1]
-            # session["email"] = userDetailsList[2]
-            # session["profilePic"] = userDetailsList[3]
-            # session["bio"] = userDetailsList[4]
-            # session["topSong"] = userDetailsList[5]
-            # session["displayName"] = userDetailsList[6]
-
-            for i, val in enumerate(['username', 'password', 'email', 'profilePic', 'bio', 'topSong', 'displayName']):
-                session[val] = userDetailsList[i]
-
-            db.commit()
-            db.close()
-            print(session)
-
-            return redirect(url_for('home'))
-=======
             try:
                 if (ph.verify(userDetailsList[1], password)):
-                    session["username"] = userDetailsList[0]
-                    session["password"] = userDetailsList[1]
-                    session["email"] = userDetailsList[3]
-                    session["profilePic"] = userDetailsList[2]
-                    session["bio"] = userDetailsList[4]
-                    session["topSong"] = userDetailsList[5]
-                    session["displayName"] = userDetailsList[6]
+                    for i, val in enumerate(['username', 'password', 'profilePic', 'email', 'bio', 'topSong', 'displayName']):
+                        session[val] = userDetailsList[i]
                     print(session)
->>>>>>> origin
 
                     db.commit()
                     db.close()
