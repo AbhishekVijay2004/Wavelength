@@ -13,7 +13,7 @@
   <h1 class="content-title">New Post</h1>
   <div>
     <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{  new_song  }}">
-    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()" onmousedown="HideSearch()"></input>
+    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
     <div id="search-container">
       <div style="margin-top:1vw;"></div>
       <div class="search-result" id="search-result-0">
@@ -94,7 +94,7 @@
     </div>
   </div>
   <br><br>
-  <button class="button" id="postButton" onclick="PostSong()">Post</button>
+  <button class="button" id="postButton">Post</button>
 </div>
 {% endblock %}
 
