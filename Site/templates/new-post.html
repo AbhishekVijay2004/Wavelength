@@ -13,7 +13,7 @@
   <h1 class="content-title">New Post</h1>
   <div>
     <form method = 'POST' action="/post">
-    <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{  new_song  }}">
+    <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ new_song }}">
     <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
     <div id="search-container">
       <div style="margin-top:1vw;"></div>

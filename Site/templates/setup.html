@@ -30,7 +30,8 @@
             </div>
             <div class="profile-setting">
                 <h2 class="profile-setting-label">Top Song:</h2>
-                <input class="single-line-text-entry" id="search-box" type="text" name="top_song" value="{{ top_song }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()"></input>
+                <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ top_song }}">
+                <input class="single-line-text-entry" id="search-box" type="text" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='';HideMiniSearch()" onkeyup="Search()">
             </div>
             <div id="search-container">
                 <div style="margin-top:1vw;"></div>

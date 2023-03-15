@@ -270,13 +270,13 @@ def setup():
 @app.route('/creation', methods = ['GET', 'POST'] )
 def creation():
     display_name, bio, top_song = "", "", ""
+    db, cursor = connectdb()
 
     if request.method == 'POST':
         change = False
         display_name = request.form['display_name']
         bio = request.form['bio']
-        top_song = request.form['top_song']
-        db, cursor = connectdb()
+        top_song = request.form['songID']
 
         try:
             profile_pic = request.files['profile_pic']
