@@ -76,13 +76,18 @@ Nunc eu mollis elit. Nulla non ligula at dui rhoncus dapibus sit amet cursus nib
 
 
 	function onResizeOrLoad(e) {
+		screenSize = window.innerWidth/screen.width;
+		if (screenSize < 0.75) {
+			minFontSize = Math.round(10 - (1-screenSize)*4)*2;
+		} else {
+			minFontSize = 20
+		}
 	    for (var i = 0; i < arrayOfPosts.length; i++) {
 	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]
 	    	
 
 	    	currentTextbox.style.fontSize="98px";
-	    	while (currentTextbox.scrollHeight > 150 && currentTextbox.style.fontSize.substring(0,2) > 20) {
-	    		console.log("HI");
+	    	while (currentTextbox.scrollHeight > 150 && currentTextbox.style.fontSize.substring(0,2) > minFontSize) {
 	    			currentTextbox.style.fontSize = parseInt(currentTextbox.style.fontSize.substring(0,2)) - 2 + "px";
 	    	}
 			if (currentTextbox.scrollHeight > 150 && expandedPosts[i] == false) {
@@ -96,6 +101,7 @@ Nunc eu mollis elit. Nulla non ligula at dui rhoncus dapibus sit amet cursus nib
 			} else {
 			    currentTextbox.style.cursor = 'default';
 			    currentTextbox.style.maxHeight = '150px';
+			    currentTextbox.style.minHeight = '0px';
 			    currentTextbox.style['-webkit-mask-image'] = 'none'; 
 
 			    expandedPosts[i] = false;
