@@ -75,13 +75,6 @@
   box-sizing: border-box;
   border: solid 0.2vw var(--primary-colour);
   border-radius: 50%;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-.profile-picture:hover{
-  border-color: var(--primary-highlight-2);
-  transition: border-color 0.25s;
-  cursor: pointer;
 }
 .sprepeating-image1 {
   width:200%;
