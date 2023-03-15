@@ -38,4 +38,5 @@ function ResultSelected(result){
   if (pageID == "newPost"){
     document.getElementById("postButton").setAttribute("onclick", "PostSong(" + result + ")");
   }
+  document.getElementById("selectedSongID").value = result;
 }
