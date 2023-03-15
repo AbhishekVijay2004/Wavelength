@@ -332,6 +332,7 @@ def creation():
     except:
         return render_template('setup.html', profile_pic='static/media/icons/profile-icon-transparent.png', display_name=display_name, bio=bio, top_song=top_song)
 
+<<<<<<< HEAD
 # @app.route('/song')
 # def search_song():
 #     #return the song based on query
@@ -348,6 +349,30 @@ def creation():
 #         item['image'] = album['images'][2]['url']
 #         data.append(item)
 #     return jsonify(data)
+
+
+=======
+@app.route('/song')
+def search_song():
+    #return the song based on query
+    query = request.args.get('query')
+    song = sp.search(query, type='track', limit=5, market='GB')
+    songs = song['tracks']['items']
+    if len(songs) == 0:
+        return []
+    if len(query) == 0:
+        return []
+    data = []
+    for song in songs:
+        album = song['album']
+        item = {}
+        item['title'] = song['name']
+        item['id'] = song['id']
+        item['artist'] = song['artists'][0]['name']
+        item['image'] = album['images'][2]['url']
+        data.append(item)
+    return jsonify(data)
+>>>>>>> song_search_fix
 
 
 
@@ -377,8 +402,12 @@ def select_result():
     #Searches for the song using the song ID
     # searchResult = sp.search(songID, type="track", limit=1, market="GB")
     # searching for song using songid uses the .track method
+<<<<<<< HEAD
     song = sp.track(songID, market='GB')
     print(song)
+=======
+    song = sp.track(songID)
+>>>>>>> song_search_fix
     #Constructs return as single-element dict array
     data = [{
     "title"  : song["name"],
@@ -386,7 +415,11 @@ def select_result():
     "image"  : song["album"]["images"][2]["url"],
     "audio"  : song["preview_url"]
     }]
-    print(data)
+    if song['preview_url'] == None:
+        # run a search on the name to find the preview url
+        song = sp.search(data[0]['title'] + data[0]['artist'], type='track', limit=1, market='GB')
+        preview = song['tracks']['items'][0]['preview_url']
+        data[0]['audio'] = preview
     return jsonify(data)
 
 @app.route('/getNotifications')
