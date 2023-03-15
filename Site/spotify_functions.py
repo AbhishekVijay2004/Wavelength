@@ -59,6 +59,16 @@ def get_track_preview(track_id):
     preview = song["preview_url"]
     return preview
 
+def get_track_image(track_id):
+    # returns teh album image of a track given a track id
+    album_image = sp.track(track_id)["album"]["images"][0]["url"]
+    return album_image
+
+def get_track_artist_name(track_id):
+    #returns the artist name of the track
+    song_name = sp.track(track_id)["artists"][0]["name"]
+    return song_name
+
 def get_spotify_link(track_id):
     #returns the spotify link of a song based on a track id
     song = sp.track(track_id)

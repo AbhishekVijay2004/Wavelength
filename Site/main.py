@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from dbfunctions import *
 from argon2 import PasswordHasher
 from werkzeug.utils import secure_filename
+from spotify_functions import *
 
 
 app = Flask(__name__)
@@ -29,8 +30,41 @@ def index():
 
 @app.route('/profile')
 def profile():
+    # still editting
     print(session)
-    return render_template('profile.html')
+    print(session["topSong"])
+
+    try:
+        song_name = get_track_title(session["topSong"])
+        song_url = get_track_preview(session["topSong"])
+        artist_name = get_track_artist_name(session["topSong"])
+        album_image = get_track_image(session["topSong"])
+    except:
+        song_name="No Song Registered"
+        song_url = None
+        artist_name = ""
+        album_image = None
+    
+    if session["bio"] == None:
+        bio = ""
+    else:
+        bio = session["bio"]
+    
+    if session["displayName"] == None:
+        display_name = ""
+    else:
+        display_name = session["displayName"]
+
+    if session["profilePic"] == None:
+        profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
+    else:
+        profile_pic = session["profilePic"]
+
+    return render_template('profile.html', 
+                           email=session["email"], username=session["username"], 
+                           display_name=display_name, profile_pic=profile_pic, 
+                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name, 
+                           album_image=album_image)
 
 @app.route('/friends')
 def friends():
