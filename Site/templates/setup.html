@@ -13,7 +13,7 @@
                 <label class="profile-picture-setting">
                     <form method = 'POST' action="/creation" enctype="multipart/form-data" id="upload-image">
                     <input type="file" id="profile-pic-input" name="profile_pic" accept="image/png, image/jpeg" onchange="document.getElementById('upload-image').submit()">
-                    <span class="profile-picture-span" style="background-image: url({{ profile_pic }})"></span>
+                    <span class="profile-picture-span" style="background-image: url('{{ profile_pic }}')"></span>
                 </label>
                 </div>
                 <div class="profile-setting">

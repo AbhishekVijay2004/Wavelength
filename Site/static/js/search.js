@@ -40,4 +40,5 @@ function ResultSelected(result){
     document.getElementById("postButton").setAttribute("onclick", "PostSong(" + result + ")");
   }
   document.getElementById("selectedSongID").value = result;
+  console.log(document.getElementById("selectedSongID").value)
 }

@@ -13,32 +13,32 @@
   <div class="profile-container">
     <div class="information-container">
       <div class="text-containner">
-        <p class="display-name">{{username}}</p>
-        <p class="username">{{display_name}}</p>
+        <p class="display-name">{{ username }}</p>
+        <p class="username">{{ display_name }}</p>
         <p class="friends">Friends: <span style="font-weight: 400;">999</span></p>
       </div>
-      <img class="profile-picture" src="{{profile_pic}}">
+      <img class="profile-picture" src="{{ profile_pic }}">
       <div class="text-containner" style="margin-bottom: 0.1vw;">
         <p class="stats">Posts: <span style="font-weight: 400;">999</span></p>
         <p class="stats">Likes: <span style="font-weight: 400;">999</span></p>
         <p class="stats">Comments: <span style="font-weight: 400;">999</span></p>
       </div>
     </div>
-    <p class="bio">{{bio}}</p>
+    <p class="bio">{{ bio }}</p>
     <div class="spcontainer1" id="resultPreview">
       <div class="spplayer1">
         <div class="spblurrer1">
-          <div class="sprepeating-image1" style="background-image:url('https://news.artnet.com/app/news-upload/2015/04/staneley-donwood.jpg')"></div>
+          <div class="sprepeating-image1" style="background-image:url('{{ album_image }}')"></div>
         </div>
       </div>
       <div class="spsongInfo1">
-        <div class="spitem1 spalbumImage1" style="background-image:url('{{album_image}}');"></div>
+        <div class="spitem1 spalbumImage1" style="background-image:url('{{ album_image }}');"></div>
         <div class="spitem1 spsongDetails1">
-          <div class="spsongTitle1">{{song_name}}</div>
-          <div class="spartistTitle1">{{artist_name}}</div>
+          <div class="spsongTitle1">{{ song_name }}</div>
+          <div class="spartistTitle1">{{ artist_name }}</div>
         </div>
         <div id="spAudiocontainer1">
-          <audio class="audio-player1" src="{{song_url}}"></audio>
+          <audio class="audio-player1" src="{{ song_url }}"></audio>
           <div class="spsongCircle1"></div>
           <button class="spplay-pause-btn1"></button>
         </div>
