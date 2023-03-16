@@ -51,7 +51,7 @@ def profile():
     print(session)
     print(session["topSong"])
 
-    # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) ----------- 
+    # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) -----------
     # try:
     song_name = get_track_title(session["topSong"])
     song_url = get_track_preview(session["topSong"])
@@ -63,12 +63,12 @@ def profile():
     #     artist_name = ""
     #     album_image = None
 
-    
+
     # if session["bio"] == None:
     #     bio = ""
     # else:
     #     bio = session["bio"]
-    
+
     # if session["displayName"] == None:
     #     display_name = ""
     # else:
@@ -79,12 +79,12 @@ def profile():
     # else:
     #     profile_pic = session["profilePic"]
 
-    # -------------------------------------------------  Bottom of un-needed code ------------------------------------------------- 
+    # -------------------------------------------------  Bottom of un-needed code -------------------------------------------------
 
-    return render_template('profile.html', 
-                           email=session["email"], username=session["username"], 
-                           display_name=display_name, profile_pic=profile_pic, 
-                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name, 
+    return render_template('profile.html',
+                           email=session["email"], username=session["username"],
+                           display_name=display_name, profile_pic=profile_pic,
+                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name,
                            album_image=album_image)
 
 @app.route('/settings', methods = ['GET', 'POST'] )
@@ -292,7 +292,7 @@ def creation():
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
-            try: 
+            try:
                 alter_user(username, "profilePic", session["profilePic"], cursor, db)
             except NameError:
                 return redirect(url_for('signOn'))
@@ -405,36 +405,6 @@ def select_result():
         data[0]['audio'] = preview
     return jsonify(data)
 
-@app.route('/getNotifications')
-def get_notifications():
-    '''
-    Returns the notifications for the user.
-
-    Arguments: None
-
-    Returns:
-    - data (JSON string):
-        * title (string)      : Type of notification e.g. follow request, like.
-        * name (string)       : Username of the notification causer.
-        * profilePic (string) : URL of notification causer's profile picture.
-    '''
-    data = []
-    ###TODO: GET NOTIFICATIONS###
-    from random import randint
-    titles = ["Follow Request", "Like", "Comment"]
-    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
-    for i in range(20):
-        nameLength = randint(3, 12)
-        name = ""
-        for j in range(nameLength): name += letters[randint(0, 25)]
-        item = {
-            "title"      : titles[randint(0, 2)],
-            "name"       : name,
-            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
-        }
-        data.append(item)
-    return jsonify(data)
-
 @app.route('/sendNotification')
 def send_notification():
     '''
@@ -469,16 +439,19 @@ def fetch_notifications():
         * notificationID (int)
         * recipient (string)
         * sender (string)
+        * senderPic (string)
         * type (string)
         * postID (int) often None
     '''
-    recipient = request.args.get("recipient")
+    #recipient = request.args.get("recipient")
+    recipient = session["username"]
     db, cursor = connectdb()
     notifications = view_notifications(cursor, recipient)
     data = []
     for notification in notifications:
+        notification["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
         item = {}
-        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'type', 'postID']):
+        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'senderPic', 'type', 'postID']):
             item[val] = notification[i]
         data.append(item)
     return jsonify(data)
@@ -487,7 +460,37 @@ def fetch_notifications():
 if __name__ == '__main__':
     app.run(debug = True)
 
+"""
+@app.route('/getNotifications')
+def get_notifications():
+    '''
+    Returns the notifications for the user.
 
+    Arguments: None
+
+    Returns:
+    - data (JSON string):
+        * title (string)      : Type of notification e.g. follow request, like.
+        * name (string)       : Username of the notification causer.
+        * profilePic (string) : URL of notification causer's profile picture.
+    '''
+    data = []
+    ###TODO: GET NOTIFICATIONS###
+    from random import randint
+    titles = ["Follow Request", "Like", "Comment"]
+    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
+    for i in range(20):
+        nameLength = randint(3, 12)
+        name = ""
+        for j in range(nameLength): name += letters[randint(0, 25)]
+        item = {
+            "title"      : titles[randint(0, 2)],
+            "name"       : name,
+            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
+        }
+        data.append(item)
+    return jsonify(data)
+"""
 
 '''
 @app.route('/song', methods=['POST'])
