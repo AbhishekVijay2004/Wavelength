@@ -14,7 +14,7 @@
   <div>
     <form method = 'POST' action="/post">
     <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ new_song }}">
-    <input class="single-line-text-entry" id="search-box" type="text" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
+    <input class="single-line-text-entry" id="search-box" type="text" name="song" value="{{ song }}" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
     <div id="search-container">
       <div style="margin-top:1vw;"></div>
       <div class="search-result" id="search-result-0">
@@ -40,7 +40,7 @@
     </div>
   </div>
   <div>
-    <textarea class="multi-line-text-entry" type="text" maxlength="250" placeholder="Caption" onfocus="this.placeholder=''" onblur="this.placeholder = 'Caption'"></textarea>
+    <textarea class="multi-line-text-entry" type="text" name="caption" maxlength="250" placeholder="Caption" onfocus="this.placeholder=''" onblur="this.placeholder = 'Caption'">{{ text }}</textarea>
     <div id="the-count">
       <span id="current">0</span>
       <span id="maximum">/ 250</span>
@@ -51,7 +51,7 @@
           Likes
         </h2>
         <label class="setting-switch">
-          <input type="checkbox" checked>
+          <input type="checkbox" name="likes" checked>
           <span class="setting-slider"></span>
         </label>
       </div>
@@ -60,7 +60,7 @@
           Comments
         </h2>
         <label class="setting-switch">
-          <input type="checkbox" checked>
+          <input type="checkbox" name="comments" checked>
           <span class="setting-slider"></span>
         </label>
       </div>
@@ -69,13 +69,25 @@
           Dislikes
         </h2>
         <label class="setting-switch">
-        <input type="checkbox" checked>
+        <input type="checkbox" name="dislikes" checked>
           <span class="setting-slider"></span>
         </label>
       </div>
     </div>
   </div>
-  <br><br>
+  <br>
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for catagory, message in messages %}
+          {% if catagory == "error" %}
+            <div class="error">
+                <p>{{ message }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <br>
   <button class="button" id="postButton">Post</button>
   </form>
   <!-- This needs to be here despite not showing to enable search-box auto-complete work -->
@@ -84,17 +96,17 @@
     <div class="spcontainer">
       <div class="spplayer">
         <div class="spblurrer">
-          <div class="sprepeating-image" id="resultBackground" style=""></div>
+          <div class="sprepeating-image" id="resultBackground"></div>
         </div>
       </div>
       <div class="spsongInfo">
-        <div class="spitem spalbumImage" id="resultImage" style=""></div>
+        <div class="spitem spalbumImage" id="resultImage"></div>
         <div class="spitem spsongDetails">
           <div class="spsongTitle" id="resultTitle"></div>
           <div class="spartistTitle" id="resultArtist"></div>
         </div>
         <div id="spAudiocontainer">
-          <audio class="audio-player" id="resultAudio" src=""></audio>
+          <audio class="audio-player" id="resultAudio"></audio>
           <div class="spsongCircle"></div>
           <button class="spplay-pause-btn"></button>
         </div>

@@ -36,18 +36,39 @@ def home():
 @app.route('/post', methods = ['GET', 'POST'] )
 def post():
     print(session)
-    db, cursor = connectdb()
 
     if request.method == 'POST':
-        print("successful")
-        db.commit()
-        db.close()
-        return redirect(url_for('home'))
-    
-    db.commit()
-    db.close()
-    print("failed")
-    return render_template('new-post.html')
+        db, cursor = connectdb()
+        text = request.form['caption']
+        songID = request.form['songID']
+        song = request.form['song']
+        # likes = request.form.get('likes')
+        # if (likes == None):
+        #     likes = "off"
+        # comments = request.form.get('comments')
+        # if (comments == None):
+        #     comments = "off"
+        # dislikes = request.form.get('dislikes')
+        # if (dislikes == None):
+        #     dislikes = "off"
+
+        if (len(song) < 1 or len(songID) < 1):
+            flash("Please enter a song", category="error")
+            print("Error")
+        elif (len(text) > 250):
+            flash("Please restrict the caption to 250 characters", category="error")
+            print("Error")
+        else:
+            create_post(cursor, db, session['username'], text, songID)
+            db.commit()
+            db.close()
+            return redirect(url_for('home'))
+        
+    try:
+        return render_template('new-post.html', text=text)
+    except:
+        return render_template('new-post.html')
+
 
 @app.route('/friends')
 def friends():
