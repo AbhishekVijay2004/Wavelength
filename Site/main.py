@@ -36,8 +36,17 @@ def home():
 @app.route('/post', methods = ['GET', 'POST'] )
 def post():
     print(session)
+    db, cursor = connectdb()
+
     if request.method == 'POST':
+        print("successful")
+        db.commit()
+        db.close()
         return redirect(url_for('home'))
+    
+    db.commit()
+    db.close()
+    print("failed")
     return render_template('new-post.html')
 
 @app.route('/friends')
@@ -83,8 +92,8 @@ def profile():
 
     return render_template('profile.html',
                            email=session["email"], username=session["username"],
-                           display_name=display_name, profile_pic=profile_pic,
-                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name,
+                           display_name=session["displayName"], profile_pic=session["profilePic"],
+                           bio=session["bio"], song_name=song_name, song_url=song_url, artist_name = artist_name,
                            album_image=album_image)
 
 @app.route('/settings', methods = ['GET', 'POST'] )
@@ -514,3 +523,22 @@ def play_song():
     track = results['tracks']['items'][0]
     preview_url = track['preview_url']
     return render_template('index.html', song_preview = preview_url)'''
+
+# @app.route('/post', methods = ['GET', 'POST'] )
+# def post():
+#     print(session)
+#     db, cursor = connectdb()
+
+#     if request.method == 'POST':
+#         text = "Im just existing"
+#         song = "2rKcC5vlTsDM94RWTPoyHV"
+#         create_post(cursor, db, session['username'], text, song)
+#         print("successful")
+#         db.commit()
+#         db.close()
+#         return redirect(url_for('home'))
+    
+#     db.commit()
+#     db.close()
+#     print("failed")
+#     return render_template('new-post.html')

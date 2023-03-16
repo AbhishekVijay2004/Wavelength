@@ -117,9 +117,9 @@ def add_follow(username, followername, cursor, db):
 	sql = """
 		INSERT INTO following(username, username_follow)
 		VALUES (%s, %s)"""
-	cursor.execute(sql, (username, username_follow))
+	cursor.execute(sql, (username, followername))
 	db.commit()
-	print(f'{followerID} followed {username}')
+	print(f'{username} followed {username}')
 
 def delete_follow(username, followername, cursor, db):
 	sql = """
