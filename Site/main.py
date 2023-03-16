@@ -456,6 +456,20 @@ def fetch_notifications():
         data.append(item)
     return jsonify(data)
 
+@app.route("/fetchPosts")
+def fetch_posts():
+    """
+    Returns a list posts by users that the given user is following, sorted by time.
+
+    Arguments:
+    - user (string)     : The username of the user.
+    - startIndex (int)  : The point in the ordered list to begin returning posts.
+    - numToReturn (int) : The number of posts the function should return.
+
+    Returns:
+    - data (JSON string) : Array containing posts with the following information:
+        * posterID
+    """
 
 if __name__ == '__main__':
     app.run(debug = True)
