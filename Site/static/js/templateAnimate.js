@@ -47,7 +47,7 @@ const pSBC=(p,c0,c1,l)=>{
     <div class="spsongInfo">
       <div class="spitem spalbumImage"></div>
       </div></div>
-      	  	<div id="text" class="text"></div>
+      	  	<div id="text" class="text" style="min-height: 50px;"></div>
       <div class = "footer">
 				<div class = "posReact"></div>
 				<div class = "negReact"></div>
@@ -69,17 +69,17 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d00001e02cf1f6466a493eb73d6d9d280')"></div>  
+        <div class="sprepeating-image" style="background-image:url('{{album_art}}')"></div>  
       </div>
     </div>
     <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d00001e02cf1f6466a493eb73d6d9d280');"></div>
+      <div class="spitem spalbumImage" style="  background-image:url('{{album_art}}');"></div>
       <div class="spitem spsongDetails">
-        <div class="spsongTitle">I Wanna Be Adored</div>
-        <div class="spartistTitle">The Stone Roses</div>
+        <div class="spsongTitle">{{song_title}}</div>
+        <div class="spartistTitle">{{artist_name}}</div>
       </div>
       <div id="spAudiocontainer">    
-        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/64b634d8fa849d4f839eb86b28f29ed76d042bad?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
+        <audio class="audio-player" src="{{preview_mp3}}"></audio>
         <div class="spsongCircle"></div>
       <button class="spplay-pause-btn"></button>
       </div>
@@ -87,16 +87,42 @@ const pSBC=(p,c0,c1,l)=>{
   </div> 
 
       <!-- ------------------- end of song player --------------- --> 
+      
+
+      <div class = "groupHorizontal">
+      <a href url="{{postAuthorLink}}">
+			<div class="profilePic" style="background-image:url('{{postAuthorPic}}');">
+          	</div>
+      	</a>
+      	<a href url="{{postAuthorLink}}">
+      	 <div class="profileName">{{postAuthorName}}</div>
+		</a>
+
+      	 <div class="time">{{postTime}}</div>
+      </div>
+
+
 	  	<div id="text" class="text">
-	  		Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Cras id lacus non purus malesuada hendrerit. Morbi aliquet vel lorem at vulputate. Mauris ex nisi, ornare eu ligula non, lobortis dapibus nisi. Donec eu volutpat lacus. Phasellus leo lacus, sodales id tempus vel, tincidunt vitae justo. Sed non rutrum sapien, vitae convallis augue. Morbi felis justo, laoreet sed elit vel, placerat fringilla velit. Quisque purus dui, ullamcorper eget suscipit eget, finibus nec ex. Phasellus tempor fringilla magna eget imperdiet. Sed viverra diam sit amet erat venenatis volutpat. Praesent suscipit enim sit amet lobortis viverra. Donec vitae faucibus sapien. Sed elementum magna in lectus accumsan ullamcorper id eget leo. Maecenas porttitor ligula at laoreet lobortis.
-	  		<br><br>
-				Donec quis ultrices nibh. Fusce blandit mi ut ex ultrices, vitae pellentesque lorem finibus. Integer iaculis varius fermentum. Mauris a urna nibh. Nullam efficitur pretium eros nec gravida. Pellentesque sodales ex dolor, sit amet pharetra leo porta at. Quisque molestie mollis enim, et rhoncus dui imperdiet at. Maecenas commodo ligula eu elit bibendum auctor. Cras ultrices accumsan varius. Aliquam erat volutpat. Morbi mattis lacus vitae est posuere pellentesque. Vivamus egestas quis mauris a efficitur. Nulla fringilla nulla ligula, luctus interdum quam congue ut. Nulla et mauris eget urna consequat euismod ut eu metus. Nullam a mollis massa.
+	  		{{postText}}
 		</div>
+
+
 		<div class = "footer">
-				<div class = "posReact"></div>
-				<div class = "negReact"></div>
-				<div class = "comments"></div>
+				<div class="groupHorizontal">
+						<div class = "posReact"></div>
+					<div class = "count">{{posReactCount}}</div>
+				</div>
+				<div class="groupHorizontal">
+						<div class = "negReact"></div>
+					<div class = "count">{{negReactCount}}</div>
+				</div>
+				<div class="groupHorizontal">
+					<div class = "comments"></div>
+					<div class = "count">{{commentCount}}</div>
+				</div>
 		</div>
+
+
 		<div class="commentSection"></div>
 
 	`;
@@ -113,63 +139,41 @@ const pSBC=(p,c0,c1,l)=>{
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
+		const likebutton = postElement.querySelector('.posReact');
+		likebutton.addEventListener('click', footerClick);
+		const dislikebutton = postElement.querySelector('.negReact');
+		dislikebutton.addEventListener('click', footerClick);
+		const commentbutton = postElement.querySelector('.comments');
+		commentbutton.addEventListener('click', footerClick);
 		
 		return (postElement);
 	} //returns a post
 
-	function loadPostTwo() {
-		const postElement = document.createElement('div');
-		postElement.classList.add('post');
-		postElement.innerHTML = `
-			<!-- ------------------- song player --------------- -->
-      <div class="spcontainer">
-    <div class="spplayer">
-      <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('https://i.scdn.co/image/ab67616d0000b2734ce8b4e42588bf18182a1ad2')"></div>  
-      </div>
-    </div>
-    <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('https://i.scdn.co/image/ab67616d0000b2734ce8b4e42588bf18182a1ad2');"></div>
-      <div class="spitem spsongDetails">
-        <div class="spsongTitle">While My Guitar Gently Weeps</div>
-        <div class="spartistTitle">The Beatles</div>
-      </div>
-      <div id="spAudiocontainer">    
-        <audio class="audio-player" src="https://p.scdn.co/mp3-preview/221c7b7d13e8339e8c153697d44d7734f4247ed9?cid=162b7dc01f3a4a2ca32ed3cec83d1e02"></audio>
-        <div class="spsongCircle"></div>
-      <button class="spplay-pause-btn"></button>
-      </div>
-    </div>
-  </div> 
+	function footerClick(){
+	  if (this.className == "posReact") {
+	  	if (this.classList.contains("clicked")) {
+ 		  this.classList.remove('clicked');
+		} else {
+		  	this.classList.add('clicked');
+		  	this.parentNode.parentNode.querySelector('.negReact').classList.remove('clicked');
+		}
+	  } else if (this.className == "negReact") {
+	  	if (this.classList.contains("clicked")) {
+ 		  this.classList.remove('clicked');
+		} else {
+		  	this.classList.add('clicked');
+		  	this.parentNode.parentNode.querySelector('.posReact').classList.remove('clicked');
+		}
+	  } else {
+		  
+		  if (this.classList.contains("clicked")) {
+	 		  this.classList.remove('clicked');
+		  } else {
+		  	this.classList.add('clicked');
 
-      <!-- ------------------- end of song player --------------- --> 
-	  	<div id="text" class="text">
-	  		Lorem  ipsum dolor sit amet. him there is big at in the big man himself what.
-		</div>
-		<div class = "footer">
-				<div class = "posReact"></div>
-				<div class = "negReact"></div>
-				<div class = "comments"></div>
-		</div>
-		<div class="commentSection"></div>
-	`;
-		arrayOfPosts.push(postElement);
-		expandedPosts.push(false);
-		expandedComments.push(false);
-		commentsOpened.push(false);
-		const textBit = postElement.querySelector('.text');
-		const commentBit = postElement.querySelector('.comments');
-		textBit.addEventListener('click', clickOnText);
-		commentBit.addEventListener('click', clickOnComments);
-
-		const audio = postElement.querySelector('.audio-player');
-		audio.addEventListener('timeupdate', audioTimeUpdate);
-		const playbutton = postElement.querySelector('.spplay-pause-btn');
-		playbutton.addEventListener('click', playPauseClick);
-		
-		return (postElement);
-	} //returns a (different) post
-
+		  }
+	  }
+};
 
 	function breatheColour() {
 		if (pos == 1) {

@@ -25,6 +25,23 @@ background-color:var(--background-highlight-1);
 border-radius: 20px;
 margin-bottom: 50px;
 }
+.groupHorizontal{
+	display:flex;
+	flex-direction: row;
+}
+.groupVertical{
+	display:flex;
+	flex-direction: column;
+}
+.time {
+	display:flex;
+	font-size:1.5vw;
+	color:var(--text-colour);
+	line-height:3vw;
+	margin-left:auto;
+	margin-right:0.5vw;
+
+}
 .text {
 min-height: 150px;
 max-height: 150px;
@@ -34,7 +51,7 @@ transition: max-height 0.2s ease-out;
 flex: 1;
 align-content: left; 
 text-align: left;
-font-size: 98px;
+font-size: 1.5vw;
 color: var(--text-colour);
 -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
 }
@@ -45,41 +62,54 @@ flex-direction: row;
 flex: 1;
 }
 .posReact{
-background-image: url('../media/icons/like-icon.png');
-min-width: 3vw;
-min-height: 3vw;
+background-image: url('../media/icons/like-icon.png');/*
+min-width: 3.25vw;
+min-height: 3.25vw;*/
+width:3vw;
+aspect-ratio:1;
 background-size: 3vw;
 background-repeat: no-repeat;
 padding: .125vw;
 cursor:pointer;
-transition: 0.25s;
+transition: 0.125s;
+}
+.posReact.clicked{
+	background-image:url('../media/icons/like_filled.png');
 }
 .negReact{
-background-image: url('../media/icons/dislike-icon.png');
-min-width: 3vw;
-min-height: 3vw;
+background-image: url('../media/icons/dislike-icon.png');/*
+min-width: 3.25vw;
+min-height: 3.25vw;*/
+width:3vw;
+aspect-ratio:1;
 background-size: 3vw;
 background-repeat: no-repeat;
 padding: .125vw;
 cursor:pointer;
-transition: 0.25s;
+transition: 0.125s;
+}
+.negReact.clicked{
+	background-image:url('../media/icons/dislike_filled.png');
 }
 .comments{
-background-image: url('../media/icons/comment-icon.png');
-min-width: 3vw;
-min-height: 3vw;
+background-image: url('../media/icons/comment-icon.png');/*
+min-width: 3.25vw;
+min-height: 3.25vw;*/
+width:3vw;
+aspect-ratio:1;
 background-size: 3vw;
 background-repeat: no-repeat;
 padding: .125vw;
 color: var(--text-colour);
 cursor:pointer;
-transition: 0.25s;
+transition: 0.125s;
 }
+.comments.clicked{
+	background-image:url('../media/icons/comments_filled.png');
+}
+/* the changing size makes everything wobble. can't figure it out atm, will look at in future if wanted.
 .posReact:hover{
-min-width: 3.25vw;
-min-height: 3.25vw;
 background-size: 3.25vw;
-transform: translateX(-0.125vw);
 padding: 0;
 }
 .negReact:hover{
@@ -96,50 +126,63 @@ background-size: 3.25vw;
 transform: translateX(-0.125vw);
 padding: 0;
 }
+*/
 .commentSection{
 overflow:auto;
 display:none;
+gap:1vw;
+flex-direction: column;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .comment{
 width:100%;
 height:20px;
 
 }
-.commentContainer {
-	margin-top: 10px;
+
+.profileName {
 	display:flex;
-justify-content: left;
-flex-direction:row;
-	width:98%;
-
-
+	font-size:1.5vw;
+	color:var(--text-colour);
+	line-height:3vw;
+	margin-left:0.5vw;
 }
-.commentProfilePic {
-	background-color:red;
-	background-size:50px;
-	min-width:50px;
-	width:50px;
-	height:50px;
+.profilePic {
+	display:flex;
+	background-size:3vw;
+	width:3vw;
+	height:3vw;
 	border-radius:50%;
+	border-color:var(--primary-highlight-2);
+  border:2px solid;
 }
+
 .commentText {
 	background-color: var(--background-highlight-2);
 	color: var(--text-colour);
 	border-radius:8px;
-	margin-left: 5px;
+	margin-left: 0.25vw;
 	padding:5px;
 	min-height: 50px;
 	min-width:20%;
+font-size: 1vw;
 	text-align:left;
 }
-.newComment {
-	width:100%;
 
-	display:flex;
-	flex-direction:row;
-	justify-content:center;
-}
 .bigText {
-    height:40px;
-    width:85%;
+	margin-left: 0.25vw;
+	line-height:1.5vw;
+    width:auto;
+    padding:5px;
+}
+.submitButton {
+    height:50px;
+    line-height: 1.5vw;
+    margin-left:auto;
+}
+.count{
+	font-size:1.5vw;
+	margin-left:auto;
+	color: var(--text-colour);
 }

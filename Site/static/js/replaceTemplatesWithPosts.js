@@ -2,7 +2,7 @@
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);
         container.replaceChild(loadPost(),container.childNodes[3])
-        container.replaceChild(loadPostTwo(),container.childNodes[4])
+        container.replaceChild(loadPost(),container.childNodes[4])
         onResizeOrLoad();
     }
 
