@@ -51,31 +51,35 @@ def profile():
     print(session)
     print(session["topSong"])
 
-    try:
-        song_name = get_track_title(session["topSong"])
-        song_url = get_track_preview(session["topSong"])
-        artist_name = get_track_artist_name(session["topSong"])
-        album_image = get_track_image(session["topSong"])
-    except:
-        song_name="No Song Registered"
-        song_url = None
-        artist_name = ""
-        album_image = None
-    
-    if session["bio"] == None:
-        bio = ""
-    else:
-        bio = session["bio"]
-    
-    if session["displayName"] == None:
-        display_name = ""
-    else:
-        display_name = session["displayName"]
+    # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) ----------- 
+    # try:
+    song_name = get_track_title(session["topSong"])
+    song_url = get_track_preview(session["topSong"])
+    artist_name = get_track_artist_name(session["topSong"])
+    album_image = get_track_image(session["topSong"])
+    # except:
+    #     song_name="No Song Registered"
+    #     song_url = None
+    #     artist_name = ""
+    #     album_image = None
 
-    if session["profilePic"] == None:
-        profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
-    else:
-        profile_pic = session["profilePic"]
+    
+    # if session["bio"] == None:
+    #     bio = ""
+    # else:
+    #     bio = session["bio"]
+    
+    # if session["displayName"] == None:
+    #     display_name = ""
+    # else:
+    #     display_name = session["displayName"]
+
+    # if session["profilePic"] == None:
+    #     profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
+    # else:
+    #     profile_pic = session["profilePic"]
+
+    # -------------------------------------------------  Bottom of un-needed code ------------------------------------------------- 
 
     return render_template('profile.html', 
                            email=session["email"], username=session["username"], 
