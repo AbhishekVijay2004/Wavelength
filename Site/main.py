@@ -340,16 +340,9 @@ def creation():
 @app.route('/song')
 def search_song():
     #return the song based on query
-    print("here")
     query = request.args.get('query')
-    print("here")
-    print(query)
     song = sp.search(query, type='track', limit=5, market='GB')
-    print("here")
-    print(song)
     songs = song['tracks']['items']
-    print("here")
-    print(songs)
     if len(songs) == 0:
         return []
     if len(query) == 0:
