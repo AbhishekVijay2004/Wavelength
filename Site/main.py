@@ -117,7 +117,7 @@ def settings():
                 filename = secure_filename(profile_pic.filename)
                 profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
+                alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
         except:
             pass
 
@@ -138,11 +138,11 @@ def settings():
             print("Error")
         else:
             session["bio"] = bio
-            alter_user(session["username"], "bio", session["bio"], cursor, db)
+            alter_user(cursor, db, session["username"], "bio", session["bio"])
             session["topSong"] = top_song
-            alter_user(session["username"], "topSong", session["topSong"], cursor, db)
+            alter_user(cursor, db, session["username"], "topSong", session["topSong"])
             session["displayName"] = display_name
-            alter_user(session["username"], "displayName", session["displayName"], cursor, db)
+            alter_user(cursor, db, session["username"], "displayName", session["displayName"])
 
             #Please change to singular form when fixed
             userDetailsList = get_user_details(cursor, session["username"])
@@ -304,7 +304,7 @@ def creation():
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
             try:
-                alter_user(username, "profilePic", session["profilePic"], cursor, db)
+                alter_user(cursor, db, username, "profilePic", session["profilePic"])
             except NameError:
                 return redirect(url_for('signOn'))
         else:
@@ -312,7 +312,7 @@ def creation():
             filename = secure_filename(profile_pic.filename)
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            alter_user(session["username"], "profilePic", session["profilePic"], cursor, db)
+            alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
             change = True
 
         if (change == True):
@@ -328,11 +328,11 @@ def creation():
             print("Error")
         else:
             session["bio"] = bio
-            alter_user(session["username"], "bio", session["bio"], cursor, db)
+            alter_user(cursor, db, session["username"], "bio", session["bio"])
             session["topSong"] = top_song
-            alter_user(session["username"], "topSong", session["topSong"], cursor, db)
+            alter_user(cursor, db, session["username"], "topSong", session["topSong"])
             session["displayName"] = display_name
-            alter_user(session["username"], "displayName", session["displayName"], cursor, db)
+            alter_user(cursor, db, session["username"], "displayName", session["displayName"])
 
             #Please change to singular form when fixed
             userDetailsList = get_user_details(cursor, session["username"])
@@ -501,7 +501,7 @@ def fetch_posts():
     db, cursor = connectdb()
     startIndex = request.args.get("startIndex")
     numToReturn = request.args.get("numToReturn")
-    following = get_following_accounts(user, cursor)
+    following = get_following_accounts(cursor, user)
     postList = []
 
     for f in following:
