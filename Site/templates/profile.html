@@ -12,16 +12,20 @@
 <div class="main-content clsScroll" id="hideScroll">
   <div class="profile-container">
     <div class="information-container">
-      <div class="text-containner">
-        <p class="display-name">{{ username }}</p>
-        <p class="username">{{ display_name }}</p>
-        <p class="friends">Friends: <span style="font-weight: 400;">999</span></p>
+      <div class="column">
+        <div class="text-containner">
+          <p class="display-name">{{ username }}</p>
+          <p class="username">{{ display_name }}</p>
+          <p class="friends">Friends: <span style="font-weight: 400;">999</span></p>
+        </div>
       </div>
-      <img class="profile-picture" src="{{ profile_pic }}">
-      <div class="text-containner" style="margin-bottom: 0.1vw;">
-        <p class="stats">Posts: <span style="font-weight: 400;">999</span></p>
-        <p class="stats">Likes: <span style="font-weight: 400;">999</span></p>
-        <p class="stats">Comments: <span style="font-weight: 400;">999</span></p>
+      <div class="column"><img class="profile-picture" src="{{ profile_pic }}"></div>
+      <div class="column">
+        <div class="text-containner" style="margin-bottom: 0.1vw;">
+          <p class="stats">Posts: <span style="font-weight: 400;">999</span></p>
+          <p class="stats">Likes: <span style="font-weight: 400;">999</span></p>
+          <p class="stats">Comments: <span style="font-weight: 400;">999</span></p>
+        </div>
       </div>
     </div>
     <p class="bio">{{ bio }}</p>
