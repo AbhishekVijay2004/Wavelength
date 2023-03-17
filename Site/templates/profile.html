@@ -29,22 +29,22 @@
       </div>
     </div>
     <p class="bio">{{ bio }}</p>
-    <div class="spcontainer1" id="resultPreview">
-      <div class="spplayer1">
-        <div class="spblurrer1">
-          <div class="sprepeating-image1" style="background-image:url('{{ album_image }}')"></div>
+    <div class="spcontainer" style="margin-top: 0vw; margin-bottom: 1vw; margin-left: 4vw; height: 5vw; width: 40vw;">
+      <div class="spplayer" style="height:5vw;">
+        <div class="spblurrer">
+          <div class="sprepeating-image" style="background-image:url('{{ image }}')"></div>  
         </div>
       </div>
-      <div class="spsongInfo1">
-        <div class="spitem1 spalbumImage1" style="background-image:url('{{ album_image }}');"></div>
-        <div class="spitem1 spsongDetails1">
-          <div class="spsongTitle1">{{ song_name }}</div>
-          <div class="spartistTitle1">{{ artist_name }}</div>
+      <div class="spsongInfo" style="height:5vw;">
+        <div class="spitem spalbumImage" style="background-image:url('{{ image }}');"></div>
+        <div class="spitem spsongDetails">
+          <div class="spsongTitle">{{ title }}</div>
+          <div class="spartistTitle">{{ artist }}</div>
         </div>
-        <div id="spAudiocontainer1">
-          <audio class="audio-player1" src="{{ song_url }}"></audio>
-          <div class="spsongCircle1"></div>
-          <button class="spplay-pause-btn1"></button>
+        <div id="spAudiocontainer">    
+          <audio class="audio-player" src="{{ song }}"></audio>
+          <div class="spsongCircle"></div>
+          <button class="spplay-pause-btn" style="height: 4vw; width: 4vw; border: solid 0.1vw var(--background-highlight-1);"></button>
         </div>
       </div>
     </div>

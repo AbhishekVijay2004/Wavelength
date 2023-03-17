@@ -83,10 +83,10 @@ def profile():
 
     # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) -----------
     # try:
-    # song_name = get_track_title(session["topSong"])
-    # song_url = get_track_preview(session["topSong"])
-    # artist_name = get_track_artist_name(session["topSong"])
-    # album_image = get_track_image(session["topSong"])
+    song_name = get_track_title(session["topSong"])
+    song_url = get_track_preview(session["topSong"])
+    artist_name = get_track_artist_name(session["topSong"])
+    album_image = get_track_image(session["topSong"])
 
 
     # except:
@@ -113,17 +113,17 @@ def profile():
 
     # -------------------------------------------------  Bottom of un-needed code -------------------------------------------------
     
-    try:
-        return render_template('profile.html',
-                            email=session["email"], username=session["username"],
-                            display_name=session["displayName"], profile_pic=session["profilePic"],
-                            bio=session["bio"], song_name=song_name, song_url=song_url, artist_name = artist_name,
-                            album_image=album_image)
-    except: 
-        return render_template('profile.html',
-                            email=session["email"], username=session["username"],
-                            display_name=session["displayName"], profile_pic=session["profilePic"],
-                            bio=session["bio"])
+    # try:
+    return render_template('profile.html',
+                        email=session["email"], username=session["username"],
+                        display_name=session["displayName"], profile_pic=session["profilePic"],
+                        bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                        album_image=album_image)
+    # except: 
+    #     return render_template('profile.html',
+    #                         email=session["email"], username=session["username"],
+    #                         display_name=session["displayName"], profile_pic=session["profilePic"],
+    #                         bio=session["bio"])
 
 
 @app.route('/settings', methods = ['GET', 'POST'] )

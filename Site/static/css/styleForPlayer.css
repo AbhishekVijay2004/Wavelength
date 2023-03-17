@@ -117,7 +117,7 @@
   height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background-color: purple;
+  background-color: var(--primary-colour);
   clip-path: polygon(0 0);
 }
 
