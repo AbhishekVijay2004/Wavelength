@@ -77,60 +77,27 @@ def friends():
 
 @app.route('/profile')
 def profile():
-    # still editting
     print(session)
-    print(session["topSong"])
 
-    # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) -----------
-    # try:
     song_name = get_track_title(sp, session["topSong"])
     song_url = get_track_preview(sp, session["topSong"])
     artist_name = get_track_artist_name(sp, session["topSong"])
     album_image = get_track_image(sp, session["topSong"])
-    print(song_name, '\n', song_url, '\n', artist_name, '\n', album_image)
 
-
-    # except:
-    #     song_name="No Song Registered"
-    #     song_url = None
-    #     artist_name = ""
-    #     album_image = None
-
-
-    # if session["bio"] == None:
-    #     bio = ""
-    # else:
-    #     bio = session["bio"]
-
-    # if session["displayName"] == None:
-    #     display_name = ""
-    # else:
-    #     display_name = session["displayName"]
-
-    # if session["profilePic"] == None:
-    #     profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
-    # else:
-    #     profile_pic = session["profilePic"]
-
-    # -------------------------------------------------  Bottom of un-needed code -------------------------------------------------
-    
-    # try:
     return render_template('profile.html',
                         email=session["email"], username=session["username"],
                         display_name=session["displayName"], profile_pic=session["profilePic"],
                         bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
                         image=album_image)
-    # except: 
-    #     return render_template('profile.html',
-    #                         email=session["email"], username=session["username"],
-    #                         display_name=session["displayName"], profile_pic=session["profilePic"],
-    #                         bio=session["bio"])
-
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
     print(session)
     db, cursor = connectdb()
+    song_name = get_track_title(sp, session["topSong"])
+    song_url = get_track_preview(sp, session["topSong"])
+    artist_name = get_track_artist_name(sp, session["topSong"])
+    album_image = get_track_image(sp, session["topSong"])
 
     if request.method == 'POST':
         email = request.form['email']
@@ -187,9 +154,11 @@ def settings():
     db.commit()
     db.close()
     try:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], cachedName=song_name)
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], cachedName=song_name, title=song_name, song=song_url, artist = artist_name,
+                        image=album_image)
     except UnboundLocalError:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"])
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                        image=album_image)
     except:
             return redirect(url_for('signOn'))
 
