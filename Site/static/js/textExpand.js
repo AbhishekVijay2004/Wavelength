@@ -19,9 +19,7 @@
 
 	function clickOnComments() {
 		let elmnt = this.parentNode.parentNode.parentNode;
-		console.log("hi");
 		commSec = elmnt.querySelector('.commentSection');	
-		console.log(commSec);
 		let i = arrayOfPosts.indexOf(elmnt);
 		if (commentsOpened[i] == '0') {
 			commentsOpened[i] = 1;

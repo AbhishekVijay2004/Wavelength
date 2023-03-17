@@ -1,4 +1,11 @@
+    
+    function databasePost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount) {
+      container.replaceChild(loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount),container.childNodes[container.getElementsByClassName('post').length+2]);
+
+    }
+
     setTimeout(replacePosts, 2000);
+
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);
         //see below for how to organise:
@@ -6,9 +13,16 @@
         onResizeOrLoad();
     }
 
+if (document.getElementsByClassName('profile-container').length == 1) {
+  offset = 1;
+} else {
+  offset = 0;
+}
+
 function playPauseClick() {
 
-  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode);
+  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode) + offset;
+  
   const audioPlayer = document.getElementsByClassName('audio-player');
   const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
 
@@ -27,7 +41,7 @@ function playPauseClick() {
 }
 
 function audioTimeUpdate() {
-  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode);
+  let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode) + offset;
   const audioPlayer = document.getElementsByClassName('audio-player')[i]
   const progress = document.getElementsByClassName('spsongCircle')[i];
 
