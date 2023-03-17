@@ -22,7 +22,7 @@ def create_user(cursor, db, username, password, email, profilePic=None, bio=None
 	db.commit()
 	print('user added')
 
-def delete_user(username, cursor, db):
+def delete_user(cursor, db, username):
 	username = (username, )
 	sql = """
 		DELETE FROM users
@@ -38,7 +38,7 @@ def create_post(cursor, db, username, postText='', postContent=''):
 	cursor.execute(sql, (username, postText, postContent))
 	db.commit()
 
-def delete_post(postID, cursor, db):
+def delete_post(cursor, db, postID):
 	#make a tuple value
 	postID = (postID, )
 	sql = """
@@ -47,7 +47,7 @@ def delete_post(postID, cursor, db):
 	cursor.execute(sql, postID)
 	db.commit()
 
-def add_like(postID, username, cursor, db):
+def add_like(cursor, db, postID, username):
 	delete_like(postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
@@ -56,7 +56,7 @@ def add_like(postID, username, cursor, db):
 	db.commit()
 	print(f'{username} liked {postID}')
 
-def delete_like(postID, username, cursor, db):
+def delete_like(cursor, db, postID, username):
 	## will function for both like and dislike
 	sql = """
 		DELETE FROM likes
@@ -65,7 +65,7 @@ def delete_like(postID, username, cursor, db):
 	db.commit()
 	print('like deleted')
 
-def add_dislike(postID, username, cursor, db):
+def add_dislike(cursor, db, postID, username):
 	delete_like(postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
@@ -74,7 +74,7 @@ def add_dislike(postID, username, cursor, db):
 	db.commit()
 	print(f'{username} disliked {postID}')
 
-def add_comment(postID, username, text, cursor, db):
+def add_comment(cursor, db, postID, username, text):
 	sql = """
 		INSERT INTO comments(postID, username, commentText, createdAt)
 		VALUES (%s, %s, %s, NOW())"""
@@ -82,7 +82,7 @@ def add_comment(postID, username, text, cursor, db):
 	db.commit()
 	print(f'{username} commented {text} on {postID}')
 
-def delete_comment(commentID, cursor, db):
+def delete_comment(cursor, db, commentID):
 	commentID = (commentID, )
 	sql = """
 		DELETE FROM comments
@@ -91,7 +91,7 @@ def delete_comment(commentID, cursor, db):
 	db.commit()
 	print(f'comment {commentID[0]} deleted')
 
-def add_comment_like(commentID, username, liketype, cursor, db):
+def add_comment_like(cursor, db, commentID, username, liketype):
 	delete_comment_like(commentID, username, cursor, db)
 	sql = """
 		INSERT INTO commentlikes(commentID, username, type)
@@ -99,7 +99,7 @@ def add_comment_like(commentID, username, liketype, cursor, db):
 	cursor.execute(sql, (commentID, username, liketype))
 	db.commit()
 
-def delete_comment_like(commentID, username, cursor, db):
+def delete_comment_like(cursor, db, commentID, username):
 	## will function for both like and dislike
 	sql = """
 		DELETE FROM commentlikes
@@ -108,23 +108,23 @@ def delete_comment_like(commentID, username, cursor, db):
 	db.commit()
 	print('like deleted')
 
-def add_follow(username, followername, cursor, db):
+def add_follow(cursor, db, user, following):
 	sql = """
-		INSERT INTO following(username, username_follow)
+		INSERT INTO following(user, following)
 		VALUES (%s, %s)"""
-	cursor.execute(sql, (username, followername))
+	cursor.execute(sql, (user, following))
 	db.commit()
-	print(f'{username} followed {username}')
+	print(f'{follower} followed {user}')
 
-def delete_follow(username, followername, cursor, db):
+def delete_follow(cursor, db, user, following):
 	sql = """
 		DELETE FROM following
-		WHERE (username = %s) AND (username_follow = %s)"""
-	cursor.execute(sql, (username, followername))
+		WHERE (user = %s) AND (following = %s)"""
+	cursor.execute(sql, (username, following))
 	db.commit()
 	print('friendship deleted')
 
-def alter_user(username, key, value, cursor, db):
+def alter_user(cursor, db, username, key, value):
 	sql = f"""
 		UPDATE users
 		SET {key} = %s
@@ -194,7 +194,7 @@ def get_comment_details(cursor, db, commentid, param='*'):
 		return result
 
 ##get list of users posts
-def list_user_posts(username, cursor):
+def list_user_posts(cursor, username):
 	sql = """
 		SELECT * FROM posts
 		WHERE (username = %s)"""
@@ -238,35 +238,35 @@ def get_num_comment_likes(cursor, db, commentID, like='like'):
 	result = cursor.fetchone()
 	return result[0]
 
-def get_num_following(username, cursor):
+def get_num_following(cursor, username):
 	sql = """
-		SELECT SUM(username) FROM following
-		WHERE (followerID = %s)"""
+		SELECT SUM(following) FROM following
+		WHERE (user = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchone()
 	return results[0]
 
-def get_following_accounts(username, cursor):
+def get_following_accounts(cursor, username):
 	sql = """
-		SELECT username_follow FROM following
-		WHERE (username = %s)"""
+		SELECT following FROM following
+		WHERE (user = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchall()
 	accounts = [result[0] for result in results]
 	return accounts
 
-def get_num_followers(username, cursor):
+def get_num_followers(cursor, username):
 	sql = """
-		SELECT SUM(followerID) FROM following
-		WHERE (username = %s)"""
+		SELECT SUM(user) FROM following
+		WHERE (following = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchone()
 	return results[0]
 
-def get_follower_accounts(username, cursor):
+def get_follower_accounts(cursor, username):
 	sql = """
-		SELECT followerID FROM following
-		WHERE (username = %s)"""
+		SELECT user FROM following
+		WHERE (following = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchall()
 	accounts = [result[0] for result in results]
@@ -312,4 +312,6 @@ if __name__ == "__main__":
 	# create_notification(cursor, db, 'matt', 'jonnytest', 'comment', '2')
 	# print(view_notifications(cursor, 'matt'))
 	# print(get_user_details(cursor, 'atsu'))
-	print(search_for_user(cursor, "jon"))
+	# print(search_for_user(cursor, "jon"))
+	# add_follow('test', 'jonnybreez3', cursor, db)
+	# print(get_following_posts(cursor, 'jonnybreez3', 0))
