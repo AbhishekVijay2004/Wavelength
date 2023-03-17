@@ -5,7 +5,7 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/timeline.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
-{% endblock %} 
+{% endblock %}
 
 {% block content%}
 <div class="timeline-content content-home">
@@ -19,5 +19,5 @@
 <script type="text/javascript" src="{{url_for('static', filename = 'js/templateAnimate.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/replaceTemplatesWithPosts.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/textExpand.js')}}"></script>
-{% endblock %} 
-
+<script type="text/javascript" src="{{url_for('static', filename = 'js/get-posts.js')}}"></script>
+{% endblock %}

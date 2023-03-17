@@ -6,6 +6,8 @@ from dbfunctions import *
 from argon2 import PasswordHasher
 from werkzeug.utils import secure_filename
 from spotify_functions import *
+#FOR TESTING
+from random import randint
 
 
 app = Flask(__name__)
@@ -63,7 +65,7 @@ def post():
             db.commit()
             db.close()
             return redirect(url_for('home'))
-        
+
     try:
         return render_template('new-post.html', text=text)
     except:
@@ -494,12 +496,74 @@ def fetch_posts():
     Arguments:
     - user (string)     : The username of the user.
     - startIndex (int)  : The point in the ordered list to begin returning posts.
-    - numToReturn (int) : The number of posts the function should return.
+    - numToReturn (int) : The number of posts the function should return. 0 = return all posts.
 
     Returns:
-    - data (JSON string) : Array containing posts with the following information:
-        * posterID
+    - data (JSON string): Array containing posts with the following information:
+        * postID        : ID of the post in the database.
+        * songTitle     : Title of post's song.
+        * artistName    : Name of the artist of post's song.
+        * songImage     : Album art for post's song.
+        * songPreview   : Preview URL for song audio.
+        * posterName    : Display name of user who posted the post.
+        * postTime      : Time that the post was created.
+        * postCaption   : Caption to be displayed with post.
+        * postLikes     : Number of likes on the post.
+        * postDislikes  : Number of dislikes on the post.
+        * postComments  : Number of comments on the post.
     """
+
+    user = session["username"]
+    db, cursor = connectdb()
+    startIndex = request.args.get("startIndex")
+    numToReturn = request.args.get("numToReturn")
+    following = get_following_accounts(user, cursor)
+    postList = []
+
+    for f in following:
+        for post in list_user_posts(f, cursor):
+            postList = insert_post(postList, list(post))
+
+    data = []
+    for post in postList:
+        song = sp.track(post[3])
+        data.append({
+        "postID"       : post[0],
+        "songTitle"    : song["name"],
+        "artistName"   : song["artists"][0]["name"],
+        "songImage"    : song["album"]["images"][2]["url"],
+        "songPreview"  : song["preview_url"],
+        "posterName"   : get_user_detail(cursor, post[4], "displayname"),
+        "postTime"     : post[1],
+        "postCaption"  : post[2],
+        "postLikes"    : get_num_likes(cursor, db, post[0], "like"),
+        "postDislikes" : get_num_likes(cursor, db, post[0], "dislike"),
+        "postComments" : get_num_comments(cursor, db, post[0])
+        })
+        
+        if song['preview_url'] == None:
+            # run a search on the name to find the preview url
+            song = sp.search(song["name"] + song["artists"][0]["name"], type='track', limit=1, market='GB')
+            preview = song["tracks"]["items"][0]["preview_url"]
+            data[len(data)].preview = preview
+
+    return jsonify(data)
+
+def insert_post(postList, post):
+
+    if len(postList) == 0:
+        postList.append(post)
+        return postList
+
+    for i in range(len(postList)):
+        if postList[i][0] < post[0]:
+            if i == 0:
+                postList = [post] + postList[i::]
+                return postList
+            postList = postList[:i:].append(post) + postList[i::]
+            return postList
+        postList.append(post)
+        return postList
 
 if __name__ == '__main__':
     app.run(debug = True)
@@ -558,7 +622,7 @@ def play_song():
 #         db.commit()
 #         db.close()
 #         return redirect(url_for('home'))
-    
+
 #     db.commit()
 #     db.close()
 #     print("failed")

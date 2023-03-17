@@ -208,6 +208,15 @@ def list_user_posts(username, cursor):
 	result = cursor.fetchall()
 	return result
 
+def get_num_comments(cursor, db, postid):
+	# get number of comments
+	sql = """
+		SELECT SUM(username) FROM comments
+		WHERE (postID = %s)"""
+	cursor.execute(sql, (postid, ))
+	result = cursor.fetchone()
+	return result[0]
+
 def get_num_likes(cursor, db, postid, like='like'):
 	# get num likes or dislikes depending on parameter passed
 	sql = """
@@ -247,8 +256,8 @@ def get_num_following(username, cursor):
 
 def get_following_accounts(username, cursor):
 	sql = """
-		SELECT username FROM following
-		WHERE (followerID = %s)"""
+		SELECT username_follow FROM following
+		WHERE (username = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchall()
 	accounts = [result[0] for result in results]
