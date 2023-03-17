@@ -248,13 +248,8 @@ def get_num_following(cursor, username):
 
 def get_following_accounts(cursor, username):
 	sql = """
-<<<<<<< HEAD
-		SELECT username_follow FROM following
-		WHERE (username = %s)"""
-=======
 		SELECT following FROM following
 		WHERE (user = %s)"""
->>>>>>> get-top-posts
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchall()
 	accounts = [result[0] for result in results]
