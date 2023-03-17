@@ -31,7 +31,6 @@ def delete_user(username, cursor, db):
 	db.commit()
 	print('user deleted')
 
-
 def create_post(cursor, db, username, postText='', postContent=''):
 	sql = """
 		INSERT INTO posts (username, postText, postContent, createdAt)
@@ -47,7 +46,6 @@ def delete_post(postID, cursor, db):
 		WHERE postID = %s"""
 	cursor.execute(sql, postID)
 	db.commit()
-
 
 def add_like(postID, username, cursor, db):
 	delete_like(postID, username)
@@ -67,7 +65,6 @@ def delete_like(postID, username, cursor, db):
 	db.commit()
 	print('like deleted')
 
-
 def add_dislike(postID, username, cursor, db):
 	delete_like(postID, username)
 	sql = """
@@ -76,7 +73,6 @@ def add_dislike(postID, username, cursor, db):
 	cursor.execute(sql, (postID, username))
 	db.commit()
 	print(f'{username} disliked {postID}')
-
 
 def add_comment(postID, username, text, cursor, db):
 	sql = """
@@ -111,7 +107,6 @@ def delete_comment_like(commentID, username, cursor, db):
 	cursor.execute(sql, (commentID, username))
 	db.commit()
 	print('like deleted')
-
 
 def add_follow(username, followername, cursor, db):
 	sql = """
@@ -176,7 +171,6 @@ def get_user_details_by_email(cursor, email):
 	except IndexError:
 		return False
 
-
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
 		return 'invalid query'
@@ -217,7 +211,6 @@ def get_num_likes(cursor, db, postid, like='like'):
 	result = cursor.fetchone()
 	return result[0]
 
-
 def get_like_accounts(cursor,postid, like='like'):
 	sql = """
 		SELECT username FROM likes
@@ -227,7 +220,6 @@ def get_like_accounts(cursor,postid, like='like'):
 	# change into list of usernames
 	accounts = [result[0] for result in results]
 	return accounts
-
 
 def get_num_comment_likes(cursor, db, commentID, like='like'):
 	sql = """
