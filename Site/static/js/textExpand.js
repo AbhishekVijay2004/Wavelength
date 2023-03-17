@@ -25,7 +25,7 @@
 		let i = arrayOfPosts.indexOf(elmnt);
 		if (commentsOpened[i] == '0') {
 			commentsOpened[i] = 1;
-		    loadCommentsSection(commSec);
+		    loadCommentsSection(commSec, "https://i.imgur.com/IbyiX4s.png");		//needs variables passing
 }
 		    expandedComments[i] = !expandedComments[i];
 		    if (expandedComments[i]) {
@@ -37,12 +37,12 @@
 	    	}
 	}
 
-	function loadCommentsSection(parnt) {
+	function loadCommentsSection(parnt, user_pic) {
 		const newComment = document.createElement('div');
 		newComment.classList.add('groupHorizontal');
 		newComment.innerHTML = `
 		<a href url="http://google.com">
-			<div class="profilePic" style="background-image:url('./static/media/avatar.jpg');">
+			<div class="profilePic" style="background-image:url('`+user_pic+`');">
           	</div>
       	</a>
       	<input type="text" id="fname" name="fname" class="bigText">
@@ -50,41 +50,42 @@
 <br>
 	`;
 		parnt.appendChild(newComment);
-		loadComment(parnt);
-		loadComment(parnt);
+		loadComment(parnt, "http://google.com", "https://i.imgur.com/C66N3zI.png", "Ben Wyatt", "I also like this song, I am younger than you though. and probably more broke.", 10, 0, "12:00"); 		//needs variables passing
+		//copy as follows:
+		//loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentLikeCount, commentDislikeCount, commentDate);
 		loadComment(parnt);
 		loadComment(parnt);
 		loadComment(parnt);
 	}
 
-	function loadComment(parnt) {
+	function loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentLikeCount, commentDislikeCount, commentDate) {
 		const comment = document.createElement('div');
 		comment.classList.add('groupHorizontal');
 		comment.innerHTML = `
 
-		<a href url="{{commentAuthorLink}}">
-			<div class="profilePic" style="background-image:url('{{commentAuthorPic}}');">
+		<a href url="`+commentAuthorLink+`">
+			<div class="profilePic" style="background-image:url('`+commentAuthorPic+`');">
           	</div>
       	</a>
 
       	<div class="groupVertical">
-	      	<a href url="{{commentAuthorLink}}">
-	      	 <div class="profileName" style="font-size:1vw;line-height:1vw;margin-bottom:5px">{{commentAuthorName}}</div>
+	      	<a href url="`+commentAuthorLink+`">
+	      	 <div class="profileName" style="font-size:1vw;line-height:1vw;margin-bottom:5px">`+commentAuthorName+`</div>
 			</a>
 
 			<div class="commentText">
-		        {{commentText}}
+		        `+commentText+`
 	      	</div>
 		
 	      	<div class="groupHorizontal">
 				<div class="groupHorizontal">
 						<div class = "posReact" style="width:1vw;background-size:1vw;"></div>
 					
-					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">{{commentLikeCount}}</div>
+					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">`+commentLikeCount+`</div>
 				</div>
 				<div class="groupHorizontal">
 						<div class = "negReact" style="width:1vw;background-size:1vw;"></div>
-					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">{{commentDislikeCount}}</div>
+					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">`+commentDislikeCount+`</div>
 				</div>
 			</div>
 		</div>
@@ -92,7 +93,7 @@
 
 		<div class="groupVertical" style="gap:10px">
 	      	
-	      	<div class="time" style="font-size:1vw">{{commentDate}}</div>
+	      	<div class="time" style="font-size:1vw">`+commentDate+`</div>
 			
 	    </div>
 
