@@ -139,6 +139,7 @@ const pSBC=(p,c0,c1,l)=>{
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
+		
 		const likebutton = postElement.querySelector('.posReact');
 		likebutton.addEventListener('click', footerClick);
 		const dislikebutton = postElement.querySelector('.negReact');
@@ -176,6 +177,8 @@ const pSBC=(p,c0,c1,l)=>{
 };
 
 	function breatheColour() {
+
+  	const backgrColor = getComputedStyle(document.documentElement).getPropertyValue('--background-highlight-1');
 		if (pos == 1) {
 			change += 0.01;
 		} else {
@@ -188,7 +191,6 @@ const pSBC=(p,c0,c1,l)=>{
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
 			arrayOfPlaceholders[i].getElementsByClassName('spplayer')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
 	  	arrayOfPlaceholders[i].getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
-	  	const backgrColor = getComputedStyle(document.documentElement).getPropertyValue('--background-highlight-1');
 			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, backgrColor);
 		}
 
@@ -207,7 +209,6 @@ const pSBC=(p,c0,c1,l)=>{
 	var change = 0.01;
 	var pos = 1;
 
-console.log("hi");
 	addPost();
 	addPost();
 	addPost();

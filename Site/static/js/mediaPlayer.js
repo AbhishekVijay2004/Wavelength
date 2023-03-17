@@ -3,12 +3,21 @@ const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
 const progress = document.getElementsByClassName('spsongCircle')[0];
 
 playPauseBtn.addEventListener('click', function() {
-  if (audioPlayer.paused) {
-    audioPlayer.play();
-    playPauseBtn.classList.add('playing');
+    let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode) + offset;
+  
+  const audioPlayer = document.getElementsByClassName('audio-player');
+  const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
+  
+  if (audioPlayer[i].paused) {
+    for (let index = 0; index < audioPlayer.length; ++index) {
+      audioPlayer[index].pause()
+      playPauseBtn[index].classList.remove('playing');
+    }
+    audioPlayer[i].play();
+    playPauseBtn[i].classList.add('playing');
   } else {
-    audioPlayer.pause();
-    playPauseBtn.classList.remove('playing');
+    audioPlayer[i].pause();
+    playPauseBtn[i].classList.remove('playing');
   }
 });
 
