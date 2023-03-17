@@ -31,17 +31,17 @@ def get_album_ids(sp):
     album_ids = [album["id"] for album in albums["items"]]
     return album_ids
 
-def get_album_name(album_id):
+def get_album_name(sp, album_id):
     #returns the name of an album given an album id
     album_name = sp.album(album_id)["name"]
     return album_name
 
-def get_album_images(album_id):
+def get_album_images(sp, album_id):
     #returns the urls of the album images given an album id
     album_images = [image["url"] for image in sp.album(album_id)["images"]]
     return album_images
 
-def get_album_songs(album_id):
+def get_album_songs(sp, album_id):
     #return the track ids of the songs in an album based on album id
     songs = sp.album_tracks(album_id)
     track_ids = [song["id"] for song in songs["items"]]
@@ -69,12 +69,14 @@ def get_track_artist_name(sp, track_id):
     song_name = sp.track(track_id)["artists"][0]["name"]
     return song_name
 
-def get_spotify_link(track_id):
+def get_spotify_link(sp, track_id):
     #returns the spotify link of a song based on a track id
     song = sp.track(track_id)
     link = song["external_urls"]["spotify"]
     return link
 
+
+#next two functions require user to be logged in which aren't currently so probably don't use for now
 def get_current_user_followed_artists():
     #returns a list artist ids of the artists folowed by the cuurent user (max 50)
     followed_artists_info = sp.current_user_followed_artists(limit=50, after=None)
@@ -86,12 +88,12 @@ def get_followed_artist_names(followed_artists):
     artist_names = [sp.artist(artist)["name"] for artist in followed_artists]
     return artist_names
 
-def get_artist_name(artist_id):
+def get_artist_name(sp, artist_id):
     #returns the name of an artist given an artist id
     artist_name = sp.artist(artist_id)["name"]
     return artist_name
 
-def get_artist_images(artist_id):
+def get_artist_images(sp, artist_id):
     #returns a list of artist image urls in different fixed sizes given an artist id
     urls = [image["url"] for image in sp.artist(artist_id)["images"]]
     return urls
