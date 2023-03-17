@@ -248,8 +248,8 @@ def get_num_following(username, cursor):
 
 def get_following_accounts(username, cursor):
 	sql = """
-		SELECT username_follow FROM following
-		WHERE (username = %s)"""
+		SELECT following FROM following
+		WHERE (user = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchall()
 	accounts = [result[0] for result in results]

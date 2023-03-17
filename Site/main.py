@@ -482,17 +482,19 @@ def fetch_posts():
 
     Returns:
     - data (JSON string): Array containing posts with the following information:
-        * postID        : ID of the post in the database.
-        * songTitle     : Title of post's song.
-        * artistName    : Name of the artist of post's song.
-        * songImage     : Album art for post's song.
-        * songPreview   : Preview URL for song audio.
-        * posterName    : Display name of user who posted the post.
-        * postTime      : Time that the post was created.
-        * postCaption   : Caption to be displayed with post.
-        * postLikes     : Number of likes on the post.
-        * postDislikes  : Number of dislikes on the post.
-        * postComments  : Number of comments on the post.
+        * postID         : ID of the post in the database.
+        * songTitle      : Title of post's song.
+        * artistName     : Name of the artist of post's song.
+        * songImage      : Album art for post's song.
+        * songPreview    : Preview URL for song audio.
+        * posterName     : Display name of user who posted the post.
+        * posterUsername : Username of the user who posted the post.
+        * posterPic      : Profile picture of the user who posted the post.
+        * postTime       : Time that the post was created.
+        * postCaption    : Caption to be displayed with post.
+        * postLikes      : Number of likes on the post.
+        * postDislikes   : Number of dislikes on the post.
+        * postComments   : Number of comments on the post.
     """
 
     user = session["username"]
@@ -510,17 +512,19 @@ def fetch_posts():
     for post in postList:
         song = sp.track(post[3])
         data.append({
-        "postID"       : post[0],
-        "songTitle"    : song["name"],
-        "artistName"   : song["artists"][0]["name"],
-        "songImage"    : song["album"]["images"][2]["url"],
-        "songPreview"  : song["preview_url"],
-        "posterName"   : get_user_detail(cursor, post[4], "displayname"),
-        "postTime"     : post[1],
-        "postCaption"  : post[2],
-        "postLikes"    : get_num_likes(cursor, db, post[0], "like"),
-        "postDislikes" : get_num_likes(cursor, db, post[0], "dislike"),
-        "postComments" : get_num_comments(cursor, db, post[0])
+        "postID"         : post[0],
+        "songTitle"      : song["name"],
+        "artistName"     : song["artists"][0]["name"],
+        "songImage"      : song["album"]["images"][2]["url"],
+        "songPreview"    : song["preview_url"],
+        "posterName"     : get_user_detail(cursor, post[4], "displayname"),
+        "posterUsername" : post[4],
+        "posterPic"      : get_user_detail(cursor, post[4], "profilePic"),
+        "postTime"       : post[1],
+        "postCaption"    : post[2],
+        "postLikes"      : get_num_likes(cursor, db, post[0], "like"),
+        "postDislikes"   : get_num_likes(cursor, db, post[0], "dislike"),
+        "postComments"   : get_num_comments(cursor, db, post[0])
         })
 
         if song['preview_url'] == None:
