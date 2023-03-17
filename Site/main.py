@@ -83,10 +83,11 @@ def profile():
 
     # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) -----------
     # try:
-    song_name = get_track_title(session["topSong"])
-    song_url = get_track_preview(session["topSong"])
-    artist_name = get_track_artist_name(session["topSong"])
-    album_image = get_track_image(session["topSong"])
+    song_name = get_track_title(sp, session["topSong"])
+    song_url = get_track_preview(sp, session["topSong"])
+    artist_name = get_track_artist_name(sp, session["topSong"])
+    album_image = get_track_image(sp, session["topSong"])
+    print(song_name, '\n', song_url, '\n', artist_name, '\n', album_image)
 
 
     # except:

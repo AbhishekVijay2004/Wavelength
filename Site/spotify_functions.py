@@ -3,26 +3,26 @@ from spotipy.oauth2 import SpotifyOAuth
 
 
 
-"""scope is what the api is able to access about a user, list of scopes on 
-https://developer.spotify.com/documentation/general/guides/authorization/scopes/"""
-scope = scope = 'user-top-read, user-library-modify, ugc-image-upload, user-read-playback-state, app-remote-control, user-modify-playback-state, playlist-read-private, user-follow-modify, playlist-read-collaborative, user-follow-read'
-#client and secret ids passed to api
-#ids of the website not of the individual user
-client_id = 'bd9c275a853c493ba51fdafefcb08578'
-client_secret = 'ddf20a988de843b296a31d2e20e59d9d'
-#kind of nothing website for now
-#where it goes to if the spotify log in doesn't call
-#should be our actual website when done
-redirect_uri = 'http://localhost:8888/callback'
+# """scope is what the api is able to access about a user, list of scopes on 
+# https://developer.spotify.com/documentation/general/guides/authorization/scopes/"""
+# scope = scope = 'user-top-read, user-library-modify, ugc-image-upload, user-read-playback-state, app-remote-control, user-modify-playback-state, playlist-read-private, user-follow-modify, playlist-read-collaborative, user-follow-read'
+# #client and secret ids passed to api
+# #ids of the website not of the individual user
+# client_id = 'bd9c275a853c493ba51fdafefcb08578'
+# client_secret = 'ddf20a988de843b296a31d2e20e59d9d'
+# #kind of nothing website for now
+# #where it goes to if the spotify log in doesn't call
+# #should be our actual website when done
+# redirect_uri = 'http://localhost:8888/callback'
 
-#create a spotify object allowing us to access the apii
-# has the authorisation code flow authetification method
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret,  redirect_uri=redirect_uri, scope=scope))
-
-
+# #create a spotify object allowing us to access the apii
+# # has the authorisation code flow authetification method
+# sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret,  redirect_uri=redirect_uri, scope=scope))
 
 
-def get_album_ids():
+
+
+def get_album_ids(sp):
     #returns the id for all albums of a searched artist (50 maximum)
     artist_lookup = input("Search for an artist: ")
     artist = sp.search(artist_lookup, type="artist", limit=1, market="GB")
@@ -47,24 +47,24 @@ def get_album_songs(album_id):
     track_ids = [song["id"] for song in songs["items"]]
     return track_ids
 
-def get_track_title(track_id):
+def get_track_title(sp, track_id):
     #returns the song title given a track id
     song = sp.track(track_id)
     title = song["name"]
     return title
 
-def get_track_preview(track_id):
+def get_track_preview(sp, track_id):
     #returns the url of a track preview given a track id
     song = sp.track(track_id)
     preview = song["preview_url"]
     return preview
 
-def get_track_image(track_id):
+def get_track_image(sp, track_id):
     # returns teh album image of a track given a track id
     album_image = sp.track(track_id)["album"]["images"][0]["url"]
     return album_image
 
-def get_track_artist_name(track_id):
+def get_track_artist_name(sp, track_id):
     #returns the artist name of the track
     song_name = sp.track(track_id)["artists"][0]["name"]
     return song_name
