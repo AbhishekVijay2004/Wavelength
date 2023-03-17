@@ -74,7 +74,7 @@ cursor:pointer;
 transition: 0.125s;
 }
 .posReact.clicked{
-	background-image:url('../media/icons/like_filled.png');
+	background-image:url('../media/icons/like-active-icon.png');
 }
 .negReact{
 background-image: url('../media/icons/dislike-icon.png');/*
@@ -89,7 +89,7 @@ cursor:pointer;
 transition: 0.125s;
 }
 .negReact.clicked{
-	background-image:url('../media/icons/dislike_filled.png');
+	background-image:url('../media/icons/dislike-active-icon.png');
 }
 .comments{
 background-image: url('../media/icons/comment-icon.png');/*
@@ -105,7 +105,7 @@ cursor:pointer;
 transition: 0.125s;
 }
 .comments.clicked{
-	background-image:url('../media/icons/comments_filled.png');
+	background-image:url('../media/icons/comment-active-icon.png');
 }
 /* the changing size makes everything wobble. can't figure it out atm, will look at in future if wanted.
 .posReact:hover{

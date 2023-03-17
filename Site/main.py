@@ -87,6 +87,8 @@ def profile():
     song_url = get_track_preview(session["topSong"])
     artist_name = get_track_artist_name(session["topSong"])
     album_image = get_track_image(session["topSong"])
+
+
     # except:
     #     song_name="No Song Registered"
     #     song_url = None
