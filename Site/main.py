@@ -499,7 +499,7 @@ def fetch_posts():
     db, cursor = connectdb()
     startIndex = request.args.get("startIndex")
     numToReturn = request.args.get("numToReturn")
-    following = get_following_accounts(user, cursor)
+    following = get_following_accounts(cursor, user)
     postList = []
 
     for f in following:

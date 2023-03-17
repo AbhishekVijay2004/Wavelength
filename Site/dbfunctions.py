@@ -197,7 +197,8 @@ def get_comment_details(cursor, db, commentid, param='*'):
 def list_user_posts(cursor, username):
 	sql = """
 		SELECT * FROM posts
-		WHERE (username = %s)"""
+		WHERE (username = %s)
+		ORDER BY createdAt"""
 	cursor.execute(sql, (username, ))
 	result = cursor.fetchall()
 	return result
