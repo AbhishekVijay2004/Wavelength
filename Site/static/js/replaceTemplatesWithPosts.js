@@ -1,8 +1,10 @@
     setTimeout(replacePosts, 2000);
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);
-        container.replaceChild(loadPost(),container.childNodes[3])
+        container.replaceChild(loadPost("https://i.scdn.co/image/ab67616d0000b273988ede5e1276e758b5f9e577", "Young Dumb & Broke", "Khalid", "https://p.scdn.co/mp3-preview/05e9e3f61b30cf532a171bf40db63c086f9b6d5b?cid=774b29d4f13844c495f206cafdad9c86", "http://google.com", "https://i.imgur.com/sqGNFoI.png", "Arnold Swarzy", "11:35", "I really like this song because it reminds me of when I was young, dumb, and broke. what are your thoughts in the comments?", 30, 2, 10),container.childNodes[3])     //needs variables passing
         container.replaceChild(loadPost(),container.childNodes[4])
+        //see below for how to organise:
+        //container.replaceChild(loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount),container.childNodes[4])
         onResizeOrLoad();
     }
 

@@ -278,6 +278,15 @@ def view_notifications(cursor, recipient):
 	result = cursor.fetchall()
 	return result
 
+def search_for_user(cursor, query):
+	sql = """
+		SELECT * FROM users
+		WHERE (username like %s)
+		ORDER BY (username)
+		LIMIT 20"""
+	cursor.execute(sql, (query + '%', ))
+	result = cursor.fetchall()
+	return result
 
 
 
@@ -293,4 +302,5 @@ if __name__ == "__main__":
 	# create_notification(cursor, db, 'matt', 'jonnytest', 'follow')
 	# create_notification(cursor, db, 'matt', 'jonnytest', 'comment', '2')
 	# print(view_notifications(cursor, 'matt'))
-	print(get_user_details(cursor, 'atsu'))
+	# print(get_user_details(cursor, 'atsu'))
+	print(search_for_user(cursor, "jon"))

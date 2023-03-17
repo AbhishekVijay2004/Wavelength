@@ -61,7 +61,7 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost() {
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount) {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
@@ -69,17 +69,17 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('{{album_art}}')"></div>  
+        <div class="sprepeating-image" style="background-image:url('`+album_art+`')"></div>  
       </div>
     </div>
     <div class="spsongInfo">
-      <div class="spitem spalbumImage" style="  background-image:url('{{album_art}}');"></div>
+      <div class="spitem spalbumImage" style="  background-image:url('`+album_art+`');"></div>
       <div class="spitem spsongDetails">
-        <div class="spsongTitle">{{song_title}}</div>
-        <div class="spartistTitle">{{artist_name}}</div>
+        <div class="spsongTitle">`+song_title+`</div>
+        <div class="spartistTitle">`+artist_name+`</div>
       </div>
       <div id="spAudiocontainer">    
-        <audio class="audio-player" src="{{preview_mp3}}"></audio>
+        <audio class="audio-player" src="`+preview_mp3+`"></audio>
         <div class="spsongCircle"></div>
       <button class="spplay-pause-btn"></button>
       </div>
@@ -90,35 +90,35 @@ const pSBC=(p,c0,c1,l)=>{
       
 
       <div class = "groupHorizontal">
-      <a href url="{{postAuthorLink}}">
-			<div class="profilePic" style="background-image:url('{{postAuthorPic}}');">
+      <a href url="`+postAuthorLink+`">
+			<div class="profilePic" style="background-image:url('`+postAuthorPic+`');">
           	</div>
       	</a>
-      	<a href url="{{postAuthorLink}}">
-      	 <div class="profileName">{{postAuthorName}}</div>
+      	<a href url="`+postAuthorLink+`">
+      	 <div class="profileName">`+postAuthorName+`</div>
 		</a>
 
-      	 <div class="time">{{postTime}}</div>
+      	 <div class="time">`+postTime+`</div>
       </div>
 
 
 	  	<div id="text" class="text">
-	  		{{postText}}
+	  		`+postText+`
 		</div>
 
 
 		<div class = "footer">
 				<div class="groupHorizontal">
 						<div class = "posReact"></div>
-					<div class = "count">{{posReactCount}}</div>
+					<div class = "count">`+posReactCount+`</div>
 				</div>
 				<div class="groupHorizontal">
 						<div class = "negReact"></div>
-					<div class = "count">{{negReactCount}}</div>
+					<div class = "count">`+negReactCount+`</div>
 				</div>
 				<div class="groupHorizontal">
 					<div class = "comments"></div>
-					<div class = "count">{{commentCount}}</div>
+					<div class = "count">`+commentCount+`</div>
 				</div>
 		</div>
 
@@ -207,6 +207,7 @@ const pSBC=(p,c0,c1,l)=>{
 	var change = 0.01;
 	var pos = 1;
 
+console.log("hi");
 	addPost();
 	addPost();
 	addPost();
