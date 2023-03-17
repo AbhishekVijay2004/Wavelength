@@ -119,7 +119,7 @@ def profile():
                         email=session["email"], username=session["username"],
                         display_name=session["displayName"], profile_pic=session["profilePic"],
                         bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
-                        album_image=album_image)
+                        image=album_image)
     # except: 
     #     return render_template('profile.html',
     #                         email=session["email"], username=session["username"],
