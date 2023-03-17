@@ -112,12 +112,19 @@ def profile():
     #     profile_pic = session["profilePic"]
 
     # -------------------------------------------------  Bottom of un-needed code -------------------------------------------------
-
+    
+    # try:
     return render_template('profile.html',
-                           email=session["email"], username=session["username"],
-                           display_name=session["displayName"], profile_pic=session["profilePic"],
-                           bio=session["bio"], song_name=song_name, song_url=song_url, artist_name = artist_name,
-                           album_image=album_image)
+                        email=session["email"], username=session["username"],
+                        display_name=session["displayName"], profile_pic=session["profilePic"],
+                        bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                        album_image=album_image)
+    # except: 
+    #     return render_template('profile.html',
+    #                         email=session["email"], username=session["username"],
+    #                         display_name=session["displayName"], profile_pic=session["profilePic"],
+    #                         bio=session["bio"])
+
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
