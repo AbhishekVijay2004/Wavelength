@@ -36,9 +36,39 @@ def home():
 @app.route('/post', methods = ['GET', 'POST'] )
 def post():
     print(session)
+
     if request.method == 'POST':
-        return redirect(url_for('home'))
-    return render_template('new-post.html')
+        db, cursor = connectdb()
+        text = request.form['caption']
+        songID = request.form['songID']
+        song = request.form['song']
+        # likes = request.form.get('likes')
+        # if (likes == None):
+        #     likes = "off"
+        # comments = request.form.get('comments')
+        # if (comments == None):
+        #     comments = "off"
+        # dislikes = request.form.get('dislikes')
+        # if (dislikes == None):
+        #     dislikes = "off"
+
+        if (len(song) < 1 or len(songID) < 1):
+            flash("Please enter a song", category="error")
+            print("Error")
+        elif (len(text) > 250):
+            flash("Please restrict the caption to 250 characters", category="error")
+            print("Error")
+        else:
+            create_post(cursor, db, session['username'], text, songID)
+            db.commit()
+            db.close()
+            return redirect(url_for('home'))
+        
+    try:
+        return render_template('new-post.html', text=text)
+    except:
+        return render_template('new-post.html')
+
 
 @app.route('/friends')
 def friends():
@@ -51,36 +81,42 @@ def profile():
     print(session)
     print(session["topSong"])
 
-    try:
-        song_name = get_track_title(session["topSong"])
-        song_url = get_track_preview(session["topSong"])
-        artist_name = get_track_artist_name(session["topSong"])
-        album_image = get_track_image(session["topSong"])
-    except:
-        song_name="No Song Registered"
-        song_url = None
-        artist_name = ""
-        album_image = None
-    
-    if session["bio"] == None:
-        bio = ""
-    else:
-        bio = session["bio"]
-    
-    if session["displayName"] == None:
-        display_name = ""
-    else:
-        display_name = session["displayName"]
+    # ----------- No need for commented out code as users from now on always have these attributes (Forced on creation) -----------
+    # try:
+    song_name = get_track_title(session["topSong"])
+    song_url = get_track_preview(session["topSong"])
+    artist_name = get_track_artist_name(session["topSong"])
+    album_image = get_track_image(session["topSong"])
 
-    if session["profilePic"] == None:
-        profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
-    else:
-        profile_pic = session["profilePic"]
 
-    return render_template('profile.html', 
-                           email=session["email"], username=session["username"], 
-                           display_name=display_name, profile_pic=profile_pic, 
-                           bio=bio, song_name=song_name, song_url=song_url, artist_name = artist_name, 
+    # except:
+    #     song_name="No Song Registered"
+    #     song_url = None
+    #     artist_name = ""
+    #     album_image = None
+
+
+    # if session["bio"] == None:
+    #     bio = ""
+    # else:
+    #     bio = session["bio"]
+
+    # if session["displayName"] == None:
+    #     display_name = ""
+    # else:
+    #     display_name = session["displayName"]
+
+    # if session["profilePic"] == None:
+    #     profile_pic = "static/media/icons/profile-holder-icon-transparent.png"
+    # else:
+    #     profile_pic = session["profilePic"]
+
+    # -------------------------------------------------  Bottom of un-needed code -------------------------------------------------
+
+    return render_template('profile.html',
+                           email=session["email"], username=session["username"],
+                           display_name=session["displayName"], profile_pic=session["profilePic"],
+                           bio=session["bio"], song_name=song_name, song_url=song_url, artist_name = artist_name,
                            album_image=album_image)
 
 @app.route('/settings', methods = ['GET', 'POST'] )
@@ -93,7 +129,8 @@ def settings():
         username = request.form['username']
         display_name = request.form['display_name']
         bio = request.form['bio']
-        top_song = request.form['top_song']
+        top_song = request.form['songID']
+        song_name = request.form['cachedName']
 
         regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
@@ -142,9 +179,11 @@ def settings():
     db.commit()
     db.close()
     try:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], top_song=session["topSong"])
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], cachedName=song_name)
+    except UnboundLocalError:
+        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"])
     except:
-        return redirect(url_for('signOn'))
+            return redirect(url_for('signOn'))
 
 @app.route('/signOn')
 def signOn():
@@ -285,7 +324,7 @@ def creation():
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
             session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
-            try: 
+            try:
                 alter_user(username, "profilePic", session["profilePic"], cursor, db)
             except NameError:
                 return redirect(url_for('signOn'))
@@ -401,36 +440,6 @@ def select_result():
         data[0]['audio'] = preview
     return jsonify(data)
 
-@app.route('/getNotifications')
-def get_notifications():
-    '''
-    Returns the notifications for the user.
-
-    Arguments: None
-
-    Returns:
-    - data (JSON string):
-        * title (string)      : Type of notification e.g. follow request, like.
-        * name (string)       : Username of the notification causer.
-        * profilePic (string) : URL of notification causer's profile picture.
-    '''
-    data = []
-    ###TODO: GET NOTIFICATIONS###
-    from random import randint
-    titles = ["Follow Request", "Like", "Comment"]
-    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
-    for i in range(20):
-        nameLength = randint(3, 12)
-        name = ""
-        for j in range(nameLength): name += letters[randint(0, 25)]
-        item = {
-            "title"      : titles[randint(0, 2)],
-            "name"       : name,
-            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
-        }
-        data.append(item)
-    return jsonify(data)
-
 @app.route('/sendNotification')
 def send_notification():
     '''
@@ -465,25 +474,72 @@ def fetch_notifications():
         * notificationID (int)
         * recipient (string)
         * sender (string)
+        * senderPic (string)
         * type (string)
         * postID (int) often None
     '''
-    recipient = request.args.get("recipient")
+    #recipient = request.args.get("recipient")
+    recipient = session["username"]
     db, cursor = connectdb()
     notifications = view_notifications(cursor, recipient)
     data = []
     for notification in notifications:
+        notification["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
         item = {}
-        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'type', 'postID']):
+        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'senderPic', 'type', 'postID']):
             item[val] = notification[i]
         data.append(item)
     return jsonify(data)
 
+@app.route("/fetchPosts")
+def fetch_posts():
+    """
+    Returns a list posts by users that the given user is following, sorted by time.
+
+    Arguments:
+    - user (string)     : The username of the user.
+    - startIndex (int)  : The point in the ordered list to begin returning posts.
+    - numToReturn (int) : The number of posts the function should return.
+
+    Returns:
+    - data (JSON string) : Array containing posts with the following information:
+        * posterID
+    """
 
 if __name__ == '__main__':
     app.run(debug = True)
 
+"""
+@app.route('/getNotifications')
+def get_notifications():
+    '''
+    Returns the notifications for the user.
 
+    Arguments: None
+
+    Returns:
+    - data (JSON string):
+        * title (string)      : Type of notification e.g. follow request, like.
+        * name (string)       : Username of the notification causer.
+        * profilePic (string) : URL of notification causer's profile picture.
+    '''
+    data = []
+    ###TODO: GET NOTIFICATIONS###
+    from random import randint
+    titles = ["Follow Request", "Like", "Comment"]
+    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
+    for i in range(20):
+        nameLength = randint(3, 12)
+        name = ""
+        for j in range(nameLength): name += letters[randint(0, 25)]
+        item = {
+            "title"      : titles[randint(0, 2)],
+            "name"       : name,
+            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
+        }
+        data.append(item)
+    return jsonify(data)
+"""
 
 '''
 @app.route('/song', methods=['POST'])
@@ -493,3 +549,22 @@ def play_song():
     track = results['tracks']['items'][0]
     preview_url = track['preview_url']
     return render_template('index.html', song_preview = preview_url)'''
+
+# @app.route('/post', methods = ['GET', 'POST'] )
+# def post():
+#     print(session)
+#     db, cursor = connectdb()
+
+#     if request.method == 'POST':
+#         text = "Im just existing"
+#         song = "2rKcC5vlTsDM94RWTPoyHV"
+#         create_post(cursor, db, session['username'], text, song)
+#         print("successful")
+#         db.commit()
+#         db.close()
+#         return redirect(url_for('home'))
+    
+#     db.commit()
+#     db.close()
+#     print("failed")
+#     return render_template('new-post.html')

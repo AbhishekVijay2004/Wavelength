@@ -45,19 +45,19 @@
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Email:</h2>
-          <input class="single-line-text-entry" type="text" name="email" placeholder="{{ email }}" onfocus="this.value='{{ email }}'" onblur="this.placeholder='{{ email }}'">
+          <input class="single-line-text-entry" type="text" name="email" placeholder="{{ email }}" value="{{ email }}" onfocus="this.value='{{ email }}'" onblur="this.placeholder='{{ email }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text" name="username" placeholder="{{ username }}" onfocus="this.value='{{ username }}'" onblur="this.placeholder='{{ username }}'">
+          <input class="single-line-text-entry" type="text" name="username" placeholder="{{ username }}" value="{{ username }}" onfocus="this.value='{{ username }}'" onblur="this.placeholder='{{ username }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Display Name:</h2>
-          <input class="single-line-text-entry" type="text" name="display_name" placeholder="{{ display_name }}" onfocus="this.value='{{ display_name }}'" onblur="this.placeholder='{{ display_name }}'">
+          <input class="single-line-text-entry" type="text" name="display_name" placeholder="{{ display_name }}" value="{{ display_name }}" onfocus="this.value='{{ display_name }}'" onblur="this.placeholder='{{ display_name }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Bio:</h2>
-          <textarea class="multi-line-text-entry" type="text" name="bio" maxlength="60" placeholder="{{ bio }}" onfocus="this.value='{{ bio }}'" onblur="this.placeholder ='{{ bio }}'" style="height: 6vw;"></textarea>
+          <textarea class="multi-line-text-entry" type="text" name="bio" maxlength="60" placeholder="{{ bio }}" onfocus="this.value='{{ bio }}'" onblur="this.placeholder ='{{ bio }}'" style="height: 6vw;">{{ bio }}</textarea>
           <div id="the-count">
             <span id="current">0</span>
             <span id="maximum">/ 60</span>
@@ -65,7 +65,8 @@
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Top Song:</h2>
-          <input class="single-line-text-entry" id="search-box" type="text" name="top_song" placeholder="{{ top_song }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='{{top_song}}';HideMiniSearch()" onkeyup="Search()"></input>
+          <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ top_song }}">
+          <input class="single-line-text-entry" id="search-box" type="text" name="cachedName" placeholder="Search For A New Top Song..." value="{{ cachedName }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='Search For A New Top Song...';HideMiniSearch()" onkeyup="Search()">
         </div>
         <div id="search-container">
           <div style="margin-top:1vw;"></div>
