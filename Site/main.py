@@ -505,7 +505,7 @@ def fetch_posts():
     postList = []
 
     for f in following:
-        for post in list_user_posts(f, cursor):
+        for post in list_user_posts(cursor, f):
             postList = insert_post(postList, list(post))
 
     data = []
