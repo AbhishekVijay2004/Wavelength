@@ -556,22 +556,3 @@ def play_song():
     track = results['tracks']['items'][0]
     preview_url = track['preview_url']
     return render_template('index.html', song_preview = preview_url)'''
-
-# @app.route('/post', methods = ['GET', 'POST'] )
-# def post():
-#     print(session)
-#     db, cursor = connectdb()
-
-#     if request.method == 'POST':
-#         text = "Im just existing"
-#         song = "2rKcC5vlTsDM94RWTPoyHV"
-#         create_post(cursor, db, session['username'], text, song)
-#         print("successful")
-#         db.commit()
-#         db.close()
-#         return redirect(url_for('home'))
-    
-#     db.commit()
-#     db.close()
-#     print("failed")
-#     return render_template('new-post.html')
