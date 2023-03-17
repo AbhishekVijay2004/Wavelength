@@ -338,7 +338,10 @@ def creation():
 def search_song():
     #return the song based on query
     query = request.args.get('query')
+    print(query)
     song = sp.search(query, type='track', limit=5, market='GB')
+    print(song)
+    print('wagwan')
     songs = song['tracks']['items']
     if len(songs) == 0:
         return []
