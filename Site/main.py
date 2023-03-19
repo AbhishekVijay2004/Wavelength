@@ -370,10 +370,9 @@ def creation():
 def search_song():
     #return the song based on query
     query = request.args.get('query')
-    print(query)
+    # print(query)
     song = sp.search(query, type='track', limit=5, market='GB')
-    print(song)
-    print('wagwan')
+    # print(song)
     songs = song['tracks']['items']
     if len(songs) == 0:
         return []
@@ -431,6 +430,7 @@ def select_result():
         song = sp.search(data[0]['title'] + data[0]['artist'], type='track', limit=1, market='GB')
         preview = song['tracks']['items'][0]['preview_url']
         data[0]['audio'] = preview
+    print(data)
     return jsonify(data)
 
 @app.route('/sendNotification')

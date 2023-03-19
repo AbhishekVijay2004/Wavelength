@@ -214,7 +214,7 @@ def list_user_posts(cursor, username):
 def get_num_comments(cursor, db, postid):
 	# get number of comments
 	sql = """
-		SELECT SUM(username) FROM comments
+		SELECT COUNT(commentID) FROM comments
 		WHERE (postID = %s)"""
 	cursor.execute(sql, (postid, ))
 	result = cursor.fetchone()
@@ -223,7 +223,7 @@ def get_num_comments(cursor, db, postid):
 def get_num_likes(cursor, db, postid, like='like'):
 	# get num likes or dislikes depending on parameter passed
 	sql = """
-		SELECT SUM(username) FROM likes
+		SELECT COUNT(username) FROM likes
 		WHERE (type = %s AND postID = %s)"""
 	cursor.execute(sql, (like, postid))
 	result = cursor.fetchone()
@@ -241,7 +241,7 @@ def get_like_accounts(cursor,postid, like='like'):
 
 def get_num_comment_likes(cursor, db, commentID, like='like'):
 	sql = """
-		SELECT SUM(username) FROM commentlikes
+		SELECT COUNT(username) FROM commentlikes
 		WHERE (type=%s AND commentID = %s)"""
 	cursor.execute(sql, (like, commentID))
 	result = cursor.fetchone()
@@ -249,7 +249,7 @@ def get_num_comment_likes(cursor, db, commentID, like='like'):
 
 def get_num_following(cursor, username):
 	sql = """
-		SELECT SUM(following) FROM following
+		SELECT COUNT(following) FROM following
 		WHERE (user = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchone()
@@ -266,7 +266,7 @@ def get_following_accounts(cursor, username):
 
 def get_num_followers(cursor, username):
 	sql = """
-		SELECT SUM(user) FROM following
+		SELECT COUNT(user) FROM following
 		WHERE (following = %s)"""
 	cursor.execute(sql, (username, ))
 	results = cursor.fetchone()
@@ -324,3 +324,5 @@ if __name__ == "__main__":
 	# print(search_for_user(cursor, "jon"))
 	# add_follow('test', 'jonnybreez3', cursor, db)
 	# print(get_following_posts(cursor, 'jonnybreez3', 0))
+	# print(get_num_comments(cursor, db, 2))
+	# print(get_num_comment_likes(cursor, db, 3, 'dislike'))
