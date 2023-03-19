@@ -107,7 +107,13 @@ def settings():
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['songID']
-        song_name = request.form['cachedName']
+
+        try:
+            cached_name = request.form['cachedName']
+            if (cached_name == None):
+                top_song = session["topSong"]
+        except:
+            pass
 
         regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
@@ -156,11 +162,19 @@ def settings():
     db.commit()
     db.close()
     try:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], cachedName=song_name, title=song_name, song=song_url, artist = artist_name,
-                        image=album_image)
+        return render_template('settings.html', 
+                               email=session["email"], username=session["username"], 
+                               password=session["password"], display_name=session["displayName"], 
+                               profile_pic=session["profilePic"], bio=session["bio"], 
+                               cachedName=cached_name, title=song_name, song=song_url, 
+                               artist = artist_name, image=album_image)
     except UnboundLocalError:
-        return render_template('settings.html', email=session["email"], username=session["username"], password=session["password"], display_name=session["displayName"], profile_pic=session["profilePic"], bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
-                        image=album_image)
+        return render_template('settings.html', 
+                               email=session["email"], username=session["username"], 
+                               password=session["password"], display_name=session["displayName"], 
+                               profile_pic=session["profilePic"], bio=session["bio"], 
+                               title=song_name, song=song_url, artist = artist_name, 
+                               image=album_image)
     except:
             return redirect(url_for('signOn'))
 
