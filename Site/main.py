@@ -501,11 +501,16 @@ def fetch_posts():
     db, cursor = connectdb()
     startIndex = request.args.get("startIndex")
     numToReturn = request.args.get("numToReturn")
-    following = get_following_accounts(cursor, user)
     postList = []
 
-    for f in following:
-        for post in list_user_posts(cursor, f):
+    if request.args.get("userProfile") == "":
+        following = get_following_accounts(cursor, user)
+        for f in following:
+            for post in list_user_posts(cursor, f):
+                postList = insert_post(postList, list(post))
+
+    else:
+        for post in list_user_posts(cursor, request.args.get("userProfile")):
             postList = insert_post(postList, list(post))
 
     data = []
@@ -550,6 +555,28 @@ def insert_post(postList, post):
             return postList
         postList.append(post)
         return postList
+
+@app.route("/getComments")
+def get_comments():
+    db, cursor = connectdb()
+    postID = int(request.args.get("postID"))
+    data = [{"userPic" : get_user_detail(cursor, session["username"], "profilePic")}]
+    rawCommentIDs = list(get_post_comments(cursor, db, postID))
+    commentIDs = []
+    for id in rawCommentIDs: commentIDs.append(id[0])
+    for id in commentIDs:
+        commentInfo = get_comment_details(cursor, db, id)
+        item = {
+        "commentID"       : id,
+        "commentUsername" : commentInfo[2],
+        "commentPic"      : get_user_detail(cursor, commentInfo[2], "profilePic"),
+        "commentText"     : commentInfo[3],
+        "commentLikes"    : get_num_comment_likes(cursor, db, id, like="like"),
+        "commentDislikes" : get_num_comment_likes(cursor, db, id, like="dislike"),
+        "commentDate"     : get_comment_details(cursor, db, id, "createdAt")
+        }
+        data.append(item)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug = True)

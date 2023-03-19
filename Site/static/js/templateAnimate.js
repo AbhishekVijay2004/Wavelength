@@ -1,6 +1,6 @@
 const getRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-  }; 
+  };
   //gets a random colour
 const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
@@ -42,7 +42,7 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.innerHTML = `
 		<div class="spcontainer">
     <div class="spplayer">
-      
+
     </div>
     <div class="spsongInfo">
       <div class="spitem spalbumImage"></div>
@@ -61,7 +61,7 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount) {
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID) {
 		const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
@@ -69,7 +69,7 @@ const pSBC=(p,c0,c1,l)=>{
       <div class="spcontainer">
     <div class="spplayer">
       <div class="spblurrer">
-        <div class="sprepeating-image" style="background-image:url('`+album_art+`')"></div>  
+        <div class="sprepeating-image" style="background-image:url('`+album_art+`')"></div>
       </div>
     </div>
     <div class="spsongInfo">
@@ -78,16 +78,16 @@ const pSBC=(p,c0,c1,l)=>{
         <div class="spsongTitle">`+song_title+`</div>
         <div class="spartistTitle">`+artist_name+`</div>
       </div>
-      <div id="spAudiocontainer">    
+      <div id="spAudiocontainer">
         <audio class="audio-player" src="`+preview_mp3+`"></audio>
         <div class="spsongCircle"></div>
       <button class="spplay-pause-btn"></button>
       </div>
     </div>
-  </div> 
+  </div>
 
-      <!-- ------------------- end of song player --------------- --> 
-      
+      <!-- ------------------- end of song player --------------- -->
+
 
       <div class = "groupHorizontal">
       <a href url="`+postAuthorLink+`">
@@ -123,7 +123,7 @@ const pSBC=(p,c0,c1,l)=>{
 		</div>
 
 
-		<div class="commentSection"></div>
+		<div class="commentSection" id="`+postID+`"></div>
 
 	`;
 		arrayOfPosts.push(postElement);
@@ -139,14 +139,14 @@ const pSBC=(p,c0,c1,l)=>{
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
-		
+
 		const likebutton = postElement.querySelector('.posReact');
 		likebutton.addEventListener('click', footerClick);
 		const dislikebutton = postElement.querySelector('.negReact');
 		dislikebutton.addEventListener('click', footerClick);
 		const commentbutton = postElement.querySelector('.comments');
 		commentbutton.addEventListener('click', footerClick);
-		
+
 		return (postElement);
 	} //returns a post
 
@@ -166,7 +166,7 @@ const pSBC=(p,c0,c1,l)=>{
 		  	this.parentNode.parentNode.querySelector('.posReact').classList.remove('clicked');
 		}
 	  } else {
-		  
+
 		  if (this.classList.contains("clicked")) {
 	 		  this.classList.remove('clicked');
 		  } else {
@@ -186,7 +186,7 @@ const pSBC=(p,c0,c1,l)=>{
 		}
 	    if (Math.abs(change) >= 0.08) {
 	    	pos = -pos;
-	    } 
+	    }
 
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
 			arrayOfPlaceholders[i].getElementsByClassName('spplayer')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);

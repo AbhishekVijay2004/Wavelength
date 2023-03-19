@@ -190,8 +190,16 @@ def get_comment_details(cursor, db, commentid, param='*'):
 			SELECT {param} from comments
 			WHERE (commentID = %s)"""
 		cursor.execute(sql, (commentid, ))
-		result = cursor.fetchone
+		result = cursor.fetchone()
 		return result
+
+def get_post_comments(cursor, db, postID):
+	sql = f"""
+		SELECT commentID from comments
+		WHERE (postID = %s)"""
+	cursor.execute(sql, (postID, ))
+	result = cursor.fetchall()
+	return result
 
 ##get list of users posts
 def list_user_posts(cursor, username):
