@@ -81,6 +81,13 @@ def friends():
 def profile():
     print(session)
 
+    # noFollowing = get_num_followers(cursor, db, username)
+    # noFollowers = get_num_followers(cursor, db, username)
+    # noPosts = get_num_posts(cursor, db, username)
+    # noLikes = get_num_likes(cursor, db, username)
+    # noComments = get_num_comments(cursor, db, username)
+
+
     song_name = get_track_title(sp, session["topSong"])
     song_url = get_track_preview(sp, session["topSong"])
     artist_name = get_track_artist_name(sp, session["topSong"])
