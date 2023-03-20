@@ -316,11 +316,12 @@ def creation():
         except:
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
-            session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
-            try:
-                alter_user(cursor, db, username, "profilePic", session["profilePic"])
-            except NameError:
-                return redirect(url_for('signOn'))
+            if (len(session["profilePic"]) == 0):
+                session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
+                try:
+                    alter_user(cursor, db, username, "profilePic", session["profilePic"])
+                except NameError:
+                    return redirect(url_for('signOn'))
         else:
             profile_pic = request.files['profile_pic']
             filename = secure_filename(profile_pic.filename)
