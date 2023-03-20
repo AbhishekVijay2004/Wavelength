@@ -75,7 +75,22 @@ def post():
 @app.route('/friends')
 def friends():
     print(session)
-    return render_template('friends.html')
+    db, cursor = connectdb()
+
+    friends = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in friends]
+    usernames = [user_info[0] for user_info in user_details]
+    display_names = [user_info[6] for user_info in user_details]
+    users_num_followers = [get_num_followers(cursor, username) for username in usernames]
+    users_num_posts = [get_num_posts(cursor, username) for username in usernames]
+    users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
+    users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
+    
+    db.close()
+    return render_template('friends.html', 
+                           display_names = display_names, users_num_followers=users_num_followers, 
+                           users_num_posts=users_num_posts, users_num_likes=users_num_likes, 
+                           users_num_comments=users_num_comments)
 
 @app.route('/profile')
 def profile():
