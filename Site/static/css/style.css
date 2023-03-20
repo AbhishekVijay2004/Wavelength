@@ -372,6 +372,14 @@
 .follow-accept-button:hover{
   background-color: var(--primary-highlight-1);
 }
+.blackout{
+  position: absolute;
+  background-color: rgba(30, 30, 30, 0.9);
+  top: -1vh;
+  left: -1vw;
+  min-width: 101vw;
+  min-height: 101vh;
+}
 @font-face {
     font-family: 'roboto_condensed';
     src: url('fonts/roboto_condensed/robotocondensed-regular-webfont.woff2') format('woff2'),
