@@ -225,6 +225,13 @@
   margin-top: 0.2vw;
   margin-bottom: 0.2vw;
 }
+.success{
+  font-size: 1vw;
+  color: rgb(0, 211, 60);
+  text-align: center;
+  margin-top: 0.2vw;
+  margin-bottom: 0.2vw;
+}
 .timeline-content{
   position: fixed;
   text-align: center;

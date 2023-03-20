@@ -118,6 +118,8 @@ def settings():
                 session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
                 change = True
+                flash("Profile picture updated", category="success")
+                print("Success")
         except:
             pass
 
@@ -135,7 +137,7 @@ def settings():
             flash("Please enter a bio", category="error")
             print("Error")
         elif (len(top_song) < 1):
-            flash("Please enter a top song", category="error")
+            flash("Please select a top song", category="error")
             print("Error")
         else:
             if (email != session["email"] and get_user_details_by_email(cursor, email)):
@@ -155,10 +157,7 @@ def settings():
                     alter_user(cursor, db, session["username"], "displayName", display_name)
                     session["displayName"] = display_name
 
-                #Please change to singular form when fixed
-                userDetailsList = get_user_details(cursor, session["username"])
-                session["profilePic"] =  userDetailsList[2]
-                #Please change to singular form when fixed
+                session["profilePic"] = get_user_detail(cursor, session["username"], "profilePic")
                 db.commit()
                 db.close()
 
@@ -166,6 +165,9 @@ def settings():
                 song_url = get_track_preview(sp, session["topSong"])
                 artist_name = get_track_artist_name(sp, session["topSong"])
                 album_image = get_track_image(sp, session["topSong"])
+                
+                flash("Settings saved", category="success")
+                print("Success")
 
     try:
         return render_template('settings.html', 
@@ -348,11 +350,7 @@ def creation():
             session["displayName"] = display_name
             alter_user(cursor, db, session["username"], "displayName", session["displayName"])
 
-            #Please change to singular form when fixed
-            userDetailsList = get_user_details(cursor, session["username"])
-            session["profilePic"] =  userDetailsList[2]
-            #Please change to singular form when fixed
-
+            session["profilePic"] = get_user_detail(cursor, session["username"], "profilePic")
             db.commit()
             db.close()
             return redirect(url_for('home'))
