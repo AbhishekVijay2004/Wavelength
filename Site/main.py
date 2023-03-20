@@ -385,7 +385,7 @@ def search_song():
         item['title'] = song['name']
         item['id'] = song['id']
         item['artist'] = song['artists'][0]['name']
-        item['image'] = album['images'][2]['url']
+        item['image'] = album['images'][0]['url']
         data.append(item)
     return jsonify(data)
 
@@ -422,7 +422,7 @@ def select_result():
     data = [{
     "title"  : song["name"],
     "artist" : song["artists"][0]["name"],
-    "image"  : song["album"]["images"][2]["url"],
+    "image"  : song["album"]["images"][0]["url"],
     "audio"  : song["preview_url"]
     }]
     if song['preview_url'] == None:
@@ -534,7 +534,7 @@ def fetch_posts():
         "postID"         : post[0],
         "songTitle"      : song["name"],
         "artistName"     : song["artists"][0]["name"],
-        "songImage"      : song["album"]["images"][2]["url"],
+        "songImage"      : song["album"]["images"][0]["url"],
         "songPreview"    : song["preview_url"],
         "posterName"     : get_user_detail(cursor, post[4], "displayname"),
         "posterUsername" : post[4],
