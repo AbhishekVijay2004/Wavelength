@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | Wavelength{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/profile.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/styleForPlayer.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/timeline.css')}}">
+{% endblock %}
+
+{% block content%}
+<div class="main-content clsScroll" id="hideScroll">
+  <div class="profile-container">
+    <div class="information-container">
+      <div class="column">
+        <div class="text-container">
+          <p class="display-name">{{ display_name }}</p>
+          <p id="username">@{{ username }}</p>
+          <p class="friends">Followers: <span style="font-weight: 400;">{{ noFollowers }}</span></p>
+        </div>
+      </div>
+      <div class="column"><img class="profile-picture" src="{{ profile_pic }}"></div>
+      <div class="column">
+        <div class="text-container" style="margin-bottom: 0.1vw;">
+          <p class="stats">Posts: <span style="font-weight: 400;">{{ noPosts }}</span></p>
+          <p class="stats">Likes: <span style="font-weight: 400;">{{ noLikes }}</span></p>
+          <p class="stats">Comments: <span style="font-weight: 400;">{{ noComments }}</span></p>
+        </div>
+      </div>
+    </div>
+    <p class="bio">{{ bio }}</p>
+    <div class="spcontainer" style="margin-top: 0vw; margin-bottom: 1vw; margin-left: 4vw; height: 5vw; width: 40vw;">
+      <div class="spplayer" style="height:5vw;">
+        <div class="spblurrer">
+          <div class="sprepeating-image" style="background-image:url('{{ image }}')"></div>
+        </div>
+      </div>
+      <div class="spsongInfo" style="height:5vw;">
+        <div class="spitem spalbumImage" style="background-image:url('{{ image }}');"></div>
+        <div class="spitem spsongDetails">
+          <div class="spsongTitle">{{ title }}</div>
+          <div class="spartistTitle">{{ artist }}</div>
+        </div>
+        <div id="spAudiocontainer">
+          <audio class="audio-player" src="{{ song }}"></audio>
+          <div class="spsongCircle"></div>
+          <button class="spplay-pause-btn" style="height: 4vw; width: 4vw; border: solid 0.1vw var(--background-highlight-1);"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-content content-home">
+    <!-- timeline content goes here, is added by js. -->
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{url_for('static', filename = 'js/templateAnimate.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/replaceTemplatesWithPosts.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/textExpand.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/get-profile-posts.js')}}"></script>
+{% endblock %}
