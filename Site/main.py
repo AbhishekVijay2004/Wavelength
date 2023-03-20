@@ -100,20 +100,13 @@ def settings():
     song_url = get_track_preview(sp, session["topSong"])
     artist_name = get_track_artist_name(sp, session["topSong"])
     album_image = get_track_image(sp, session["topSong"])
+    change = False
 
     if request.method == 'POST':
         email = request.form['email']
-        username = request.form['username']
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['songID']
-
-        try:
-            cached_name = request.form['cachedName']
-            if (cached_name == None):
-                top_song = session["topSong"]
-        except:
-            pass
 
         regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
@@ -124,14 +117,16 @@ def settings():
                 profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
+                change = True
         except:
             pass
 
-        if not (re.search(regex,email)):
+        if (change == True):
+            db.commit()
+            db.close()
+            pass
+        elif not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
-            print("Error")
-        elif (len(username) < 1):
-            flash("Please enter a username", category="error")
             print("Error")
         elif (len(display_name) < 1):
             flash("Please enter a display name", category="error")
@@ -143,38 +138,42 @@ def settings():
             flash("Please enter a top song", category="error")
             print("Error")
         else:
-            session["bio"] = bio
-            alter_user(cursor, db, session["username"], "bio", session["bio"])
-            session["topSong"] = top_song
-            alter_user(cursor, db, session["username"], "topSong", session["topSong"])
-            session["displayName"] = display_name
-            alter_user(cursor, db, session["username"], "displayName", session["displayName"])
+            if (email != session["email"] and get_user_details_by_email(cursor, email)):
+                flash("Email already taken", category="error")
+                print("Error")
+            else:
+                if (session["email"] != email):
+                    alter_user(cursor, db, session["username"], "email", email)
+                    session["email"] = email
+                if (session["bio"] != bio):
+                    alter_user(cursor, db, session["username"], "bio", bio)
+                    session["bio"] = bio
+                if (session["topSong"] != top_song):
+                    alter_user(cursor, db, session["username"], "topSong", top_song)
+                    session["topSong"] = top_song
+                if (session["displayName"] != display_name):
+                    alter_user(cursor, db, session["username"], "displayName", display_name)
+                    session["displayName"] = display_name
 
-            #Please change to singular form when fixed
-            userDetailsList = get_user_details(cursor, session["username"])
-            session["profilePic"] =  userDetailsList[2]
-            #Please change to singular form when fixed
+                #Please change to singular form when fixed
+                userDetailsList = get_user_details(cursor, session["username"])
+                session["profilePic"] =  userDetailsList[2]
+                #Please change to singular form when fixed
+                db.commit()
+                db.close()
 
-            db.commit()
-            db.close()
-            return redirect(url_for('home'))
+                song_name = get_track_title(sp, session["topSong"])
+                song_url = get_track_preview(sp, session["topSong"])
+                artist_name = get_track_artist_name(sp, session["topSong"])
+                album_image = get_track_image(sp, session["topSong"])
 
-    db.commit()
-    db.close()
     try:
         return render_template('settings.html', 
                                email=session["email"], username=session["username"], 
                                password=session["password"], display_name=session["displayName"], 
                                profile_pic=session["profilePic"], bio=session["bio"], 
-                               cachedName=cached_name, title=song_name, song=song_url, 
+                               top_song=session["topSong"], title=song_name, song=song_url, 
                                artist = artist_name, image=album_image)
-    except UnboundLocalError:
-        return render_template('settings.html', 
-                               email=session["email"], username=session["username"], 
-                               password=session["password"], display_name=session["displayName"], 
-                               profile_pic=session["profilePic"], bio=session["bio"], 
-                               title=song_name, song=song_url, artist = artist_name, 
-                               image=album_image)
     except:
             return redirect(url_for('signOn'))
 

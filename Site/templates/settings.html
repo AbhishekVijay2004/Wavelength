@@ -49,11 +49,11 @@
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Username:</h2>
-          <input class="single-line-text-entry" type="text" name="username" placeholder="{{ username }}" value="{{ username }}" onfocus="this.value='{{ username }}'" onblur="this.placeholder='{{ username }}'">
+          <input class="single-line-text-entry" type="text" name="username" placeholder="@{{ username }}" disabled>
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Display Name:</h2>
-          <input class="single-line-text-entry" type="text" name="display_name" placeholder="{{ display_name }}" value="{{ display_name }}" onfocus="this.value='{{ display_name }}'" onblur="this.placeholder='{{ display_name }}'">
+          <input class="single-line-text-entry" type="text" name="display_name" maxlength="15" placeholder="{{ display_name }}" value="{{ display_name }}" onfocus="this.value='{{ display_name }}'" onblur="this.placeholder='{{ display_name }}'">
         </div>
         <div class="profile-setting">
           <h2 class="profile-setting-label">Bio:</h2>
@@ -66,7 +66,7 @@
         <div class="profile-setting">
           <h2 class="profile-setting-label">Top Song:</h2>
           <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ top_song }}">
-          <input class="single-line-text-entry" id="search-box" type="text" name="cachedName" placeholder="Search For A New Top Song..." value="{{ cachedName }}" onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='Search For A New Top Song...';HideMiniSearch()" onkeyup="Search()">
+          <input class="single-line-text-entry" id="search-box" type="text" placeholder="Search For A New Top Song..." onfocus="this.placeholder='';ShowMiniSearch()" onblur="this.placeholder='Search For A New Top Song...';HideMiniSearch()" onkeyup="Search()">
         </div>
         <div id="search-container">
           <div style="margin-top:1vw;"></div>
