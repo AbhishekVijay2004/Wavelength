@@ -148,7 +148,7 @@ def settings():
             except:
                 flash("Password is incorrect", category="error")
                 print("Error")
-        
+
         # Profile Picture Changing
         if (change == False):
             try:
@@ -213,11 +213,11 @@ def settings():
                 print("Success")
 
     if (len(cachedList) > 0):
-        return render_template('settings.html', 
-                               email=cachedList[0], username=session["username"], 
-                               password=session["password"], display_name=cachedList[1], 
-                               profile_pic=session["profilePic"], bio=cachedList[2], 
-                               top_song=cachedList[3], title=song_name, song=song_url, 
+        return render_template('settings.html',
+                               email=cachedList[0], username=session["username"],
+                               password=session["password"], display_name=cachedList[1],
+                               profile_pic=session["profilePic"], bio=cachedList[2],
+                               top_song=cachedList[3], title=song_name, song=song_url,
                                artist = artist_name, image=album_image)
     try:
         return render_template('settings.html',
@@ -651,8 +651,8 @@ def change_like():
     postID = int(request.args.get("postID"))
     amount = int(request.args.get("amount"))
     user = session["username"]
+    delete_like(cursor, db, postID, user)
     if amount == -1:
-        delete_like(cursor, db, postID, user)
         return "done"
     if type == "like":
         add_like(cursor, db, postID, user)
