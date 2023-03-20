@@ -102,37 +102,71 @@ def profile():
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
     print(session)
-    db, cursor = connectdb()
     song_name = get_track_title(sp, session["topSong"])
     song_url = get_track_preview(sp, session["topSong"])
     artist_name = get_track_artist_name(sp, session["topSong"])
     album_image = get_track_image(sp, session["topSong"])
+    cachedList = []
     change = False
 
     if request.method == 'POST':
+        db, cursor = connectdb()
         email = request.form['email']
         display_name = request.form['display_name']
         bio = request.form['bio']
         top_song = request.form['songID']
-
         regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
-        try:
-            profile_pic = request.files['profile_pic']
-            if (profile_pic.filename != ''):
-                filename = secure_filename(profile_pic.filename)
-                profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
-                change = True
-                flash("Profile picture updated", category="success")
-                print("Success")
-        except:
-            pass
+        # Password Changing
+        oldPassword = request.form['password1']
+        newPassword = request.form['password2']
+        passConfirm = request.form['password3']
+        if (len(oldPassword) >= 1):
+            change = True
+            try:
+                if (ph.verify(session["password"], oldPassword)):
+                    if (len(newPassword) < 7):
+                        flash("New password must be over 7 characters", category="error")
+                        print("Error")
+                    elif (newPassword == session["username"]):
+                        flash("Password and username must not match", category="error")
+                        print("Error")
+                    elif (newPassword != passConfirm):
+                        flash("Passwords do not match", category="error")
+                        print("Error")
+                    else:
+                        hashed_password = ph.hash(newPassword)
+                        hashed_password = hashed_password[:199]
+                        alter_user(cursor, db, session["username"], "password", hashed_password)
+                        db.commit()
+                        db.close()
+                        session["password"] = hashed_password
+                        flash("Password updated", category="success")
+                        print("Success")
+            except:
+                flash("Password is incorrect", category="error")
+                print("Error")
+        
+        # Profile Picture Changing
+        if (change == False):
+            try:
+                profile_pic = request.files['profile_pic']
+                if (profile_pic.filename != ''):
+                    filename = secure_filename(profile_pic.filename)
+                    profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
+                    change = True
+                    flash("Profile picture updated", category="success")
+                    print("Success")
+                    db.commit()
+                    db.close()
+            except:
+                pass
 
+        # Form Changing
         if (change == True):
-            db.commit()
-            db.close()
+            cachedList = [email, display_name, bio, top_song]
             pass
         elif not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
@@ -176,6 +210,13 @@ def settings():
                 flash("Settings saved", category="success")
                 print("Success")
 
+    if (len(cachedList) > 0):
+        return render_template('settings.html', 
+                               email=cachedList[0], username=session["username"], 
+                               password=session["password"], display_name=cachedList[1], 
+                               profile_pic=session["profilePic"], bio=cachedList[2], 
+                               top_song=cachedList[3], title=song_name, song=song_url, 
+                               artist = artist_name, image=album_image)
     try:
         return render_template('settings.html', 
                                email=session["email"], username=session["username"], 
