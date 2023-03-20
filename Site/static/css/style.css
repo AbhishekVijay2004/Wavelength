@@ -10,6 +10,7 @@
   font-family: "roboto_condensed";
   color: var(--primary-colour);
   font-weight: 300;
+  user-select: none;
 }
 .flex-break{
   flex-basis: 100%;
