@@ -61,8 +61,10 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID) {
-		const postElement = document.createElement('div');
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked) {
+    var likedClicked = liked ? " clicked" : "";
+    var dislikedClicked = disliked ? " clicked" : "";
+    const postElement = document.createElement('div');
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<!-- ------------------- song player --------------- -->
@@ -109,11 +111,11 @@ const pSBC=(p,c0,c1,l)=>{
 
 		<div class = "footer">
 				<div class="groupHorizontal">
-						<div class = "posReact"></div>
+						<div class = "posReact`+likedClicked+`"></div>
 					<div class = "count">`+posReactCount+`</div>
 				</div>
 				<div class="groupHorizontal">
-						<div class = "negReact"></div>
+						<div class = "negReact`+dislikedClicked+`"></div>
 					<div class = "count">`+negReactCount+`</div>
 				</div>
 				<div class="groupHorizontal">
@@ -141,8 +143,10 @@ const pSBC=(p,c0,c1,l)=>{
 		playbutton.addEventListener('click', playPauseClick);
 
 		const likebutton = postElement.querySelector('.posReact');
+    likebutton.classList.add("id" + postID);
 		likebutton.addEventListener('click', footerClick);
 		const dislikebutton = postElement.querySelector('.negReact');
+    dislikebutton.classList.add("id" + postID);
 		dislikebutton.addEventListener('click', footerClick);
 		const commentbutton = postElement.querySelector('.comments');
 		commentbutton.addEventListener('click', footerClick);
@@ -150,20 +154,49 @@ const pSBC=(p,c0,c1,l)=>{
 		return (postElement);
 	} //returns a post
 
+  function changeLike(type, amount, postID){
+    var elemName = type == "like" ? ".posReact" : ".negReact";
+    var count = document.querySelector(elemName + "." + postID).parentNode.querySelector(".count");
+    postID = postID.slice(2);
+    count.innerHTML = (parseInt(count.innerHTML) + amount).toString();
+    $.ajax({
+      url: '/changeLike',
+      data: {type: type, postID: postID, amount: amount},
+      type: 'GET',
+      error: function(error) {
+      console.error(error);
+      }
+    });
+  }
+
 	function footerClick(){
-	  if (this.className == "posReact") {
+    reactID = this.classList[1];
+    if (reactID == "clicked"){
+      reactID = this.classList[2];
+    }
+	  if (this.classList[0] == "posReact") {
 	  	if (this.classList.contains("clicked")) {
  		  this.classList.remove('clicked');
+      changeLike("like", -1, reactID);
 		} else {
 		  	this.classList.add('clicked');
-		  	this.parentNode.parentNode.querySelector('.negReact').classList.remove('clicked');
+        if (this.parentNode.parentNode.querySelector('.negReact').classList.contains('clicked')){
+            this.parentNode.parentNode.querySelector('.negReact').classList.remove('clicked');
+            changeLike("dislike", -1, reactID);
+        }
+        changeLike("like", 1, reactID);
 		}
-	  } else if (this.className == "negReact") {
+	  } else if (this.classList[0] == "negReact") {
 	  	if (this.classList.contains("clicked")) {
  		  this.classList.remove('clicked');
+      changeLike("dislike", -1, reactID)
 		} else {
 		  	this.classList.add('clicked');
-		  	this.parentNode.parentNode.querySelector('.posReact').classList.remove('clicked');
+        if (this.parentNode.parentNode.querySelector('.posReact').classList.contains('clicked')){
+            this.parentNode.parentNode.querySelector('.posReact').classList.remove('clicked');
+            changeLike("like", -1, reactID);
+        }
+        changeLike("dislike", 1, reactID);
 		}
 	  } else {
 

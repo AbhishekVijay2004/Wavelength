@@ -11,7 +11,7 @@ $.ajax({
         }
       }
       //Order: album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount
-      container.replaceChild(loadPost(post["songImage"], post["songTitle"], post["artistName"], post["songPreview"], post["posterUsername"], post["posterPic"], post["posterName"], post["postTime"], post["postCaption"], post["postLikes"], post["postDislikes"], post["postComments"], post["postID"]),container.childNodes[3 + i])
+      container.replaceChild(loadPost(post["songImage"], post["songTitle"], post["artistName"], post["songPreview"], post["posterUsername"], post["posterPic"], post["posterName"], post["postTime"], post["postCaption"], post["postLikes"], post["postDislikes"], post["postComments"], post["postID"], post["liked"], post["disliked"]),container.childNodes[3 + i])
     }
   },
   error: function(error) {

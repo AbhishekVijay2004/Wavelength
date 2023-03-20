@@ -48,7 +48,8 @@ def delete_post(cursor, db, postID):
 	db.commit()
 
 def add_like(cursor, db, postID, username):
-	delete_like(cursor, db, postID, username)
+	#No longer required as handled on frontend:
+	#delete_like(cursor, db, postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
 		VALUES (%s, %s, 'like')"""
@@ -66,7 +67,8 @@ def delete_like(cursor, db, postID, username):
 	print('like deleted')
 
 def add_dislike(cursor, db, postID, username):
-	delete_like(cursor, db, postID, username)
+	#No longer required as handled on frontend:
+	#delete_like(cursor, db, postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
 		VALUES (%s, %s, 'dislike')"""
@@ -322,7 +324,7 @@ def get_num_likes_received(cursor, username, type = 'like'):
 		WHERE (posts.username = %s AND type = %s)"""
 	cursor.execute(sql, (username, type))
 	result = cursor.fetchone()
-	return result[0] 
+	return result[0]
 
 def get_num_comments_received(cursor, username):
 	sql = """
@@ -358,5 +360,3 @@ if __name__ == "__main__":
 	# add_like(cursor, db, 2, 'jonnytest')
 	# print(get_num_likes_received(cursor, 'matt', 'like'))
 	# print(get_num_comments_received(cursor, 'matt'))
-
-

@@ -172,16 +172,16 @@ def settings():
                 song_url = get_track_preview(sp, session["topSong"])
                 artist_name = get_track_artist_name(sp, session["topSong"])
                 album_image = get_track_image(sp, session["topSong"])
-                
+
                 flash("Settings saved", category="success")
                 print("Success")
 
     try:
-        return render_template('settings.html', 
-                               email=session["email"], username=session["username"], 
-                               password=session["password"], display_name=session["displayName"], 
-                               profile_pic=session["profilePic"], bio=session["bio"], 
-                               top_song=session["topSong"], title=song_name, song=song_url, 
+        return render_template('settings.html',
+                               email=session["email"], username=session["username"],
+                               password=session["password"], display_name=session["displayName"],
+                               profile_pic=session["profilePic"], bio=session["bio"],
+                               top_song=session["topSong"], title=song_name, song=song_url,
                                artist = artist_name, image=album_image)
     except:
             return redirect(url_for('signOn'))
@@ -514,6 +514,8 @@ def fetch_posts():
         * postLikes      : Number of likes on the post.
         * postDislikes   : Number of dislikes on the post.
         * postComments   : Number of comments on the post.
+        * liked          : Whether the user has liked the post.
+        * disliked       : Whether the user has disliked the post.
     """
 
     user = session["username"]
@@ -548,7 +550,9 @@ def fetch_posts():
         "postCaption"    : post[2],
         "postLikes"      : get_num_likes(cursor, db, post[0], "like"),
         "postDislikes"   : get_num_likes(cursor, db, post[0], "dislike"),
-        "postComments"   : get_num_comments(cursor, db, post[0])
+        "postComments"   : get_num_comments(cursor, db, post[0]),
+        "liked"          : user in get_like_accounts(cursor, post[0], like='like'),
+        "disliked"       : user in get_like_accounts(cursor, post[0], like='dislike')
         })
 
         if song['preview_url'] == None:
@@ -596,6 +600,22 @@ def get_comments():
         }
         data.append(item)
     return jsonify(data)
+
+@app.route("/changeLike")
+def change_like():
+    db, cursor = connectdb()
+    type = request.args.get("type")
+    postID = int(request.args.get("postID"))
+    amount = int(request.args.get("amount"))
+    user = session["username"]
+    if amount == -1:
+        delete_like(cursor, db, postID, user)
+        return "done"
+    if type == "like":
+        add_like(cursor, db, postID, user)
+        return "done"
+    add_dislike(cursor, db, postID, user)
+    return "done"
 
 if __name__ == '__main__':
     app.run(debug = True)
