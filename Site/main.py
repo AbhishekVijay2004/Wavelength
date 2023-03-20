@@ -80,13 +80,14 @@ def friends():
 @app.route('/profile')
 def profile():
     print(session)
+    db, cursor = connectdb()
 
     # noFollowing = get_num_followers(cursor, db, username)
-    # noFollowers = get_num_followers(cursor, db, username)
-    # noPosts = get_num_posts(cursor, db, username)
-    # noLikes = get_num_likes(cursor, db, username)
-    # noComments = get_num_comments(cursor, db, username)
-
+    noFollowers = get_num_followers(cursor, session["username"])
+    noPosts = get_num_posts(cursor, session["username"])
+    noLikes = get_num_likes_received(cursor, session["username"])
+    noComments = get_num_comments_received(cursor, session["username"])
+    db.close()
 
     song_name = get_track_title(sp, session["topSong"])
     song_url = get_track_preview(sp, session["topSong"])
@@ -97,7 +98,8 @@ def profile():
                         email=session["email"], username=session["username"],
                         display_name=session["displayName"], profile_pic=session["profilePic"],
                         bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
-                        image=album_image)
+                        image=album_image, noFollowers=noFollowers, noPosts=noPosts,
+                        noLikes=noLikes, noComments=noComments)
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
