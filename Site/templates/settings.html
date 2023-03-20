@@ -27,12 +27,28 @@
       </div>
       <div class="setting">
         <h2 class="setting-label">Change Password:</h2>
-        <label class="setting-switch">
-          <button class="settingButton" onclick=""></button>
+        <label class="setting-switch" style="margin-left: 0vw;">
+          <button class="settingButton" onclick="overlayOn()"></button>
         </label>
       </div>
     </div>
     <h1 class="content-title">Profile Settings</h1>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+          {% for catagory, message in messages %}
+          {% if catagory == "error" %}
+          <div class="error">
+              <p>{{ message }}</p>
+          </div>
+          {% endif %}
+          {% if catagory == "success" %}
+          <div class="success">
+              <p>{{ message }}</p>
+          </div>
+          {% endif %}
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
     <div class="settings-container">
       <div class="profile-settings-container">
         <div class="profile-setting">
@@ -112,24 +128,23 @@
         </div>
       </div>
     </div>
-    {% with messages = get_flashed_messages(with_categories=True) %}
-      {% if messages %}
-          {% for catagory, message in messages %}
-          {% if catagory == "error" %}
-          <div class="error">
-              <p>{{ message }}</p>
-          </div>
-          {% endif %}
-          {% if catagory == "success" %}
-          <div class="success">
-              <p>{{ message }}</p>
-          </div>
-          {% endif %}
-          {% endfor %}
-      {% endif %}
-    {% endwith %}
-    <center><button type = "submit" class="button">Save</button></form></center>
+    <center><button type = "submit" class="button">Save</button></center>
   </div>
+{% endblock %}
+
+{% block overlay %}
+<div class="overlay-container">
+  <center>
+  <h1 class="content-title" style="width: revert;">Change Password</h1>
+  <br>
+  <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password1" placeholder="Password" name="password1" onfocus="this.placeholder=''" onblur="this.placeholder='Password'">
+  <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password2" placeholder="New Password" name="password2" onfocus="this.placeholder=''" onblur="this.placeholder='New Password'">
+  <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password3" placeholder="Repeat New Password" name="password3" onfocus="this.placeholder=''" onblur="this.placeholder='Repeat New Password'">
+  <div><button type="submit" class="button" style="font-size: 1.1vw;">Save</button></div>
+  </form>
+  <img class='overlay-close' onclick="overlayOff()">
+  </center>
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -141,6 +156,7 @@ function logout() {
   window.location.href = "{{ url_for('logout')}}"
 }
 </script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/overlay.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/light-dark-switch.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>

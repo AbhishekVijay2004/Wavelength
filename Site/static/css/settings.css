@@ -94,7 +94,7 @@ h2{
   display: inline-block;
   width: 4vw;
   height: 2vw;
-  margin-left: 2vw;
+  margin-left: 5vw;
 }
 .setting-switch input{
   opacity: 0;
@@ -181,4 +181,33 @@ input:checked + .setting-slider:before{
 }
 .search-result h2{
   margin: 1vw;
+}
+.overlay-container{
+  left: 31vw;
+  top: 11vw;
+  width: 40vw;
+  height: 25vw;
+  position: absolute;
+  background-color: var(--background-highlight-1);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.overlay-title{
+  font-weight: 200;
+  font-size: 2.5vw;
+  margin: 0;
+  color: var(--primary-colour);
+}
+.overlay-close{
+  position: absolute;
+  top: 0.75vw;
+  right: 0.75vw;
+  width: 2vw;
+  height: 2vw;
+  content: url("../media/icons/cross-icon.png");
+  cursor: pointer;
+  line-height: 2vw;
 }
