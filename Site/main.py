@@ -107,6 +107,7 @@ def settings():
     song_url = get_track_preview(sp, session["topSong"])
     artist_name = get_track_artist_name(sp, session["topSong"])
     album_image = get_track_image(sp, session["topSong"])
+    cachedList = []
     change = False
 
     if request.method == 'POST':
@@ -131,6 +132,7 @@ def settings():
             pass
 
         if (change == True):
+            cachedList = [email, display_name, bio, top_song]
             db.commit()
             db.close()
             pass
@@ -176,6 +178,13 @@ def settings():
                 flash("Settings saved", category="success")
                 print("Success")
 
+    if (len(cachedList) > 0):
+        return render_template('settings.html', 
+                               email=cachedList[0], username=session["username"], 
+                               password=session["password"], display_name=cachedList[1], 
+                               profile_pic=session["profilePic"], bio=cachedList[2], 
+                               top_song=cachedList[3], title=song_name, song=song_url, 
+                               artist = artist_name, image=album_image)
     try:
         return render_template('settings.html', 
                                email=session["email"], username=session["username"], 
