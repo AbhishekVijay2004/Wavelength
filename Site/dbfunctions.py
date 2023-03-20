@@ -48,7 +48,7 @@ def delete_post(cursor, db, postID):
 	db.commit()
 
 def add_like(cursor, db, postID, username):
-	delete_like(postID, username)
+	delete_like(cursor, db, postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
 		VALUES (%s, %s, 'like')"""
@@ -66,7 +66,7 @@ def delete_like(cursor, db, postID, username):
 	print('like deleted')
 
 def add_dislike(cursor, db, postID, username):
-	delete_like(postID, username)
+	delete_like(cursor, db, postID, username)
 	sql = """
 		INSERT INTO likes(postID, username, type)
 		VALUES (%s, %s, 'dislike')"""
@@ -307,6 +307,32 @@ def search_for_user(cursor, query):
 	return result
 
 
+def get_num_posts(cursor, username):
+	sql = """
+		SELECT COUNT(postID) FROM posts
+		WHERE (username = %s)"""
+	cursor.execute(sql, (username, ))
+	result = cursor.fetchone()
+	return result[0]
+
+def get_num_likes_received(cursor, username, type = 'like'):
+	sql = """
+		SELECT COUNT(likes.username) FROM likes
+		INNER JOIN posts ON posts.postID = likes.postID
+		WHERE (posts.username = %s AND type = %s)"""
+	cursor.execute(sql, (username, type))
+	result = cursor.fetchone()
+	return result[0] 
+
+def get_num_comments_received(cursor, username):
+	sql = """
+		SELECT COUNT(comments.commentID) FROM comments
+		INNER JOIN posts ON posts.postID = comments.postID
+		WHERE (posts.username = 'matt')"""
+	# cursor.execute(sql, (username, ))
+	cursor.execute(sql)
+	result = cursor.fetchone()
+	return result[0]
 
 if __name__ == "__main__":
 	db, cursor = connectdb()
@@ -326,3 +352,11 @@ if __name__ == "__main__":
 	# print(get_following_posts(cursor, 'jonnybreez3', 0))
 	# print(get_num_comments(cursor, db, 2))
 	# print(get_num_comment_likes(cursor, db, 3, 'dislike'))
+	# print(get_num_posts(cursor, 'matt'))
+
+	# add_like(cursor, db, 2, 'jonnybreez3')
+	# add_like(cursor, db, 2, 'jonnytest')
+	# print(get_num_likes_received(cursor, 'matt', 'like'))
+	# print(get_num_comments_received(cursor, 'matt'))
+
+
