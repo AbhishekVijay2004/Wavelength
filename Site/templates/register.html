@@ -5,13 +5,13 @@
 {% block content%}
 <br>
 <form method = 'POST' action="/registration">
-<input class="single-line-text-entry" type="text" placeholder="Email" name="email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'"></input>
+<input class="single-line-text-entry" type="text" placeholder="Email" name="email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'">
 <br>
-<input class="single-line-text-entry" type="text" placeholder="Username" name="username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'"></input>
+<input class="single-line-text-entry" type="text" placeholder="Username" name="username" maxlength="25" onfocus="this.placeholder=''" onblur="this.placeholder='Username'">
 <br>
-<input class="single-line-text-entry" type="password" id="password1" placeholder="Password" name="password1" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"></input>
+<input class="single-line-text-entry" type="password" id="password1" placeholder="Password" name="password1" onfocus="this.placeholder=''" onblur="this.placeholder='Password'">
 <br>
-<input class="single-line-text-entry" type="password" id="password2" placeholder="Repeat Password" name="password2" onfocus="this.placeholder=''" onblur="this.placeholder='Repeat Password'"></input>
+<input class="single-line-text-entry" type="password" id="password2" placeholder="Repeat Password" name="password2" onfocus="this.placeholder=''" onblur="this.placeholder='Repeat Password'">
 <div id="pwdCheck">
     <input id="pwdCheckbox" type="checkbox" onclick="togglePasswordVisibility()"> Show password
 </div>
