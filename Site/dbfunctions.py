@@ -172,18 +172,6 @@ def get_user_details_by_email(cursor, email):
 		return result[0]
 	except IndexError:
 		return False
-	
-def get_user_details_by_diaply_name(cursor, display_name):
-	sql = """
-		SELECT * FROM users
-		WHERE (displayname = %s)"""
-	cursor.execute(sql, (display_name, ))
-	result = cursor.fetchall()
-	print(result)
-	try:
-		return result[0]
-	except IndexError:
-		return False
 
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
@@ -309,6 +297,13 @@ def view_notifications(cursor, recipient):
 	cursor.execute(sql, (recipient, ))
 	result = cursor.fetchall()
 	return result
+
+def delete_notification(cursor, db, notificationID):
+	sql = """
+		DELETE FROM notifications
+		WHERE (notificationID = %s)"""
+	cursor.execute(sql, (notificationID, ))
+	db.commit()
 
 def search_for_user(cursor, query):
 	sql = """

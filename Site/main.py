@@ -564,6 +564,12 @@ def send_notification():
     db, cursor = connectdb()
     create_notification(cursor, db, recipient, sender, version, postID)
 
+@app.route('/clearNotification')
+def clear_notification():
+    db, cursor = connectdb()
+    delete_notification(cursor, db, request.args.get("notificationID"))
+    return "done"
+
 @app.route('/fetchNotification')
 def fetch_notifications():
     '''
@@ -587,10 +593,10 @@ def fetch_notifications():
     notifications = view_notifications(cursor, recipient)
     data = []
     for notification in notifications:
-        notification["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
         item = {}
-        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'senderPic', 'type', 'postID']):
+        for i, val in enumerate(['notificationID', 'recipient', 'sender', 'type', 'postID']):
             item[val] = notification[i]
+        item["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
         data.append(item)
     return jsonify(data)
 
@@ -670,24 +676,6 @@ def fetch_posts():
 
     return jsonify(data)
 
-"""
-def insert_post(postList, post):
-
-    if len(postList) == 0:
-        postList.append(post)
-        return postList
-
-    for i in range(len(postList)):
-        if postList[i][0] < post[0]:
-            if i == 0:
-                postList = [post] + postList[i::]
-                return postList
-            postList = postList[:i:].append(post) + postList[i::]
-            return postList
-        postList.append(post)
-        return postList
-"""
-
 @app.route("/getComments")
 def get_comments():
     db, cursor = connectdb()
@@ -722,8 +710,10 @@ def change_like():
         return "done"
     if type == "like":
         add_like(cursor, db, postID, user)
+        create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Like")
         return "done"
     add_dislike(cursor, db, postID, user)
+    create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Dislike")
     return "done"
 
 if __name__ == '__main__':
