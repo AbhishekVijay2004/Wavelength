@@ -77,23 +77,28 @@ def friends():
     print(session)
     db, cursor = connectdb()
 
-    friends = get_follower_accounts(cursor, session["username"])
-    user_details = [get_user_details(cursor, username) for username in friends]
+    followers = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in followers]
+    print(user_details)
+
     usernames = [user_info[0] for user_info in user_details]
-    display_names = [user_info[6] for user_info in user_details]
+    # display_names = [user_info[6] for user_info in user_details]
     profile_pics = [user_info[2] for user_info in user_details]
+
     users_num_followers = [get_num_followers(cursor, username) for username in usernames]
     users_num_posts = [get_num_posts(cursor, username) for username in usernames]
     users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
     users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
-    length = len(display_names)
+
+    # add_follow(cursor, db, "zak.mitchell", session["username"])
     
+    db.commit()
     db.close()
     return render_template('friends.html', 
-                           display_names = display_names, profile_pics=profile_pics, 
+                           usernames=usernames, profile_pics=profile_pics, 
                            users_num_followers=users_num_followers, 
                            users_num_posts=users_num_posts, users_num_likes=users_num_likes, 
-                           users_num_comments=users_num_comments, length=length)
+                           users_num_comments=users_num_comments)
 
 @app.route('/profile')
 def profile():
@@ -119,18 +124,12 @@ def profile():
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                         noLikes=noLikes, noComments=noComments)
 
-@app.route('/friendprof', methods = ['GET', 'POST'])
-def friendprof():
-    friend_name = request.form['text']
-    return redirect(url_for('friendProfile', friend_name=friend_name))
-
-@app.route('/friend_profile', methods = ['GET', 'POST'])
+@app.route('/externalProfile', methods = ['GET', 'POST'])
 def friendProfile():
     print(session)
-
-    friend_name = request.args.get('friend_name')
-
     db, cursor = connectdb()
+
+    friend_name = request.args.get('username')
 
     user_details = get_user_details_by_diaply_name(cursor, friend_name)
     username = user_details[0]

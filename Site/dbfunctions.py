@@ -116,13 +116,13 @@ def add_follow(cursor, db, user, following):
 		VALUES (%s, %s)"""
 	cursor.execute(sql, (user, following))
 	db.commit()
-	print(f'{follower} followed {user}')
+	print(f'{user} followed {following}')
 
 def delete_follow(cursor, db, user, following):
 	sql = """
 		DELETE FROM following
 		WHERE (user = %s) AND (following = %s)"""
-	cursor.execute(sql, (username, following))
+	cursor.execute(sql, (user, following))
 	db.commit()
 	print('friendship deleted')
 
