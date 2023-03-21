@@ -17,7 +17,10 @@
       <div class="profile-element">
         <div class="content-container">
           <img class="profile-image" src="{{profile_pics[i]}}"></img>
-          <p class="profile-text-header">{{display_names[i]}}</p>
+          <form id="form" method="POST" action="{{ url_for('friendprof') }}">
+            <input type="hidden" id="hidden_input" name="text">
+            <p class="profile-text-header" id="friendName_{{loop.index}}" onclick="navigateToFriendProfile('{{loop.index}}')">{{display_names[i]}}</p>
+          </form>
           <p class="profile-text-details">Friends: {{users_num_followers[i]}}</p>
           <p class="profile-text-details">Posts: {{users_num_posts[i]}}</p>
           <p class="profile-text-details">Likes: {{users_num_likes[i]}}</p>
@@ -25,6 +28,13 @@
         </div>
       </div>
       {%endfor%}
+      <script>
+        function navigateToFriendProfile(id) {
+          var text = document.getElementById("friendName_" + id).textContent;
+          document.getElementById("hidden_input").value = text;
+          document.getElementById("form").submit();
+        }
+      </script>
     </div>
   </div>
 {% endblock %}

@@ -119,6 +119,50 @@ def profile():
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                         noLikes=noLikes, noComments=noComments)
 
+@app.route('/friendprof', methods = ['GET', 'POST'])
+def friendprof():
+    friend_name = request.form['text']
+    return redirect(url_for('friendProfile', friend_name=friend_name))
+
+@app.route('/friend_profile', methods = ['GET', 'POST'])
+def friendProfile():
+    print(session)
+
+    friend_name = request.args.get('friend_name')
+
+    db, cursor = connectdb()
+
+    user_details = get_user_details_by_diaply_name(cursor, friend_name)
+    username = user_details[0]
+    print(username)
+    profile_pic = user_details[2]
+    email = user_details[3]
+    bio = user_details[4]
+
+    noFollowers = get_num_followers(cursor, username)
+    noPosts = get_num_posts(cursor, username)
+    noLikes = get_num_likes_received(cursor, username)
+    noComments = get_num_comments_received(cursor, username)
+    db.close()
+
+    # song_name = get_track_title(sp, session["topSong"])
+    # song_url = get_track_preview(sp, session["topSong"])
+    # artist_name = get_track_artist_name(sp, session["topSong"])
+    # album_image = get_track_image(sp, session["topSong"])
+
+    #this is for testing
+    song_name = ""
+    song_url = ""
+    artist_name = ""
+    album_image = ""
+
+    return render_template('profile.html',
+                        email=email, username=username,
+                        display_name=friend_name, profile_pic=profile_pic,
+                        bio=bio, title=song_name, song=song_url, artist = artist_name,
+                        image=album_image, noFollowers=noFollowers, noPosts=noPosts,
+                        noLikes=noLikes, noComments=noComments)
+
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
     print(session)
