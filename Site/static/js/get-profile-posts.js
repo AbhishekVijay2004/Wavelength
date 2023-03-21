@@ -1,6 +1,6 @@
 $.ajax({
   url: '/fetchPosts',
-  data: {startIndex: 0, numToReturn: 0, userProfile: document.getElementById("username").innerHTML},
+  data: {startIndex: 0, numToReturn: 0, userProfile: document.getElementById("username").innerHTML.slice(1)},
   type: 'GET',
   success: function(data) {
     for (var i = 0; i < data.length; i++){

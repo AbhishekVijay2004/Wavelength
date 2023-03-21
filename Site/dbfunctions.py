@@ -220,7 +220,7 @@ def list_user_posts(cursor, username):
 	sql = """
 		SELECT * FROM posts
 		WHERE (username = %s)
-		ORDER BY createdAt"""
+		ORDER BY createdAt DESC"""
 	cursor.execute(sql, (username, ))
 	result = cursor.fetchall()
 	return result

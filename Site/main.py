@@ -632,11 +632,11 @@ def fetch_posts():
         following = get_following_accounts(cursor, user)
         for f in following:
             for post in list_user_posts(cursor, f):
-                postList = insert_post(postList, list(post))
+                postList.append(post)
 
     else:
         for post in list_user_posts(cursor, request.args.get("userProfile")):
-            postList = insert_post(postList, list(post))
+            postList.append(post)
 
     data = []
     for post in postList:
@@ -663,10 +663,11 @@ def fetch_posts():
             # run a search on the name to find the preview url
             song = sp.search(song["name"] + song["artists"][0]["name"], type='track', limit=1, market='GB')
             preview = song["tracks"]["items"][0]["preview_url"]
-            data[len(data)].preview = preview
+            data[len(data) - 1]["songPreview"] = preview
 
     return jsonify(data)
 
+"""
 def insert_post(postList, post):
 
     if len(postList) == 0:
@@ -682,6 +683,7 @@ def insert_post(postList, post):
             return postList
         postList.append(post)
         return postList
+"""
 
 @app.route("/getComments")
 def get_comments():
