@@ -379,3 +379,4 @@ if __name__ == "__main__":
 	# print(get_num_likes_received(cursor, 'matt', 'like'))
 	# print(get_num_comments_received(cursor, 'matt'))
 	# print(list_user_posts(cursor, 'jonnybreez3'))
+	create_notification(cursor, db, 'testusername', 'matt', 'comment', '2')

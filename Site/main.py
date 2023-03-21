@@ -576,8 +576,9 @@ def fetch_notifications():
     recipient = session["username"]
     db, cursor = connectdb()
     notifications = view_notifications(cursor, recipient)
+    notis = [item for item in notifications]
     data = []
-    for notification in notifications:
+    for notification in notis:
         notification["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
         item = {}
         for i, val in enumerate(['notificationID', 'recipient', 'sender', 'senderPic', 'type', 'postID']):
