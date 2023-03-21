@@ -639,6 +639,8 @@ def fetch_posts():
         for post in list_user_posts(cursor, request.args.get("userProfile")):
             postList.append(post)
 
+    postList.sort(reverse = True, key=lambda x: x[1])
+
     data = []
     for post in postList:
         song = sp.track(post[3])
