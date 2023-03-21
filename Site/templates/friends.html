@@ -29,17 +29,7 @@
       {% endfor %}
       <script>
         function navigateToExternalProfilePage(username) {
-          $.ajax({
-            url: '/externalProfile',
-            data: {username: username},
-            type: 'GET',
-            success: function(data) {
-              $("html").html(data);
-            },
-            error: function(error) {
-            console.error(error);
-            }
-          });
+          window.location.href = '/externalProfile?username=' + username;
         }
       </script>
     </div>
