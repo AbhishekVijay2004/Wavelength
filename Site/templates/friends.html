@@ -34,6 +34,7 @@
             data: {username: username},
             type: 'GET',
             success: function(data) {
+              $("html").html(data);
             },
             error: function(error) {
             console.error(error);
