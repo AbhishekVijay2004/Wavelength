@@ -154,11 +154,25 @@ const pSBC=(p,c0,c1,l)=>{
 		return (postElement);
 	} //returns a post
 
+  function changeLikeCount(reactElement, amount){
+    var count = reactElement.parentNode.querySelector(".count");
+    count.innerHTML = (parseInt(count.innerHTML) + amount).toString();
+  }
+
   function changeLike(type, amount, postID){
     var elemName = type == "like" ? ".posReact" : ".negReact";
-    var count = document.querySelector(elemName + "." + postID).parentNode.querySelector(".count");
+    var reactElement = document.querySelector(elemName + "." + postID);
+    var inverseElemName = type == "like" ? ".negReact" : ".posReact";
+    var inverseElement = reactElement.parentNode.parentNode.querySelector(inverseElemName);
+
+    if (inverseElement.classList.contains('clicked')){
+        changeLikeCount(inverseElement, -1);
+        reactElement.parentNode.parentNode.querySelector(inverseElemName).classList.remove('clicked');
+    }
+
+    changeLikeCount(reactElement, amount);
     postID = postID.slice(2);
-    count.innerHTML = (parseInt(count.innerHTML) + amount).toString();
+
     $.ajax({
       url: '/changeLike',
       data: {type: type, postID: postID, amount: amount},
@@ -180,10 +194,6 @@ const pSBC=(p,c0,c1,l)=>{
       changeLike("like", -1, reactID);
 		} else {
 		  	this.classList.add('clicked');
-        if (this.parentNode.parentNode.querySelector('.negReact').classList.contains('clicked')){
-            this.parentNode.parentNode.querySelector('.negReact').classList.remove('clicked');
-            changeLike("dislike", -1, reactID);
-        }
         changeLike("like", 1, reactID);
 		}
 	  } else if (this.classList[0] == "negReact") {
@@ -192,10 +202,6 @@ const pSBC=(p,c0,c1,l)=>{
       changeLike("dislike", -1, reactID)
 		} else {
 		  	this.classList.add('clicked');
-        if (this.parentNode.parentNode.querySelector('.posReact').classList.contains('clicked')){
-            this.parentNode.parentNode.querySelector('.posReact').classList.remove('clicked');
-            changeLike("like", -1, reactID);
-        }
         changeLike("dislike", 1, reactID);
 		}
 	  } else {

@@ -75,7 +75,25 @@ def post():
 @app.route('/friends')
 def friends():
     print(session)
-    return render_template('friends.html')
+    db, cursor = connectdb()
+
+    friends = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in friends]
+    usernames = [user_info[0] for user_info in user_details]
+    display_names = [user_info[6] for user_info in user_details]
+    profile_pics = [user_info[2] for user_info in user_details]
+    users_num_followers = [get_num_followers(cursor, username) for username in usernames]
+    users_num_posts = [get_num_posts(cursor, username) for username in usernames]
+    users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
+    users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
+    length = len(display_names)
+    
+    db.close()
+    return render_template('friends.html', 
+                           display_names = display_names, profile_pics=profile_pics, 
+                           users_num_followers=users_num_followers, 
+                           users_num_posts=users_num_posts, users_num_likes=users_num_likes, 
+                           users_num_comments=users_num_comments, length=length)
 
 @app.route('/profile')
 def profile():
@@ -148,7 +166,7 @@ def settings():
             except:
                 flash("Password is incorrect", category="error")
                 print("Error")
-        
+
         # Profile Picture Changing
         if (change == False):
             try:
@@ -213,11 +231,11 @@ def settings():
                 print("Success")
 
     if (len(cachedList) > 0):
-        return render_template('settings.html', 
-                               email=cachedList[0], username=session["username"], 
-                               password=session["password"], display_name=cachedList[1], 
-                               profile_pic=session["profilePic"], bio=cachedList[2], 
-                               top_song=cachedList[3], title=song_name, song=song_url, 
+        return render_template('settings.html',
+                               email=cachedList[0], username=session["username"],
+                               password=session["password"], display_name=cachedList[1],
+                               profile_pic=session["profilePic"], bio=cachedList[2],
+                               top_song=cachedList[3], title=song_name, song=song_url,
                                artist = artist_name, image=album_image)
     try:
         return render_template('settings.html',
@@ -651,8 +669,8 @@ def change_like():
     postID = int(request.args.get("postID"))
     amount = int(request.args.get("amount"))
     user = session["username"]
+    delete_like(cursor, db, postID, user)
     if amount == -1:
-        delete_like(cursor, db, postID, user)
         return "done"
     if type == "like":
         add_like(cursor, db, postID, user)
