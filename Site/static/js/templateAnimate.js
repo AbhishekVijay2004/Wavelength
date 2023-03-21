@@ -61,10 +61,11 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked) {
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked, likesOn, dislikesOn, commentsOn) {
     var likedClicked = liked ? " clicked" : "";
     var dislikedClicked = disliked ? " clicked" : "";
     const postElement = document.createElement('div');
+
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<!-- ------------------- song player --------------- -->
@@ -108,49 +109,73 @@ const pSBC=(p,c0,c1,l)=>{
 	  		`+postText+`
 		</div>
 
-
-		<div class = "footer">
+`;
+footerhtml = `
+<div class = "footer">`;
+				if (parseInt(likesOn)) {
+					footerhtml += `
 				<div class="groupHorizontal">
-						<div class = "posReact`+likedClicked+`"></div>
+					<div class = "posReact`+likedClicked+`"></div>
 					<div class = "count">`+posReactCount+`</div>
 				</div>
+				`;
+				}				
+				if (parseInt(dislikesOn)) {
+					footerhtml += `
 				<div class="groupHorizontal">
 						<div class = "negReact`+dislikedClicked+`"></div>
-					<div class = "count">`+negReactCount+`</div>
+						<div class = "count">`+negReactCount+`</div>
 				</div>
+				`;
+				}
+				if (parseInt(commentsOn)) {
+					footerhtml += `
 				<div class="groupHorizontal">
 					<div class = "comments"></div>
 					<div class = "count">`+commentCount+`</div>
 				</div>
-		</div>
-
-
+				`;
+				}
+				footerhtml += `
+		</div>`;
+postElement.innerHTML += footerhtml;
+postElement.innerHTML+=`
 		<div class="commentSection" id="`+postID+`"></div>
 
 	`;
+		console.log("end");
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
 		expandedComments.push(false);
 		commentsOpened.push(false);
 		const textBit = postElement.querySelector('.text');
-		const commentBit = postElement.querySelector('.comments');
+		if (parseInt(commentsOn)) {
+			const commentBit = postElement.querySelector('.comments');
+			commentBit.addEventListener('click', clickOnComments);
+		}
 		textBit.addEventListener('click', clickOnText);
-		commentBit.addEventListener('click', clickOnComments);
 
 		const audio = postElement.querySelector('.audio-player');
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
-
-		const likebutton = postElement.querySelector('.posReact');
+if (parseInt(likesOn)) {
+			const likebutton = postElement.querySelector('.posReact');
     likebutton.classList.add("id" + postID);
 		likebutton.addEventListener('click', footerClick);
-		const dislikebutton = postElement.querySelector('.negReact');
+
+}
+		if (parseInt(dislikesOn)) {
+					const dislikebutton = postElement.querySelector('.negReact');
     dislikebutton.classList.add("id" + postID);
 		dislikebutton.addEventListener('click', footerClick);
+		}
+		if (commentsOn) {
+
 		const commentbutton = postElement.querySelector('.comments');
 		commentbutton.addEventListener('click', footerClick);
 
+		}
 		return (postElement);
 	} //returns a post
 
