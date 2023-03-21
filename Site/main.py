@@ -77,23 +77,28 @@ def friends():
     print(session)
     db, cursor = connectdb()
 
-    friends = get_follower_accounts(cursor, session["username"])
-    user_details = [get_user_details(cursor, username) for username in friends]
+    followers = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in followers]
+    print(user_details)
+
     usernames = [user_info[0] for user_info in user_details]
-    display_names = [user_info[6] for user_info in user_details]
+    # display_names = [user_info[6] for user_info in user_details]
     profile_pics = [user_info[2] for user_info in user_details]
+
     users_num_followers = [get_num_followers(cursor, username) for username in usernames]
     users_num_posts = [get_num_posts(cursor, username) for username in usernames]
     users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
     users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
-    length = len(display_names)
+
+    # add_follow(cursor, db, "zak.mitchell", session["username"])
     
+    db.commit()
     db.close()
     return render_template('friends.html', 
-                           display_names = display_names, profile_pics=profile_pics, 
+                           usernames=usernames, profile_pics=profile_pics, 
                            users_num_followers=users_num_followers, 
                            users_num_posts=users_num_posts, users_num_likes=users_num_likes, 
-                           users_num_comments=users_num_comments, length=length)
+                           users_num_comments=users_num_comments)
 
 @app.route('/profile')
 def profile():
@@ -116,6 +121,44 @@ def profile():
                         email=session["email"], username=session["username"],
                         display_name=session["displayName"], profile_pic=session["profilePic"],
                         bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                        image=album_image, noFollowers=noFollowers, noPosts=noPosts,
+                        noLikes=noLikes, noComments=noComments)
+
+@app.route('/externalProfile', methods = ['GET', 'POST'])
+def friendProfile():
+    print(session)
+    db, cursor = connectdb()
+
+    friend_name = request.args.get('username')
+
+    user_details = get_user_details_by_diaply_name(cursor, friend_name)
+    username = user_details[0]
+    print(username)
+    profile_pic = user_details[2]
+    email = user_details[3]
+    bio = user_details[4]
+
+    noFollowers = get_num_followers(cursor, username)
+    noPosts = get_num_posts(cursor, username)
+    noLikes = get_num_likes_received(cursor, username)
+    noComments = get_num_comments_received(cursor, username)
+    db.close()
+
+    # song_name = get_track_title(sp, session["topSong"])
+    # song_url = get_track_preview(sp, session["topSong"])
+    # artist_name = get_track_artist_name(sp, session["topSong"])
+    # album_image = get_track_image(sp, session["topSong"])
+
+    #this is for testing
+    song_name = ""
+    song_url = ""
+    artist_name = ""
+    album_image = ""
+
+    return render_template('profile.html',
+                        email=email, username=username,
+                        display_name=friend_name, profile_pic=profile_pic,
+                        bio=bio, title=song_name, song=song_url, artist = artist_name,
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                         noLikes=noLikes, noComments=noComments)
 
@@ -589,11 +632,13 @@ def fetch_posts():
         following = get_following_accounts(cursor, user)
         for f in following:
             for post in list_user_posts(cursor, f):
-                postList = insert_post(postList, list(post))
+                postList.append(post)
 
     else:
         for post in list_user_posts(cursor, request.args.get("userProfile")):
-            postList = insert_post(postList, list(post))
+            postList.append(post)
+
+    postList.sort(reverse = True, key=lambda x: x[1])
 
     data = []
     for post in postList:
@@ -620,10 +665,11 @@ def fetch_posts():
             # run a search on the name to find the preview url
             song = sp.search(song["name"] + song["artists"][0]["name"], type='track', limit=1, market='GB')
             preview = song["tracks"]["items"][0]["preview_url"]
-            data[len(data)].preview = preview
+            data[len(data) - 1]["songPreview"] = preview
 
     return jsonify(data)
 
+"""
 def insert_post(postList, post):
 
     if len(postList) == 0:
@@ -639,6 +685,7 @@ def insert_post(postList, post):
             return postList
         postList.append(post)
         return postList
+"""
 
 @app.route("/getComments")
 def get_comments():

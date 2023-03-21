@@ -43,7 +43,6 @@ margin-bottom: 50px;
 
 }
 .text {
-min-height: 150px;
 max-height: 150px;
 overflow: hidden;
 cursor: pointer;
@@ -53,7 +52,6 @@ align-content: left;
 text-align: left;
 font-size: 1.5vw;
 color: var(--text-colour);
--webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); 
 }
 .footer {
 display: flex;
@@ -175,14 +173,32 @@ font-size: 1vw;
 	line-height:1.5vw;
     width:auto;
     padding:5px;
-}
+}/*
 .submitButton {
-    height:50px;
+    height:500px;
     line-height: 1.5vw;
     margin-left:auto;
-}
+}*/
 .count{
 	font-size:1.5vw;
 	margin-left:auto;
+	color: var(--text-colour);
+}
+
+.commentSubmitButton {
+  color:var(--text-colour);
+  cursor: pointer;
+  background-color: var(--background-colour);
+  border: solid 0.2vw var(--primary-colour);
+  border-radius: 1rem;
+  margin-left:auto;
+}
+.newCommentText{
+	width:80%;
+	resize:none;
+	overflow:hidden;
+	min-height:40px;
+	border-radius: 5px;
+	background-color: var(--background-colour);
 	color: var(--text-colour);
 }

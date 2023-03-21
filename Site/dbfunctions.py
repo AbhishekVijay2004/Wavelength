@@ -116,13 +116,13 @@ def add_follow(cursor, db, user, following):
 		VALUES (%s, %s)"""
 	cursor.execute(sql, (user, following))
 	db.commit()
-	print(f'{follower} followed {user}')
+	print(f'{user} followed {following}')
 
 def delete_follow(cursor, db, user, following):
 	sql = """
 		DELETE FROM following
 		WHERE (user = %s) AND (following = %s)"""
-	cursor.execute(sql, (username, following))
+	cursor.execute(sql, (user, following))
 	db.commit()
 	print('friendship deleted')
 
@@ -172,6 +172,18 @@ def get_user_details_by_email(cursor, email):
 		return result[0]
 	except IndexError:
 		return False
+	
+def get_user_details_by_diaply_name(cursor, display_name):
+	sql = """
+		SELECT * FROM users
+		WHERE (displayname = %s)"""
+	cursor.execute(sql, (display_name, ))
+	result = cursor.fetchall()
+	print(result)
+	try:
+		return result[0]
+	except IndexError:
+		return False
 
 def get_post_details(cursor, db, postid, param='*',):
 	if param not in ['createdAt', 'postText', 'postContent', 'username', '*']:
@@ -208,7 +220,7 @@ def list_user_posts(cursor, username):
 	sql = """
 		SELECT * FROM posts
 		WHERE (username = %s)
-		ORDER BY createdAt"""
+		ORDER BY createdAt DESC"""
 	cursor.execute(sql, (username, ))
 	result = cursor.fetchall()
 	return result
