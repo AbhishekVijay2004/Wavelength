@@ -118,7 +118,7 @@ def profile():
     album_image = get_track_image(sp, session["topSong"])
 
     return render_template('profile.html',
-                        email=session["email"], username=session["username"],
+                        username=session["username"],
                         display_name=session["displayName"], profile_pic=session["profilePic"],
                         bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
@@ -130,34 +130,26 @@ def friendProfile():
     db, cursor = connectdb()
 
     friend_name = request.args.get('username')
+    display_name = get_user_detail(cursor, friend_name, "displayname")
+    profile_pic = get_user_detail(cursor, friend_name, "profilePic")
+    bio = get_user_detail(cursor, friend_name, "bio")
+    topSong = get_user_detail(cursor, friend_name, "topsong")
 
-    user_details = get_user_details_by_diaply_name(cursor, friend_name)
-    username = user_details[0]
-    print(username)
-    profile_pic = user_details[2]
-    email = user_details[3]
-    bio = user_details[4]
-
-    noFollowers = get_num_followers(cursor, username)
-    noPosts = get_num_posts(cursor, username)
-    noLikes = get_num_likes_received(cursor, username)
-    noComments = get_num_comments_received(cursor, username)
+    # noFollowing = get_num_followers(cursor, db, username)
+    noFollowers = get_num_followers(cursor, friend_name)
+    noPosts = get_num_posts(cursor, friend_name)
+    noLikes = get_num_likes_received(cursor, friend_name)
+    noComments = get_num_comments_received(cursor, friend_name)
     db.close()
 
-    # song_name = get_track_title(sp, session["topSong"])
-    # song_url = get_track_preview(sp, session["topSong"])
-    # artist_name = get_track_artist_name(sp, session["topSong"])
-    # album_image = get_track_image(sp, session["topSong"])
-
-    #this is for testing
-    song_name = ""
-    song_url = ""
-    artist_name = ""
-    album_image = ""
+    song_name = get_track_title(sp, topSong)
+    song_url = get_track_preview(sp, topSong)
+    artist_name = get_track_artist_name(sp, topSong)
+    album_image = get_track_image(sp, topSong)
 
     return render_template('profile.html',
-                        email=email, username=username,
-                        display_name=friend_name, profile_pic=profile_pic,
+                        username=friend_name,
+                        display_name=display_name, profile_pic=profile_pic,
                         bio=bio, title=song_name, song=song_url, artist = artist_name,
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                         noLikes=noLikes, noComments=noComments)
