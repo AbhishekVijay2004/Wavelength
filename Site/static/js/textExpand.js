@@ -49,11 +49,15 @@
 					<div class="profilePic" style="background-image:url('`+user_pic+`');">
 		          	</div>
 		      	</a>
-		      	<input type="text" id="fname" name="fname" class="bigText">
-		        <input type="submit" value="Submit" class="submitButton">
+
+<textarea rows="1" class="newCommentText" oninput="newCommentText(this)"></textarea>
+<button class="commentSubmitButton">Submit</button>
 		<br>
 			`;
+
 				parnt.appendChild(newComment);
+				const submitButton = parnt.querySelector('.commentSubmitButton');
+				submitButton.addEventListener('click', submitComment);
 				for (var i = 1; i < data.length; i++){
 					var thisComment = data[i];
 					var commentAuthorLink = thisComment["commentUsername"];
@@ -73,6 +77,17 @@
 		  }
 		});
 	}
+	function submitComment() {
+		textbox = this.parentNode.querySelector('.newCommentText').value;
+		this.parentNode.querySelector('.newCommentText').value = "";
+		if (textbox.length > 0) {
+			console.log(textbox); //textbix
+		}
+	}
+	function newCommentText(elem) {  /* javascript */
+    elem.style.height = "1px";
+    elem.style.height = (elem.scrollHeight)+"px";
+}
 
 	function loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentLikeCount, commentDislikeCount, commentDate) {
 		const comment = document.createElement('div');
