@@ -102,7 +102,6 @@ def friends():
 
 @app.route('/profile')
 def profile():
-    print(session)
     db, cursor = connectdb()
 
     # noFollowing = get_num_followers(cursor, db, username)
@@ -712,6 +711,32 @@ def change_like():
 if __name__ == '__main__':
     app.run(debug = True)
 
+@app.route("/friendSearch")
+def add_friend():
+    username = request.args.get("user")
+    following = request.args.get("follower")
+    db, cursor = connectdb()
+    add_follow(cursor, db, username, following)
+    db.commit()
+    db.close()
+    return "added friend"
+
+
+@app.route("/unfollow")
+def unfollow():
+    print("unfollow")
+    db, cursor = connectdb()
+    friend_name = request.args.get('unfollow')
+    print(friend_name)
+    currentUser = session["username"]
+    delete_follow(cursor, db, currentUser, friend_name)
+    followers = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in followers]
+    print("Hello")
+    print(user_details)
+    db.commit()
+    db.close()
+    return redirect(url_for("friends"))
 """
 @app.route('/getNotifications')
 def get_notifications():
