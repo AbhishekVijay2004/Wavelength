@@ -81,7 +81,17 @@
 		textbox = this.parentNode.querySelector('.newCommentText').value;
 		this.parentNode.querySelector('.newCommentText').value = "";
 		if (textbox.length > 0) {
-			console.log(textbox); //textbix
+			$.ajax({
+		    url: '/postComment',
+		    data: {postID: this.parentNode.parentNode.id, text: textbox},
+		    type: 'GET',
+		    success: function(data) {
+		      loadCommentsSection(this.parentNode.parentNode);
+		    },
+		    error: function(error) {
+		    console.error(error);
+		    }
+		  });
 		}
 	}
 	function newCommentText(elem) {  /* javascript */

@@ -65,7 +65,9 @@ const pSBC=(p,c0,c1,l)=>{
     var likedClicked = liked ? " clicked" : "";
     var dislikedClicked = disliked ? " clicked" : "";
     const postElement = document.createElement('div');
-
+    likesOn = 1;
+    dislikesOn= 1;
+    commentsOn = 1;
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<!-- ------------------- song player --------------- -->
