@@ -199,6 +199,7 @@ def get_comment_details(cursor, db, commentid, param='*'):
 			SELECT commentID, postID, username, commentText, DATE_FORMAT(createdAt, '%d/%m/%y %H:%i') FROM comments
 			WHERE (commentID = %s)"""
 		cursor.execute(sql, (commentid, ))
+		result = cursor.fetchall()
 		return result
 
 def get_post_comments(cursor, db, postID):

@@ -677,7 +677,7 @@ def get_comments():
     commentIDs = []
     for id in rawCommentIDs: commentIDs.append(id[0])
     for id in commentIDs:
-        commentInfo = get_comment_details(cursor, db, id)
+        commentInfo = get_comment_details(cursor, db, id)[0]
         item = {
         "commentID"       : id,
         "commentUsername" : commentInfo[2],
