@@ -206,7 +206,7 @@
   width: 25vw;
   height: 100vh;
 }
-#hideScroll::-webkit-scrollbar {
+.hideScroll::-webkit-scrollbar {
   display: none;
 }
 .main-content{

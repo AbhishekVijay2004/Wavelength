@@ -4,11 +4,11 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'css/friends.css') }}">
-{% endblock %} 
+{% endblock %}
 
 {% block content%}
 <div class="main-content content-friends">
-    <div class="clsScroll" id="hideScroll">
+    <div class="clsScroll hideScroll">
       <center>
         <h1 class="content-title">Friends</h1>
         <input class="single-line-text-entry" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search For New Friends...'">
@@ -45,5 +45,4 @@
 {% endblock %}
 
 {% block javascript %}
-{% endblock %} 
-
+{% endblock %}
