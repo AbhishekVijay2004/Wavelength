@@ -505,6 +505,7 @@ def select_result():
     print(data)
     return jsonify(data)
 
+
 @app.route('/sendNotification')
 def send_notification():
     '''
