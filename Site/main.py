@@ -125,7 +125,7 @@ def profile():
 
 @app.route('/externalProfile', methods = ['GET', 'POST'])
 def friendProfile():
-    print("friendProfile")
+    print(session)
     db, cursor = connectdb()
 
     friend_name = request.args.get('username')
@@ -133,7 +133,6 @@ def friendProfile():
     profile_pic = get_user_detail(cursor, friend_name, "profilePic")
     bio = get_user_detail(cursor, friend_name, "bio")
     topSong = get_user_detail(cursor, friend_name, "topsong")
-    print(friend_name, display_name, bio)
 
     # noFollowing = get_num_followers(cursor, db, username)
     noFollowers = get_num_followers(cursor, friend_name)

@@ -11,30 +11,7 @@
     <div class="clsScroll hideScroll">
       <center>
         <h1 class="content-title">Friends</h1>
-        <input class="single-line-text-entry" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''; ShowSearch()" onblur="this.placeholder = 'Search For New Friends...'; HideSearch()" onkeyup="Search()">
-      <div id="search-container">
-        <div style="margin-top:1vw;"></div>
-        <div class="search-result" id="search-result-0">
-          <img id="search-image-0">
-          <h2 id="search-title-0"></h2>
-        </div>
-        <div class="search-result" id="search-result-1">
-          <img id="search-image-1">
-          <h2 id="search-title-1"></h2>
-        </div>
-        <div class="search-result" id="search-result-2">
-          <img id="search-image-2">
-          <h2 id="search-title-2"></h2>
-        </div>
-        <div class="search-result" id="search-result-3">
-          <img id="search-image-3">
-          <h2 id="search-title-3"></h2>
-        </div>
-        <div class="search-result" id="search-result-4">
-          <img id="search-image-4">
-          <h2 id="search-title-4"></h2>
-        </div>
-      </div>
+        <input class="single-line-text-entry" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search For New Friends...'">
       </center>
       {% for i in range(usernames | length) %}
       <div class="profile-element">
@@ -52,7 +29,16 @@
       {% endfor %}
       <script>
         function navigateToExternalProfilePage(username) {
-          window.location.href = '/externalProfile?username=' + username;
+          $.ajax({
+            url: '/externalProfile',
+            data: {username: username},
+            type: 'GET',
+            success: function(data) {
+            },
+            error: function(error) {
+            console.error(error);
+            }
+          });
         }
 
         function Unfollow(username) {
