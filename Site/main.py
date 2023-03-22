@@ -91,13 +91,13 @@ def friends():
     users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
 
     # add_follow(cursor, db, "zak.mitchell", session["username"])
-    
+
     db.commit()
     db.close()
-    return render_template('friends.html', 
-                           usernames=usernames, profile_pics=profile_pics, 
-                           users_num_followers=users_num_followers, 
-                           users_num_posts=users_num_posts, users_num_likes=users_num_likes, 
+    return render_template('friends.html',
+                           usernames=usernames, profile_pics=profile_pics,
+                           users_num_followers=users_num_followers,
+                           users_num_posts=users_num_posts, users_num_likes=users_num_likes,
                            users_num_comments=users_num_comments)
 
 @app.route('/profile')
@@ -677,7 +677,7 @@ def get_comments():
     commentIDs = []
     for id in rawCommentIDs: commentIDs.append(id[0])
     for id in commentIDs:
-        commentInfo = get_comment_details(cursor, db, id)
+        commentInfo = get_comment_details(cursor, db, id)[0]
         item = {
         "commentID"       : id,
         "commentUsername" : commentInfo[2],
@@ -707,6 +707,17 @@ def change_like():
     add_dislike(cursor, db, postID, user)
     create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Dislike")
     return "done"
+
+@app.route("/postComment")
+def post_comment():
+    db, cursor = connectdb()
+    user = session["username"]
+    comment = request.args.get("text")
+    postID = request.args.get("postID")
+    add_comment(cursor, db, postID, user, comment)
+    create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Comment")
+    return "done"
+
 
 if __name__ == '__main__':
     app.run(debug = True)

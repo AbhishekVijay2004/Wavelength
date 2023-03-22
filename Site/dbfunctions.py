@@ -3,8 +3,8 @@ import mysql.connector
 def connectdb():
 	db = mysql.connector.connect(
 		host="dbhost.cs.man.ac.uk",
-		user="r01479mo",
-		password="dbPass+man",
+		user="u38792zm",
+		password="databasepassword",
 		database="2022_comp10120_z11"
 		)
 
@@ -199,6 +199,7 @@ def get_comment_details(cursor, db, commentid, param='*'):
 			SELECT commentID, postID, username, commentText, DATE_FORMAT(createdAt, '%d/%m/%y %H:%i') FROM comments
 			WHERE (commentID = %s)"""
 		cursor.execute(sql, (commentid, ))
+		result = cursor.fetchall()
 		return result
 
 def get_post_comments(cursor, db, postID):
