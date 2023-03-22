@@ -74,7 +74,7 @@ def post():
 
 @app.route('/friends')
 def friends():
-    print(session)
+    print("friendsPage")
     db, cursor = connectdb()
 
     followers = get_follower_accounts(cursor, session["username"])
@@ -724,16 +724,12 @@ def add_friend():
 
 @app.route("/unfollow")
 def unfollow():
-    print("unfollow")
-    db, cursor = connectdb()
     friend_name = request.args.get('unfollow')
-    print(friend_name)
     currentUser = session["username"]
+    db, cursor = connectdb()
     delete_follow(cursor, db, currentUser, friend_name)
-    followers = get_follower_accounts(cursor, session["username"])
-    user_details = [get_user_details(cursor, username) for username in followers]
-    print("Hello")
-    print(user_details)
+    delete_follow(cursor, db, friend_name, currentUser )
+    print(get_following_accounts(cursor, currentUser))
     db.commit()
     db.close()
     return redirect(url_for("friends"))
