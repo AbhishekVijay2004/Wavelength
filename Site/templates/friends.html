@@ -4,14 +4,16 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'css/friends.css') }}">
-{% endblock %}
+{% endblock %} 
 
 {% block content%}
 <div class="main-content content-friends">
-    <div class="clsScroll hideScroll">
+    <div class="clsScroll" id="hideScroll">
       <center>
         <h1 class="content-title">Friends</h1>
+        <form method = 'POST' action="/friendSearch">
         <input class="single-line-text-entry" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search For New Friends...'">
+        </form>
       </center>
       {% for i in range(usernames | length) %}
       <div class="profile-element">
@@ -22,23 +24,16 @@
           <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>
           <p class="profile-text-details">Likes: {{ users_num_likes[i] }}</p>
           <p class="profile-text-details">Comments: {{ users_num_comments[i] }}</p>
-          <div><button onclick="Unfollow('{{ usernames[i] }}')" class="button" style="font-size: 1.0vw;">Unfollow</button></div>
-          </form>
+          <div>
+            <button onclick="Unfollow('{{ usernames[i] }}')" class="button" style="font-size: 1.0vw;">Unfollow</button>
+            </form>
+          </div>
         </div>
       </div>
       {% endfor %}
       <script>
         function navigateToExternalProfilePage(username) {
-          $.ajax({
-            url: '/externalProfile',
-            data: {username: username},
-            type: 'GET',
-            success: function(data) {
-            },
-            error: function(error) {
-            console.error(error);
-            }
-          });
+          window.location.href = '/externalProfile?username=' + username;
         }
 
         function Unfollow(username) {
@@ -50,8 +45,4 @@
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script> -->
-{% endblock %} 
-
+{% endblock %}

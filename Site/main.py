@@ -734,15 +734,20 @@ def add_friend():
 
 @app.route("/unfollow")
 def unfollow():
-    friend_name = request.args.get('unfollow')
-    currentUser = session["username"]
+    print("unfollow")
     db, cursor = connectdb()
+    friend_name = request.args.get('unfollow')
+    print(friend_name)
+    currentUser = session["username"]
     delete_follow(cursor, db, currentUser, friend_name)
-    delete_follow(cursor, db, friend_name, currentUser )
-    print(get_following_accounts(cursor, currentUser))
+    followers = get_follower_accounts(cursor, session["username"])
+    user_details = [get_user_details(cursor, username) for username in followers]
+    print("Hello")
+    print(user_details)
     db.commit()
     db.close()
     return redirect(url_for("friends"))
+
 """
 @app.route('/getNotifications')
 def get_notifications():
