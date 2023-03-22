@@ -9,7 +9,7 @@
 
 {% block content%}
 <div id="pageID" style="display:none">settings</div>
-<div class="main-content clsScroll" id="hideScroll">
+<div class="main-content clsScroll hideScroll">
     <h1 class="content-title">General</h1>
     <div class="settings-container">
       <div class="setting">
@@ -112,7 +112,7 @@
     <div class="spcontainer" style="margin-top: 0vw; margin-bottom: 1vw; margin-left: 4vw; height: 5vw; width: 40vw;">
       <div class="spplayer" style="height:5vw;">
         <div class="spblurrer">
-          <div class="sprepeating-image" id="resultBackground" style="background-image:url('{{ image }}')"></div>  
+          <div class="sprepeating-image" id="resultBackground" style="background-image:url('{{ image }}')"></div>
         </div>
       </div>
       <div class="spsongInfo" style="height:5vw;">
@@ -121,7 +121,7 @@
           <div class="spsongTitle" id="resultTitle">{{ title }}</div>
           <div class="spartistTitle" id="resultArtist">{{ artist }}</div>
         </div>
-        <div id="spAudiocontainer">    
+        <div id="spAudiocontainer">
           <audio class="audio-player" id="resultAudio" src="{{ song }}"></audio>
           <div class="spsongCircle"></div>
           <button class="spplay-pause-btn" style="height: 4vw; width: 4vw; border: solid 0.1vw var(--background-highlight-1);"></button>
