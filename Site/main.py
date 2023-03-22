@@ -74,7 +74,7 @@ def post():
 
 @app.route('/friends')
 def friends():
-    print(session)
+    print("friendsPage")
     db, cursor = connectdb()
 
     followers = get_follower_accounts(cursor, session["username"])
@@ -102,7 +102,6 @@ def friends():
 
 @app.route('/profile')
 def profile():
-    print(session)
     db, cursor = connectdb()
 
     # noFollowing = get_num_followers(cursor, db, username)
@@ -723,6 +722,28 @@ def post_comment():
 if __name__ == '__main__':
     app.run(debug = True)
 
+@app.route("/friendSearch")
+def add_friend():
+    username = request.args.get("user")
+    following = request.args.get("follower")
+    db, cursor = connectdb()
+    add_follow(cursor, db, username, following)
+    db.commit()
+    db.close()
+    return "added friend"
+
+
+@app.route("/unfollow")
+def unfollow():
+    friend_name = request.args.get('unfollow')
+    currentUser = session["username"]
+    db, cursor = connectdb()
+    delete_follow(cursor, db, currentUser, friend_name)
+    delete_follow(cursor, db, friend_name, currentUser )
+    print(get_following_accounts(cursor, currentUser))
+    db.commit()
+    db.close()
+    return redirect(url_for("friends"))
 """
 @app.route('/getNotifications')
 def get_notifications():

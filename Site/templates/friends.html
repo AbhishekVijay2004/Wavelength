@@ -45,7 +45,7 @@
           <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>
           <p class="profile-text-details">Likes: {{ users_num_likes[i] }}</p>
           <p class="profile-text-details">Comments: {{ users_num_comments[i] }}</p>
-          <div><button type="submit" class="button" style="font-size: 1.0vw;">Unfollow</button></div>
+          <div><button onclick="Unfollow('{{ usernames[i] }}')" class="button" style="font-size: 1.0vw;">Unfollow</button></div>
           </form>
         </div>
       </div>
@@ -54,18 +54,18 @@
         function navigateToExternalProfilePage(username) {
           window.location.href = '/externalProfile?username=' + username;
         }
+
+        function Unfollow(username) {
+          window.location.href = "/unfollow?unfollow=" + username;
+        }
       </script>
     </div>
   </div>
 {% endblock %}
 
 {% block javascript %}
-<<<<<<< HEAD
-{% endblock %}
-=======
 <script type="text/javascript" src="{{url_for('static', filename = 'js/show-search.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script> -->
 {% endblock %} 
 
->>>>>>> friends-dropdown
