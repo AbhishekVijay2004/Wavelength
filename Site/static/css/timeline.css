@@ -145,6 +145,12 @@ height:20px;
 	color:var(--text-colour);
 	line-height:3vw;
 	margin-left:0.5vw;
+	transition: 0.25s;
+}
+.profileName:hover {
+	color: var(--primary-highlight-2);
+	cursor: pointer;
+	transition: 0.25s;
 }
 .profilePic {
 	display:flex;
@@ -152,10 +158,15 @@ height:20px;
 	width:3vw;
 	height:3vw;
 	border-radius:50%;
-	border-color:var(--primary-highlight-2);
-  border:2px solid;
+	border: solid 0.15vw var(--primary-colour);
+	cursor: pointer;
+	transition: border-color 0.25s;
 }
-
+.profilePic:hover{
+	border-color: var(--primary-highlight-2);
+	cursor: pointer;
+	transition: border-color 0.25s;
+  }
 .commentText {
 	background-color: var(--background-highlight-2);
 	color: var(--text-colour);
@@ -164,7 +175,7 @@ height:20px;
 	padding:5px;
 	min-height: 50px;
 	min-width:20%;
-font-size: 1vw;
+	font-size: 1vw;
 	text-align:left;
 }
 
@@ -188,8 +199,8 @@ font-size: 1vw;
 .commentSubmitButton {
   color:var(--text-colour);
   cursor: pointer;
-  background-color: var(--background-colour);
-  border: solid 0.2vw var(--primary-colour);
+  background-color: var(--background-highlight-1);
+  border: solid 0.1vw var(--primary-colour);
   border-radius: 1rem;
   margin-left:auto;
 }
