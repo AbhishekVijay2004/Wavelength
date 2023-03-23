@@ -13,8 +13,8 @@ def connectdb():
 
 
 def create_user(cursor, db, username, password, email, profilePic=None, bio=None, topsong=None, displayname=None):
-	if displayname == None:
-		displayname = username
+	# if displayname == None:
+	# 	displayname = username
 	sql = """
 		INSERT INTO users (username, password, profilePic, email, bio, topsong, displayname)
 		VALUES (%s, %s, %s, %s, %s, %s, %s)"""
