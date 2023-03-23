@@ -3,7 +3,6 @@ const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
 const progress = document.getElementsByClassName('spsongCircle')[0];
 
 playPauseBtn.addEventListener('click', function() {
-    let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode) + offset;
   
   const audioPlayer = document.getElementsByClassName('audio-player');
   const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
