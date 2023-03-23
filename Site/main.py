@@ -101,7 +101,7 @@ def friends():
 @app.route("/friendSearch/<query>")
 def add_friend(query):
     db, cursor = connectdb()
-    searchResults = search_for_user(cursor, query)
+    searchResults = search_for_user(cursor, query, session['username'])
 
     usernameResults = [user_info[0] for user_info in searchResults]
     profile_picResults = [user_info[2] for user_info in searchResults]

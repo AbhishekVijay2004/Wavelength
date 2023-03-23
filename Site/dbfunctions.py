@@ -312,13 +312,14 @@ def delete_notification(cursor, db, notificationID):
 	cursor.execute(sql, (notificationID, ))
 	db.commit()
 
-def search_for_user(cursor, query):
+def search_for_user(cursor, query, username):
 	sql = """
-		SELECT * FROM users
-		WHERE (username like %s)
+		SELECT users.* FROM users
+		LEFT JOIN following ON users.username = following.following AND following.user = %s
+		WHERE (username like %s AND following.following IS NULL)
 		ORDER BY (username)
 		LIMIT 20"""
-	cursor.execute(sql, (query + '%', ))
+	cursor.execute(sql, (username, query + '%'))
 	result = cursor.fetchall()
 	return result
 
