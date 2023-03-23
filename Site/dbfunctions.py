@@ -316,10 +316,10 @@ def search_for_user(cursor, query, username):
 	sql = """
 		SELECT users.* FROM users
 		LEFT JOIN following ON users.username = following.following AND following.user = %s
-		WHERE (username like %s AND following.following IS NULL)
+		WHERE (username like %s AND following.following IS NULL AND username != %s)
 		ORDER BY (username)
 		LIMIT 20"""
-	cursor.execute(sql, (username, query + '%'))
+	cursor.execute(sql, (username, query + '%', username))
 	result = cursor.fetchall()
 	return result
 
