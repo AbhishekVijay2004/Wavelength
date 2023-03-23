@@ -188,12 +188,20 @@ def get_comment_details(cursor, db, commentid, param='*'):
 	if param not in ['username', 'postID', 'commentText', 'createdAt', '*']:
 		return 'invalid query'
 	elif param != '*':
-		sql = f"""
-			SELECT {param} from comments
-			WHERE (commentID = %s)"""
-		cursor.execute(sql, (commentid, ))
-		result = cursor.fetchone()
-		return result
+		if param == "createdAt":
+			sql = f"""
+				SELECT DATE_FORMAT(createdAt, '%d/%m/%y %H:%i') from comments
+				WHERE (commentID = %s)"""
+			cursor.execute(sql, (commentid, ))
+			result = cursor.fetchone()
+			return result
+		else:
+			sql = f"""
+				SELECT {param} from comments
+				WHERE (commentID = %s)"""
+			cursor.execute(sql, (commentid, ))
+			result = cursor.fetchone()
+			return result
 	else:
 		sql = """
 			SELECT commentID, postID, username, commentText, DATE_FORMAT(createdAt, '%d/%m/%y %H:%i') FROM comments
