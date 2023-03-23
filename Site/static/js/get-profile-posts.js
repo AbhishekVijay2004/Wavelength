@@ -15,6 +15,7 @@ $.ajax({
     }
 
     endOfPosts();
+    onResizeOrLoad();
   },
   error: function(error) {
   console.error(error);
