@@ -26,7 +26,7 @@ const pSBC=(p,c0,c1,l)=>{
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	} //converts lots of different ways of representing colours to hex
-	
+
 
 //	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
 //	scrollContent.addEventListener('scroll', () => {
@@ -39,7 +39,7 @@ const pSBC=(p,c0,c1,l)=>{
 //		} else {
 //			console.log("sjbfd");
 //		}
-//			
+//
 //		}
 //	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
 
@@ -114,7 +114,7 @@ const pSBC=(p,c0,c1,l)=>{
       <div class = "groupHorizontal">
 		<div class="profilePic" style="background-image:url('`+postAuthorPic+`');" onclick="`+postAuthorLink+`">
 		</div>
-      	<div class="profileName" onclick="`+postAuthorLink+`">`+postAuthorName+`</div>
+      	<div class="profileName" onclick="navigateToProfilePage('`+postAuthorLink+`')">`+postAuthorName+`</div>
 
       	 <div class="time">`+postTime+`</div>
       </div>
@@ -134,7 +134,7 @@ footerhtml = `
 					<div class = "count">`+posReactCount+`</div>
 				</div>
 				`;
-				}				
+				}
 				if (parseInt(dislikesOn)) {
 					footerhtml += `
 				<div class="groupHorizontal">
