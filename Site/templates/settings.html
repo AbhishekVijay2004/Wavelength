@@ -109,7 +109,9 @@
         </div>
       </div>
     </div>
-    <div class="spcontainer" style="margin-top: 0vw; margin-bottom: 1vw; margin-left: 4vw; height: 5vw; width: 40vw;">
+    <center><button type = "submit" class="button">Save</button></center>
+  
+  <div class="spcontainer" style="margin-top: 0vw; margin-bottom: 1vw; margin-left: 4vw; height: 5vw; width: 40vw;">
       <div class="spplayer" style="height:5vw;">
         <div class="spblurrer">
           <div class="sprepeating-image" id="resultBackground" style="background-image:url('{{ image }}')"></div>
@@ -124,12 +126,11 @@
         <div id="spAudiocontainer">
           <audio class="audio-player" id="resultAudio" src="{{ song }}"></audio>
           <div class="spsongCircle"></div>
-          <button class="spplay-pause-btn" style="height: 4vw; width: 4vw; border: solid 0.1vw var(--background-highlight-1);"></button>
+          <div class="spplay-pause-btn" style="height: 4vw; width: 4vw; border: solid 0.1vw var(--background-highlight-1);"></div>
         </div>
       </div>
     </div>
-    <center><button type = "submit" class="button">Save</button></center>
-  </div>
+    </div>
 {% endblock %}
 
 {% block overlay %}
