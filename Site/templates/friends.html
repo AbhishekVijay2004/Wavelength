@@ -12,37 +12,33 @@
       <center>
         <h1 class="content-title">Friends</h1>
         <form method = 'POST' action="/friendSearch">
-        <input class="single-line-text-entry" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''" onblur="this.placeholder = 'Search For New Friends...'">
+        <input class="single-line-text-entry" id="search-box" type="text" placeholder="Search For New Friends..." onfocus="this.placeholder=''" onblur="this.placeholder='Search For New Friends...'" onkeyup="friendSearching()" onkeydown="return event.key != 'Enter';">
         </form>
       </center>
-      {% for i in range(usernames | length) %}
-      <div class="profile-element">
-        <div class="content-container">
-          <img class="profile-image" src="{{ profile_pics[i] }}"></img>
-          <p class="profile-text-header" onclick="navigateToExternalProfilePage('{{ usernames[i] }}')">@{{ usernames[i] }}</p>
-          <p class="profile-text-details">Friends: {{ users_num_followers[i] }}</p>
-          <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>
-          <p class="profile-text-details">Likes: {{ users_num_likes[i] }}</p>
-          <p class="profile-text-details">Comments: {{ users_num_comments[i] }}</p>
-          <div>
-            <button onclick="Unfollow('{{ usernames[i] }}')" class="button" style="font-size: 1.0vw;">Unfollow</button>
-            </form>
+      <div id="friendSearch" style="display:block;">
+        {% for i in range(usernames | length) %}
+        <div class="profile-element">
+          <div class="content-container">
+            <img class="profile-image" src="{{ profile_pics[i] }}"></img>
+            <p class="profile-text-header" onclick="navigateToProfilePage('{{ usernames[i] }}')">@{{ usernames[i] }}</p>
+            <p class="profile-text-details">Friends: {{ users_num_followers[i] }}</p>
+            <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>
+            <p class="profile-text-details">Likes: {{ users_num_likes[i] }}</p>
+            <p class="profile-text-details">Comments: {{ users_num_comments[i] }}</p>
+            <div>
+              <img class="unfollow" onclick="unfollowProfile('{{ usernames[i] }}')">
+            </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-      <script>
-        function navigateToExternalProfilePage(username) {
-          window.location.href = '/externalProfile?username=' + username;
-        }
-
-        function Unfollow(username) {
-          window.location.href = "/unfollow?unfollow=" + username;
-        }
-      </script>
+      <div id="searchResults" style="display:block;">
+      </div>
     </div>
   </div>
 {% endblock %}
 
 {% block javascript %}
+<script type="text/javascript" src="{{url_for('static', filename = 'js/friendsPage.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}

@@ -14,7 +14,7 @@
   <div>
     <form method = 'POST' action="/post">
     <input id="selectedSongID" type="text" style="display:none" name="songID" value="{{ new_song }}">
-    <input class="single-line-text-entry" id="search-box" type="text" name="song" value="{{ song }}" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()">
+    <input class="single-line-text-entry" id="search-box" type="text" name="song" value="{{ song }}" placeholder="Song" onfocus="this.placeholder='';ShowSearch()" onblur="this.placeholder = 'Song';HideSearch()" onkeyup="Search()" onkeydown="return event.key != 'Enter';">
     <div id="search-container">
       <div style="margin-top:1vw;"></div>
       <div class="search-result" id="search-result-0">

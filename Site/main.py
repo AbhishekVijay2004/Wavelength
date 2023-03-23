@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash
-import spotipy, re, mysql.connector, os
+from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash, make_response
+import spotipy, re, mysql.connector, os, json
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 from dbfunctions import *
@@ -77,7 +77,7 @@ def friends():
     print("friendsPage")
     db, cursor = connectdb()
 
-    followers = get_follower_accounts(cursor, session["username"])
+    followers = get_following_accounts(cursor, session["username"])
     user_details = [get_user_details(cursor, username) for username in followers]
     print(user_details)
 
@@ -90,8 +90,9 @@ def friends():
     users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
     users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
 
-    # add_follow(cursor, db, "zak.mitchell", session["username"])
 
+
+    # add_follow(cursor, db, "zak.mitchell", session["username"])
     db.commit()
     db.close()
     return render_template('friends.html',
@@ -100,11 +101,56 @@ def friends():
                            users_num_posts=users_num_posts, users_num_likes=users_num_likes,
                            users_num_comments=users_num_comments)
 
+@app.route("/friendSearch/<query>")
+def add_friend(query):
+    db, cursor = connectdb()
+    searchResults = search_for_user(cursor, query)
+
+    usernameResults = [user_info[0] for user_info in searchResults]
+    profile_picResults = [user_info[2] for user_info in searchResults]
+    users_num_followerResults = [get_num_followers(cursor, username) for username in usernameResults]
+    users_num_postResults = [get_num_posts(cursor, username) for username in usernameResults]
+    users_num_likeResults = [get_num_likes_received(cursor, username) for username in usernameResults]
+    users_num_commentResults = [get_num_comments_received(cursor, username) for username in usernameResults]
+
+    db.commit()
+    db.close()
+    # print(searchResults)
+    # return "Yes"
+    data = {
+        "usernameResults": usernameResults,
+        "profile_picResults": profile_picResults,
+        "users_num_followerResults": users_num_followerResults,
+        "users_num_postResults": users_num_postResults,
+        "users_num_likeResults": users_num_likeResults,
+        "users_num_commentResults": users_num_commentResults
+    }
+    json_data = json.dumps(data)
+    response = make_response(json_data)
+
+    return response
+
+@app.route("/friendSearch/follow/<query>")
+def follow(query):
+    db, cursor = connectdb()
+    add_follow(cursor, db, session["username"], query)
+    db.commit()
+    db.close()
+    return "Followed User"
+
+@app.route("/friendSearch/unfollow/<query>")
+def unfollow(query):
+    db, cursor = connectdb()
+    delete_follow(cursor, db, session["username"], query)
+    db.commit()
+    db.close()
+    return "Unfollowed User"
+
 @app.route('/profile')
 def profile():
     db, cursor = connectdb()
-
-    # noFollowing = get_num_followers(cursor, db, username)
+    
+    # noFollowing = get_num_following(cursor, db, username)
     noFollowers = get_num_followers(cursor, session["username"])
     noPosts = get_num_posts(cursor, session["username"])
     noLikes = get_num_likes_received(cursor, session["username"])
@@ -123,18 +169,21 @@ def profile():
                         image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                         noLikes=noLikes, noComments=noComments)
 
-@app.route('/externalProfile', methods = ['GET', 'POST'])
-def friendProfile():
+@app.route('/profile/<query>', methods = ['GET', 'POST'])
+def friendProfile(query):
     print(session)
     db, cursor = connectdb()
+    if (query == "undefined"):
+        return redirect(url_for('profile'))
 
-    friend_name = request.args.get('username')
+    friend_name = query
     display_name = get_user_detail(cursor, friend_name, "displayname")
-    profile_pic = get_user_detail(cursor, friend_name, "profilePic")
+    profile_pic = str("/../" + get_user_detail(cursor, friend_name, "profilePic"))
+    print(profile_pic)
     bio = get_user_detail(cursor, friend_name, "bio")
     topSong = get_user_detail(cursor, friend_name, "topsong")
 
-    # noFollowing = get_num_followers(cursor, db, username)
+    # noFollowing = get_num_following(cursor, db, username)
     noFollowers = get_num_followers(cursor, friend_name)
     noPosts = get_num_posts(cursor, friend_name)
     noLikes = get_num_likes_received(cursor, friend_name)
@@ -720,33 +769,6 @@ def post_comment():
 
 if __name__ == '__main__':
     app.run(debug = True)
-
-@app.route("/friendSearch")
-def add_friend():
-    username = request.args.get("user")
-    following = request.args.get("follower")
-    db, cursor = connectdb()
-    add_follow(cursor, db, username, following)
-    db.commit()
-    db.close()
-    return "added friend"
-
-
-@app.route("/unfollow")
-def unfollow():
-    print("unfollow")
-    db, cursor = connectdb()
-    friend_name = request.args.get('unfollow')
-    print(friend_name)
-    currentUser = session["username"]
-    delete_follow(cursor, db, currentUser, friend_name)
-    followers = get_follower_accounts(cursor, session["username"])
-    user_details = [get_user_details(cursor, username) for username in followers]
-    print("Hello")
-    print(user_details)
-    db.commit()
-    db.close()
-    return redirect(url_for("friends"))
 
 """
 @app.route('/getNotifications')
