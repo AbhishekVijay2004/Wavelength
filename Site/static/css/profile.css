@@ -29,13 +29,19 @@
 }
 .text-container{
   height: 8vw;
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .display-name{
   margin: 0;
-  font-size: 2vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  font-size: 1.5vw;
+  max-width: 100%;
+  font-size-adjust: auto;
   text-align: left;
   color: white;
 }
@@ -43,6 +49,9 @@
   margin: 0;
   margin-top: 0.2vw;
   font-size: 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
   text-align: left;
   color: var(--primary-colour);
 }
