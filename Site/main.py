@@ -209,6 +209,7 @@ def friendProfile(query):
     profile_pic = str("/../" + get_user_detail(cursor, friend_name, "profilePic"))
     bio = get_user_detail(cursor, friend_name, "bio")
     topSong = get_user_detail(cursor, friend_name, "topsong")
+    print(friend_name, display_name, bio)
 
     # noFollowing = get_num_following(cursor, db, username)
     noFollowers = get_num_followers(cursor, friend_name)
