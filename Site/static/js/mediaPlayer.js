@@ -60,5 +60,11 @@ function onResizeOrLoad(e) {
             break;
           }
           loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
+          if (loop2 ==false) {
+            arrayOfMusic[i].style.fontSize = Math.min(parseInt(arrayOfMusic[i].style.fontSize.substring(0,2)),bigvw) - 2 + "px";
+          arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize = Math.min(parseInt(arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize.substring(0,2)),smallvw) - 1 + "px";
+          
+          }
         } 
       }
+    }
