@@ -23,7 +23,7 @@
         {% for i in range(usernames | length) %}
         <div class="profile-element">
           <div class="content-container">
-            <img class="profile-image" src="{{ profile_pics[i] }}"></img>
+            <img class="profile-image" src="{{ profile_pics[i] }}" onclick="navigateToProfilePage('{{ usernames[i] }}')"></img>
             <p class="profile-text-header" onclick="navigateToProfilePage('{{ usernames[i] }}')">@{{ usernames[i] }}</p>
             <p class="profile-text-details">Friends: {{ users_num_followers[i] }}</p>
             <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>

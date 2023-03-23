@@ -152,8 +152,15 @@
 }
 #pwdCheck {
   font-size: 1vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .25vw;
 }
 #pwdCheckbox{
+  height: 1vw;
+  width: 1vw;
   accent-color: var(--primary-colour);
   cursor: pointer;
 }

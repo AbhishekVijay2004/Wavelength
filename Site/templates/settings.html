@@ -140,6 +140,10 @@
   <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password1" placeholder="Password" name="password1" onfocus="this.placeholder=''" onblur="this.placeholder='Password'">
   <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password2" placeholder="New Password" name="password2" onfocus="this.placeholder=''" onblur="this.placeholder='New Password'">
   <input class="single-line-text-entry" style="margin-left: 0;" type="password" id="password3" placeholder="Repeat New Password" name="password3" onfocus="this.placeholder=''" onblur="this.placeholder='Repeat New Password'">
+  <div id="pwdCheck" style="color: white;">
+    <input id="pwdCheckbox" type="checkbox" onclick="togglePasswordVisibility()"> Show password
+  </div>
+  <br>
   <div><button type="submit" class="button" style="font-size: 1.1vw;">Save</button></div>
   </form>
   <img class='overlay-close' onclick="overlayOff()">
@@ -161,4 +165,5 @@ function logout() {
 <script type="text/javascript" src="{{url_for('static', filename = 'js/mediaPlayer.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/characterCount.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/occupyProfilePic.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/passwordVisibility.js')}}"></script>
 {% endblock %}

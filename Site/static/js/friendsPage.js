@@ -20,7 +20,7 @@ function displaySearchResults(string) {
     for (var i = 0; i < data["usernameResults"].length; i++) {
         html += '<div class="profile-element">';
         html += '<div class="content-container">';
-        html += '<img class="profile-image" src="' + data.profile_picResults[i] + '"></img>';
+        html += '<img class="profile-image" src="' + data.profile_picResults[i] + '" onclick="navigateToProfilePage(\'' + data.usernameResults[i] + '\')"></img>';
         html += '<p class="profile-text-header" onclick="navigateToProfilePage(\'' + data.usernameResults[i] + '\')">@' + data.usernameResults[i] + '</p>';
         html += '<p class="profile-text-details">Friends: ' + data.users_num_followerResults[i] + '</p>';
         html += '<p class="profile-text-details">Posts: ' + data.users_num_postResults[i] + '</p>';

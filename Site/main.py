@@ -26,7 +26,14 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 @app.route('/')
 def index():
     if "username" in session:
-        return redirect(url_for('home'))
+        if (session["topSong"] == None):
+            return redirect(url_for('setup'))
+        elif (session["bio"] == None):
+            return redirect(url_for('setup'))
+        elif (session["displayName"] == None):
+            return redirect(url_for('setup'))
+        else:
+            return redirect(url_for('home'))
     else:
         return redirect(url_for('signOn'))
 
@@ -74,29 +81,32 @@ def post():
 
 @app.route('/friends')
 def friends():
-    print(session)
-    db, cursor = connectdb()
+    try:
+        print(session)
+        db, cursor = connectdb()
 
-    followers = get_following_accounts(cursor, session["username"])
-    user_details = [get_user_details(cursor, username) for username in followers]
+        followers = get_following_accounts(cursor, session["username"])
+        user_details = [get_user_details(cursor, username) for username in followers]
 
-    usernames = [user_info[0] for user_info in user_details]
-    # display_names = [user_info[6] for user_info in user_details]
-    profile_pics = [user_info[2] for user_info in user_details]
+        usernames = [user_info[0] for user_info in user_details]
+        # display_names = [user_info[6] for user_info in user_details]
+        profile_pics = [user_info[2] for user_info in user_details]
 
-    users_num_followers = [get_num_followers(cursor, username) for username in usernames]
-    users_num_posts = [get_num_posts(cursor, username) for username in usernames]
-    users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
-    users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
+        users_num_followers = [get_num_followers(cursor, username) for username in usernames]
+        users_num_posts = [get_num_posts(cursor, username) for username in usernames]
+        users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
+        users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
 
-    # add_follow(cursor, db, "zak.mitchell", session["username"])
-    db.commit()
-    db.close()
-    return render_template('friends.html',
-                           usernames=usernames, profile_pics=profile_pics,
-                           users_num_followers=users_num_followers,
-                           users_num_posts=users_num_posts, users_num_likes=users_num_likes,
-                           users_num_comments=users_num_comments)
+        # add_follow(cursor, db, "zak.mitchell", session["username"])
+        db.commit()
+        db.close()
+        return render_template('friends.html',
+                            usernames=usernames, profile_pics=profile_pics,
+                            users_num_followers=users_num_followers,
+                            users_num_posts=users_num_posts, users_num_likes=users_num_likes,
+                            users_num_comments=users_num_comments)
+    except KeyError:
+        return redirect(url_for('signOn'))
 
 @app.route("/friendSearch/<query>")
 def add_friend(query):
@@ -147,27 +157,42 @@ def unfollow(query):
 
 @app.route('/profile')
 def profile():
-    db, cursor = connectdb()
+    if "username" in session:
+        if (session["topSong"] == None):
+            return redirect(url_for('setup'))
+        elif (session["bio"] == None):
+            return redirect(url_for('setup'))
+        elif (session["displayName"] == None):
+            return redirect(url_for('setup'))
+        else:
+            pass
+    else:
+        return redirect(url_for('signOn'))
     
-    # noFollowing = get_num_following(cursor, db, username)
-    noFollowers = get_num_followers(cursor, session["username"])
-    noPosts = get_num_posts(cursor, session["username"])
-    noLikes = get_num_likes_received(cursor, session["username"])
-    noComments = get_num_comments_received(cursor, session["username"])
-    db.close()
+    try:
+        db, cursor = connectdb()
+        
+        # noFollowing = get_num_following(cursor, db, username)
+        noFollowers = get_num_followers(cursor, session["username"])
+        noPosts = get_num_posts(cursor, session["username"])
+        noLikes = get_num_likes_received(cursor, session["username"])
+        noComments = get_num_comments_received(cursor, session["username"])
+        db.close()
 
-    song_name = get_track_title(sp, session["topSong"])
-    song_url = get_track_preview(sp, session["topSong"])
-    artist_name = get_track_artist_name(sp, session["topSong"])
-    album_image = get_track_image(sp, session["topSong"])
+        song_name = get_track_title(sp, session["topSong"])
+        song_url = get_track_preview(sp, session["topSong"])
+        artist_name = get_track_artist_name(sp, session["topSong"])
+        album_image = get_track_image(sp, session["topSong"])
 
-    return render_template('profile.html',
-                        username=session["username"],
-                        display_name=session["displayName"], profile_pic=session["profilePic"],
-                        bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
-                        image=album_image, noFollowers=noFollowers, noPosts=noPosts,
-                        noLikes=noLikes, noComments=noComments)
-
+        return render_template('profile.html',
+                            username=session["username"],
+                            display_name=session["displayName"], profile_pic=session["profilePic"],
+                            bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                            image=album_image, noFollowers=noFollowers, noPosts=noPosts,
+                            noLikes=noLikes, noComments=noComments)
+    except KeyError:
+        return redirect(url_for('signOn'))
+    
 @app.route('/profile/<query>', methods = ['GET', 'POST'])
 def friendProfile(query):
     print(session)
@@ -203,131 +228,144 @@ def friendProfile(query):
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
-    print(session)
-    song_name = get_track_title(sp, session["topSong"])
-    song_url = get_track_preview(sp, session["topSong"])
-    artist_name = get_track_artist_name(sp, session["topSong"])
-    album_image = get_track_image(sp, session["topSong"])
-    cachedList = []
-    change = False
+    if "username" in session:
+        if (session["topSong"] == None):
+            return redirect(url_for('setup'))
+        elif (session["bio"] == None):
+            return redirect(url_for('setup'))
+        elif (session["displayName"] == None):
+            return redirect(url_for('setup'))
+        else:
+            pass
+    else:
+        return redirect(url_for('signOn'))
+    try: 
+        print(session)
+        song_name = get_track_title(sp, session["topSong"])
+        song_url = get_track_preview(sp, session["topSong"])
+        artist_name = get_track_artist_name(sp, session["topSong"])
+        album_image = get_track_image(sp, session["topSong"])
+        cachedList = []
+        change = False
 
-    if request.method == 'POST':
-        db, cursor = connectdb()
-        email = request.form['email']
-        display_name = request.form['display_name']
-        bio = request.form['bio']
-        top_song = request.form['songID']
-        regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
+        if request.method == 'POST':
+            db, cursor = connectdb()
+            email = request.form['email']
+            display_name = request.form['display_name']
+            bio = request.form['bio']
+            top_song = request.form['songID']
+            regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,5})$"
 
-        # Password Changing
-        oldPassword = request.form['password1']
-        newPassword = request.form['password2']
-        passConfirm = request.form['password3']
-        if (len(oldPassword) >= 1):
-            change = True
-            try:
-                if (ph.verify(session["password"], oldPassword)):
-                    if (len(newPassword) < 7):
-                        flash("New password must be over 7 characters", category="error")
-                        print("Error")
-                    elif (newPassword == session["username"]):
-                        flash("Password and username must not match", category="error")
-                        print("Error")
-                    elif (newPassword != passConfirm):
-                        flash("Passwords do not match", category="error")
-                        print("Error")
-                    else:
-                        hashed_password = ph.hash(newPassword)
-                        hashed_password = hashed_password[:199]
-                        alter_user(cursor, db, session["username"], "password", hashed_password)
+            # Password Changing
+            oldPassword = request.form['password1']
+            newPassword = request.form['password2']
+            passConfirm = request.form['password3']
+            if (len(oldPassword) >= 1):
+                change = True
+                try:
+                    if (ph.verify(session["password"], oldPassword)):
+                        if (len(newPassword) < 7):
+                            flash("New password must be over 7 characters", category="error")
+                            print("Error")
+                        elif (newPassword == session["username"]):
+                            flash("Password and username must not match", category="error")
+                            print("Error")
+                        elif (newPassword != passConfirm):
+                            flash("Passwords do not match", category="error")
+                            print("Error")
+                        else:
+                            hashed_password = ph.hash(newPassword)
+                            hashed_password = hashed_password[:199]
+                            alter_user(cursor, db, session["username"], "password", hashed_password)
+                            db.commit()
+                            db.close()
+                            session["password"] = hashed_password
+                            flash("Password updated", category="success")
+                            print("Success")
+                except:
+                    flash("Password is incorrect", category="error")
+                    print("Error")
+
+            # Profile Picture Changing
+            if (change == False):
+                try:
+                    profile_pic = request.files['profile_pic']
+                    if (profile_pic.filename != ''):
+                        filename = secure_filename(profile_pic.filename)
+                        profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                        alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
+                        change = True
+                        flash("Profile picture updated", category="success")
+                        print("Success")
                         db.commit()
                         db.close()
-                        session["password"] = hashed_password
-                        flash("Password updated", category="success")
-                        print("Success")
-            except:
-                flash("Password is incorrect", category="error")
-                print("Error")
+                except:
+                    pass
 
-        # Profile Picture Changing
-        if (change == False):
-            try:
-                profile_pic = request.files['profile_pic']
-                if (profile_pic.filename != ''):
-                    filename = secure_filename(profile_pic.filename)
-                    profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
-                    change = True
-                    flash("Profile picture updated", category="success")
-                    print("Success")
-                    db.commit()
-                    db.close()
-            except:
+            # Form Changing
+            if (change == True):
+                cachedList = [email, display_name, bio, top_song]
                 pass
-
-        # Form Changing
-        if (change == True):
-            cachedList = [email, display_name, bio, top_song]
-            pass
-        elif not (re.search(regex,email)):
-            flash("Please enter a valid email", category="error")
-            print("Error")
-        elif (len(display_name) < 1):
-            flash("Please enter a display name", category="error")
-            print("Error")
-        elif (len(bio) < 1):
-            flash("Please enter a bio", category="error")
-            print("Error")
-        elif (len(top_song) < 1):
-            flash("Please select a top song", category="error")
-            print("Error")
-        else:
-            if (email != session["email"] and get_user_details_by_email(cursor, email)):
-                flash("Email already taken", category="error")
+            elif not (re.search(regex,email)):
+                flash("Please enter a valid email", category="error")
+                print("Error")
+            elif (len(display_name) < 1):
+                flash("Please enter a display name", category="error")
+                print("Error")
+            elif (len(bio) < 1):
+                flash("Please enter a bio", category="error")
+                print("Error")
+            elif (len(top_song) < 1):
+                flash("Please select a top song", category="error")
                 print("Error")
             else:
-                if (session["email"] != email):
-                    alter_user(cursor, db, session["username"], "email", email)
-                    session["email"] = email
-                if (session["bio"] != bio):
-                    alter_user(cursor, db, session["username"], "bio", bio)
-                    session["bio"] = bio
-                if (session["topSong"] != top_song):
-                    alter_user(cursor, db, session["username"], "topSong", top_song)
-                    session["topSong"] = top_song
-                if (session["displayName"] != display_name):
-                    alter_user(cursor, db, session["username"], "displayName", display_name)
-                    session["displayName"] = display_name
+                if (email != session["email"] and get_user_details_by_email(cursor, email)):
+                    flash("Email already taken", category="error")
+                    print("Error")
+                else:
+                    if (session["email"] != email):
+                        alter_user(cursor, db, session["username"], "email", email)
+                        session["email"] = email
+                    if (session["bio"] != bio):
+                        alter_user(cursor, db, session["username"], "bio", bio)
+                        session["bio"] = bio
+                    if (session["topSong"] != top_song):
+                        alter_user(cursor, db, session["username"], "topSong", top_song)
+                        session["topSong"] = top_song
+                    if (session["displayName"] != display_name):
+                        alter_user(cursor, db, session["username"], "displayName", display_name)
+                        session["displayName"] = display_name
 
-                session["profilePic"] = get_user_detail(cursor, session["username"], "profilePic")
-                db.commit()
-                db.close()
+                    session["profilePic"] = get_user_detail(cursor, session["username"], "profilePic")
+                    db.commit()
+                    db.close()
 
-                song_name = get_track_title(sp, session["topSong"])
-                song_url = get_track_preview(sp, session["topSong"])
-                artist_name = get_track_artist_name(sp, session["topSong"])
-                album_image = get_track_image(sp, session["topSong"])
+                    song_name = get_track_title(sp, session["topSong"])
+                    song_url = get_track_preview(sp, session["topSong"])
+                    artist_name = get_track_artist_name(sp, session["topSong"])
+                    album_image = get_track_image(sp, session["topSong"])
 
-                flash("Settings saved", category="success")
-                print("Success")
+                    flash("Settings saved", category="success")
+                    print("Success")
 
-    if (len(cachedList) > 0):
-        return render_template('settings.html',
-                               email=cachedList[0], username=session["username"],
-                               password=session["password"], display_name=cachedList[1],
-                               profile_pic=session["profilePic"], bio=cachedList[2],
-                               top_song=cachedList[3], title=song_name, song=song_url,
-                               artist = artist_name, image=album_image)
-    try:
-        return render_template('settings.html',
-                               email=session["email"], username=session["username"],
-                               password=session["password"], display_name=session["displayName"],
-                               profile_pic=session["profilePic"], bio=session["bio"],
-                               top_song=session["topSong"], title=song_name, song=song_url,
-                               artist = artist_name, image=album_image)
-    except:
-            return redirect(url_for('signOn'))
+        if (len(cachedList) > 0):
+            return render_template('settings.html',
+                                email=cachedList[0], username=session["username"],
+                                password=session["password"], display_name=cachedList[1],
+                                profile_pic=session["profilePic"], bio=cachedList[2],
+                                top_song=cachedList[3], title=song_name, song=song_url,
+                                artist = artist_name, image=album_image)
+        else:
+            return render_template('settings.html',
+                                email=session["email"], username=session["username"],
+                                password=session["password"], display_name=session["displayName"],
+                                profile_pic=session["profilePic"], bio=session["bio"],
+                                top_song=session["topSong"], title=song_name, song=song_url,
+                                artist = artist_name, image=album_image)
+    
+    except KeyError:
+        return redirect(url_for('signOn'))
 
 @app.route('/signOn')
 def signOn():
@@ -467,7 +505,9 @@ def creation():
         except:
             pass
         if ('profile_pic' not in request.files or profile_pic.filename == ''):
-            if (len(session["profilePic"]) == 0):
+            try:
+                session["profilePic"]
+            except KeyError:
                 session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
                 try:
                     alter_user(cursor, db, username, "profilePic", session["profilePic"])
@@ -480,6 +520,8 @@ def creation():
             session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
             change = True
+            flash("Profile picture updated", category="success")
+            print("Success")
 
         if (change == True):
             pass
@@ -507,6 +549,7 @@ def creation():
 
     db.commit()
     db.close()
+    
     try:
         return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song, cachedName=song_name)
     except:

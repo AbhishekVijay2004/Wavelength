@@ -11,4 +11,10 @@ function togglePasswordVisibility() {
   } else {
     passwordInput2.type = "password";
   }
+  var passwordInput3 = document.getElementById("password3");
+  if (passwordInput3.type === "password") {
+    passwordInput3.type = "text";
+  } else {
+    passwordInput3.type = "password";
+  }
 }
