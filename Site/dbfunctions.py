@@ -31,11 +31,11 @@ def delete_user(cursor, db, username):
 	db.commit()
 	print('user deleted')
 
-def create_post(cursor, db, username, postText='', postContent=''):
+def create_post(cursor, db, username, postText='', postContent='', noLike='1', noDislike='1', noComment='1'):
 	sql = """
-		INSERT INTO posts (username, postText, postContent, createdAt)
-		VALUES (%s, %s, %s, NOW())"""
-	cursor.execute(sql, (username, postText, postContent))
+		INSERT INTO posts (username, postText, postContent, createdAt, noLike, noDislike, noComment)
+		VALUES (%s, %s, %s, NOW(), %s, %s, %s)"""
+	cursor.execute(sql, (username, postText, postContent, noLike, noDislike, noComment))
 	db.commit()
 
 def delete_post(cursor, db, postID):
@@ -213,7 +213,7 @@ def get_post_comments(cursor, db, postID):
 ##get list of users posts
 def list_user_posts(cursor, username):
 	sql = """
-		SELECT postID, DATE_FORMAT(createdAt, '%d/%m/%y %H:%i'), postText, postContent, username FROM posts
+		SELECT postID, DATE_FORMAT(createdAt, '%d/%m/%y %H:%i'), postText, postContent, username, noLike, noDislike, noComment FROM posts
 		WHERE (username = %s)
 		ORDER BY createdAt DESC"""
 	cursor.execute(sql, (username, ))

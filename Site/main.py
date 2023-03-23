@@ -44,24 +44,30 @@ def post():
         text = request.form['caption']
         songID = request.form['songID']
         song = request.form['song']
-        # likes = request.form.get('likes')
-        # if (likes == None):
-        #     likes = "off"
-        # comments = request.form.get('comments')
-        # if (comments == None):
-        #     comments = "off"
-        # dislikes = request.form.get('dislikes')
-        # if (dislikes == None):
-        #     dislikes = "off"
+        likes = request.form.get('likes')
+        if (likes == None):
+            likes = "0"
+        else:
+            likes = "1"
+        comments = request.form.get('comments')
+        if (comments == None):
+            comments = "0"
+        else:
+            comments = "1"
+        dislikes = request.form.get('dislikes')
+        if (dislikes == None):
+            dislikes = "0"
+        else:
+            dislikes = "1"
 
         if (len(song) < 1 or len(songID) < 1):
-            flash("Please enter a song", category="error")
+            flash(["Please enter a song"], category="error")
             print("Error")
         elif (len(text) > 250):
             flash("Please restrict the caption to 250 characters", category="error")
             print("Error")
         else:
-            create_post(cursor, db, session['username'], text, songID)
+            create_post(cursor, db, session['username'], text, songID, likes, dislikes, comments)
             db.commit()
             db.close()
             return redirect(url_for('home'))
@@ -638,9 +644,11 @@ def fetch_posts():
             postList.append(post)
 
     postList.sort(reverse = True, key=lambda x: x[1])
-
     data = []
     for post in postList:
+        print(post)
+        print()
+        print()
         song = sp.track(post[3])
         data.append({
         "postID"         : post[0],
@@ -657,7 +665,10 @@ def fetch_posts():
         "postDislikes"   : get_num_likes(cursor, db, post[0], "dislike"),
         "postComments"   : get_num_comments(cursor, db, post[0]),
         "liked"          : user in get_like_accounts(cursor, post[0], like='like'),
-        "disliked"       : user in get_like_accounts(cursor, post[0], like='dislike')
+        "disliked"       : user in get_like_accounts(cursor, post[0], like='dislike'),
+        "likes"          : post[5],
+        "dislikes"       : post[6],
+        "comments"       : post[7],
         })
 
         if song['preview_url'] == None:

@@ -61,13 +61,24 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked, likesOn, dislikesOn, commentsOn) {
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked, likesOn, dislikesOn, commentsAreOn) {
     var likedClicked = liked ? " clicked" : "";
     var dislikedClicked = disliked ? " clicked" : "";
     const postElement = document.createElement('div');
-    likesOn = 1;
-    dislikesOn= 1;
-    commentsOn = 1;
+    var likes = 1;
+    var dislikes= 1;
+    var commentsAreOn = 1;
+
+    if (likesOn) {
+   	    var likes = 1;
+    }
+    if (dislikesOn == "1") {
+   	    var dislikes = 1;
+    }
+    if (commentsAreOn == "1") {
+   	    var commentsAreOn = 1;
+    }
+
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<!-- ------------------- song player --------------- -->
@@ -114,7 +125,7 @@ const pSBC=(p,c0,c1,l)=>{
 `;
 footerhtml = `
 <div class = "footer">`;
-				if (parseInt(likesOn)) {
+				if (parseInt(likes)) {
 					footerhtml += `
 				<div class="groupHorizontal">
 					<div class = "posReact`+likedClicked+`"></div>
@@ -122,7 +133,7 @@ footerhtml = `
 				</div>
 				`;
 				}				
-				if (parseInt(dislikesOn)) {
+				if (parseInt(dislikes)) {
 					footerhtml += `
 				<div class="groupHorizontal">
 						<div class = "negReact`+dislikedClicked+`"></div>
@@ -130,7 +141,7 @@ footerhtml = `
 				</div>
 				`;
 				}
-				if (parseInt(commentsOn)) {
+				if (parseInt(commentsAreOn)) {
 					footerhtml += `
 				<div class="groupHorizontal">
 					<div class = "comments"></div>
@@ -145,13 +156,12 @@ postElement.innerHTML+=`
 		<div class="commentSection" id="`+postID+`"></div>
 
 	`;
-		console.log("end");
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
 		expandedComments.push(false);
 		commentsOpened.push(false);
 		const textBit = postElement.querySelector('.text');
-		if (parseInt(commentsOn)) {
+		if (parseInt(commentsAreOn)) {
 			const commentBit = postElement.querySelector('.comments');
 			commentBit.addEventListener('click', clickOnComments);
 		}
@@ -161,18 +171,18 @@ postElement.innerHTML+=`
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
-if (parseInt(likesOn)) {
+if (parseInt(likes)) {
 			const likebutton = postElement.querySelector('.posReact');
     likebutton.classList.add("id" + postID);
 		likebutton.addEventListener('click', footerClick);
 
 }
-		if (parseInt(dislikesOn)) {
+		if (parseInt(dislikes)) {
 					const dislikebutton = postElement.querySelector('.negReact');
     dislikebutton.classList.add("id" + postID);
 		dislikebutton.addEventListener('click', footerClick);
 		}
-		if (commentsOn) {
+		if (commentsAreOn) {
 
 		const commentbutton = postElement.querySelector('.comments');
 		commentbutton.addEventListener('click', footerClick);
