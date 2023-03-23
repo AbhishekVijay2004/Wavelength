@@ -2,8 +2,10 @@ const audioPlayer = document.getElementsByClassName('audio-player')[0];
 const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
 const progress = document.getElementsByClassName('spsongCircle')[0];
 
-playPauseBtn.addEventListener('click', function() {
-  
+playPauseBtn.addEventListener('click', playMusic);
+
+
+  function playMusic() {
   const audioPlayer = document.getElementsByClassName('audio-player');
   const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
   
@@ -18,7 +20,7 @@ playPauseBtn.addEventListener('click', function() {
     audioPlayer[i].pause();
     playPauseBtn[i].classList.remove('playing');
   }
-});
+};
 
 audioPlayer.addEventListener('timeupdate', function() {
   const degreesComplete = audioPlayer.currentTime / audioPlayer.duration * 360;
