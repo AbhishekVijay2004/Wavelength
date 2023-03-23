@@ -27,7 +27,7 @@ function playPauseClick() {
 
   const audioPlayer = document.getElementsByClassName('audio-player');
   const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
-
+  console.log(audioPlayer[i]);
   if (audioPlayer[i].paused) {
     for (let index = 0; index < audioPlayer.length; ++index) {
       audioPlayer[index].pause()
