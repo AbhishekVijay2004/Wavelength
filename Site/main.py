@@ -89,7 +89,6 @@ def friends():
         user_details = [get_user_details(cursor, username) for username in followers]
 
         usernames = [user_info[0] for user_info in user_details]
-        # display_names = [user_info[6] for user_info in user_details]
         profile_pics = [user_info[2] for user_info in user_details]
 
         users_num_followers = [get_num_followers(cursor, username) for username in usernames]
