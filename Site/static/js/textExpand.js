@@ -151,20 +151,29 @@
 
 
 	function onResizeOrLoad(e) {
-		//screenSize = window.innerWidth/screen.width;
-		//if (screenSize < 0.75) {
-		//	minFontSize = Math.round(10 - (1-screenSize)*4)*2;
-		//} else {
-		//	minFontSize = 20
-		//}
+    	arrayOfMusic = document.getElementsByClassName('spsongTitle');
+    	console.log(arrayOfMusic);
+    	const bigvw = Math.round(0.03*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0));
+    	const smallvw = Math.round(0.015*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0));
+    	i = 0;
+    	for (let i = 0; i < arrayOfMusic.length; i++) {
+	    	arrayOfMusic[i].style.fontSize = "1vw";
+	    	arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize = "0.5vw";
+    		
+    		loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
+    		while (loop2) {
+    			arrayOfMusic[i].style.fontSize = Math.min(parseInt(arrayOfMusic[i].style.fontSize.substring(0,2)),bigvw) + 2 + "px";
+    			arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize = Math.min(parseInt(arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize.substring(0,2)),smallvw) + 1 + "px";
+    			if (parseInt(arrayOfMusic[i].style.fontSize.substring(0,2)) - 2 == bigvw && parseInt(arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize.substring(0,2)) - 1== smallvw) {
+    				break;
+    			}
+	    		loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
+    		}	
+    	}
+
 	    for (var i = 0; i < arrayOfPosts.length; i++) {
 	    	currentTextbox = arrayOfPosts[i].getElementsByClassName('text')[0]
 
-
-	    	//currentTextbox.style.fontSize="98px";
-	    	//while (currentTextbox.scrollHeight > 150 && currentTextbox.style.fontSize.substring(0,2) > minFontSize) {
-	    	//		currentTextbox.style.fontSize = parseInt(currentTextbox.style.fontSize.substring(0,2)) - 2 + "px";
-	    	//}
 			if (currentTextbox.scrollHeight > 150 && expandedPosts[i] == false) {
 			    currentTextbox.style.cursor = 'pointer';
 			    currentTextbox.style['-webkit-mask-image'] = 'linear-gradient(180deg, #000 60%, transparent)';
