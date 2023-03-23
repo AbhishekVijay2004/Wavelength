@@ -205,7 +205,6 @@ def friendProfile(query):
     friend_name = query
     display_name = get_user_detail(cursor, friend_name, "displayname")
     profile_pic = str("/../" + get_user_detail(cursor, friend_name, "profilePic"))
-    print(profile_pic)
     bio = get_user_detail(cursor, friend_name, "bio")
     topSong = get_user_detail(cursor, friend_name, "topsong")
 
@@ -216,10 +215,16 @@ def friendProfile(query):
     noComments = get_num_comments_received(cursor, friend_name)
     db.close()
 
-    song_name = get_track_title(sp, topSong)
-    song_url = get_track_preview(sp, topSong)
-    artist_name = get_track_artist_name(sp, topSong)
-    album_image = get_track_image(sp, topSong)
+    try: 
+        song_name = get_track_title(sp, topSong)
+        song_url = get_track_preview(sp, topSong)
+        artist_name = get_track_artist_name(sp, topSong)
+        album_image = get_track_image(sp, topSong)
+    except TypeError:
+        song_name = None
+        song_url = None
+        artist_name = None
+        album_image = None
 
     return render_template('profile.html',
                         username=friend_name,
