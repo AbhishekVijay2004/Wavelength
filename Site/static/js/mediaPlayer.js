@@ -3,7 +3,6 @@ const playPauseBtn = document.getElementsByClassName('spplay-pause-btn')[0];
 const progress = document.getElementsByClassName('spsongCircle')[0];
 
 playPauseBtn.addEventListener('click', function() {
-    let i = arrayOfPosts.indexOf(this.parentNode.parentNode.parentNode.parentNode) + offset;
   
   const audioPlayer = document.getElementsByClassName('audio-player');
   const playPauseBtn = document.getElementsByClassName('spplay-pause-btn');
@@ -60,5 +59,11 @@ function onResizeOrLoad(e) {
             break;
           }
           loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
+          if (loop2 ==false) {
+            arrayOfMusic[i].style.fontSize = Math.min(parseInt(arrayOfMusic[i].style.fontSize.substring(0,2)),bigvw) - 2 + "px";
+          arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize = Math.min(parseInt(arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize.substring(0,2)),smallvw) - 1 + "px";
+          
+          }
         } 
       }
+    }
