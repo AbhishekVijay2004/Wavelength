@@ -192,6 +192,8 @@ a {
     margin-left:auto;
 }*/
 .count{
+	min-width:2vw;
+	text-align: left;
 	font-size:1.5vw;
 	margin-left:auto;
 	color: var(--text-colour);

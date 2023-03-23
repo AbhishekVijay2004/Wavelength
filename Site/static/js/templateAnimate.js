@@ -53,6 +53,9 @@ const pSBC=(p,c0,c1,l)=>{
 	}
 
 	function addPost() {
+		if (document.getElementsByClassName('postTemplate').length > 1) {
+			return;
+		}
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
 		postElement.innerHTML = `
@@ -136,17 +139,17 @@ const pSBC=(p,c0,c1,l)=>{
 `;
 footerhtml = `
 <div class = "footer">
-				<div class="groupHorizontal">
+				<div class="groupHorizontal" style="min-width:5vw">
 					<div class = "posReact`+likedClicked+`" style="`+((likes)?``:`display:none;`)+`"></div>
 					<div class = "count" style="`+((likes)?``:`display:none;`)+`">`+posReactCount+`</div>
 				</div>
 				
-				<div class="groupHorizontal">
+				<div class="groupHorizontal" style="min-width:5vw">
 						<div class = "negReact`+dislikedClicked+`" style="`+((dislikes)?``:`display:none;`)+`"></div>
 						<div class = "count" style="`+((dislikes)?``:`display:none;`)+`">`+negReactCount+`</div>
 				</div>
 				
-				<div class="groupHorizontal">
+				<div class="groupHorizontal" style="min-width:5vw">
 					<div class = "comments" style="`+((commentsYes)?``:`display:none;`)+`"></div>
 					<div class = "count" style="`+((commentsYes)?``:`display:none;`)+`">`+commentCount+`</div>
 				</div>
@@ -188,6 +191,7 @@ if (parseInt(likes)) {
 		commentbutton.addEventListener('click', footerClick);
 
 		}
+		addPost();
 		return (postElement);
 	} //returns a post
 
