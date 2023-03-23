@@ -112,13 +112,9 @@ const pSBC=(p,c0,c1,l)=>{
 
 
       <div class = "groupHorizontal">
-      <a href url="`+postAuthorLink+`">
-			<div class="profilePic" style="background-image:url('`+postAuthorPic+`');">
-          	</div>
-      	</a>
-      	<a href url="`+postAuthorLink+`">
-      	 <div class="profileName">`+postAuthorName+`</div>
-		</a>
+		<div class="profilePic" style="background-image:url('`+postAuthorPic+`');" onclick="`+postAuthorLink+`">
+		</div>
+      	<div class="profileName" onclick="`+postAuthorLink+`">`+postAuthorName+`</div>
 
       	 <div class="time">`+postTime+`</div>
       </div>
