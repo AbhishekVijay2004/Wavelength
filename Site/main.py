@@ -164,10 +164,10 @@ def profile():
             pass
     else:
         return redirect(url_for('signOn'))
-    
+
     try:
         db, cursor = connectdb()
-        
+
         # noFollowing = get_num_following(cursor, db, username)
         noFollowers = get_num_followers(cursor, session["username"])
         noPosts = get_num_posts(cursor, session["username"])
@@ -181,7 +181,7 @@ def profile():
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
         album_image = get_track_image(sp, session["topSong"])
-        
+
         if song_url == None:
             song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
             song_url = song['tracks']['items'][0]['preview_url']
@@ -194,7 +194,7 @@ def profile():
                             noLikes=noLikes, noComments=noComments)
     except KeyError:
         return redirect(url_for('signOn'))
-    
+
 @app.route('/profile/<query>', methods = ['GET', 'POST'])
 def friendProfile(query):
     print(session)
@@ -241,7 +241,7 @@ def settings():
             pass
     else:
         return redirect(url_for('signOn'))
-    try: 
+    try:
         print(session)
         song_name = get_track_title(sp, session["topSong"])
         song_url = get_track_preview(sp, session["topSong"])
@@ -365,7 +365,7 @@ def settings():
                                 profile_pic=session["profilePic"], bio=session["bio"],
                                 top_song=session["topSong"], title=song_name, song=song_url,
                                 artist = artist_name, image=album_image)
-    
+
     except KeyError:
         return redirect(url_for('signOn'))
 
@@ -551,7 +551,7 @@ def creation():
 
     db.commit()
     db.close()
-    
+
     try:
         return render_template('setup.html', profile_pic=session["profilePic"], display_name=display_name, bio=bio, top_song=top_song, cachedName=song_name)
     except:
@@ -680,7 +680,7 @@ def fetch_notifications():
         item = {}
         for i, val in enumerate(['notificationID', 'recipient', 'sender', 'type', 'postID']):
             item[val] = notification[i]
-        item["senderPic"] = get_user_detail(cursor, recipient, "profilePic")
+        item["senderPic"] = get_user_detail(cursor, item["sender"], "profilePic")
         data.append(item)
     return jsonify(data)
 
