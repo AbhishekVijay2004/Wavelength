@@ -16,6 +16,7 @@
         </form>
       </center>
       <div id="friendSearch" style="display:block;">
+        {% if usernames|length >= 1 %}
         <div class="instructions"style="margin-top: 0.5vw;">
           <p>Click the cross to unfollow a user</p>
           <img class="unfollow" style="margin: 0; margin-left: 0.5vw;">
@@ -28,13 +29,19 @@
             <p class="profile-text-details">Friends: {{ users_num_followers[i] }}</p>
             <p class="profile-text-details">Posts: {{ users_num_posts[i] }}</p>
             <p class="profile-text-details">Likes: {{ users_num_likes[i] }}</p>
-            <p class="profile-text-details">Comments: {{ users_num_comments[i] }}</p>
             <div>
               <img class="unfollow" onclick="unfollowProfile('{{ usernames[i] }}')">
             </div>
           </div>
         </div>
         {% endfor %}
+        {% elif usernames|length < 1 %}
+        <br>
+        <div class="noFriends">
+          <p style="margin: 0;">You currently aren't following anyone</p>
+          <p style="margin: 0;">Search for new friends above</p>
+        </div>
+        {% endif %}
       </div>
       <div class="instructions" style="margin-top: 0.5vw; display:none;" id="information" >
         <p>Click the plus to follow a user</p>

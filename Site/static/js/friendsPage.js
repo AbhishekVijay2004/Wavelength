@@ -25,7 +25,6 @@ function displaySearchResults(string) {
         html += '<p class="profile-text-details">Friends: ' + data.users_num_followerResults[i] + '</p>';
         html += '<p class="profile-text-details">Posts: ' + data.users_num_postResults[i] + '</p>';
         html += '<p class="profile-text-details">Likes: ' + data.users_num_likeResults[i] + '</p>';
-        html += '<p class="profile-text-details">Comments: ' + data.users_num_commentResults[i] + '</p>';
         html += '<div>';
         html += '<img class="follow" onclick="followProfile(\'' + data.usernameResults[i] + '\')">';
         html += '</div>';

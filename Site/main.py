@@ -95,7 +95,6 @@ def friends():
         users_num_followers = [get_num_followers(cursor, username) for username in usernames]
         users_num_posts = [get_num_posts(cursor, username) for username in usernames]
         users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
-        users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
 
         # add_follow(cursor, db, "zak.mitchell", session["username"])
         db.commit()
@@ -103,8 +102,7 @@ def friends():
         return render_template('friends.html',
                             usernames=usernames, profile_pics=profile_pics,
                             users_num_followers=users_num_followers,
-                            users_num_posts=users_num_posts, users_num_likes=users_num_likes,
-                            users_num_comments=users_num_comments)
+                            users_num_posts=users_num_posts, users_num_likes=users_num_likes)
     except KeyError:
         return redirect(url_for('signOn'))
 
@@ -118,7 +116,6 @@ def add_friend(query):
     users_num_followerResults = [get_num_followers(cursor, username) for username in usernameResults]
     users_num_postResults = [get_num_posts(cursor, username) for username in usernameResults]
     users_num_likeResults = [get_num_likes_received(cursor, username) for username in usernameResults]
-    users_num_commentResults = [get_num_comments_received(cursor, username) for username in usernameResults]
 
     db.commit()
     db.close()
@@ -130,7 +127,6 @@ def add_friend(query):
         "users_num_followerResults": users_num_followerResults,
         "users_num_postResults": users_num_postResults,
         "users_num_likeResults": users_num_likeResults,
-        "users_num_commentResults": users_num_commentResults
     }
     json_data = json.dumps(data)
     response = make_response(json_data)
@@ -179,10 +175,14 @@ def profile():
         noComments = get_num_comments_received(cursor, session["username"])
         db.close()
 
+        print(session["topSong"])
+
         song_name = get_track_title(sp, session["topSong"])
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
         album_image = get_track_image(sp, session["topSong"])
+
+        print(song_url)
 
         return render_template('profile.html',
                             username=session["username"],

@@ -46,7 +46,7 @@
   font-weight: 400;
   font-size: 1.25vw;
   margin-left: 1vw;
-  flex: 4;
+  flex: 7;
 }
 .profile-text-header:hover {
   color: var(--primary-highlight-2);
@@ -89,4 +89,18 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+.noFriends{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  font-size: 1.1vw; 
+  background-color: var(--background-highlight-2);
+  border-radius: 1rem;
+  width: 44vw;
+  margin: auto;
 }
