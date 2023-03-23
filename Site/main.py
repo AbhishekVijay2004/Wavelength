@@ -181,8 +181,10 @@ def profile():
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
         album_image = get_track_image(sp, session["topSong"])
-
-        print(song_url)
+        
+        if song_url == None:
+            song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
+            song_url = song['tracks']['items'][0]['preview_url']
 
         return render_template('profile.html',
                             username=session["username"],
