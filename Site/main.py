@@ -175,8 +175,6 @@ def profile():
         noComments = get_num_comments_received(cursor, session["username"])
         db.close()
 
-        print(session["topSong"])
-
         song_name = get_track_title(sp, session["topSong"])
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
@@ -197,7 +195,6 @@ def profile():
 
 @app.route('/profile/<query>', methods = ['GET', 'POST'])
 def friendProfile(query):
-    print(session)
     db, cursor = connectdb()
     if (query == "undefined"):
         return redirect(url_for('profile'))
