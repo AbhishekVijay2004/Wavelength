@@ -45,7 +45,6 @@ window.addEventListener('resize', onResizeOrLoad);
 window.addEventListener('load', onResizeOrLoad);
 function onResizeOrLoad(e) {
       arrayOfMusic = document.getElementsByClassName('spsongTitle');
-      console.log(arrayOfMusic);
       const bigvw = Math.round(0.03*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0));
       const smallvw = Math.round(0.015*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0));
       i = 0;

@@ -50,7 +50,6 @@ const pSBC=(p,c0,c1,l)=>{
 		Couldn't load more posts.
 	`;
 		document.querySelector('.clsScroll').appendChild(endOfPost);
-		console.log(document.querySelector('.clsScroll'));
 	}
 
 	function addPost() {
@@ -78,13 +77,23 @@ const pSBC=(p,c0,c1,l)=>{
 		postElement.getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( -.8, randomColorOne);
 		container.appendChild(postElement);
 	} //creates a template at the bottom of the page
-	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked, likesOn, dislikesOn, commentsOn) {
+	function loadPost(album_art, song_title, artist_name, preview_mp3, postAuthorLink, postAuthorPic, postAuthorName, postTime, postText, posReactCount, negReactCount, commentCount, postID, liked, disliked, likesOn, dislikesOn, commentsAreOn) {
     var likedClicked = liked ? " clicked" : "";
     var dislikedClicked = disliked ? " clicked" : "";
     const postElement = document.createElement('div');
-    likesOn = 1;
-    dislikesOn= 1;
-    commentsOn = 1;
+    var likes = 0;
+    var dislikes= 0;
+    var commentsYes = 0;
+
+    if (likesOn == "1") {
+   	    var likes = 1;
+    }
+    if (dislikesOn == "1") {
+   	    var dislikes = 1;
+    }
+    if (commentsAreOn == "1") {
+   	    var commentsYes = 1;
+    }
 		postElement.classList.add('post');
 		postElement.innerHTML = `
 			<!-- ------------------- song player --------------- -->
@@ -126,32 +135,21 @@ const pSBC=(p,c0,c1,l)=>{
 
 `;
 footerhtml = `
-<div class = "footer">`;
-				if (parseInt(likesOn)) {
-					footerhtml += `
+<div class = "footer">
 				<div class="groupHorizontal">
-					<div class = "posReact`+likedClicked+`"></div>
-					<div class = "count">`+posReactCount+`</div>
+					<div class = "posReact`+likedClicked+`" style="`+((likes)?``:`display:none;`)+`"></div>
+					<div class = "count" style="`+((likes)?``:`display:none;`)+`">`+posReactCount+`</div>
 				</div>
-				`;
-				}
-				if (parseInt(dislikesOn)) {
-					footerhtml += `
+				
 				<div class="groupHorizontal">
-						<div class = "negReact`+dislikedClicked+`"></div>
-						<div class = "count">`+negReactCount+`</div>
+						<div class = "negReact`+dislikedClicked+`" style="`+((dislikes)?``:`display:none;`)+`"></div>
+						<div class = "count" style="`+((dislikes)?``:`display:none;`)+`">`+negReactCount+`</div>
 				</div>
-				`;
-				}
-				if (parseInt(commentsOn)) {
-					footerhtml += `
+				
 				<div class="groupHorizontal">
-					<div class = "comments"></div>
-					<div class = "count">`+commentCount+`</div>
+					<div class = "comments" style="`+((commentsYes)?``:`display:none;`)+`"></div>
+					<div class = "count" style="`+((commentsYes)?``:`display:none;`)+`">`+commentCount+`</div>
 				</div>
-				`;
-				}
-				footerhtml += `
 		</div>`;
 postElement.innerHTML += footerhtml;
 postElement.innerHTML+=`
@@ -163,7 +161,7 @@ postElement.innerHTML+=`
 		expandedComments.push(false);
 		commentsOpened.push(false);
 		const textBit = postElement.querySelector('.text');
-		if (parseInt(commentsOn)) {
+		if (parseInt(commentsAreOn)) {
 			const commentBit = postElement.querySelector('.comments');
 			commentBit.addEventListener('click', clickOnComments);
 		}
@@ -173,18 +171,18 @@ postElement.innerHTML+=`
 		audio.addEventListener('timeupdate', audioTimeUpdate);
 		const playbutton = postElement.querySelector('.spplay-pause-btn');
 		playbutton.addEventListener('click', playPauseClick);
-if (parseInt(likesOn)) {
+if (parseInt(likes)) {
 			const likebutton = postElement.querySelector('.posReact');
     likebutton.classList.add("id" + postID);
 		likebutton.addEventListener('click', footerClick);
 
 }
-		if (parseInt(dislikesOn)) {
+		if (parseInt(dislikes)) {
 					const dislikebutton = postElement.querySelector('.negReact');
     dislikebutton.classList.add("id" + postID);
 		dislikebutton.addEventListener('click', footerClick);
 		}
-		if (commentsOn) {
+		if (commentsAreOn) {
 
 		const commentbutton = postElement.querySelector('.comments');
 		commentbutton.addEventListener('click', footerClick);
