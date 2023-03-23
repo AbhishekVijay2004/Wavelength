@@ -38,11 +38,13 @@ function displaySearchResults(string) {
 function showFriends() {
     document.getElementById("friendSearch").style.display = "block";
     document.getElementById("searchResults").style.display = "none";
+    document.getElementById("information").style.display = "none";
 }
 
 function hideFriends() {
     document.getElementById("friendSearch").style.display = "none";
     document.getElementById("searchResults").style.display = "block";
+    document.getElementById("information").style.display = "flex";
 }
 
 function followProfile(query) {
@@ -51,6 +53,7 @@ function followProfile(query) {
         data: {query: query},
         success: function(data) {
             console.log(data);
+            location.reload();
         }
     });
 }
@@ -61,6 +64,7 @@ function unfollowProfile(query) {
         data: {query: query},
         success: function(data) {
             console.log(data);
+            location.reload();
         }
     });
 }

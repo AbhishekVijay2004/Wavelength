@@ -16,6 +16,10 @@
         </form>
       </center>
       <div id="friendSearch" style="display:block;">
+        <div class="instructions"style="margin-top: 0.5vw;">
+          <p>Click the cross to unfollow a user</p>
+          <img class="unfollow" style="margin: 0; margin-left: 0.5vw;">
+        </div>
         {% for i in range(usernames | length) %}
         <div class="profile-element">
           <div class="content-container">
@@ -32,7 +36,11 @@
         </div>
         {% endfor %}
       </div>
-      <div id="searchResults" style="display:block;">
+      <div class="instructions" style="margin-top: 0.5vw; display:none;" id="information" >
+        <p>Click the plus to follow a user</p>
+        <img class="follow" style="margin: 0; margin-left: 0.5vw;">
+      </div>
+      <div id="searchResults" style="display:none;">
       </div>
     </div>
   </div>

@@ -66,12 +66,11 @@
   content: url("../media/icons/follow-icon.png");
   cursor: pointer;
   line-height: 2vw;
-  padding: 0.125;
 }
-.follow.hover{
+/* .follow.hover{
   width: 2.25vw;
   height: 2.25vw;
-}
+} */
 .unfollow{
   margin-top: 0.3vw;
   margin-left: 0.5vw;
@@ -80,9 +79,14 @@
   content: url("../media/icons/unfollow-icon.png");
   cursor: pointer;
   line-height: 2vw;
-  padding: 0.125;
 }
-.unfollow.hover{
+/* .unfollow.hover{
   width: 2.25vw;
   height: 2.25vw;
+} */
+.instructions{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

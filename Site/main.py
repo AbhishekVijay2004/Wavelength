@@ -74,12 +74,11 @@ def post():
 
 @app.route('/friends')
 def friends():
-    print("friendsPage")
+    print(session)
     db, cursor = connectdb()
 
     followers = get_following_accounts(cursor, session["username"])
     user_details = [get_user_details(cursor, username) for username in followers]
-    print(user_details)
 
     usernames = [user_info[0] for user_info in user_details]
     # display_names = [user_info[6] for user_info in user_details]
@@ -89,8 +88,6 @@ def friends():
     users_num_posts = [get_num_posts(cursor, username) for username in usernames]
     users_num_likes = [get_num_likes_received(cursor, username) for username in usernames]
     users_num_comments = [get_num_comments_received(cursor, username) for username in usernames]
-
-
 
     # add_follow(cursor, db, "zak.mitchell", session["username"])
     db.commit()
@@ -132,11 +129,13 @@ def add_friend(query):
 
 @app.route("/friendSearch/follow/<query>")
 def follow(query):
+    print(query)
     db, cursor = connectdb()
     add_follow(cursor, db, session["username"], query)
+    create_notification(cursor, db, query, session["username"], "follow")
     db.commit()
     db.close()
-    return "Followed User"
+    return "User Followed"
 
 @app.route("/friendSearch/unfollow/<query>")
 def unfollow(query):
@@ -144,7 +143,7 @@ def unfollow(query):
     delete_follow(cursor, db, session["username"], query)
     db.commit()
     db.close()
-    return "Unfollowed User"
+    return "User Unfollowed"
 
 @app.route('/profile')
 def profile():
