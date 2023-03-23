@@ -64,12 +64,8 @@
 					var commentAuthorPic = thisComment["commentPic"];
 					var commentAuthorName = thisComment["commentUsername"];
 					var commentText = thisComment["commentText"];
-					var commentLikeCount = thisComment["commentLikes"];
-					var commentDislikeCount = thisComment["commentDislikes"];
 					var commentDate = thisComment["commentDate"];
-					commentLikeCount = commentLikeCount == null ? 0 : commentLikeCount;
-					commentDislikeCount = commentDislikeCount == null ? 0 : commentDislikeCount;
-					loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentLikeCount, commentDislikeCount, commentDate);
+					loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentDate);
 				}
 		  },
 		  error: function(error) {
@@ -99,7 +95,7 @@
     elem.style.height = (elem.scrollHeight)+"px";
 }
 
-	function loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentLikeCount, commentDislikeCount, commentDate) {
+	function loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentDate) {
 		const comment = document.createElement('div');
 		comment.classList.add('groupHorizontal');
 		comment.innerHTML = `
@@ -117,18 +113,6 @@
 			<div class="commentText">
 		        `+commentText+`
 	      	</div>
-
-	      	<div class="groupHorizontal">
-				<div class="groupHorizontal">
-						<div class = "posReact" style="width:1vw;background-size:1vw;"></div>
-
-					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">`+commentLikeCount+`</div>
-				</div>
-				<div class="groupHorizontal">
-						<div class = "negReact" style="width:1vw;background-size:1vw;"></div>
-					<div class = "count" style="font-size:1vw;line-height:1vw;margin-left:1px">`+commentDislikeCount+`</div>
-				</div>
-			</div>
 		</div>
 
 
@@ -142,10 +126,6 @@
 
 	`;
 
-		const likebutton = comment.querySelector('.posReact');
-		likebutton.addEventListener('click', footerClick);
-		const dislikebutton = comment.querySelector('.negReact');
-		dislikebutton.addEventListener('click', footerClick);
 		parnt.appendChild(comment);
 	} //creates a template at the bottom of the page
 
@@ -159,7 +139,7 @@
     	for (let i = 0; i < arrayOfMusic.length; i++) {
 	    	arrayOfMusic[i].style.fontSize = "1vw";
 	    	arrayOfMusic[i].parentNode.querySelector('.spartistTitle').style.fontSize = "0.5vw";
-    		
+
     		loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
     		while (loop2) {
     			arrayOfMusic[i].style.fontSize = Math.min(parseInt(arrayOfMusic[i].style.fontSize.substring(0,2)),bigvw) + 2 + "px";
@@ -168,7 +148,7 @@
     				break;
     			}
 	    		loop2 = arrayOfMusic[i].parentNode.scrollHeight*1.5 < arrayOfMusic[i].parentNode.parentNode.scrollHeight;
-    		}	
+    		}
     	}
 
 	    for (var i = 0; i < arrayOfPosts.length; i++) {
