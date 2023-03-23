@@ -26,16 +26,33 @@ const pSBC=(p,c0,c1,l)=>{
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	} //converts lots of different ways of representing colours to hex
-	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
-	scrollContent.addEventListener('scroll', () => {
-	  const scrolled = scrollContent.scrollTop; // reuse `scrollContent` innstead of querying the DOM again
-	  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-	  const contnr = document.getElementsByClassName("clsScroll")[0];
+	
 
-	if(scrolled + clientHeight	>= contnr.scrollHeight) {
-			addPost();
-		}
-	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
+//	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
+//	scrollContent.addEventListener('scroll', () => {
+//	  const scrolled = scrollContent.scrollTop; // reuse `scrollContent` innstead of querying the DOM again
+//	  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+//	  const contnr = document.getElementsByClassName("clsScroll")[0];
+	//if(scrolled + clientHeight	>= contnr.scrollHeight) {
+	//	if (document.getElementsByClassName('postTemplate').length == 0) {
+	//		addPost();
+//		} else {
+//			console.log("sjbfd");
+//		}
+//			
+//		}
+//	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
+
+	function endOfPosts() {
+		const endOfPost = document.createElement('div');
+		endOfPost.classList.add('endOfPost');
+		endOfPost.innerHTML = `
+		Couldn't load more posts.
+	`;
+		document.querySelector('.clsScroll').appendChild(endOfPost);
+		console.log(document.querySelector('.clsScroll'));
+	}
+
 	function addPost() {
 		const postElement = document.createElement('div');
 		postElement.classList.add('postTemplate');
@@ -47,7 +64,7 @@ const pSBC=(p,c0,c1,l)=>{
     <div class="spsongInfo">
       <div class="spitem spalbumImage"></div>
       </div></div>
-      	  	<div id="text" class="text" style="min-height: 50px;"></div>
+      	  	<div id="text" class="text" style="min-height: 85px;"></div>
       <div class = "footer">
 				<div class = "posReact"></div>
 				<div class = "negReact"></div>
@@ -145,7 +162,6 @@ postElement.innerHTML+=`
 		<div class="commentSection" id="`+postID+`"></div>
 
 	`;
-		console.log("end");
 		arrayOfPosts.push(postElement);
 		expandedPosts.push(false);
 		expandedComments.push(false);
@@ -257,7 +273,7 @@ if (parseInt(likesOn)) {
 	    for (var i = 0; i < arrayOfPlaceholders.length; i++) {
 			arrayOfPlaceholders[i].getElementsByClassName('spplayer')[0].style.backgroundColor = pSBC(change, spotifyColours[i]);
 	  	arrayOfPlaceholders[i].getElementsByClassName('spalbumImage')[0].style.backgroundColor = pSBC( change, pSBC( -.8, spotifyColours[i]));
-			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, backgrColor);
+			arrayOfPlaceholders[i].style.backgroundColor = pSBC(change, "rgb(51,51,51)");
 		}
 
 	    setTimeout(breatheColour, 20);
@@ -275,8 +291,5 @@ if (parseInt(likesOn)) {
 	var change = 0.01;
 	var pos = 1;
 
-	addPost();
-	addPost();
-	addPost();
 	addPost();
 	breatheColour();
