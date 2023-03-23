@@ -792,12 +792,15 @@ def change_like():
     delete_like(cursor, db, postID, user)
     if amount == -1:
         return "done"
+    recipient = get_post_details(cursor, db, postID, "username")[0]
     if type == "like":
         add_like(cursor, db, postID, user)
-        create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Like")
+        if recipient != user:
+            create_notification(cursor, db, recipient, user, "Like")
         return "done"
     add_dislike(cursor, db, postID, user)
-    create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Dislike")
+    if recipient != user:
+        create_notification(cursor, db, get_post_details(cursor, db, postID, "username")[0], user, "Dislike")
     return "done"
 
 @app.route("/postComment")
