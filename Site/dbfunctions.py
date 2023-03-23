@@ -12,7 +12,7 @@ def connectdb():
 	return db, cursor
 
 
-def create_user(cursor, db, username, password, email, profilePic=None, bio=None, topsong=None, displayname=None):
+def create_user(cursor, db, username, password, email, profilePic=None, bio=None, topsong=None, displayname=""):
 	# if displayname == None:
 	# 	displayname = username
 	sql = """
