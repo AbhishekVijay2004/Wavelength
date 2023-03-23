@@ -1,4 +1,4 @@
-    setTimeout(replacePosts, 2000);
+    setTimeout(replacePosts, 100);
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);
         //see below for how to organise:
@@ -6,7 +6,7 @@
         onResizeOrLoad();
     }
 
-    setTimeout(replacePosts, 2000);
+    setTimeout(replacePosts, 100);
 
     function replacePosts () {
     	//container.removeChild(container.childNodes[0]);

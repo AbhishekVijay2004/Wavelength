@@ -376,6 +376,11 @@
   border-radius: 1.5vw;
   cursor: pointer;
 }
+.endOfPost {
+  color:var(--text-colour);
+  font-size:1.5vw;
+margin-bottom: 50px;
+}
 .follow-accept-button:hover{
   background-color: var(--primary-highlight-1);
 }
