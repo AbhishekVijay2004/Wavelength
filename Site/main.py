@@ -206,7 +206,7 @@ def friendProfile(query):
 
     friend_name = query
     display_name = get_user_detail(cursor, friend_name, "displayname")
-    profile_pic = str("/../" + get_user_detail(cursor, friend_name, "profilePic"))
+    profile_pic = get_user_detail(cursor, friend_name, "profilePic")
     bio = get_user_detail(cursor, friend_name, "bio")
     topSong = get_user_detail(cursor, friend_name, "topsong")
     print(friend_name, display_name, bio)
@@ -303,7 +303,7 @@ def settings():
                     if (profile_pic.filename != ''):
                         filename = secure_filename(profile_pic.filename)
                         profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                        session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                        session["profilePic"] = str(f"/../{os.path.join(app.config['UPLOAD_FOLDER'], filename)}")
                         alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
                         change = True
                         flash("Profile picture updated", category="success")
@@ -518,7 +518,7 @@ def creation():
             try:
                 session["profilePic"]
             except KeyError:
-                session["profilePic"] = 'static/media/icons/profile-icon-transparent.png'
+                session["profilePic"] = '/../static/media/icons/profile-icon-transparent.png'
                 try:
                     alter_user(cursor, db, username, "profilePic", session["profilePic"])
                 except NameError:
@@ -527,7 +527,7 @@ def creation():
             profile_pic = request.files['profile_pic']
             filename = secure_filename(profile_pic.filename)
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            session["profilePic"] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            session["profilePic"] = str(f"/../{os.path.join(app.config['UPLOAD_FOLDER'], filename)}")
             alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
             change = True
             flash("Profile picture updated", category="success")
