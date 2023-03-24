@@ -156,90 +156,95 @@ def unfollow(query):
     db.close()
     return "User Unfollowed"
 
-@app.route('/profile')
-def profile():
-    if "username" in session:
-        if (session["topSong"] == None):
-            return redirect(url_for('setup'))
-        elif (session["bio"] == None):
-            return redirect(url_for('setup'))
-        elif (session["displayName"] == None):
-            return redirect(url_for('setup'))
-        else:
-            pass
-    else:
-        return redirect(url_for('signOn'))
-
-    try:
+@app.route('/profile/', defaults={'query': None})
+@app.route('/profile/<query>')
+def friendProfile(query):
+    if query:
+        print(session)
         db, cursor = connectdb()
+        if (query == "undefined"):
+            print()
+            print("Error here")
+            print()
+            return redirect(url_for('friendProfile'))
+
+        friend_name = query
+        display_name = get_user_detail(cursor, friend_name, "displayname")
+        profile_pic = get_user_detail(cursor, friend_name, "profilePic")
+        bio = get_user_detail(cursor, friend_name, "bio")
+        topSong = get_user_detail(cursor, friend_name, "topsong")
+        print(friend_name, display_name, bio)
 
         # noFollowing = get_num_following(cursor, db, username)
-        noFollowers = get_num_followers(cursor, session["username"])
-        noPosts = get_num_posts(cursor, session["username"])
-        noLikes = get_num_likes_received(cursor, session["username"])
-        noComments = get_num_comments_received(cursor, session["username"])
+        noFollowers = get_num_followers(cursor, friend_name)
+        noPosts = get_num_posts(cursor, friend_name)
+        noLikes = get_num_likes_received(cursor, friend_name)
+        noComments = get_num_comments_received(cursor, friend_name)
         db.close()
 
-        song_name = get_track_title(sp, session["topSong"])
-        song_url = get_track_preview(sp, session["topSong"])
-        artist_name = get_track_artist_name(sp, session["topSong"])
-        album_image = get_track_image(sp, session["topSong"])
+        try: 
+            song_name = get_track_title(sp, topSong)
+            song_url = get_track_preview(sp, topSong)
+            artist_name = get_track_artist_name(sp, topSong)
+            album_image = get_track_image(sp, topSong)
 
-        if song_url == None:
-            song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
-            song_url = song['tracks']['items'][0]['preview_url']
+            if song_url == None:
+                song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
+                song_url = song['tracks']['items'][0]['preview_url']
+
+        except TypeError:
+            song_name = None
+            song_url = None
+            artist_name = None
+            album_image = None
 
         return render_template('profile.html',
-                            username=session["username"],
-                            display_name=session["displayName"], profile_pic=session["profilePic"],
-                            bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                            username=friend_name,
+                            display_name=display_name, profile_pic=profile_pic,
+                            bio=bio, title=song_name, song=song_url, artist = artist_name,
                             image=album_image, noFollowers=noFollowers, noPosts=noPosts,
                             noLikes=noLikes, noComments=noComments)
-    except KeyError:
-        return redirect(url_for('signOn'))
+    else:
+        print(session)
+        if "username" in session:
+            if (session["topSong"] == None):
+                return redirect(url_for('setup'))
+            elif (session["bio"] == None):
+                return redirect(url_for('setup'))
+            elif (session["displayName"] == None):
+                return redirect(url_for('setup'))
+            else:
+                pass
+        else:
+            return redirect(url_for('signOn'))
 
-@app.route('/profile/<query>', methods = ['GET', 'POST'])
-def friendProfile(query):
-    db, cursor = connectdb()
-    if (query == "undefined"):
-        return redirect(url_for('profile'))
+        try:
+            db, cursor = connectdb()
 
-    friend_name = query
-    display_name = get_user_detail(cursor, friend_name, "displayname")
-    profile_pic = get_user_detail(cursor, friend_name, "profilePic")
-    bio = get_user_detail(cursor, friend_name, "bio")
-    topSong = get_user_detail(cursor, friend_name, "topsong")
-    print(friend_name, display_name, bio)
+            # noFollowing = get_num_following(cursor, db, username)
+            noFollowers = get_num_followers(cursor, session["username"])
+            noPosts = get_num_posts(cursor, session["username"])
+            noLikes = get_num_likes_received(cursor, session["username"])
+            noComments = get_num_comments_received(cursor, session["username"])
+            db.close()
 
-    # noFollowing = get_num_following(cursor, db, username)
-    noFollowers = get_num_followers(cursor, friend_name)
-    noPosts = get_num_posts(cursor, friend_name)
-    noLikes = get_num_likes_received(cursor, friend_name)
-    noComments = get_num_comments_received(cursor, friend_name)
-    db.close()
+            song_name = get_track_title(sp, session["topSong"])
+            song_url = get_track_preview(sp, session["topSong"])
+            artist_name = get_track_artist_name(sp, session["topSong"])
+            album_image = get_track_image(sp, session["topSong"])
 
-    try: 
-        song_name = get_track_title(sp, topSong)
-        song_url = get_track_preview(sp, topSong)
-        artist_name = get_track_artist_name(sp, topSong)
-        album_image = get_track_image(sp, topSong)
+            if song_url == None:
+                song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
+                song_url = song['tracks']['items'][0]['preview_url']
 
-        if song_url == None:
-            song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
-            song_url = song['tracks']['items'][0]['preview_url']
-
-    except TypeError:
-        song_name = None
-        song_url = None
-        artist_name = None
-        album_image = None
-
-    return render_template('profile.html',
-                        username=friend_name,
-                        display_name=display_name, profile_pic=profile_pic,
-                        bio=bio, title=song_name, song=song_url, artist = artist_name,
-                        image=album_image, noFollowers=noFollowers, noPosts=noPosts,
-                        noLikes=noLikes, noComments=noComments)
+            return render_template('profile.html',
+                                username=session["username"],
+                                display_name=session["displayName"], profile_pic=session["profilePic"],
+                                bio=session["bio"], title=song_name, song=song_url, artist = artist_name,
+                                image=album_image, noFollowers=noFollowers, noPosts=noPosts,
+                                noLikes=noLikes, noComments=noComments)
+        except KeyError:
+            return redirect(url_for('signOn'))
 
 @app.route('/settings', methods = ['GET', 'POST'] )
 def settings():
@@ -745,9 +750,6 @@ def fetch_posts():
     postList.sort(reverse = True, key=lambda x: x[1])
     data = []
     for post in postList:
-        print(post)
-        print()
-        print()
         song = sp.track(post[3])
         data.append({
         "postID"         : post[0],
