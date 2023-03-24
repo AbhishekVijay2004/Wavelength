@@ -140,17 +140,17 @@ const pSBC=(p,c0,c1,l)=>{
 footerhtml = `
 <div class = "footer">
 				<div class="groupHorizontal" style="min-width:5vw">
-					<div class = "posReact`+likedClicked+`" style="`+((likes)?``:`display:none;`)+`"></div>
+					<div class="`+ (likes ? "posReact" : "posReactDisabled") + likedClicked + `"></div>
 					<div class = "count" style="`+((likes)?``:`display:none;`)+`">`+posReactCount+`</div>
 				</div>
 				
 				<div class="groupHorizontal" style="min-width:5vw">
-						<div class = "negReact`+dislikedClicked+`" style="`+((dislikes)?``:`display:none;`)+`"></div>
-						<div class = "count" style="`+((dislikes)?``:`display:none;`)+`">`+negReactCount+`</div>
+					<div class="`+ (dislikes ? "negReact" : "negReactDisabled") + dislikedClicked + `"></div>
+					<div class = "count" style="`+((dislikes)?``:`display:none;`)+`">`+negReactCount+`</div>
 				</div>
 				
 				<div class="groupHorizontal" style="min-width:5vw">
-					<div class = "comments" style="`+((commentsYes)?``:`display:none;`)+`"></div>
+					<div class="comments`+((commentsYes)?``:`Disabled`)+`"></div>
 					<div class = "count" style="`+((commentsYes)?``:`display:none;`)+`">`+commentCount+`</div>
 				</div>
 		</div>`;
@@ -187,8 +187,10 @@ if (parseInt(likes)) {
 		}
 		if (commentsAreOn) {
 
-		const commentbutton = postElement.querySelector('.comments');
-		commentbutton.addEventListener('click', footerClick);
+		const commentButtons = postElement.querySelectorAll('.comments, .commentsDisabled');
+		commentButtons.forEach(button => {
+			button.addEventListener('click', footerClick);
+		});
 
 		}
 		addPost();
