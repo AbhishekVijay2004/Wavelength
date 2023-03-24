@@ -45,10 +45,6 @@
 				const newComment = document.createElement('div');
 				newComment.classList.add('groupHorizontal');
 				newComment.innerHTML = `
-				<a href url="http://google.com">
-					<div class="profilePic" style="background-image:url('`+user_pic+`');">
-		          	</div>
-		      	</a>
 
 <textarea rows="1" class="newCommentText" oninput="newCommentText(this)"></textarea>
 <button class="commentSubmitButton">Submit</button>
@@ -100,16 +96,10 @@
 		comment.classList.add('groupHorizontal');
 		comment.innerHTML = `
 
-		<a href url="`+commentAuthorLink+`">
-			<div class="profilePic" style="background-image:url('`+commentAuthorPic+`');">
-          	</div>
-      	</a>
+		<div class="profilePic" style="background-image:url('`+commentAuthorPic+`');" onclick="navigateToProfilePage('`+commentAuthorLink+`')"></div>
 
       	<div class="groupVertical">
-	      	<a href url="`+commentAuthorLink+`">
-	      	 <div class="profileName" style="font-size:1vw;line-height:1vw;margin-bottom:5px">`+commentAuthorName+`</div>
-			</a>
-
+	      	<div class="profileName" onclick="navigateToProfilePage('`+commentAuthorLink+`')" style="font-size:1vw;line-height:1vw;margin-bottom:5px">`+commentAuthorName+`</div>
 			<div class="commentText">
 		        `+commentText+`
 	      	</div>

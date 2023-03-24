@@ -22,7 +22,7 @@ function displaySearchResults(string) {
         html += '<div class="content-container">';
         html += '<img class="profile-image" src="' + data.profile_picResults[i] + '" onclick="navigateToProfilePage(\'' + data.usernameResults[i] + '\')"></img>';
         html += '<p class="profile-text-header" onclick="navigateToProfilePage(\'' + data.usernameResults[i] + '\')">@' + data.usernameResults[i] + '</p>';
-        html += '<p class="profile-text-details">Friends: ' + data.users_num_followerResults[i] + '</p>';
+        html += '<p class="profile-text-details">Followers: ' + data.users_num_followerResults[i] + '</p>';
         html += '<p class="profile-text-details">Posts: ' + data.users_num_postResults[i] + '</p>';
         html += '<p class="profile-text-details">Likes: ' + data.users_num_likeResults[i] + '</p>';
         html += '<div>';
@@ -69,5 +69,6 @@ function unfollowProfile(query) {
 }
 
 function navigateToProfilePage(username) {
-    window.location.href = '/profile/' + username;
+    console.log(username);
+    window.location.assign('/profile/' + username);
 }
