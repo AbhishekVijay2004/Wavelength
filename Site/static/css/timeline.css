@@ -1,5 +1,4 @@
 /*For the templates*/
-
 .body{
 display:flex;
 justify-content: space-between;
@@ -15,7 +14,6 @@ margin-bottom: 50px;
 }
 
 /*For the actual posts*/
-
 .post {  
 display: flex;
 gap: 1rem;
@@ -26,24 +24,36 @@ border-radius: 20px;
 margin-bottom: 50px;
 }
 .groupHorizontal{
-	display:flex;
-	flex-direction: row;
+display:flex;
+flex-direction: row;
+}
+.groupHorizontalComments{
+display:flex;
+flex-direction: row;
+align-items: center;
+justify-content: left;
 }
 .groupVertical{
-	display:flex;
-	flex-direction: column;
+display:flex;
+flex-direction: column;
 }
 .time {
-	display:flex;
-	font-size:1.5vw;
-	color:var(--text-colour);
-	line-height:3vw;
-	margin-left:auto;
-	margin-right:0.5vw;
-
+display:flex;
+font-size:1.5vw;
+color:var(--text-colour);
+line-height:3vw;
+margin-left:auto;
+margin-right:0.5vw;
+}
+.timeComments {
+display:flex;
+font-size: .75vw;
+color:var(--text-colour);
+margin: 0;
 }
 .text {
 max-height: 150px;
+margin-left: 1vw;
 overflow: hidden;
 cursor: pointer;
 transition: max-height 0.2s ease-out;
@@ -80,7 +90,7 @@ cursor: default;
 transition: 0.125s;
 }
 .posReact.clicked{
-	background-image:url('../media/icons/like-active-icon.png');
+background-image:url('../media/icons/like-active-icon.png');
 }
 .negReact{
 background-image: url('../media/icons/dislike-icon.png');
@@ -103,7 +113,7 @@ cursor: default;
 transition: 0.125s;
 }
 .negReact.clicked{
-	background-image:url('../media/icons/dislike-active-icon.png');
+background-image:url('../media/icons/dislike-active-icon.png');
 }
 .comments{
 background-image: url('../media/icons/comment-icon.png');
@@ -128,116 +138,128 @@ cursor: default;
 transition: 0.125s;
 }
 .comments.clicked{
-	background-image:url('../media/icons/comment-active-icon.png');
+background-image:url('../media/icons/comment-active-icon.png');
 }
-/* the changing size makes everything wobble. can't figure it out atm, will look at in future if wanted.
-.posReact:hover{
-background-size: 3.25vw;
-padding: 0;
-}
-.negReact:hover{
-min-width: 3.25vw;
-min-height: 3.25vw;
-background-size: 3.25vw;
-transform: translateX(-0.125vw);
-padding: 0;
-}
-.comments:hover{
-min-width: 3.25vw;
-min-height: 3.25vw;
-background-size: 3.25vw;
-transform: translateX(-0.125vw);
-padding: 0;
-}
-*/
 .commentSection{
-overflow:auto;
+background-color: var(--background-highlight-2);
+border-radius: 0.75rem;
+overflow: auto;
 display:none;
 gap:1vw;
 flex-direction: column;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+padding-bottom: 1vw;
+}
+.commentSection::-webkit-scrollbar {
+display: none;
 }
 .comment{
 width:100%;
 height:20px;
-
 }
 a {
-	text-decoration: none;
+text-decoration: none;
 }
 .profileName {
-	display:flex;
-	font-size:1.5vw;
-	color:var(--text-colour);
-	line-height:3vw;
-	margin-left:0.5vw;
-	transition: 0.25s;
+display:flex;
+font-size:1.5vw;
+color:var(--text-colour);
+line-height:3vw;
+margin-left:0.5vw;
+transition: 0.25s;
 }
 .profileName:hover {
-	color: var(--primary-highlight-2);
-	cursor: pointer;
-	transition: 0.25s;
+color: var(--primary-highlight-2);
+cursor: pointer;
+transition: 0.25s;
 }
 .profilePic {
-	display:flex;
-	background-size:3vw;
-	width:3vw;
-	height:3vw;
-	border-radius:50%;
-	border: solid 0.15vw var(--primary-colour);
-	cursor: pointer;
-	transition: border-color 0.25s;
+min-width: 3vw;
+min-height: 3vw;
+max-width: 3vw;
+max-height: 3vw;
+margin-left: 1vw;
+background-color: var(--background-highlight-1);
+background-size: cover;
+border: solid 0.15vw var(--primary-colour);
+border-radius: 50%;
+cursor: pointer;
+transition: border-color 0.25s;
 }
 .profilePic:hover{
-	border-color: var(--primary-highlight-2);
-	cursor: pointer;
-	transition: border-color 0.25s;
-  }
+border-color: var(--primary-highlight-2);
+cursor: pointer;
+transition: border-color 0.25s;
+}
 .commentText {
-	background-color: var(--background-highlight-2);
-	color: var(--text-colour);
-	border-radius:8px;
-	margin-left: 0.25vw;
-	padding:8px;
-	min-width:20%;
-	font-size: 1vw;
-	text-align:left;
+background-color: var(--background-highlight-3);
+color: var(--text-colour);
+border-radius:8px;
+margin-left: 0.5vw;
+margin-right: 0;
+padding:8px;
+max-width: 70%;
+font-size: 1vw;
+text-align:left;
 }
-
 .bigText {
-	margin-left: 0.25vw;
-	line-height:1.5vw;
-    width:auto;
-    padding:5px;
-}/*
-.submitButton {
-    height:500px;
-    line-height: 1.5vw;
-    margin-left:auto;
-}*/
+margin-left: 0.25vw;
+line-height:1.5vw;
+width:auto;
+padding:5px;
+}
 .count{
-	min-width:2vw;
-	text-align: left;
-	font-size:1.5vw;
-	margin-left:auto;
-	color: var(--text-colour);
+min-width:2vw;
+text-align: left;
+font-size:1.5vw;
+margin-left:auto;
+color: var(--text-colour);
 }
-
 .commentSubmitButton {
-  color:var(--text-colour);
-  cursor: pointer;
-  background-color: var(--background-highlight-1);
-  border: solid 0.1vw var(--primary-colour);
-  border-radius: 1rem;
-  margin-left:auto;
+display: inline-block;
+padding: 0.3vw 2vw;
+margin-top: 1.75vw;
+margin-left: 0.75vw;
+min-height: 2vw;
+max-height: 2vw;
+font-weight: 300;
+font-size: 1vw;
+cursor: pointer;
+text-align: center;
+outline: none;
+color: white;
+line-height: 1;
+background-color: var(--background-highlight-2);
+border: solid 0.15vw var(--primary-colour);
+border-radius: 0.75rem;
 }
-.newCommentText{
-	width:80%;
-	resize:none;
-	overflow:hidden;
-	min-height:40px;
-	border-radius: 5px;
-	background-color: var(--background-colour);
-	color: var(--text-colour);
+.commentSubmitButton:hover {
+border-color: var(--primary-highlight-2);
+}
+.commentSubmitButton:active {
+transform: translateY(0.25vh);
+}
+.newCommentText {
+width:78%;
+margin-left: 1vw;
+margin-top: 1vw;
+overflow:auto;
+height: 3vw;
+text-align: left;
+font-size: 1vw;
+font-family: "roboto_condensed";
+color: var(--text-colour);
+background-color: var(--background-colour);
+border-radius: 0.5rem;
+border: 0.15vw solid var(--background-colour);
+resize: none;
+}
+.newCommentText:focus{
+outline: none;
+border: 0.15vw solid var(--primary-highlight-1);
+}
+.timeNameContainer{
+display: flex;
+flex-direction: column;
+align-items: left;
+margin-left: 0.5vw;
 }

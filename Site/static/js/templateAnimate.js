@@ -124,7 +124,7 @@ const pSBC=(p,c0,c1,l)=>{
 
 
       <div class = "groupHorizontal">
-		<div class="profilePic" style="background-image:url('`+postAuthorPic+`');" onclick="navigateToProfilePage('`+postAuthorLink+`')">
+		<div class="profilePic" style="background-image:url('`+postAuthorPic+`'); margin-left:0;" onclick="navigateToProfilePage('`+postAuthorLink+`')">
 		</div>
       	<div class="profileName" onclick="navigateToProfilePage('`+postAuthorLink+`')">`+postAuthorName+`</div>
 

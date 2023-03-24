@@ -69,6 +69,5 @@ function unfollowProfile(query) {
 }
 
 function navigateToProfilePage(username) {
-    console.log(username);
     window.location.assign('/profile/' + username);
 }

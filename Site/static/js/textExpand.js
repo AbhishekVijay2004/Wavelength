@@ -45,8 +45,7 @@
 				const newComment = document.createElement('div');
 				newComment.classList.add('groupHorizontal');
 				newComment.innerHTML = `
-
-<textarea rows="1" class="newCommentText" oninput="newCommentText(this)"></textarea>
+<textarea rows="1" class="newCommentText"></textarea>
 <button class="commentSubmitButton">Submit</button>
 		<br>
 			`;
@@ -93,25 +92,17 @@
 
 	function loadComment(parnt, commentAuthorLink, commentAuthorPic, commentAuthorName, commentText, commentDate) {
 		const comment = document.createElement('div');
-		comment.classList.add('groupHorizontal');
+		comment.classList.add('groupHorizontalComments');
 		comment.innerHTML = `
 
 		<div class="profilePic" style="background-image:url('`+commentAuthorPic+`');" onclick="navigateToProfilePage('`+commentAuthorLink+`')"></div>
 
-      	<div class="groupVertical">
-	      	<div class="profileName" onclick="navigateToProfilePage('`+commentAuthorLink+`')" style="font-size:1vw;line-height:1vw;margin-bottom:5px">`+commentAuthorName+`</div>
-			<div class="commentText">
-		        `+commentText+`
-	      	</div>
-		</div>
+		<div class="commentText">`+commentText+`</div>
 
-
-		<div class="groupVertical" style="gap:10px">
-
-	      	<div class="time" style="font-size:1vw">`+commentDate+`</div>
-
+		<div class="timeNameContainer">
+			<div class="profileName" onclick="navigateToProfilePage('`+commentAuthorLink+`')" style="font-size:1.25vw; margin:0; line-height:1;">`+commentAuthorName+`</div>
+	      	<div class="timeComments">`+commentDate+`</div>
 	    </div>
-
 
 
 	`;

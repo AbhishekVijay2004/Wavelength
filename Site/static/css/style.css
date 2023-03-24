@@ -5,6 +5,7 @@
   --background-colour: #1E1E1E;
   --background-highlight-1: #333333;
   --background-highlight-2: #474747;
+  --background-highlight-3: #565656;
   --text-colour: #FFFFFF;
   background: var(--background-colour);
   font-family: "roboto_condensed";
