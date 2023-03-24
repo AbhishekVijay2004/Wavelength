@@ -53,7 +53,6 @@ const pSBC=(p,c0,c1,l)=>{
 	}
 
 	function addPost() {
-		console.log(document.getElementsByClassName('postTemplate'));
 		if (document.getElementsByClassName('postTemplate').length >= 1) {
 			return;
 		}
@@ -69,9 +68,9 @@ const pSBC=(p,c0,c1,l)=>{
       </div></div>
       	  	<div id="text" class="text" style="min-height: 85px;"></div>
       <div class = "footer">
-				<div class = "posReact"></div>
-				<div class = "negReact"></div>
-				<div class = "comments"></div>
+				<div class = "posReact" style="min-width:5vw;"></div>
+				<div class = "negReact" style="min-width:5vw;"></div>
+				<div class = "comments" style="min-width:5vw;"></div>
 		</div>
 	`;
 		arrayOfPlaceholders.push(postElement)
@@ -165,7 +164,7 @@ postElement.innerHTML+=`
 		expandedComments.push(false);
 		commentsOpened.push(false);
 		const textBit = postElement.querySelector('.text');
-		if (parseInt(commentsAreOn)) {
+		if (parseInt(commentsYes)) {
 			const commentBit = postElement.querySelector('.comments');
 			commentBit.addEventListener('click', clickOnComments);
 		}
@@ -186,7 +185,7 @@ if (parseInt(likes)) {
     dislikebutton.classList.add("id" + postID);
 		dislikebutton.addEventListener('click', footerClick);
 		}
-		if (commentsAreOn) {
+		if (commentsYes) {
 
 		const commentButtons = postElement.querySelectorAll('.comments, .commentsDisabled');
 		commentButtons.forEach(button => {
