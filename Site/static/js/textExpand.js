@@ -77,7 +77,8 @@
 		    data: {postID: this.parentNode.parentNode.id, text: textbox},
 		    type: 'GET',
 		    success: function(data) {
-		      loadCommentsSection(this.parentNode.parentNode);
+				location.reload()
+		    	loadCommentsSection(this.parentNode.parentNode);
 		    },
 		    error: function(error) {
 		    console.error(error);
