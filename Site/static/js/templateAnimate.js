@@ -47,7 +47,7 @@ const pSBC=(p,c0,c1,l)=>{
 		const endOfPost = document.createElement('div');
 		endOfPost.classList.add('endOfPost');
 		endOfPost.innerHTML = `
-		Couldn't load more posts.
+		There are no further posts to load.
 	`;
 		document.querySelector('.clsScroll').appendChild(endOfPost);
 	}
