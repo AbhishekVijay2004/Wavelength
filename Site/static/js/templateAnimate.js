@@ -53,7 +53,8 @@ const pSBC=(p,c0,c1,l)=>{
 	}
 
 	function addPost() {
-		if (document.getElementsByClassName('postTemplate').length > 1) {
+		console.log(document.getElementsByClassName('postTemplate'));
+		if (document.getElementsByClassName('postTemplate').length >= 1) {
 			return;
 		}
 		const postElement = document.createElement('div');
