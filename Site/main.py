@@ -745,9 +745,6 @@ def fetch_posts():
     postList.sort(reverse = True, key=lambda x: x[1])
     data = []
     for post in postList:
-        print(post)
-        print()
-        print()
         song = sp.track(post[3])
         data.append({
         "postID"         : post[0],

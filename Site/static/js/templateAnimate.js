@@ -207,11 +207,15 @@ if (parseInt(likes)) {
     var reactElement = document.querySelector(elemName + "." + postID);
     var inverseElemName = type == "like" ? ".negReact" : ".posReact";
     var inverseElement = reactElement.parentNode.parentNode.querySelector(inverseElemName);
-
-    if (inverseElement.classList.contains('clicked')){
+try {
+	if (inverseElement.classList.contains('clicked')){
         changeLikeCount(inverseElement, -1);
         reactElement.parentNode.parentNode.querySelector(inverseElemName).classList.remove('clicked');
     }
+} catch {
+	console.log("");
+}
+    
 
     changeLikeCount(reactElement, amount);
     postID = postID.slice(2);
