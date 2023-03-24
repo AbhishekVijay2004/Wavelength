@@ -337,15 +337,23 @@
 }
 .notification-name{
   text-align: left;
-  margin-top: 1.3vw;
+  margin-top: 2.15vw;
+  font-size: 1.75vw;
+}
+.notification-name:hover{
+  color: var(--primary-highlight-2);
+  cursor: pointer;
+  transition: 0.25s;
 }
 .notification-type{
   margin-bottom: 0;
   font-weight: 200;
+  font-size: 2vw;
 }
 .notification-picture {
-  height: 6vw;
-  width: 6vw;
+  height: 5vw;
+  width: 5vw;
+  margin-top: 1vw;
   margin-left: 1vw;
   object-fit: cover;
   box-sizing: border-box;
@@ -353,6 +361,12 @@
   border-radius: 50%;
   float:left;
   margin-right: 1vw;
+  transition: border-color 0.25s;
+}
+.notification-picture:hover{
+  border-color: var(--primary-highlight-2);
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 .notification-close{
   position: absolute;
@@ -364,11 +378,11 @@
   cursor: pointer;
   line-height: 2vw;
 }
-.notification-close:hover{
+/* .notification-close:hover{
   width: 2.5vw;
   height: 2.5vw;
   transition: all 0.25s;
-}
+} */
 .follow-accept-button{
   background-color: var(--primary-colour);
   width: 6vw;

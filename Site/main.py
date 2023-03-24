@@ -143,7 +143,7 @@ def follow(query):
     print(query)
     db, cursor = connectdb()
     add_follow(cursor, db, session["username"], query)
-    create_notification(cursor, db, query, session["username"], "follow")
+    create_notification(cursor, db, query, session["username"], "Follow")
     db.commit()
     db.close()
     return "User Followed"
@@ -163,9 +163,6 @@ def friendProfile(query):
         print(session)
         db, cursor = connectdb()
         if (query == "undefined"):
-            print()
-            print("Error here")
-            print()
             return redirect(url_for('friendProfile'))
 
         friend_name = query
@@ -175,7 +172,6 @@ def friendProfile(query):
         topSong = get_user_detail(cursor, friend_name, "topsong")
         print(friend_name, display_name, bio)
 
-        # noFollowing = get_num_following(cursor, db, username)
         noFollowers = get_num_followers(cursor, friend_name)
         noPosts = get_num_posts(cursor, friend_name)
         noLikes = get_num_likes_received(cursor, friend_name)
@@ -265,6 +261,11 @@ def settings():
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
         album_image = get_track_image(sp, session["topSong"])
+        
+        if song_url == None:
+                song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
+                song_url = song['tracks']['items'][0]['preview_url']
+
         cachedList = []
         change = False
 
