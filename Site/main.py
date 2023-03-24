@@ -223,6 +223,11 @@ def friendProfile(query):
         song_url = get_track_preview(sp, topSong)
         artist_name = get_track_artist_name(sp, topSong)
         album_image = get_track_image(sp, topSong)
+
+        if song_url == None:
+            song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
+            song_url = song['tracks']['items'][0]['preview_url']
+
     except TypeError:
         song_name = None
         song_url = None
