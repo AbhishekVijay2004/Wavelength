@@ -67,10 +67,6 @@
   cursor: pointer;
   line-height: 2vw;
 }
-/* .follow.hover{
-  width: 2.25vw;
-  height: 2.25vw;
-} */
 .unfollow{
   margin-top: 0.3vw;
   margin-left: 0.5vw;
@@ -80,10 +76,6 @@
   cursor: pointer;
   line-height: 2vw;
 }
-/* .unfollow.hover{
-  width: 2.25vw;
-  height: 2.25vw;
-} */
 .instructions{
   display: flex;
   flex-direction: row;

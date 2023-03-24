@@ -378,11 +378,6 @@
   cursor: pointer;
   line-height: 2vw;
 }
-/* .notification-close:hover{
-  width: 2.5vw;
-  height: 2.5vw;
-  transition: all 0.25s;
-} */
 .follow-accept-button{
   background-color: var(--primary-colour);
   width: 6vw;

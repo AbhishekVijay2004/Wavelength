@@ -27,22 +27,6 @@ const pSBC=(p,c0,c1,l)=>{
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 	} //converts lots of different ways of representing colours to hex
 
-
-//	const scrollContent = document.querySelector('.clsScroll'); // store in a variable so we can reference the element in multiple locations
-//	scrollContent.addEventListener('scroll', () => {
-//	  const scrolled = scrollContent.scrollTop; // reuse `scrollContent` innstead of querying the DOM again
-//	  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-//	  const contnr = document.getElementsByClassName("clsScroll")[0];
-	//if(scrolled + clientHeight	>= contnr.scrollHeight) {
-	//	if (document.getElementsByClassName('postTemplate').length == 0) {
-	//		addPost();
-//		} else {
-//			console.log("sjbfd");
-//		}
-//
-//		}
-//	}, {passive: true}); //calls addPost when the user gets to the bottom of the page
-
 	function endOfPosts() {
 		const endOfPost = document.createElement('div');
 		endOfPost.classList.add('endOfPost');
