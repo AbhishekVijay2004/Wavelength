@@ -60,24 +60,30 @@ flex-direction: row;
 flex: 1;
 }
 .posReact{
-background-image: url('../media/icons/like-icon.png');/*
-min-width: 3.25vw;
-min-height: 3.25vw;*/
+background-image: url('../media/icons/like-icon.png');
 width:3vw;
 aspect-ratio:1;
 background-size: 3vw;
 background-repeat: no-repeat;
 padding: .125vw;
 cursor:pointer;
+transition: 0.125s;
+}
+.posReactDisabled{
+background-image: url('../media/icons/like-disabled-icon.png');
+width:3vw;
+aspect-ratio:1;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
+cursor: default;
 transition: 0.125s;
 }
 .posReact.clicked{
 	background-image:url('../media/icons/like-active-icon.png');
 }
 .negReact{
-background-image: url('../media/icons/dislike-icon.png');/*
-min-width: 3.25vw;
-min-height: 3.25vw;*/
+background-image: url('../media/icons/dislike-icon.png');
 width:3vw;
 aspect-ratio:1;
 background-size: 3vw;
@@ -86,13 +92,21 @@ padding: .125vw;
 cursor:pointer;
 transition: 0.125s;
 }
+.negReactDisabled{
+background-image: url('../media/icons/dislike-disabled-icon.png');
+width:3vw;
+aspect-ratio:1;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
+cursor: default;
+transition: 0.125s;
+}
 .negReact.clicked{
 	background-image:url('../media/icons/dislike-active-icon.png');
 }
 .comments{
-background-image: url('../media/icons/comment-icon.png');/*
-min-width: 3.25vw;
-min-height: 3.25vw;*/
+background-image: url('../media/icons/comment-icon.png');
 width:3vw;
 aspect-ratio:1;
 background-size: 3vw;
@@ -100,6 +114,17 @@ background-repeat: no-repeat;
 padding: .125vw;
 color: var(--text-colour);
 cursor:pointer;
+transition: 0.125s;
+}
+.commentsDisabled{
+background-image: url('../media/icons/comment-disabled-icon.png');
+width:3vw;
+aspect-ratio:1;
+background-size: 3vw;
+background-repeat: no-repeat;
+padding: .125vw;
+color: var(--text-colour);
+cursor: default;
 transition: 0.125s;
 }
 .comments.clicked{
