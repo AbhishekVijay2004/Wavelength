@@ -124,6 +124,8 @@ def add_friend(query):
 
     db.commit()
     db.close()
+    # print(searchResults)
+    # return "Yes"
     data = {
         "usernameResults": usernameResults,
         "profile_picResults": profile_picResults,
@@ -138,6 +140,7 @@ def add_friend(query):
 
 @app.route("/friendSearch/follow/<query>")
 def follow(query):
+    print(query)
     db, cursor = connectdb()
     add_follow(cursor, db, session["username"], query)
     create_notification(cursor, db, query, session["username"], "Follow")
@@ -167,6 +170,7 @@ def friendProfile(query):
         profile_pic = get_user_detail(cursor, friend_name, "profilePic")
         bio = get_user_detail(cursor, friend_name, "bio")
         topSong = get_user_detail(cursor, friend_name, "topsong")
+        print(friend_name, display_name, bio)
 
         noFollowers = get_num_followers(cursor, friend_name)
         noPosts = get_num_posts(cursor, friend_name)
@@ -212,6 +216,8 @@ def friendProfile(query):
 
         try:
             db, cursor = connectdb()
+
+            # noFollowing = get_num_following(cursor, db, username)
             noFollowers = get_num_followers(cursor, session["username"])
             noPosts = get_num_posts(cursor, session["username"])
             noLikes = get_num_likes_received(cursor, session["username"])
@@ -255,7 +261,7 @@ def settings():
         song_url = get_track_preview(sp, session["topSong"])
         artist_name = get_track_artist_name(sp, session["topSong"])
         album_image = get_track_image(sp, session["topSong"])
-
+        
         if song_url == None:
                 song = sp.search(song_name + artist_name, type='track', limit=1, market='GB')
                 song_url = song['tracks']['items'][0]['preview_url']
@@ -281,10 +287,13 @@ def settings():
                     if (ph.verify(session["password"], oldPassword)):
                         if (len(newPassword) < 7):
                             flash("New password must be over 7 characters", category="error")
+                            print("Error")
                         elif (newPassword == session["username"]):
                             flash("Password and username must not match", category="error")
+                            print("Error")
                         elif (newPassword != passConfirm):
                             flash("Passwords do not match", category="error")
+                            print("Error")
                         else:
                             hashed_password = ph.hash(newPassword)
                             hashed_password = hashed_password[:199]
@@ -293,8 +302,10 @@ def settings():
                             db.close()
                             session["password"] = hashed_password
                             flash("Password updated", category="success")
+                            print("Success")
                 except:
                     flash("Password is incorrect", category="error")
+                    print("Error")
 
             # Profile Picture Changing
             if (change == False):
@@ -307,6 +318,7 @@ def settings():
                         alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
                         change = True
                         flash("Profile picture updated", category="success")
+                        print("Success")
                         db.commit()
                         db.close()
                 except:
@@ -318,15 +330,20 @@ def settings():
                 pass
             elif not (re.search(regex,email)):
                 flash("Please enter a valid email", category="error")
+                print("Error")
             elif (len(display_name) < 1):
                 flash("Please enter a display name", category="error")
+                print("Error")
             elif (len(bio) < 1):
                 flash("Please enter a bio", category="error")
+                print("Error")
             elif (len(top_song) < 1):
                 flash("Please select a top song", category="error")
+                print("Error")
             else:
                 if (email != session["email"] and get_user_details_by_email(cursor, email)):
                     flash("Email already taken", category="error")
+                    print("Error")
                 else:
                     if (session["email"] != email):
                         alter_user(cursor, db, session["username"], "email", email)
@@ -344,11 +361,14 @@ def settings():
                     session["profilePic"] = get_user_detail(cursor, session["username"], "profilePic")
                     db.commit()
                     db.close()
+
                     song_name = get_track_title(sp, session["topSong"])
                     song_url = get_track_preview(sp, session["topSong"])
                     artist_name = get_track_artist_name(sp, session["topSong"])
                     album_image = get_track_image(sp, session["topSong"])
+
                     flash("Settings saved", category="success")
+                    print("Success")
 
         if (len(cachedList) > 0):
             return render_template('settings.html',
@@ -384,8 +404,10 @@ def login():
 
         if (len(usernameOrEmail) < 1):
             flash("Please enter your username or email", category="error")
+            print("Error")
         elif (len(password) < 1):
             flash("Please enter your password", category="error")
+            print("Error")
         else:
             if (re.search(regex,usernameOrEmail)):
                 userDetailsList = get_user_details_by_email(cursor, usernameOrEmail)
@@ -401,16 +423,18 @@ def login():
                 if (ph.verify(userDetailsList[1], password)):
                     for i, val in enumerate(['username', 'password', 'profilePic', 'email', 'bio', 'topSong', 'displayName']):
                         session[val] = userDetailsList[i]
-
                     print(session)
+
                     db.commit()
                     db.close()
                     return redirect(url_for('home'))
             except:
                 flash("Password is incorrect", category="error")
+                print("Error")
         else:
             if (len(usernameOrEmail) >= 1 and len(password) >= 1):
                 flash("User does not exist", category="error")
+                print("Error")
 
     db.commit()
     db.close()
@@ -444,22 +468,31 @@ def registration():
 
         if not (re.search(regex,email)):
             flash("Please enter a valid email", category="error")
+            print("Error")
         elif (len(username) < 1):
             flash("Please enter a username", category="error")
+            print("Error")
         elif (len(password1) < 7):
             flash("Password must be over 7 characters", category="error")
+            print("Error")
         elif (password1 == username):
             flash("Password and username must not match", category="error")
+            print("Error")
         elif (password1 != password2):
             flash("Passwords do not match", category="error")
+            print("Error")
         else:
             if (get_user_details(cursor, username)):
                 flash("Username taken", category="error")
+                print("Error")
             elif (get_user_details_by_email(cursor, email)):
                 flash("Email already taken", category="error")
+                print("Error")
             else:
                 hashed_password = ph.hash(password1)
                 hashed_password = hashed_password[:199]
+                print(hashed_password)
+                print(email)
                 create_user(cursor, db, username, hashed_password, email)
                 db.commit()
                 db.close()
@@ -509,15 +542,19 @@ def creation():
             alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
             change = True
             flash("Profile picture updated", category="success")
+            print("Success")
 
         if (change == True):
             pass
         elif (len(display_name) < 1):
             flash("Please enter a display name", category="error")
+            print("Error")
         elif (len(bio) < 1):
             flash("Please enter a bio", category="error")
+            print("Error")
         elif (len(top_song) < 1):
             flash("Please enter a top song", category="error")
+            print("Error")
         else:
             session["bio"] = bio
             alter_user(cursor, db, session["username"], "bio", session["bio"])
@@ -545,7 +582,9 @@ def creation():
 def search_song():
     #return the song based on query
     query = request.args.get('query')
+    # print(query)
     song = sp.search(query, type='track', limit=5, market='GB')
+    # print(song)
     songs = song['tracks']['items']
     if len(songs) == 0:
         return []
@@ -650,6 +689,7 @@ def fetch_notifications():
         * type (string)
         * postID (int) often None
     '''
+    #recipient = request.args.get("recipient")
     recipient = session["username"]
     db, cursor = connectdb()
     notifications = view_notifications(cursor, recipient)
@@ -797,3 +837,44 @@ def post_comment():
 
 if __name__ == '__main__':
     app.run(debug = True)
+
+"""
+@app.route('/getNotifications')
+def get_notifications():
+    '''
+    Returns the notifications for the user.
+
+    Arguments: None
+
+    Returns:
+    - data (JSON string):
+        * title (string)      : Type of notification e.g. follow request, like.
+        * name (string)       : Username of the notification causer.
+        * profilePic (string) : URL of notification causer's profile picture.
+    '''
+    data = []
+    ###TODO: GET NOTIFICATIONS###
+    from random import randint
+    titles = ["Follow Request", "Like", "Comment"]
+    letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")
+    for i in range(20):
+        nameLength = randint(3, 12)
+        name = ""
+        for j in range(nameLength): name += letters[randint(0, 25)]
+        item = {
+            "title"      : titles[randint(0, 2)],
+            "name"       : name,
+            "profilePic" : "https://i.ytimg.com/vi/zCNyuzQZRVM/maxresdefault.jpg"
+        }
+        data.append(item)
+    return jsonify(data)
+"""
+
+'''
+@app.route('/song', methods=['POST'])
+def play_song():
+    song_name = request.form['song_name']
+    results = sp.search(q=song_name, type='track', limit=1, market='GB')
+    track = results['tracks']['items'][0]
+    preview_url = track['preview_url']
+    return render_template('index.html', song_preview = preview_url)'''
