@@ -181,6 +181,7 @@ input:checked + .setting-slider:before{
 }
 .search-result h2{
   margin: 1vw;
+  font-size: 1vw;
 }
 .overlay-container{
   left: 31vw;
