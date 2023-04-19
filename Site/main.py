@@ -6,6 +6,7 @@ from dbfunctions import *
 from argon2 import PasswordHasher
 from werkzeug.utils import secure_filename
 from spotify_functions import *
+from datetime import datetime
 #FOR TESTING
 from random import randint
 
@@ -301,7 +302,7 @@ def settings():
                 try:
                     profile_pic = request.files['profile_pic']
                     if (profile_pic.filename != ''):
-                        filename = secure_filename(profile_pic.filename)
+                        filename = secure_filename(f"{session['username']}.profilepicture.png")
                         profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                         session["profilePic"] = str(f"/../{os.path.join(app.config['UPLOAD_FOLDER'], filename)}")
                         alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
@@ -503,7 +504,7 @@ def creation():
                     return redirect(url_for('signOn'))
         else:
             profile_pic = request.files['profile_pic']
-            filename = secure_filename(profile_pic.filename)
+            filename = secure_filename(f"{session['username']}.profilepicture.png")
             profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             session["profilePic"] = str(f"/../{os.path.join(app.config['UPLOAD_FOLDER'], filename)}")
             alter_user(cursor, db, session["username"], "profilePic", session["profilePic"])
@@ -708,7 +709,7 @@ def fetch_posts():
         for post in list_user_posts(cursor, request.args.get("userProfile")):
             postList.append(post)
 
-    postList.sort(reverse = True, key=lambda x: x[1])
+    postList.sort(reverse = True, key=lambda x: datetime.strptime(x[1], '%d/%m/%y %H:%M'))
     data = []
     for post in postList:
         song = sp.track(post[3])
