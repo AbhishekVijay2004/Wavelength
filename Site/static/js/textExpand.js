@@ -45,7 +45,7 @@
 				const newComment = document.createElement('div');
 				newComment.classList.add('groupHorizontal');
 				newComment.innerHTML = `
-<textarea rows="1" class="newCommentText"></textarea>
+<textarea rows="1" maxlength="200" class="newCommentText"></textarea>
 <button class="commentSubmitButton">Submit</button>
 		<br>
 			`;
